@@ -5,4 +5,14 @@ module.exports = {
     }
     return config;
   },
+  // images: {
+  //   remotePatterns: [
+  //     {
+  //       protocol: 'http',
+  //       hostname: 'localhost:3000',
+  //       port: '',
+  //       pathname: '/my-bucket/**',
+  //     },
+  //   ],
+  // },
 };

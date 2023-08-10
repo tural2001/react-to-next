@@ -74,6 +74,7 @@ const Header = () => {
                   width={99}
                   style={{ width: '100%', height: '100%' }}
                   height={88}
+                  priority
                   className="max-xxl:w-[99px] max-xxl:ml-3"
                   alt=""
                 />
@@ -84,12 +85,12 @@ const Header = () => {
           <ul className="flex  gap-2 max-sm:gap-1 ">
             <li className="overflow-hidden">
               <a className="text-white flex items-center gap-2 max-sm:gap-1 overflow-hidden">
-                <div class="container bg-white mx-auto w-7 h-7 rounded-full flex justify-center items-center overflow-hidden">
+                <div className="container bg-white mx-auto w-7 h-7 rounded-full flex justify-center items-center overflow-hidden">
                   <Image
                     src="/assets/cellphone.png"
                     width={7}
                     height={9}
-                    class="w-7 h-9 max-sm:w-5 max-sm:h-6"
+                    className="w-7 h-9 max-sm:w-5 max-sm:h-6"
                     alt=""
                   />
                 </div>
@@ -100,12 +101,12 @@ const Header = () => {
               </a>
             </li>
             <li className="text-white flex items-center gap-1 max-sm:gap-0  max-sm:border-r-[2px] max-xl:border-r-[2px] ">
-              <div class="container bg-white mx-auto w-7 h-7 rounded-full flex justify-center items-center ">
+              <div className="container bg-white mx-auto w-7 h-7 rounded-full flex justify-center items-center ">
                 <Image
                   src="/assets/world.png"
                   width={4}
                   height={4}
-                  class="w-4  max-sm:h-4"
+                  className="w-4  max-sm:h-4"
                   alt=""
                 />
               </div>
@@ -125,7 +126,7 @@ const Header = () => {
             </li>
             <li className="hidden max-xl:block   max-sm:mr-1  max-xl:mr-5">
               <div
-                class="container bg-white mx-auto w-7 h-7 rounded-full flex justify-center items-center "
+                className="container bg-white mx-auto w-7 h-7 rounded-full flex justify-center items-center "
                 onClick={toggleMenu}
               >
                 {isOpen ? <LiaTimesSolid /> : <GrMenu />}

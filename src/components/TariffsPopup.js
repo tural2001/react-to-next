@@ -24,7 +24,7 @@ export const TariffsPopup = () => {
       {(close) => (
         <>
           <Image
-            src="/assets/x.png"
+            src="/assets/popup/x.png"
             width={40}
             height={42}
             className="absolute right-5 top-5 w-[40px] h-[42px]"

@@ -105,6 +105,7 @@ const blog = () => {
           src="/assets/home1.png"
           className=" h-[535px]  top-32 w-full  max-sm:h-[200px] max-md:h-[300px] max-xl:h-[350px] max-xl:top-14"
           alt=""
+          priority
           width={535}
           height={200}
         />
