@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 
 import { GrMenu } from 'react-icons/gr';
-// import { VisibleContext } from './VisibleContext';
+
 import { LiaTimesSolid } from 'react-icons/lia';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -10,6 +10,7 @@ import { useVisibleContext } from './VisibleContext';
 
 const Header = () => {
   const { isOpen, toggleMenu } = useVisibleContext();
+  const router = useRouter();
 
   const { visible, setVisible } = useVisibleContext();
 
@@ -18,20 +19,22 @@ const Header = () => {
   };
 
   const scrollToUstunluklerimiz = () => {
-    let scrollToPosition;
+    if (router.pathname === '/') {
+      let scrollToPosition;
 
-    if (window.innerWidth <= 650) {
-      scrollToPosition = 620; // Küçük cihazlar için kaydırma pozisyonu
-    } else if (window.innerWidth <= 1100) {
-      scrollToPosition = 1050; // Orta boy cihazlar için kaydırma pozisyonu
-    } else {
-      scrollToPosition = 1150; // Büyük cihazlar için kaydırma pozisyonu
+      if (window.innerWidth <= 650) {
+        scrollToPosition = 620; // Küçük cihazlar için kaydırma pozisyonu
+      } else if (window.innerWidth <= 1100) {
+        scrollToPosition = 1050; // Orta boy cihazlar için kaydırma pozisyonu
+      } else {
+        scrollToPosition = 1250; // Büyük cihazlar için kaydırma pozisyonu
+      }
+
+      window.scrollTo({
+        top: scrollToPosition,
+        behavior: 'smooth',
+      });
     }
-
-    window.scrollTo({
-      top: scrollToPosition,
-      behavior: 'smooth',
-    });
   };
   return (
     <>
@@ -138,39 +141,39 @@ const Header = () => {
                       className="border border-[#5B2D90] text-[#5B2D90] p-2 rounded-3xl w-[170px] h-[40px] text-center overflow-hidden"
                       onClick={toggleMenu}
                     >
-                      <Link>Şəxsi kabinet </Link>
+                      Şəxsi kabinet
                     </li>
                     <li
                       className="border  rounded-3xl bg-[#5B2D90] text-white w-[170px] h-[40px] flex justify-center items-center"
                       onClick={toggleMenu}
                     >
-                      <Link href="/registiration">Onlayn qeydiyyat </Link>
+                      <Link href="/registration">Onlayn qeydiyyat </Link>
                     </li>
 
                     <li className="" onClick={toggleMenu}>
-                      <Link href="aboutus">Haqqımızda </Link>
+                      <Link href="/about">Haqqımızda </Link>
                     </li>
                     <li className="" onClick={toggleMenu}>
-                      <Link href="services">Xidmətlər</Link>
+                      <Link href="/services">Xidmətlər</Link>
                     </li>
                     <li className="" onClick={toggleMenu}>
                       <Link href="/">Üstünlüklərimiz</Link>
                     </li>
                     <li className="" onClick={toggleMenu}>
-                      <Link href="campaigns">Kampaniyalar </Link>
+                      <Link href="/campaigns">Kampaniyalar </Link>
                     </li>
                     <li className="" onClick={toggleMenu}>
-                      <Link>Speedtest </Link>
+                      <Link href="/speedtest">Speedtest </Link>
                     </li>
                     <div className="w-3/4 border-b-[1px] border-[#464646] " />
                     <li className="" onClick={toggleMenu}>
-                      <Link href="faq">FAQ </Link>
+                      <Link href="/faq">FAQ </Link>
                     </li>
                     <li className="" onClick={toggleMenu}>
-                      <Link href="payment">Ödəniş </Link>
+                      <Link href="/payment">Ödəniş </Link>
                     </li>
                     <li className="" onClick={toggleMenu}>
-                      <Link href="career">Karyera </Link>
+                      <Link href="/career">Karyera </Link>
                     </li>
                     <li className="" onClick={toggleMenu}>
                       <Link href="/blog">Bloq </Link>
@@ -198,10 +201,10 @@ const Header = () => {
           <div className="">
             <ul className="navbar-items  max-sm:hidden flex items-center  gap-5 text-white text-[12px]  font-medium tracking-[0.5px]">
               <li className="">
-                <Link href="aboutus"> Haqqımızda</Link>
+                <Link href="about"> Haqqımızda</Link>
               </li>
               <li className="#/" onClick={scrollToUstunluklerimiz}>
-                <Link href="/"> Üstünlüklərimiz</Link>
+                Üstünlüklərimiz
               </li>
               <li className="">
                 <button onClick={handleClick}> Xidmətlər </button>
@@ -218,17 +221,17 @@ const Header = () => {
                 )}
               </li>
               <li className="">
-                <Link href="campaigns">Kampaniyalar </Link>
+                <Link href="/campaigns">Kampaniyalar </Link>
               </li>
               <li className="">
                 {' '}
-                <Link href="speedtest">Speedtest </Link>
+                <Link href="/speedtest">Speedtest </Link>
               </li>
               <li className="border p-2 rounded-3xl w-[130px] h-[40px] flex justify-center items-center">
                 Şəxsi kabinet
               </li>
               <li className="border p-2 rounded-3xl bg-white text-[#5B2D90] w-[175px] h-[40px] flex justify-center items-center">
-                <Link href="/registiration">Onlayn qeydiyyat </Link>
+                <Link href="/registration">Onlayn qeydiyyat </Link>
               </li>
             </ul>
           </div>

@@ -15,11 +15,11 @@ import { EdvPopupsm } from '../components/EdvPopupsm';
 import { CibPopupsm } from '../components/CibPopupsm';
 import { OdenisPopupsm } from '../components/OdenisPopupsm';
 import { SmsPopupsm } from '../components/SmsPopupsm';
-
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useVisibleContext } from '../components/VisibleContext';
+import Head from 'next/head';
 
 const payment = () => {
   const { visible, setVisible } = useVisibleContext();
@@ -28,8 +28,15 @@ const payment = () => {
   useEffect(() => {
     setVisible(router.pathname === '/a');
   }, [router, setVisible]);
+
+  const pageTitle = 'Your Payment Post Title';
+  const pageDescription = 'Description of your payment post.';
   return (
     <>
+      <Head>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+      </Head>
       {visible && (
         <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
           <div className="grid grid-cols-3 justify-items-center">

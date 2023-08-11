@@ -170,7 +170,7 @@ const Footer = () => {
       </div>
       <div className=" border-b-[1px] border-white mx-8 border-opacity-30" />
       <div className="container max-w-[1000px] max-xxl:w-full mx-auto  py-2 flex flex-row justify-between items-center max-sm:justify-between   text-white  font-medium text-[12px] max-sm:px-10">
-        <Link href="/məxfilik-siyasəti" onClick={handleScrollUp}>
+        <Link href="/privacypolicy" onClick={handleScrollUp}>
           <p>Məxfilik siyasəti</p>
         </Link>
         <Link href="/">

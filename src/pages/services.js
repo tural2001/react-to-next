@@ -259,8 +259,8 @@ const services = () => {
 
   const { visible, setVisible } = useVisibleContext();
 
-  const pageTitle = 'Your Home Post Title';
-  const pageDescription = 'Description of your home post.';
+  const pageTitle = 'Your Services Post Title';
+  const pageDescription = 'Description of your services post.';
 
   return (
     <>

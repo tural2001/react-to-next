@@ -15,6 +15,7 @@ import Link from 'next/link';
 
 const home = () => {
   const [isLoading, setIsLoading] = useState(true);
+
   const { isOpen, toggleMenu } = useVisibleContext();
 
   useEffect(() => {
@@ -173,7 +174,7 @@ const home = () => {
   const router = useRouter();
 
   useEffect(() => {
-    setVisible(router.pathname === '/');
+    setVisible(router.pathname === '/a');
   }, [router.pathname]);
 
   const pageTitle = 'Your Home Post Title';
