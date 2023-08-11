@@ -3,11 +3,15 @@ import Link from 'next/link';
 import React from 'react';
 import Popup from 'reactjs-popup';
 
-export const HomePopup = () => {
+export const HomePopup = (props) => {
   return (
     <Popup
       trigger={
-        <button className="border p-2 rounded-3xl text-white text-[15px] w-[170px] h-[40px] max-sm:w-[120px] max-sm:h-[32px] max-sm:text-[11px] text-center mt-5 max-sm:mt-2 flex justify-center items-center overflow-hidden">
+        <button
+          aria-describedby={props.description}
+          suppressHydrationWarning={true}
+          className="border p-2 rounded-3xl text-white text-[15px] w-[170px] h-[40px] max-sm:w-[120px] max-sm:h-[32px] max-sm:text-[11px] text-center mt-5 max-sm:mt-2 flex justify-center items-center overflow-hidden"
+        >
           Onlayn qeydiyyat
         </button>
       }
@@ -26,7 +30,7 @@ export const HomePopup = () => {
         <>
           <div className="popup-content-2"></div>
           <Image
-            src="/assets/Popup/x.png"
+            src="/assets/popup/x.png"
             className="absolute right-5 top-5 w-[40px] h-[42px]"
             alt=""
             width={40}
