@@ -1,17 +1,15 @@
 import { HiOutlineArrowSmallDown } from 'react-icons/hi2';
 import React, { useEffect, useState } from 'react';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useRouter } from 'next/router';
-import { useVisibleContext } from '../components/VisibleContext';
 import Image from 'next/image';
-
 import { Pagination } from 'swiper/modules';
 import { SwiperNavButtons } from '../components/SwiperNavButtons';
 import { SVG } from '../components/SVG';
 import { HomePopup } from '../components/HomePopup';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useVisibleContext } from '../components/VisibleContext';
 
 const home = () => {
   const [isLoading, setIsLoading] = useState(true);

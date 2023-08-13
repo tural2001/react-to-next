@@ -91,9 +91,9 @@ const Header = () => {
                 <div className="container bg-white mx-auto w-7 h-7 rounded-full flex justify-center items-center overflow-hidden">
                   <Image
                     src="/assets/cellphone.png"
-                    width={7}
-                    height={9}
-                    className="w-7 h-9 max-sm:w-5 max-sm:h-6"
+                    width={300}
+                    height={500}
+                    className="w-6 h-7 max-sm:w-5 max-sm:h-6"
                     alt=""
                   />
                 </div>
@@ -107,8 +107,8 @@ const Header = () => {
               <div className="container bg-white mx-auto w-7 h-7 rounded-full flex justify-center items-center ">
                 <Image
                   src="/assets/world.png"
-                  width={4}
-                  height={4}
+                  width={300}
+                  height={500}
                   className="w-4  max-sm:h-4"
                   alt=""
                 />

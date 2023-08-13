@@ -125,11 +125,33 @@ const about = () => {
           </div>
         </div>
       )}
+      <div className="max-xl:relative hidden max-xl:block max-xl:z-[-1] w-full ">
+        {' '}
+        <Image
+          src="/assets/home1.png"
+          width={500}
+          height={300}
+          className=" h-[535px]  top-32 w-full  max-sm:h-[220px] max-md:h-[300px] max-xl:h-[300px] max-xl:top-14"
+          alt=""
+        />
+      </div>
       <div className="about-wrapper-1 max-w-[1100px] grid grid-cols-2 max-sm:grid-cols-1 max-lg:grid-cols-1 max-xl:grid-cols-1 gap-10 mx-auto max-sm:py-10  py-20  bg-white">
         <div className="max-sm:mx-10 max-lg:mx-10 max-xl:mx-10">
-          <h3 className=" text-center text-purple-900 text-[40px] max-sm:text-[20px] max-lg:text-[30px] font-bold leading-10 overflow-hidden max-xl:text-[30px]  ">
+          <h3 className="max-xl:hidden block text-center text-purple-900 text-[40px] max-sm:text-[20px] max-lg:text-[30px] font-bold leading-10 overflow-hidden max-xl:text-[30px]  ">
             HAQQIMIZDA
           </h3>{' '}
+          <h3 className="h3 text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xl:text-[30px] max-xxl:text-white ">
+            HAQQIMIZDA
+          </h3>
+          <div className="hidden max-xl:block absolute  z-[1] max-xl:z-[-1] top-[130px] right-48 max-xxl:right-5  max-xxl:top-20 ">
+            <Image
+              src="/assets/about/about.png"
+              width={210}
+              height={193}
+              className="w-[210px] h-[193px]"
+              alt=""
+            />
+          </div>
           <p className="text-justify text-neutral-500 text-[20px] font-normal leading-7 mt-10 max-sm:text-[16px] max-lg:text-[18px] ">
             “Azeronline LTD” Birgə Müəssisəsi 1999-cu il, 29 dekabr tarixində
             Azercell Telekom BM tərəfindən təsis edilmişdır. Azərbaycanda

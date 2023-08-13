@@ -103,8 +103,8 @@ const Footer = () => {
             >
               <Image
                 src="/assets/fb.png"
-                width={7}
-                height={7}
+                width={300}
+                height={500}
                 className="w-7"
                 alt=""
               />
@@ -116,8 +116,8 @@ const Footer = () => {
               {' '}
               <Image
                 src="/assets/instagram.png"
-                width={7}
-                height={7}
+                width={300}
+                height={500}
                 className="w-7"
                 alt=""
               />
@@ -129,8 +129,8 @@ const Footer = () => {
               {' '}
               <Image
                 src="/assets/linkedin.png"
-                width={7}
-                height={7}
+                width={300}
+                height={500}
                 className="w-7"
                 alt=""
               />
@@ -140,9 +140,8 @@ const Footer = () => {
                 <div className="bg-white mx-0 w-7 h-7 rounded-full flex items-center">
                   <Image
                     src="/assets/cellphone.png"
-                    width={5}
-                    height={0}
-                    style={{ width: '100%', height: '100%' }}
+                    width={300}
+                    height={500}
                     className="w-7"
                     alt=""
                   />

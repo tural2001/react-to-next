@@ -108,13 +108,12 @@ const Campaigns = () => {
           alt=""
         />
       </div>
-      <div className="bg-[#F7F6FB] h-[450px] max-sm:h-auto  ">
+      <div className="bg-[#F7F6FB] h-[450px] max-xl:h-0">
         <h3 className="h3 text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xl:text-[30px] max-xxl:text-white ">
           Kampaniyalar
         </h3>
 
-        <div className="absolute  z-[1] max-xl:z-[-1] right-48 max-xxl:right-5 max-sm:top-20 max-xxl:top-40">
-          {' '}
+        <div className="absolute  z-[1] max-xl:z-[-1] top-[130px] right-48 max-xxl:right-5  max-xxl:top-20">
           <Image
             src="/assets/campaigns/mikrafon.png"
             width={581}
@@ -124,9 +123,9 @@ const Campaigns = () => {
           />
         </div>
       </div>
-      <div className="bg-[#F7F6FB] py-5 mt-10 max-xl:mt-0 max-sm:py-0 ">
+      <div className="bg-[#F7F6FB] py-5 mt-20 max-xl:mt-0 max-sm:py-0 max-xl:px-5 ">
         <div className=" overflow-auto  grid grid-cols-3 gap-5  max-w-6xl mx-auto max-xl:grid-cols-1">
-          <div className="w-[347px] h-[485px] max-sm:w-[291px] max-sm:h-[160px] max-sm:mx-auto rounded-xl bg-[#5B2D90] mt-20">
+          <div className="w-[347px] h-[485px] max-xl:w-[291px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-[#5B2D90] mt-20">
             <Image
               className=" left-[-300px] max-sm:left-0 max-sm:top-20 "
               src="/assets/campaigns/adsl.png"
@@ -136,10 +135,10 @@ const Campaigns = () => {
             />
           </div>
           <div className="col-span-2 max-xl:col-span-1 flex flex-col justify-center gap-5 ">
-            <h3 className=" text-purple-900 text-[40px] font-bold leading-10 uppercase max-sm:text-[20px]">
+            <h3 className="text-purple-900 text-[40px] font-bold leading-10 uppercase max-sm:text-[20px]">
               3+1 ADSL
             </h3>
-            <p className="text-[16px] text-[#757575] max-sm:text-justify leading-[25px] max-sm:mx-5 ">
+            <p className="text-[16px] text-[#757575] max-sm:text-justify leading-[25px]  ">
               İnternet abunəçisi qoşulduğu tarifin 3 aylıq xidmət haqqını
               öncədən tam ödədikdə, həmin xidmətin 4-cü ayından ÖDƏNIŞSIZ
               istifadə edəcək. Qeydlər: Kampaniya yalnız ADSL internet tarifinə
@@ -159,14 +158,23 @@ const Campaigns = () => {
           </div>
         </div>
       </div>
-      <div className="bg-white py-5">
-        <div className="relative grid grid-cols-3 gap-5 overflow-hidden max-w-6xl mx-auto ">
-          {' '}
-          <div className="col-span-2 flex flex-col justify-center gap-5">
-            <h3 className=" text-purple-900 text-[40px] font-bold leading-10 uppercase">
+      <div className="bg-white py-5 max-xl:px-5">
+        <div className=" overflow-auto  grid grid-cols-3 gap-5  max-w-6xl mx-auto max-xl:grid-cols-1">
+          <div className="w-[347px] h-[485px] max-xl:w-[291px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-[#5B2D90] mt-20">
+            <Image
+              className="left-[-300px] max-sm:left-0 max-sm:top-20"
+              src="/assets/campaigns/adsl.png"
+              width={300}
+              height={500}
+              alt=""
+            />
+          </div>
+          <div className="col-span-2 flex flex-col justify-center gap-5 order-first max-xl:order-last">
+            <h3 className="text-purple-900 text-[40px] font-bold leading-10 uppercase max-sm:text-[20px]">
               3+1 ADSL
             </h3>
             <p className="text-[16px] text-[#757575]">
+              {' '}
               İnternet abunəçisi qoşulduğu tarifin 3 aylıq xidmət haqqını
               öncədən tam ödədikdə, həmin xidmətin 4-cü ayından ÖDƏNIŞSIZ
               istifadə edəcək. Qeydlər: Kampaniya yalnız ADSL internet tarifinə
@@ -183,16 +191,6 @@ const Campaigns = () => {
               xidmət haqqı daha baha olan tarifə dəyişərsə, o zaman xidmət
               haqlarının fərqini tam olaraq ödəməlidir.
             </p>
-          </div>
-          <div className="w-[347px] h-[485px] rounded-xl bg-[#5B2D90] mt-20">
-            {' '}
-            <Image
-              className=" left-[-300px] max-sm:left-0 max-sm:top-20 "
-              src="/assets/campaigns/adsl.png"
-              width={300}
-              height={500}
-              alt=""
-            />{' '}
           </div>
         </div>
       </div>
