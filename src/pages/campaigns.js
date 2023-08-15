@@ -113,7 +113,7 @@ const Campaigns = () => {
           Kampaniyalar
         </h3>
 
-        <div className="absolute  z-[1] max-xl:z-[-1] top-[130px] right-48 max-xxl:right-5  max-xxl:top-20">
+        <div className="absolute  z-[1] max-xl:z-[-1]  right-48 max-xxl:right-5  max-xxl:top-20">
           <Image
             src="/assets/campaigns/mikrafon.png"
             width={581}
