@@ -73,7 +73,7 @@ const Header = () => {
               <Link href="/" className="hidden max-xl:block ">
                 {' '}
                 <Image
-                  src="/assets/logo2.png"
+                  src="/assets/logo.png"
                   width={99}
                   style={{ width: '100%', height: '100%' }}
                   height={88}
@@ -192,7 +192,7 @@ const Header = () => {
               src="/assets/logo2.png"
               width={182}
               height={180}
-              style={{ width: '100%', height: '100%' }}
+              style={{ width: '182px', height: '33px' }}
               className="w-[182px]"
               alt=""
             />

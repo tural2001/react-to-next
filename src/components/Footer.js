@@ -35,8 +35,8 @@ const Footer = () => {
             <Image
               src="/assets/logo2.png"
               width={182}
-              height={50}
-              style={{ width: '100%', height: '100%' }}
+              height={180}
+              style={{ width: '182px', height: '33px' }}
               className="w-[182px]"
               alt=""
             />
