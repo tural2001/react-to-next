@@ -15,6 +15,8 @@ export const theme = {
       xl: '1060px',
       xll: '1150px',
       xxl: '1440px',
+      sxl: '1660px',
+      txl: '2000px',
     },
   },
 };

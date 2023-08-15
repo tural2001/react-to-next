@@ -10,6 +10,7 @@ import { HomePopup } from '../components/HomePopup';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useVisibleContext } from '../components/VisibleContext';
+import ConditionCanvas from '../components/Condition';
 
 const home = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -58,7 +59,7 @@ const home = () => {
       image: '/assets/pq.png',
       width: 32,
       height: 32,
-      title: 'Pulsuz qoşulma 1',
+      title: 'Pulsuz qoşulma',
       backgroundColor: '#DCC5F6',
     },
     {
@@ -381,18 +382,18 @@ const home = () => {
               height={100}
               className="w-full"
               alt=""
-            />
+            />{' '}
             <Image
               src="/assets/home2.png"
               width={500}
               height={300}
-              className="absolute top-40 right-20 max-sm:top-10 max-sm:w-[200px] max-xxl:top-32 max-md:right-[-20px] max-xxl:right-[25px] overflow-hidden max-md:w-[250px] max-lg:w-[350px] max-xl:w-[400px]  max-xxl:w-[500px] "
+              className="absolute a-p top-40 right-20 max-sm:top-10 max-sm:w-[200px] max-xxl:top-32 max-md:right-[-20px] max-xxl:right-[25px] overflow-hidden max-md:w-[250px] max-lg:w-[350px] max-xl:w-[400px]  max-xxl:w-[500px] "
               alt=""
             />
-            <div className="max-w-[1010px] mx-auto ">
+            <div className=" mx-auto ">
               <div className=" mx-auto max-xxl:w-[200px] max-xxl:h-[40px]">
                 {' '}
-                <div className="absolute  top-32 left-44 max-sm:left-2 max-sm:top-3  max-lg:left-3 max-xl:mx-1  max-xl:top-5 max-xl:left-2  max-xxl:left-20 max-xxl:w-[520px] overflow-hidden flex flex-col">
+                <div className="absolute p-a  top-32 left-44 max-sm:left-2 max-sm:top-3  max-lg:left-3 max-xl:mx-1  max-xl:top-5 max-xl:left-2  max-xxl:left-20 max-xxl:w-[520px] overflow-hidden flex flex-col">
                   <p className="text-[40px] text-white  font-light max-sm:text-[16px] max-xl:text-[30px] ">
                     Onlayn qeydiyyatdan keç, <br />{' '}
                     <span className="font-extrabold">
@@ -402,7 +403,7 @@ const home = () => {
                   <HomePopup />
                 </div>
                 <Link href="#">
-                  <div className="absolute top-[30rem] left-72 bg-white w-16 h-16 max-xxl:hidden rounded-full flex justify-center items-center">
+                  <div className="absolute b-a top-[30rem] left-72 bg-white w-16 h-16 max-xxl:hidden rounded-full flex justify-center items-center">
                     <HiOutlineArrowSmallDown className="text-[#5B2D90] text-[30px] stroke-2" />
                   </div>
                 </Link>
@@ -443,9 +444,10 @@ const home = () => {
                 </div>{' '}
                 <div className="col-span-2 flex justify-end items-center max-xxl:hidden">
                   <div className="bg-[#5B2D90] col-span-2 h-96 w-3/4 rounded-3xl overflow-hidden">
-                    <div className="absolute max-xxl:hidden svg">
-                      <SVG />
-                    </div>
+                    {/* <div className="absolute max-xxl:hidden svg"> */}
+                    {/* <SVG /> */}
+                    <ConditionCanvas />
+                    {/* </div> */}
                   </div>
                 </div>
                 <div className="col-span-3 pt-20 max-xxl:hidden">
@@ -544,7 +546,7 @@ const home = () => {
             {data1.map((item) => (
               <div className="h-[500px] w-[210px]  p-0 op" key={item.id}>
                 <div
-                  className={`w-[200px] h-[350px] max-sm:w-[195px] max-sm:h-[332px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative z-10  mt-5  ml-1 ${
+                  className={`w-[200px] h-[350px] max-sm:w-[195px] max-sm:h-[332px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-b from-[#653E98] via-[transparent] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative z-10  mt-5  ml-1 ${
                     item.id === 'key' ? 'outline-red' : ''
                   }`}
                 >

@@ -203,14 +203,17 @@ const Header = () => {
               <li className="">
                 <Link href="about"> Haqqımızda</Link>
               </li>
-              <li className="#/" onClick={scrollToUstunluklerimiz}>
+              <li
+                className="#/ cursor-pointer"
+                onClick={scrollToUstunluklerimiz}
+              >
                 Üstünlüklərimiz
               </li>
               <li className="">
                 <button onClick={handleClick}> Xidmətlər </button>
                 {visible && location.pathname !== '/services' && (
                   <div
-                    className="absolute mt-3 drop-shadow-lg triangle
+                    className="absolute mt-3 triangle
 
                   w-0 h-0 
    border-l-[35px] border-l-transparent

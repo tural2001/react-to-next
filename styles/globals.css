@@ -809,3 +809,84 @@ polygon .st0 {
     transform: translateX(-50%);
   }
 }
+
+@media screen and (min-width: 1450px) and (max-width: 1550px) {
+  .p-a {
+    position: absolute;
+    top: 140px;
+    left: 32%;
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (min-width: 1550px) and (max-width: 1730px) {
+  .p-a {
+    position: absolute;
+    top: 140px;
+    left: 35%;
+    transform: translateX(-50%);
+  }
+}
+@media screen and (min-width: 1730px) and (max-width: 2000px) {
+  .p-a {
+    position: absolute;
+    top: 140px;
+    left: 37%;
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (min-width: 1450px) and (max-width: 1550px) {
+  .a-p {
+    position: absolute;
+
+    left: 75%;
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (min-width: 1550px) and (max-width: 1730px) {
+  .a-p {
+    position: absolute;
+
+    left: 73%;
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (min-width: 1730px) and (max-width: 2000px) {
+  .a-p {
+    position: absolute;
+    left: 71%;
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (min-width: 1450px) and (max-width: 1550px) {
+  .b-a {
+    position: absolute;
+
+    left: 22%;
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (min-width: 1550px) and (max-width: 1730px) {
+  .b-a {
+    position: absolute;
+
+    left: 24%;
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (min-width: 1730px) and (max-width: 2000px) {
+  .b-a {
+    position: absolute;
+    left: 26%;
+    transform: translateX(-50%);
+  }
+}
+/* .gradient-45deg {
+  background: linear-gradient(45deg, #653e98, #3e2164);
+} */
