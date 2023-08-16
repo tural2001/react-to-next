@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 function ServiceLayout({ children }) {
   const [selectedItem, setSelectedItem] = useState('/services/fiberoptik');
-  const [animationClass, setAnimationClass] = useState(
+  const [animationClasses, setAnimationClass] = useState(
     getAnimationClass('/services/fiberoptik')
   );
 

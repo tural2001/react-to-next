@@ -211,17 +211,22 @@ const Header = () => {
               </li>
               <li className="">
                 <button onClick={handleClick}> Xidmətlər </button>
-                {visible && location.pathname !== '/services/fiberoptik' && (
-                  <div
-                    className="absolute mt-3 triangle
+                {visible &&
+                  location.pathname !== '/services/fiberoptik' &&
+                  location.pathname !== '/services/iptv' &&
+                  location.pathname !== '/services/simsiz' &&
+                  location.pathname !== '/services/adsl' &&
+                  location.pathname !== '/services/aix' && (
+                    <div
+                      className="absolute mt-3 triangle
 
                   w-0 h-0 
    border-l-[35px] border-l-transparent
    border-b-[20px] border-b-white
    border-r-[35px] border-r-transparent
     "
-                  ></div>
-                )}
+                    ></div>
+                  )}
               </li>
               <li className="">
                 <Link href="/campaigns">Kampaniyalar </Link>
