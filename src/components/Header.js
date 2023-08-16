@@ -40,10 +40,10 @@ const Header = () => {
     <>
       <div className="">
         <Image
-          src="/assets/home1.png"
-          width={100}
+          src="/assets/ellipse.png"
+          width={160}
           height={100}
-          className="absolute top-0 right-0  max-xxl:hidden"
+          className="absolute top-0 right-0 z-10  max-xxl:hidden"
           alt=""
         />
       </div>
@@ -51,15 +51,15 @@ const Header = () => {
         <div className="container max-w-[1100px]  mx-auto  py-2 flex justify-between items-start border-b-[1px] border-black border-opacity-30 max-sm:items-center max-lg:items-center">
           <ul className="navbar-items  max-xl:hidden flex  gap-5 text-white text-[15px] tracking-[0.5px]  font-medium ">
             <li className="">
-              <Link href="faq">FAQ </Link>
+              <Link href="/faq">FAQ </Link>
             </li>
             <li className="">
               {' '}
-              <Link href="payment">Ödəniş </Link>
+              <Link href="/payment">Ödəniş </Link>
             </li>
             <li className="">
               {' '}
-              <Link href="career">Karyera </Link>
+              <Link href="/career">Karyera </Link>
             </li>
             <li className="">
               {' '}
@@ -201,7 +201,7 @@ const Header = () => {
           <div className="">
             <ul className="navbar-items  max-sm:hidden flex items-center  gap-5 text-white text-[12px]  font-medium tracking-[0.5px]">
               <li className="">
-                <Link href="about"> Haqqımızda</Link>
+                <Link href="/about"> Haqqımızda</Link>
               </li>
               <li
                 className="#/ cursor-pointer"
@@ -211,7 +211,7 @@ const Header = () => {
               </li>
               <li className="">
                 <button onClick={handleClick}> Xidmətlər </button>
-                {visible && location.pathname !== '/services' && (
+                {visible && location.pathname !== '/services/fiberoptik' && (
                   <div
                     className="absolute mt-3 triangle
 

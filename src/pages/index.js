@@ -188,7 +188,7 @@ const home = () => {
       {visible && (
         <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
           <div className="grid grid-cols-3 justify-items-center">
-            <Link href="/services">
+            <Link href="/services/fiberoptik">
               <div className="">
                 <div className="bg-[#DCC5F6] w-[102px] h-[102px] rounded-3xl flex items-center mx-auto">
                   <Image
@@ -216,7 +216,7 @@ const home = () => {
                 </div>
               </div>
             </Link>
-            <Link href="/services">
+            <Link href="/services/fiberoptik">
               <div className="">
                 <div className="bg-[#BFFFCD] w-32 h-32 rounded-3xl flex items-center mx-auto">
                   <Image
@@ -237,7 +237,7 @@ const home = () => {
                 </ul>
               </div>
             </Link>
-            <Link href="/services">
+            <Link href="/services/fiberoptik">
               <div className="">
                 <div className="bg-[#D1E3FF] w-32 h-32 rounded-3xl flex items-center mx-auto">
                   <Image
@@ -444,10 +444,10 @@ const home = () => {
                 </div>{' '}
                 <div className="col-span-2 flex justify-end items-center max-xxl:hidden">
                   <div className="bg-[#5B2D90] col-span-2 h-96 w-3/4 rounded-3xl overflow-hidden">
-                    {/* <div className="absolute max-xxl:hidden svg"> */}
-                    {/* <SVG /> */}
-                    <ConditionCanvas />
-                    {/* </div> */}
+                    <div className="absolute max-xxl:hidden svg">
+                      <SVG />
+                      {/* <ConditionCanvas /> */}
+                    </div>
                   </div>
                 </div>
                 <div className="col-span-3 pt-20 max-xxl:hidden">
@@ -547,7 +547,7 @@ const home = () => {
               <div className="h-[500px] w-[210px]  p-0 op" key={item.id}>
                 <div
                   className={`w-[200px] h-[350px] max-sm:w-[195px] max-sm:h-[332px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-b from-[#653E98] via-[transparent] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative z-10  mt-5  ml-1 ${
-                    item.id === 'key' ? 'outline-red' : ''
+                    item.key === 'key' ? 'outline-red' : ''
                   }`}
                 >
                   <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
@@ -603,7 +603,7 @@ const home = () => {
                 <div className="flex justify-center">
                   <div
                     className={`${
-                      item.id === 'key' ? 'flag-home' : 'hidden'
+                      item.key === 'key' ? 'flag-home' : 'hidden'
                     }   mt-0 text-[8px] text-center font-medium justify-center`}
                   >
                     Üstünlük verilən
@@ -629,7 +629,7 @@ const home = () => {
                   <div className="h-[450px] w-[210px] flex flex-col justify-center items-center p-0 op">
                     <div
                       className={`w-[200px] h-[350px] max-sm:w-[195px] max-sm:h-[332px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative z-10   ${
-                        item.id === 'key' ? 'outline-red' : undefined
+                        item.key === 'key' ? 'outline-red' : undefined
                       }`}
                     >
                       <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
@@ -685,7 +685,7 @@ const home = () => {
                     <div className="flex justify-center">
                       <div
                         className={`${
-                          item.id === 'key' ? 'flag-home' : 'hidden'
+                          item.key === 'key' ? 'flag-home' : 'hidden'
                         }   mt-0 text-[8px] text-center font-medium justify-center`}
                       >
                         Üstünlük verilən

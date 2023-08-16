@@ -59,7 +59,7 @@ const career = () => {
       {visible && (
         <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
           <div className="grid grid-cols-3 justify-items-center">
-            <Link href="/services">
+            <Link href="/services/fiberoptik">
               <div className="">
                 <div className="bg-[#DCC5F6] w-[102px] h-[102px] rounded-3xl flex items-center mx-auto">
                   <Image
@@ -87,7 +87,7 @@ const career = () => {
                 </div>
               </div>
             </Link>
-            <Link href="/services">
+            <Link href="/services/fiberoptik">
               <div className="">
                 <div className="bg-[#BFFFCD] w-32 h-32 rounded-3xl flex items-center mx-auto">
                   <Image
@@ -108,7 +108,7 @@ const career = () => {
                 </ul>
               </div>
             </Link>
-            <Link href="/services">
+            <Link href="/services/fiberoptik">
               <div className="">
                 <div className="bg-[#D1E3FF] w-32 h-32 rounded-3xl flex items-center mx-auto">
                   <Image

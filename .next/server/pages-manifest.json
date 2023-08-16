@@ -2,6 +2,9 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+  "/campaigns": "pages/campaigns.js",
+  "/registration": "pages/registration.js",
+  "/payment": "pages/payment.js",
   "/": "pages/index.js",
-  "/campaigns": "pages/campaigns.js"
+  "/about": "pages/about.js"
 }

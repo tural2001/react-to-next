@@ -168,32 +168,33 @@ nav .animation {
   transition: all 0.5s ease 0s;
 }
 
-nav .start-fiber,
-a:nth-child(1).active ~ .animation {
+nav .start-fiberoptik,
+a.active[href='/services/fiberoptik'] ~ .animation {
   width: 230px;
   left: 0px;
 }
 
-nav .start-tv,
-a:nth-child(2).active ~ .animation {
+nav .start-iptv,
+a.active[href='/services/iptv'] ~ .animation {
   width: 180px;
   left: 215px;
 }
+/* Önceki konum için stil tanımı */
 
 nav .start-simsiz,
-a:nth-child(3).active ~ .animation {
+a.active[href='/services/simsiz'] ~ .animation {
   width: 200px;
   left: 360px;
 }
 
 nav .start-aix,
-a:nth-child(4).active ~ .animation {
+a.active[href='/services/aix'] ~ .animation {
   width: 350px;
   left: 555px;
 }
 
 nav .start-adsl,
-a:nth-child(5).active ~ .animation {
+a.active[href='/services/adsl'] ~ .animation {
   width: 130px;
   left: 925px;
 }

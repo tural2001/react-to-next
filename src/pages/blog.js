@@ -24,15 +24,15 @@ const blog = () => {
         <meta name="description" content={pageDescription} />
       </Head>
       {visible && (
-        <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden">
+        <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
           <div className="grid grid-cols-3 justify-items-center">
-            <Link href="/services">
+            <Link href="/services/fiberoptik">
               <div className="">
                 <div className="bg-[#DCC5F6] w-[102px] h-[102px] rounded-3xl flex items-center mx-auto">
                   <Image
-                    src="/assets/worldstroke.png"
-                    width={56}
-                    height={56}
+                    src="/assets/world.png"
+                    width={500}
+                    height={300}
                     className="w-[56px] h-[56px] mx-auto"
                     alt=""
                   />
@@ -54,13 +54,13 @@ const blog = () => {
                 </div>
               </div>
             </Link>
-            <Link href="/services">
+            <Link href="/services/fiberoptik">
               <div className="">
                 <div className="bg-[#BFFFCD] w-32 h-32 rounded-3xl flex items-center mx-auto">
                   <Image
                     src="/assets/tvstroke.png"
-                    width={56}
-                    height={56}
+                    width={500}
+                    height={300}
                     className="w-[56px] h-[56px] mx-auto"
                     alt=""
                   />
@@ -75,23 +75,23 @@ const blog = () => {
                 </ul>
               </div>
             </Link>
-            <Link href="/services">
+            <Link href="/services/fiberoptik">
               <div className="">
                 <div className="bg-[#D1E3FF] w-32 h-32 rounded-3xl flex items-center mx-auto">
                   <Image
                     src="/assets/phonestroke.png"
-                    width={56}
-                    height={56}
+                    width={500}
+                    height={300}
                     className="w-[56px] h-[56px] mx-auto"
-                    alt=""
+                    alt="Telefon Çizgisi"
                   />
                 </div>
                 <div className="flex justify-center">
-                  <h3 className=" font-medium text-[28px] py-4  tracking-[0.5px]">
+                  <h3 className="font-medium text-[28px] py-4 tracking-[0.5px]">
                     Telefon
                   </h3>
                 </div>
-                <ul className="flex flex-col justify-center items-center gap-2 text-[#909090]  font-normal text-[]">
+                <ul className="flex flex-col justify-center items-center gap-2 text-[#909090] font-normal text-[]">
                   <li>SiP telefoniya</li>
                 </ul>
               </div>
