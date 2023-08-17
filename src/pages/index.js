@@ -261,216 +261,201 @@ const home = () => {
           </div>
         </div>
       )}
-      {isLoading ? (
-        <div className="flex justify-center items-center h-screen">
+      <>
+        <div className="max-xl:relative absolute max-xl:z-[-1] w-full  bg-[#F7F6FB] ">
+          {' '}
           <Image
-            src="/assets/loading.gif"
-            width="100"
-            height="100"
-            style={{ width: 'auto', height: 'auto' }}
-            priority
-            alt="Loading"
+            src="/assets/home1.png"
+            width={500}
+            height={300}
+            className=" h-[535px]  w-full max-sm:h-[200px] max-md:h-[280px] max-xl:h-[350px] max-xl:top-14"
+            alt=""
           />
         </div>
-      ) : (
-        <>
-          <div className="max-xl:relative absolute max-xl:z-[-1] w-full  bg-[#F7F6FB] ">
-            {' '}
-            <Image
-              src="/assets/home1.png"
-              width={500}
-              height={300}
-              className=" h-[535px]  w-full max-sm:h-[200px] max-md:h-[280px] max-xl:h-[350px] max-xl:top-14"
-              alt=""
-            />
-          </div>
-          <div className="home-wrapper-2   bg-[#F7F6FB] pb-10  hidden max-xl:block  overflow-hidden">
-            {' '}
-            <div className="absolute   max-xl:z-[-1]    max-xxl:right-0  max-sm:top-[105px] max-xxl:top-[145px]">
-              <Image
-                src="/assets/home2.png"
-                width={200}
-                height={150}
-                className="max-sm:w-[200px]   max-md:w-[250px] max-lg:w-[350px] max-xl:w-[400px]  max-xxl:w-[500px]"
-                alt=""
-              />
-            </div>
-            <div
-              className={`absolute ${
-                isOpen ? 'z-[-1]' : 'z-[1]'
-              }    max-xxl:left-1  max-xxl:top-20`}
-            >
-              <div className="relative mx-0 max-xxl:w-full max-xxl:h-[40px]">
-                {' '}
-                <div className="max-sm:left-2 max-sm:top-3  max-lg:left-3 max-xl:mx-1  max-xl:top-5 max-xl:left-2  max-xxl:left-20 max-xxl:w-full  flex flex-col">
-                  <p className="text-[40px] text-white  font-light max-sm:text-[13px]  max-md:text-[20px] max-xl:text-[30px] ">
-                    Onlayn qeydiyyatdan keç, <br />{' '}
-                    <span className="font-extrabold">
-                      Fiber optik internetə qoşul!
-                    </span>{' '}
-                  </p>
-                  <HomePopup />
-                </div>
-                <div className="absolute top-[30rem] left-72 bg-white w-16 h-16 max-xxl:hidden rounded-full flex justify-center items-center">
-                  <HiOutlineArrowSmallDown className="text-[#5B2D90] text-[30px] stroke-2" />
-                </div>
-              </div>
-            </div>
-            <div className="container max-w-[1087px] mx-auto mt-20 max-sm:mt-10 ">
-              {' '}
-              <div className="flex flex-col justify-center items-center gap-3">
-                <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-xxl:text-[30px]">
-                  Əhatə dairəmiz
-                </h3>{' '}
-                Bölgəni seçin
-                <p className="text-center text-[#94A2B3] w-3/4 max-sm:text-[10px] max-sm:w-[307px] max-sm:mx-auto ">
-                  “Bölgəni seçin” başlığından öz ünvanınızı seçməklə və ya
-                  xəritə vizualının üzərində sizə lazım olan əraziyə klikləməklə
-                  həmin ərazinin xidmət sahəmizə aid olub-olmadığını öyrənə
-                  bilərsiniz.
-                </p>
-              </div>
-              <div className="grid grid-cols-3  mt-14 max-xxl:justify-items-center">
-                <div className="max-xxl:col-span-3 max-xxl:flex max-xxl:flex-col max-xxl:justify-center max-xxl:items-center">
-                  <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-sm:text-center"></h3>
-                  <div className="border border-[#637381] rounded-3xl w-3/4 max-sm:w-[204px] max-sm:h-[40px] overflow-hidden max-sm:mt-3">
-                    <select
-                      id=""
-                      className="text-[#637381] bg-inherit  border-none text-[15px] font-medium rounded-lg block w-full p-2.5 focus:ring-0 hom"
-                    >
-                      <option value="">Seçin</option>
-
-                      <option value="">AZE</option>
-                      <option value="US">ENG</option>
-                    </select>
-                  </div>
-                  <button className="w-[178px] h-[40px]  bg-[#5B2D90] rounded-3xl text-[16px] text-white font-medium mt-5 max-sm:w-[132px] max-sm:h-[28px] max-sm:text-[12px] overflow-hidden ">
-                    Bax
-                  </button>
-                </div>{' '}
-                <div className="col-span-2 flex justify-end items-center max-xxl:hidden">
-                  <div className="bg-[#5B2D90] col-span-2 h-96 w-3/4 rounded-3xl overflow-hidden">
-                    <div className="absolute max-xxl:hidden svg">
-                      <SVG />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-span-3 pt-20 max-xxl:hidden">
-                  <ul className="flex justify-center gap-20 text-[16px] font-medium">
-                    <li className="flex gap-2 items-center">
-                      <div className="w-9 h-9 rounded-full bg-[#5B2D90]" />
-                      Xidmət var
-                    </li>
-                    <li className="flex gap-2 items-center">
-                      <div className="w-9 h-9 rounded-full bg-[#9A7DFF]" />
-                      Xidmət veriləcək
-                    </li>{' '}
-                    <li className="flex gap-2 items-center">
-                      <div className="w-9 h-9  rounded-full bg-[#D3D3D3]" />
-                      Xidmət yoxdur
-                    </li>{' '}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="home-wrapper-2   bg-[#F7F6FB] pb-10 max-xl:hidden  relative overflow-hidden">
-            {' '}
-            <Image
-              src="/assets/home1.png"
-              width={500}
-              height={100}
-              className="w-full"
-              alt=""
-            />{' '}
+        <div className="home-wrapper-2   bg-[#F7F6FB] pb-10  hidden max-xl:block  overflow-hidden">
+          {' '}
+          <div className="absolute   max-xl:z-[-1]    max-xxl:right-0  max-sm:top-[105px] max-xxl:top-[145px]">
             <Image
               src="/assets/home2.png"
-              width={500}
-              height={300}
-              className="absolute a-p top-40 right-20 max-sm:top-10 max-sm:w-[200px] max-xxl:top-32 max-md:right-[-20px] max-xxl:right-[25px] overflow-hidden max-md:w-[250px] max-lg:w-[350px] max-xl:w-[400px]  max-xxl:w-[500px] "
+              width={200}
+              height={150}
+              className="max-sm:w-[200px]   max-md:w-[250px] max-lg:w-[350px] max-xl:w-[400px]  max-xxl:w-[500px]"
               alt=""
             />
-            <div className=" mx-auto ">
-              <div className=" mx-auto max-xxl:w-[200px] max-xxl:h-[40px]">
-                {' '}
-                <div className="absolute p-a  top-32 left-44 max-sm:left-2 max-sm:top-3  max-lg:left-3 max-xl:mx-1  max-xl:top-5 max-xl:left-2  max-xxl:left-20 max-xxl:w-[520px] overflow-hidden flex flex-col">
-                  <p className="text-[40px] text-white  font-light max-sm:text-[16px] max-xl:text-[30px] ">
-                    Onlayn qeydiyyatdan keç, <br />{' '}
-                    <span className="font-extrabold">
-                      Fiber optik internetə qoşul!
-                    </span>{' '}
-                  </p>
-                  <HomePopup />
-                </div>
-                <Link href="#">
-                  <div className="absolute b-a top-[30rem] left-72 bg-white w-16 h-16 max-xxl:hidden rounded-full flex justify-center items-center">
-                    <HiOutlineArrowSmallDown className="text-[#5B2D90] text-[30px] stroke-2" />
-                  </div>
-                </Link>
-              </div>
-            </div>
-            <div className="container max-w-[1087px] mx-auto mt-20 max-sm:mt-10 ">
+          </div>
+          <div
+            className={`absolute ${
+              isOpen ? 'z-[-1]' : 'z-[1]'
+            }    max-xxl:left-1  max-xxl:top-20`}
+          >
+            <div className="relative mx-0 max-xxl:w-full max-xxl:h-[40px]">
               {' '}
-              <div className="flex flex-col justify-center items-center gap-3">
-                <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-xxl:text-[30px]">
-                  Əhatə dairəmiz
-                </h3>
-                <p className="text-center text-[#94A2B3] w-3/4 max-sm:text-[10px] max-sm:w-[307px] max-sm:mx-auto ">
-                  “Bölgəni seçin” başlığından öz ünvanınızı seçməklə və ya
-                  xəritə vizualının üzərində sizə lazım olan əraziyə klikləməklə
-                  həmin ərazinin xidmət sahəmizə aid olub-olmadığını öyrənə
-                  bilərsiniz.
+              <div className="max-sm:left-2 max-sm:top-3  max-lg:left-3 max-xl:mx-1  max-xl:top-5 max-xl:left-2  max-xxl:left-20 max-xxl:w-full  flex flex-col">
+                <p className="text-[40px] text-white  font-light max-sm:text-[13px]  max-md:text-[20px] max-xl:text-[30px] ">
+                  Onlayn qeydiyyatdan keç, <br />{' '}
+                  <span className="font-extrabold">
+                    Fiber optik internetə qoşul!
+                  </span>{' '}
                 </p>
+                <HomePopup />
               </div>
-              <div className="grid grid-cols-3  mt-14 max-xxl:justify-items-center">
-                <div className="max-xxl:col-span-3 max-xxl:flex max-xxl:flex-col max-xxl:justify-center max-xxl:items-center">
-                  <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-sm:text-center">
-                    Bölgəni seçin
-                  </h3>
-                  <div className="border border-[#637381] rounded-3xl w-3/4 max-sm:w-[204px] max-sm:h-[40px] overflow-hidden max-sm:mt-3">
-                    <select
-                      id="countries"
-                      className="text-[#637381] bg-inherit  border-none text-[15px] font-medium rounded-lg block w-full p-2.5 focus:ring-0 "
-                    >
-                      <option value="">Seçin</option>
-
-                      <option value="">AZE</option>
-                      <option value="US">ENG</option>
-                    </select>
-                  </div>
-                  <button className="w-[178px] h-[40px]  bg-[#5B2D90] rounded-3xl text-[16px] text-white font-medium mt-5 max-sm:w-[132px] max-sm:h-[28px] max-sm:text-[12px] overflow-hidden ">
-                    Bax
-                  </button>
-                </div>{' '}
-                <div className="col-span-2 flex justify-end items-center max-xxl:hidden">
-                  <div className="bg-[#5B2D90] col-span-2 h-96 w-3/4 rounded-3xl overflow-hidden">
-                    <div className="absolute max-xxl:hidden svg">
-                      <SVG />
-                      {/* <ConditionCanvas /> */}
-                    </div>
-                  </div>
-                </div>
-                <div className="col-span-3 pt-20 max-xxl:hidden">
-                  <ul className="flex justify-center gap-20 text-[16px] font-medium">
-                    <li className="flex gap-2 items-center">
-                      <div className="w-9 h-9 rounded-full bg-[#5B2D90]" />
-                      Xidmət var
-                    </li>
-                    <li className="flex gap-2 items-center">
-                      <div className="w-9 h-9 rounded-full bg-[#9A7DFF]" />
-                      Xidmət veriləcək
-                    </li>{' '}
-                    <li className="flex gap-2 items-center">
-                      <div className="w-9 h-9  rounded-full bg-[#D3D3D3]" />
-                      Xidmət yoxdur
-                    </li>{' '}
-                  </ul>
-                </div>
+              <div className="absolute top-[30rem] left-72 bg-white w-16 h-16 max-xxl:hidden rounded-full flex justify-center items-center">
+                <HiOutlineArrowSmallDown className="text-[#5B2D90] text-[30px] stroke-2" />
               </div>
             </div>
           </div>
-        </>
-      )}
+          <div className="container max-w-[1087px] mx-auto mt-20 max-sm:mt-10 ">
+            {' '}
+            <div className="flex flex-col justify-center items-center gap-3">
+              <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-xxl:text-[30px]">
+                Əhatə dairəmiz
+              </h3>{' '}
+              Bölgəni seçin
+              <p className="text-center text-[#94A2B3] w-3/4 max-sm:text-[10px] max-sm:w-[307px] max-sm:mx-auto ">
+                “Bölgəni seçin” başlığından öz ünvanınızı seçməklə və ya xəritə
+                vizualının üzərində sizə lazım olan əraziyə klikləməklə həmin
+                ərazinin xidmət sahəmizə aid olub-olmadığını öyrənə bilərsiniz.
+              </p>
+            </div>
+            <div className="grid grid-cols-3  mt-14 max-xxl:justify-items-center">
+              <div className="max-xxl:col-span-3 max-xxl:flex max-xxl:flex-col max-xxl:justify-center max-xxl:items-center">
+                <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-sm:text-center"></h3>
+                <div className="border border-[#637381] rounded-3xl w-3/4 max-sm:w-[204px] max-sm:h-[40px] overflow-hidden max-sm:mt-3">
+                  <select
+                    id=""
+                    className="text-[#637381] bg-inherit  border-none text-[15px] font-medium rounded-lg block w-full p-2.5 focus:ring-0 hom"
+                  >
+                    <option value="">Seçin</option>
+
+                    <option value="">AZE</option>
+                    <option value="US">ENG</option>
+                  </select>
+                </div>
+                <button className="w-[178px] h-[40px]  bg-[#5B2D90] rounded-3xl text-[16px] text-white font-medium mt-5 max-sm:w-[132px] max-sm:h-[28px] max-sm:text-[12px] overflow-hidden ">
+                  Bax
+                </button>
+              </div>{' '}
+              <div className="col-span-2 flex justify-end items-center max-xxl:hidden">
+                <div className="bg-[#5B2D90] col-span-2 h-96 w-3/4 rounded-3xl overflow-hidden">
+                  <div className="absolute max-xxl:hidden svg">
+                    <SVG />
+                  </div>
+                </div>
+              </div>
+              <div className="col-span-3 pt-20 max-xxl:hidden">
+                <ul className="flex justify-center gap-20 text-[16px] font-medium">
+                  <li className="flex gap-2 items-center">
+                    <div className="w-9 h-9 rounded-full bg-[#5B2D90]" />
+                    Xidmət var
+                  </li>
+                  <li className="flex gap-2 items-center">
+                    <div className="w-9 h-9 rounded-full bg-[#9A7DFF]" />
+                    Xidmət veriləcək
+                  </li>{' '}
+                  <li className="flex gap-2 items-center">
+                    <div className="w-9 h-9  rounded-full bg-[#D3D3D3]" />
+                    Xidmət yoxdur
+                  </li>{' '}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="home-wrapper-2   bg-[#F7F6FB] pb-10 max-xl:hidden  relative overflow-hidden">
+          {' '}
+          <Image
+            src="/assets/home1.png"
+            width={500}
+            height={100}
+            className="w-full"
+            alt=""
+          />{' '}
+          <Image
+            src="/assets/home2.png"
+            width={500}
+            height={300}
+            className="absolute a-p top-40 right-20 max-sm:top-10 max-sm:w-[200px] max-xxl:top-32 max-md:right-[-20px] max-xxl:right-[25px] overflow-hidden max-md:w-[250px] max-lg:w-[350px] max-xl:w-[400px]  max-xxl:w-[500px] "
+            alt=""
+          />
+          <div className=" mx-auto ">
+            <div className=" mx-auto max-xxl:w-[200px] max-xxl:h-[40px]">
+              {' '}
+              <div className="absolute p-a  top-32 left-44 max-sm:left-2 max-sm:top-3  max-lg:left-3 max-xl:mx-1  max-xl:top-5 max-xl:left-2  max-xxl:left-20 max-xxl:w-[520px] overflow-hidden flex flex-col">
+                <p className="text-[40px] text-white  font-light max-sm:text-[16px] max-xl:text-[30px] ">
+                  Onlayn qeydiyyatdan keç, <br />{' '}
+                  <span className="font-extrabold">
+                    Fiber optik internetə qoşul!
+                  </span>{' '}
+                </p>
+                <HomePopup />
+              </div>
+              <Link href="#">
+                <div className="absolute b-a top-[30rem] left-72 bg-white w-16 h-16 max-xxl:hidden rounded-full flex justify-center items-center">
+                  <HiOutlineArrowSmallDown className="text-[#5B2D90] text-[30px] stroke-2" />
+                </div>
+              </Link>
+            </div>
+          </div>
+          <div className="container max-w-[1087px] mx-auto mt-20 max-sm:mt-10 ">
+            {' '}
+            <div className="flex flex-col justify-center items-center gap-3">
+              <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-xxl:text-[30px]">
+                Əhatə dairəmiz
+              </h3>
+              <p className="text-center text-[#94A2B3] w-3/4 max-sm:text-[10px] max-sm:w-[307px] max-sm:mx-auto ">
+                “Bölgəni seçin” başlığından öz ünvanınızı seçməklə və ya xəritə
+                vizualının üzərində sizə lazım olan əraziyə klikləməklə həmin
+                ərazinin xidmət sahəmizə aid olub-olmadığını öyrənə bilərsiniz.
+              </p>
+            </div>
+            <div className="grid grid-cols-3  mt-14 max-xxl:justify-items-center">
+              <div className="max-xxl:col-span-3 max-xxl:flex max-xxl:flex-col max-xxl:justify-center max-xxl:items-center">
+                <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-sm:text-center">
+                  Bölgəni seçin
+                </h3>
+                <div className="border border-[#637381] rounded-3xl w-3/4 max-sm:w-[204px] max-sm:h-[40px] overflow-hidden max-sm:mt-3">
+                  <select
+                    id="countries"
+                    className="text-[#637381] bg-inherit  border-none text-[15px] font-medium rounded-lg block w-full p-2.5 focus:ring-0 "
+                  >
+                    <option value="">Seçin</option>
+
+                    <option value="">AZE</option>
+                    <option value="US">ENG</option>
+                  </select>
+                </div>
+                <button className="w-[178px] h-[40px]  bg-[#5B2D90] rounded-3xl text-[16px] text-white font-medium mt-5 max-sm:w-[132px] max-sm:h-[28px] max-sm:text-[12px] overflow-hidden ">
+                  Bax
+                </button>
+              </div>{' '}
+              <div className="col-span-2 flex justify-end items-center max-xxl:hidden">
+                <div className="bg-[#5B2D90] col-span-2 h-96 w-3/4 rounded-3xl overflow-hidden">
+                  <div className="absolute max-xxl:hidden svg">
+                    <SVG />
+                    {/* <ConditionCanvas /> */}
+                  </div>
+                </div>
+              </div>
+              <div className="col-span-3 pt-20 max-xxl:hidden">
+                <ul className="flex justify-center gap-20 text-[16px] font-medium">
+                  <li className="flex gap-2 items-center">
+                    <div className="w-9 h-9 rounded-full bg-[#5B2D90]" />
+                    Xidmət var
+                  </li>
+                  <li className="flex gap-2 items-center">
+                    <div className="w-9 h-9 rounded-full bg-[#9A7DFF]" />
+                    Xidmət veriləcək
+                  </li>{' '}
+                  <li className="flex gap-2 items-center">
+                    <div className="w-9 h-9  rounded-full bg-[#D3D3D3]" />
+                    Xidmət yoxdur
+                  </li>{' '}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
       <Image
         src="/assets/wifi.png"
         width={300}

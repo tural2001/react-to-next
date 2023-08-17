@@ -900,3 +900,20 @@ polygon .st0 {
   /* Override z-index when isOpen is true */
   z-index: -1 !important;
 }
+
+/* globals.css */
+
+/* globals.css */
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 1); /* Yarı saydam arkaplan */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Diğer öğelerin üzerinde görüntülenmesi için yüksek bir değer kullanın */
+}

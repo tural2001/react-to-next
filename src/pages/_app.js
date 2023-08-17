@@ -9,6 +9,7 @@ import 'swiper/css/pagination';
 import { VisibleProvider } from '../components/VisibleContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { LoadingOverlay } from '../components/LoadingOverlay';
 
 function MyApp({ Component, pageProps, pageTitle }) {
   return (
@@ -18,6 +19,7 @@ function MyApp({ Component, pageProps, pageTitle }) {
         <meta name="description" content="Your page description." />
       </Head>
       <Header />
+      <LoadingOverlay />
       <Component {...pageProps} />
       <Footer />
     </VisibleProvider>

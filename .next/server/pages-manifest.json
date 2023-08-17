@@ -1,9 +1,6 @@
 {
   "/_app": "pages/_app.js",
-  "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/services/iptv": "pages/services/iptv.js",
-  "/services/simsiz": "pages/services/simsiz.js",
-  "/services/aix": "pages/services/aix.js",
-  "/services/fiberoptik": "pages/services/fiberoptik.js"
+  "/_document": "pages/_document.js",
+  "/": "pages/index.js"
 }
