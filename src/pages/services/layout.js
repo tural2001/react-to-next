@@ -175,7 +175,7 @@ function ServiceLayout({ children }) {
             </Link>
             <Link
               href="/services/adsl"
-              className={`text-[20px] uppercase relative   leading-[50px] flex gap-1 justify-center items-center `}
+              className={`text-[20px] uppercase relative   leading-[50px] flex gap-1 justify-center items-center`}
               onClick={() => {
                 handleLinkClick('/services/adsl');
                 handleItemClick('/services/adsl');
@@ -204,6 +204,158 @@ function ServiceLayout({ children }) {
               ADSL
             </Link>
             <div className={`animation ${getAnimationClass(selectedItem)}`} />
+          </nav>
+        </div>
+        <div className="services-header  hidden max-xl:block ">
+          <nav className="grid grid-cols-2 w-11/12 max-sm:gap-3 gap-5 ml-3 ">
+            <Link
+              href="/services/fiberoptik"
+              className={`text-[12px] uppercase   leading-[50px] flex gap-1 justify-center items-center border border-[#5B2D90]  w-11/12 h-[33px] rounded-lg ${
+                selectedItem === 'fiber'
+                  ? 'border-[#5B2D90]'
+                  : 'border-[#C6D0DD]'
+              }`}
+              onClick={() => {
+                handleItemClick('fiber', 'start-fiber');
+              }}
+            >
+              {selectedItem === 'fiber' ? (
+                <Image
+                  src="/assets/services/speed.png"
+                  width={15}
+                  height={15}
+                  className="h-[15px] "
+                  alt=""
+                />
+              ) : (
+                <Image
+                  src="/assets/services/speed.png"
+                  width={15}
+                  height={15}
+                  className="h-[15px] "
+                  alt=""
+                />
+              )}
+              Fiber Optik
+            </Link>
+            <Link
+              href="/services/iptv"
+              className={`text-[12px] uppercase   leading-[50px] flex gap-1 justify-center items-center border border-[#5B2D90] w-11/12 h-[33px] rounded-lg  ${
+                selectedItem === 'iptv'
+                  ? 'border-[#5B2D90]'
+                  : 'border-[#C6D0DD]'
+              }`}
+              onClick={() => {
+                handleItemClick('iptv', 'start-tv');
+              }}
+            >
+              {selectedItem === 'iptv' ? (
+                <Image
+                  src="/assets/services/tv.png"
+                  width={15}
+                  height={15}
+                  className="h-[15px] "
+                  alt=""
+                />
+              ) : (
+                <Image
+                  src="/assets/services/tv.png"
+                  width={15}
+                  height={15}
+                  className="h-[15px]"
+                  alt=""
+                />
+              )}{' '}
+              IP TV
+            </Link>
+            <Link
+              href="/services/simsiz"
+              className={`text-[12px] uppercase   leading-[50px] flex gap-1 justify-center items-center border border-[#5B2D90] w-11/12 h-[33px] rounded-lg ${
+                selectedItem === 'simsiz'
+                  ? 'border-[#5B2D90]'
+                  : 'border-[#C6D0DD]'
+              }`}
+              onClick={() => {
+                handleItemClick('simsiz', 'start-simsiz');
+              }}
+            >
+              {selectedItem === 'simsiz' ? (
+                <Image
+                  src="/assets/services/router.png"
+                  width={15}
+                  height={15}
+                  className="h-[15px] "
+                  alt=""
+                />
+              ) : (
+                <Image
+                  src="/assets/services/router.png"
+                  width={15}
+                  height={15}
+                  className="h-[15px]"
+                  alt=""
+                />
+              )}{' '}
+              SimSIz
+            </Link>
+            <Link
+              href="/services/adsl"
+              className={`text-[12px] uppercase   leading-[50px] flex gap-1 justify-center items-center border border-[#5B2D90] w-11/12 h-[33px] rounded-lg  ${
+                selectedItem === 'adsl'
+                  ? 'border-[#5B2D90]'
+                  : 'border-[#C6D0DD]'
+              }`}
+              onClick={() => {
+                handleItemClick('adsl', 'start-adsl');
+              }}
+            >
+              {selectedItem === 'adsl' ? (
+                <Image
+                  src="/assets/services/aix.png"
+                  width={15}
+                  height={15}
+                  className="h-[13px] "
+                  alt=""
+                />
+              ) : (
+                <Image
+                  src="/assets/services/aix.png"
+                  width={15}
+                  height={15}
+                  className="h-[15px]"
+                  alt=""
+                />
+              )}{' '}
+              Adsl
+            </Link>
+            <Link
+              href="/services/aix"
+              className={`text-[12px] uppercase   leading-[50px] flex gap-1 justify-center items-center border border-[#5B2D90] max-sm:w-[225px]  h-[33px] rounded-lg ${
+                selectedItem === 'aix' ? 'border-[#5B2D90]' : 'border-[#C6D0DD]'
+              }`}
+              onClick={() => {
+                handleItemClick('aix', 'start-aix');
+              }}
+            >
+              {selectedItem === 'aix' ? (
+                <Image
+                  src="/assets/services/aix.png"
+                  width={15}
+                  height={13}
+                  className="h-[13px] "
+                  alt=""
+                />
+              ) : (
+                <Image
+                  src="/assets/services/aix.png"
+                  width={15}
+                  height={15}
+                  className="h-[15px]"
+                  alt=""
+                />
+              )}{' '}
+              AYRILMIS INTERNET XETTI
+            </Link>
           </nav>
         </div>
       </div>

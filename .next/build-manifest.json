@@ -22,25 +22,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/services/aix": [
+    "/services/adsl": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/services/aix.js"
+      "static/chunks/pages/services/adsl.js"
     ],
     "/services/fiberoptik": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/services/fiberoptik.js"
-    ],
-    "/services/iptv": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/services/iptv.js"
-    ],
-    "/services/simsiz": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/services/simsiz.js"
     ]
   },
   "ampFirstPages": []

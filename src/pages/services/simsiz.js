@@ -135,6 +135,7 @@ const simsiz = () => {
                 src="/assets/services/smsimsiz.png"
                 width={100}
                 height={100}
+                layout="responsive"
                 className="hidden max-xl:block"
                 alt=""
               />

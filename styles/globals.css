@@ -22,7 +22,7 @@ option {
   font-family: 'Inter', sans-serif;
 }
 
-.optik:hover {
+/* .optik:hover {
   outline: 2px solid;
   outline-color: #ffa35b;
 }
@@ -34,7 +34,7 @@ option {
   display: flex;
   position: absolute;
   left: 10;
-}
+} */
 
 /* .map {
   background-image: url(./assets/map.png);
@@ -890,4 +890,8 @@ polygon .st0 {
 }
 /* .gradient-45deg {
   background: linear-gradient(45deg, #653e98, #3e2164);
+} */
+
+/* .swiper {
+  z-index: -1 !important;
 } */

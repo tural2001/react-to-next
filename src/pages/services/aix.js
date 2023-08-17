@@ -29,6 +29,7 @@ const aix = () => {
                   src="/assets/services/smayrilmisinternetxetti.png"
                   width={100}
                   height={100}
+                  layout="responsive"
                   className="hidden max-xl:block"
                   alt=""
                 />
@@ -71,6 +72,7 @@ const aix = () => {
                   src="/assets/services/smterefdaslarimiz.png"
                   width={100}
                   height={100}
+                  layout="responsive"
                   className="hidden max-xl:block"
                   alt=""
                 />

@@ -238,11 +238,11 @@ const iptv = () => {
                 <div className="animation2 start-ferdi"></div>
               </nav>
             </div>
-            <div className="hidden max-xl:block">
-              <nav className=" flex gap-10 justify-center mx-5">
+            <div className="hidden  max-xl:block">
+              <nav className="flex gap-10 justify-center mx-5">
                 <a
                   href="#/"
-                  className={`text-[12px] uppercase relative    leading-[50px] w-full flex gap-1 justify-center items-center border border-[#5B2D90] max-sm:w-[225px]  h-[33px] rounded-lg ${
+                  className={`text-[12px] uppercase     leading-[50px] w-full flex gap-1 justify-center items-center border border-[#5B2D90] max-sm:w-[225px]  h-[33px] rounded-lg ${
                     selectedItem === 'ferdi'
                       ? 'border-[#5B2D90]'
                       : 'border-[#C6D0DD]'
@@ -272,7 +272,7 @@ const iptv = () => {
                 </a>
                 <a
                   href="#/"
-                  className={`text-[12px] uppercase relative    leading-[50px] w-full flex gap-1 justify-center items-center border border-[#5B2D90] max-sm:w-[225px]  h-[33px] rounded-lg ${
+                  className={`text-[12px] uppercase     leading-[50px] w-full flex gap-1 justify-center items-center border border-[#5B2D90] max-sm:w-[225px]  h-[33px] rounded-lg ${
                     selectedItem === 'biznes'
                       ? 'border-[#5B2D90]'
                       : 'border-[#C6D0DD]'
