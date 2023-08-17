@@ -46,8 +46,8 @@ function ServiceLayout({ children }) {
 
   return (
     <div>
-      <div className="services-wrapper-1 max-w-[1100px] mx-auto pt-10 max-xl:pt-10">
-        <h3 className="text-purple-900 text-[40px] text-center font-bold leading-10 pb-10 uppercase overflow-hidden">
+      <div className="services-wrapper-1 max-w-[1100px] mx-auto pt-10 max-xl:pt-5">
+        <h3 className="text-purple-900 text-[40px] text-center font-bold leading-10 pb-10 max-xl:pb-5 uppercase max-lg:text-[20px] max-xl:text-[30px]">
           XİDMƏTLƏR
         </h3>
         <div className="services-header mx-5 max-xl:hidden">
@@ -206,8 +206,8 @@ function ServiceLayout({ children }) {
             <div className={`animation ${getAnimationClass(selectedItem)}`} />
           </nav>
         </div>
-        <div className="services-header  hidden max-xl:block ">
-          <nav className="grid grid-cols-2 w-11/12 max-sm:gap-3 gap-5 ml-3 ">
+        <div className="services-header   hidden max-xl:block ">
+          <nav className="grid grid-cols-2   max-sm:gap-3 gap-5 ml-3 ">
             <Link
               href="/services/fiberoptik"
               className={`text-[12px] uppercase   leading-[50px] flex gap-1 justify-center items-center border border-[#5B2D90]  w-11/12 h-[33px] rounded-lg ${

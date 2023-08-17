@@ -77,10 +77,10 @@ const adsl = () => {
       </Head>
       <ServiceLayout>
         <div
-          className="services-wrapper-6 max-w-[1087px] mx-auto pt-10"
+          className="services-wrapper-6 max-w-[1087px] mx-auto pt-20"
           id="adsl"
         >
-          <h3 className="text-center text-purple-900 text-[40px] font-bold leading-10 uppercase">
+          <h3 className="text-center text-purple-900 text-[40px] font-bold leading-10  max-xl:text-[30px] uppercase">
             ADSL
           </h3>
           <div className="flex justify-center gap-3  items-center  mt-10 max-xl:hidden">
@@ -152,7 +152,7 @@ const adsl = () => {
               </div>
             ))}
           </div>
-          <div className="swiper">
+          <div className={`swiper ${isOpen ? 'open' : ''}`}>
             <Swiper
               slidesPerView={2}
               centeredSlides={true}

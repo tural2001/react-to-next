@@ -91,7 +91,7 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <div className="text-white flex flex-col max-sm:w-[250px] max-lg:w-[250px]  justify-start items-start ml-10  gap-3 max-sm:col-span-2 max-lg:col-span-2">
+        <div className="text-white flex flex-col    justify-start items-start ml-10  gap-3 max-sm:col-span-2 max-lg:col-span-2">
           {' '}
           <h3 className="text-[20px] font-semibold  tracking-[0.5px] max-sm:text-[16px]  ">
             Bizimlə əlaqə:

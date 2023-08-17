@@ -361,155 +361,93 @@ const simsiz = () => {
                 ))}
               </div>
             )}
-            <div className="swiper">
-              <Swiper
-                slidesPerView={2}
-                centeredSlides={true}
-                spaceBetween={230}
-                pagination={{
-                  clickable: true,
-                }}
-                modules={[Pagination]}
-                className="mySwiper2"
-              >
-                {data2.map((item, index) => (
-                  <SwiperSlide key={index}>
-                    {' '}
-                    <div className="h-[450px] w-[210px] flex flex-col justify-center items-center p-0 op">
-                      <div
-                        key={index}
-                        className={`w-[200px] h-[350px] max-sm:w-[195px] max-sm:h-[332px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative  0   ${
-                          item.id === 'pro' ? 'outline-red' : ''
-                        }`}
-                      >
-                        <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
-                          <Image
-                            src={item.image}
-                            width={item.width}
-                            height={item.height}
-                            alt=""
-                          />
-                        </div>
-                        <p className="text-[20px] font-bold text-white">
-                          {item.name}
-                        </p>
-                        <div className="border-[1px] w-32 border-[#f1f1f1] opacity-20" />
-                        <p className="text-white text-[24px] font-bold">
-                          {item.speed} Mb/s
-                        </p>
-                        <div className="bg-[#FFA35B] w-full h-10 hover:flex justify-center items-center gap-2 hidden fiber">
-                          <Image
-                            src="/assets/packets/tv2.png"
-                            width={10}
-                            height={10}
-                            alt=""
-                          />{' '}
-                          <p className="text-[10px] font-bold text-[#5B2D90]">
-                            IP TV
-                          </p>
-                        </div>
-                        <p className="text-white text-[10px] font-bold flex gap-1">
-                          <Image
-                            src="/assets/packets/pq2.png"
-                            width={11}
-                            height={15}
-                            alt=""
-                          />
-                          {item.description}
-                        </p>
-                        <div className="border-[1px] w-32 border-[#f1f1f1] opacity-20" />
-                        <p className="text-[20px] font-bold text-[#FFA35B] flex justify-center items-center gap-1 overflow-hidden">
-                          {item.price}
-                          <Image
-                            src="/assets/packets/azn.png"
-                            width={20}
-                            height={20}
-                            className="h-5"
-                            alt=""
-                          />
-                        </p>
-                        <button className="w-[100px] h-[30px] text-[8px] font-medium text-white bg-[#AB31D6] rounded-full">
-                          Ətraflı məlumat
-                        </button>
-                      </div>
-                      <div className="flex justify-center">
+            {selectedItem === 'ferdi' && (
+              <div className="swiper">
+                <Swiper
+                  slidesPerView={2}
+                  centeredSlides={true}
+                  spaceBetween={230}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  modules={[Pagination]}
+                  className="mySwiper2"
+                >
+                  {data1.map((item, index) => (
+                    <SwiperSlide key={index}>
+                      {' '}
+                      <div className="h-[450px] w-[210px] flex flex-col justify-center items-center p-0 op">
                         <div
-                          className={`${
-                            item.id === 'pro' ? 'flag-services' : 'hidden'
-                          }   mt-0 text-[8px] text-center font-medium justify-center`}
+                          key={index}
+                          className={`w-[200px] h-[350px] max-sm:w-[195px] max-sm:h-[332px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative  0   ${
+                            item.id === 'pro' ? 'outline-red' : ''
+                          }`}
                         >
-                          Üstünlük verilən
+                          <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
+                            <Image
+                              src={item.image}
+                              width={item.width}
+                              height={item.height}
+                              alt=""
+                            />
+                          </div>
+                          <p className="text-[20px] font-bold text-white">
+                            {item.name}
+                          </p>
+                          <div className="border-[1px] w-32 border-[#f1f1f1] opacity-20" />
+                          <p className="text-white text-[24px] font-bold">
+                            {item.speed} Mb/s
+                          </p>
+                          <div className="bg-[#FFA35B] w-full h-10 hover:flex justify-center items-center gap-2 hidden fiber">
+                            <Image
+                              src="/assets/packets/tv2.png"
+                              width={10}
+                              height={10}
+                              alt=""
+                            />{' '}
+                            <p className="text-[10px] font-bold text-[#5B2D90]">
+                              IP TV
+                            </p>
+                          </div>
+                          <p className="text-white text-[10px] font-bold flex gap-1">
+                            <Image
+                              src="/assets/packets/pq2.png"
+                              width={11}
+                              height={15}
+                              alt=""
+                            />
+                            {item.description}
+                          </p>
+                          <div className="border-[1px] w-32 border-[#f1f1f1] opacity-20" />
+                          <p className="text-[20px] font-bold text-[#FFA35B] flex justify-center items-center gap-1 overflow-hidden">
+                            {item.price}
+                            <Image
+                              src="/assets/packets/azn.png"
+                              width={20}
+                              height={20}
+                              className="h-5"
+                              alt=""
+                            />
+                          </p>
+                          <button className="w-[100px] h-[30px] text-[8px] font-medium text-white bg-[#AB31D6] rounded-full">
+                            Ətraflı məlumat
+                          </button>
+                        </div>
+                        <div className="flex justify-center">
+                          <div
+                            className={`${
+                              item.id === 'pro' ? 'flag-services' : 'hidden'
+                            }   mt-0 text-[8px] text-center font-medium justify-center`}
+                          >
+                            Üstünlük verilən
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
-            <div className="hidden max-xl:block">
-              <nav className=" flex gap-10 justify-center mx-5">
-                <a
-                  href="#/"
-                  className={`text-[12px] uppercase relative    leading-[50px] w-full flex gap-1 justify-center items-center border border-[#5B2D90] max-sm:w-[225px]  h-[33px] rounded-lg ${
-                    selectedItem === 'ferdi'
-                      ? 'border-[#5B2D90]'
-                      : 'border-[#C6D0DD]'
-                  }`}
-                  onClick={() => {
-                    handleItemClick('ferdi', 'start-ferdi');
-                  }}
-                >
-                  {selectedItem === 'ferdi' ? (
-                    <Image
-                      src="/assets/services/speed.png"
-                      width={13}
-                      height={13}
-                      className="h-[13px] white-img"
-                      alt=""
-                    />
-                  ) : (
-                    <Image
-                      src="/assets/services/speed.png"
-                      width={15}
-                      height={15}
-                      className="h-[15px]"
-                      alt=""
-                    />
-                  )}{' '}
-                  Fərdi
-                </a>
-                <a
-                  href="#/"
-                  className={`text-[12px] uppercase relative    leading-[50px] w-full flex gap-1 justify-center items-center border border-[#5B2D90] max-sm:w-[225px]  h-[33px] rounded-lg ${
-                    selectedItem === 'biznes'
-                      ? 'border-[#5B2D90]'
-                      : 'border-[#C6D0DD]'
-                  }`}
-                  onClick={() => {
-                    handleItemClick('biznes', 'start-biznes');
-                  }}
-                >
-                  {selectedItem === 'biznes' ? (
-                    <Image
-                      src="/assets/services/biznes.png"
-                      width={13}
-                      height={13}
-                      className="h-[13px]"
-                      alt=""
-                    />
-                  ) : (
-                    <Image
-                      src="/assets/services/biznes.png"
-                      width={15}
-                      height={15}
-                      className="h-[15px]"
-                      alt=""
-                    />
-                  )}{' '}
-                  Biznes
-                </a>
-              </nav>
-            </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+            )}
             {selectedItem === 'biznes' && (
               <div className="flex flex-cols  justify-center items-center gap-10  mt-10 max-xl:hidden">
                 {data2.map((item, index) => (
@@ -581,91 +519,93 @@ const simsiz = () => {
                 ))}
               </div>
             )}
-            <div className="swiper">
-              <Swiper
-                slidesPerView={2}
-                centeredSlides={true}
-                spaceBetween={230}
-                pagination={{
-                  clickable: true,
-                }}
-                modules={[Pagination]}
-                className="mySwiper2"
-              >
-                {data2.map((item, index) => (
-                  <SwiperSlide key={index}>
-                    {' '}
-                    <div className="h-[450px] w-[210px] flex flex-col justify-center items-center p-0 op">
-                      <div
-                        key={index}
-                        className={`w-[200px] h-[350px] max-sm:w-[195px] max-sm:h-[332px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative  0   ${
-                          item.id === 'pro' ? 'outline-red' : ''
-                        }`}
-                      >
-                        <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
-                          <Image
-                            src={item.image}
-                            width={item.width}
-                            height={item.height}
-                            alt=""
-                          />
-                        </div>
-                        <p className="text-[20px] font-bold text-white">
-                          {item.name}
-                        </p>
-                        <div className="border-[1px] w-32 border-[#f1f1f1] opacity-20" />
-                        <p className="text-white text-[24px] font-bold">
-                          {item.speed} Mb/s
-                        </p>
-                        <div className="bg-[#FFA35B] w-full h-10 hover:flex justify-center items-center gap-2 hidden fiber">
-                          <Image
-                            src="/assets/packets/tv2.png"
-                            width={10}
-                            height={10}
-                            alt=""
-                          />{' '}
-                          <p className="text-[10px] font-bold text-[#5B2D90]">
-                            IP TV
-                          </p>
-                        </div>
-                        <p className="text-white text-[10px] font-bold flex gap-1">
-                          <Image
-                            src="/assets/packets/pq2.png"
-                            width={11}
-                            height={15}
-                            alt=""
-                          />
-                          {item.description}
-                        </p>
-                        <div className="border-[1px] w-32 border-[#f1f1f1] opacity-20" />
-                        <p className="text-[20px] font-bold text-[#FFA35B] flex justify-center items-center gap-1 overflow-hidden">
-                          {item.price}
-                          <Image
-                            src="/assets/packets/azn.png"
-                            width={20}
-                            height={20}
-                            className="h-5"
-                            alt=""
-                          />
-                        </p>
-                        <button className="w-[100px] h-[30px] text-[8px] font-medium text-white bg-[#AB31D6] rounded-full">
-                          Ətraflı məlumat
-                        </button>
-                      </div>
-                      <div className="flex justify-center">
+            {selectedItem === 'biznes' && (
+              <div className="swiper">
+                <Swiper
+                  slidesPerView={2}
+                  centeredSlides={true}
+                  spaceBetween={230}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  modules={[Pagination]}
+                  className="mySwiper2"
+                >
+                  {data2.map((item, index) => (
+                    <SwiperSlide key={index}>
+                      {' '}
+                      <div className="h-[450px] w-[210px] flex flex-col justify-center items-center p-0 op">
                         <div
-                          className={`${
-                            item.id === 'pro' ? 'flag-services' : 'hidden'
-                          }   mt-0 text-[8px] text-center font-medium justify-center`}
+                          key={index}
+                          className={`w-[200px] h-[350px] max-sm:w-[195px] max-sm:h-[332px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative  0   ${
+                            item.id === 'pro' ? 'outline-red' : ''
+                          }`}
                         >
-                          Üstünlük verilən
+                          <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
+                            <Image
+                              src={item.image}
+                              width={item.width}
+                              height={item.height}
+                              alt=""
+                            />
+                          </div>
+                          <p className="text-[20px] font-bold text-white">
+                            {item.name}
+                          </p>
+                          <div className="border-[1px] w-32 border-[#f1f1f1] opacity-20" />
+                          <p className="text-white text-[24px] font-bold">
+                            {item.speed} Mb/s
+                          </p>
+                          <div className="bg-[#FFA35B] w-full h-10 hover:flex justify-center items-center gap-2 hidden fiber">
+                            <Image
+                              src="/assets/packets/tv2.png"
+                              width={10}
+                              height={10}
+                              alt=""
+                            />{' '}
+                            <p className="text-[10px] font-bold text-[#5B2D90]">
+                              IP TV
+                            </p>
+                          </div>
+                          <p className="text-white text-[10px] font-bold flex gap-1">
+                            <Image
+                              src="/assets/packets/pq2.png"
+                              width={11}
+                              height={15}
+                              alt=""
+                            />
+                            {item.description}
+                          </p>
+                          <div className="border-[1px] w-32 border-[#f1f1f1] opacity-20" />
+                          <p className="text-[20px] font-bold text-[#FFA35B] flex justify-center items-center gap-1 overflow-hidden">
+                            {item.price}
+                            <Image
+                              src="/assets/packets/azn.png"
+                              width={20}
+                              height={20}
+                              className="h-5"
+                              alt=""
+                            />
+                          </p>
+                          <button className="w-[100px] h-[30px] text-[8px] font-medium text-white bg-[#AB31D6] rounded-full">
+                            Ətraflı məlumat
+                          </button>
+                        </div>
+                        <div className="flex justify-center">
+                          <div
+                            className={`${
+                              item.id === 'pro' ? 'flag-services' : 'hidden'
+                            }   mt-0 text-[8px] text-center font-medium justify-center`}
+                          >
+                            Üstünlük verilən
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+            )}
           </div>
         </div>
       </ServiceLayout>

@@ -892,6 +892,11 @@ polygon .st0 {
   background: linear-gradient(45deg, #653e98, #3e2164);
 } */
 
-/* .swiper {
+.swiper {
+  z-index: 1 !important;
+}
+
+.swiper.open {
+  /* Override z-index when isOpen is true */
   z-index: -1 !important;
-} */
+}

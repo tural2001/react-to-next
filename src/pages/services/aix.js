@@ -13,7 +13,7 @@ const aix = () => {
         <meta name="description" content={pageDescription} />
       </Head>
       <ServiceLayout>
-        <div className="services-wrapper-5 bg-[#F7F6FB]" id="aix">
+        <div className="services-wrapper-5 bg-[#F7F6FB] max-lg:mt-10" id="aix">
           <div className="max-w-[1087px] mx-auto py-10">
             <div className="grid grid-cols-3 max-xl:grid-cols-2 py-20 max-xl:mx-7 gap-10">
               <div className="col-span-1 max-xl:col-span-2">
