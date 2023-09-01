@@ -794,8 +794,8 @@ polygon .st0 {
 .svg SVG {
   width: 700px !important;
   position: absolute;
-  top: -20px; /* Adjust this value as needed to control how much the SVG overflows */
-  left: -120px; /* Adjust this value as needed to control how much the SVG overflows */
+  top: -20px;
+  left: -120px;
 }
 
 .h3 {
@@ -897,13 +897,8 @@ polygon .st0 {
 }
 
 .swiper.open {
-  /* Override z-index when isOpen is true */
   z-index: -1 !important;
 }
-
-/* globals.css */
-
-/* globals.css */
 
 .loading-overlay {
   position: fixed;
@@ -911,9 +906,22 @@ polygon .st0 {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 1); /* Yarı saydam arkaplan */
+  background-color: rgba(255, 255, 255, 1);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999; /* Diğer öğelerin üzerinde görüntülenmesi için yüksek bir değer kullanın */
+  z-index: 9999;
+}
+
+svg {
+  z-index: 1;
+}
+.speed_button {
+  border: none !important;
+}
+
+/* styles.css */
+
+.d-none {
+  display: none !important;
 }

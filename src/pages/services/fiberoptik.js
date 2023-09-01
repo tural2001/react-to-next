@@ -7,6 +7,29 @@ import { TariffsPopup } from '../../components/TariffsPopup';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import Head from 'next/head';
+import axios from 'axios';
+import { base_url } from '../../utils/base_url';
+import { config } from '../../utils/axiosconfig';
+
+export async function getServerSideProps() {
+  try {
+    const Tariffresponse = await axios.get(`${base_url}/api/tariffs`, config);
+    return {
+      props: {
+        TariffData: Tariffresponse.data,
+      },
+    };
+  } catch (error) {
+    // Handle errors appropriately
+    console.error(error);
+    return {
+      props: {
+        error: 'An error occurred while fetching data',
+      },
+    };
+  }
+}
+
 const fiberoptik = () => {
   const [selectedItem, setSelectedItem] = useState('ferdi');
 

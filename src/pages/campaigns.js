@@ -4,8 +4,31 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import { base_url } from '../utils/base_url';
+import { config } from '../utils/axiosconfig';
+import axios from 'axios';
 
-const Campaigns = () => {
+export async function getServerSideProps() {
+  try {
+    const Campaignsresponse = await axios.get(
+      `${base_url}/api/campaigns`,
+      config
+    );
+    return {
+      props: {
+        CampaignsData: Campaignsresponse.data,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {
+        error: 'An error occurred while fetching data',
+      },
+    };
+  }
+}
+const Campaigns = ({ CampaignsData }) => {
   const { visible, setVisible } = useVisibleContext();
   const router = useRouter();
 
@@ -111,8 +134,7 @@ const Campaigns = () => {
         <h3 className="h3 text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xl:text-[30px] max-xxl:text-white ">
           Kampaniyalar
         </h3>
-
-        <div className="absolute  z-[1] max-xl:z-[-1]  right-48 max-xxl:right-5  max-xxl:top-20">
+        <div className="absolute z-[1] max-xl:z-[-1]  right-48 max-xxl:right-5  max-xxl:top-20">
           <Image
             src="/assets/campaigns/mikrafon.png"
             width={581}
@@ -122,77 +144,52 @@ const Campaigns = () => {
           />
         </div>
       </div>
-      <div className="bg-[#F7F6FB] py-5 mt-20 max-xl:mt-0 max-sm:py-0 max-xl:px-5 ">
-        <div className=" overflow-auto  grid grid-cols-3 gap-5  max-w-6xl mx-auto max-xl:grid-cols-1">
-          <div className="w-[347px] h-[485px] max-xl:w-[291px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-[#5B2D90] mt-20">
-            <Image
-              className=" left-[-300px] max-sm:left-0 max-sm:top-20 "
-              src="/assets/campaigns/adsl.png"
-              width={300}
-              height={500}
-              alt=""
-            />
+      {CampaignsData.data.map((campaign, index) => (
+        <div key={index}>
+          <div className="bg-[#F7F6FB] py-5 mt-20 max-xl:mt-0 max-sm:py-0 max-xl:px-5 ">
+            <div className=" overflow-auto  grid grid-cols-3 gap-5  max-w-6xl mx-auto max-xl:grid-cols-1">
+              <div className="w-[347px] h-[485px] max-xl:w-[291px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-[#5B2D90] mt-20">
+                <Image
+                  className="absolute left-[70px] mt-10 max-sm:left-0 max-sm:top-20 "
+                  src="/assets/campaigns/adsl.png"
+                  width={900}
+                  height={500}
+                  alt=""
+                />
+              </div>
+              <div className="col-span-2 max-xl:col-span-1 flex flex-col justify-center gap-5 ">
+                <h3 className="text-purple-900 text-[40px] font-bold leading-10 uppercase max-sm:text-[20px]">
+                  3+1 ADSL
+                </h3>
+                <p className="text-[16px] text-[#757575] max-sm:text-justify leading-[25px]  ">
+                  {campaign.description}
+                </p>
+              </div>
+            </div>
           </div>
-          <div className="col-span-2 max-xl:col-span-1 flex flex-col justify-center gap-5 ">
-            <h3 className="text-purple-900 text-[40px] font-bold leading-10 uppercase max-sm:text-[20px]">
-              3+1 ADSL
-            </h3>
-            <p className="text-[16px] text-[#757575] max-sm:text-justify leading-[25px]  ">
-              İnternet abunəçisi qoşulduğu tarifin 3 aylıq xidmət haqqını
-              öncədən tam ödədikdə, həmin xidmətin 4-cü ayından ÖDƏNIŞSIZ
-              istifadə edəcək. Qeydlər: Kampaniya yalnız ADSL internet tarifinə
-              qoşulan fərdi istifadəçilərə (əhali qrupuna aid olan abunəçilərə)
-              şamil edilir. Abunəçi statik İP-xidmətinə qoşulduqda eyni qaydada
-              öncədən ödədiyi ayların sayına uyğun olaraq həm də statik İP-in
-              aylıq haqlarını müvafiq şəkildə öncədən ödəməlidir. Kampaniyaya
-              qoşulmuş abunəçi şərtlərə uyğun olaraq müəyyən müddət ərzində (4
-              ay) istifadə etdiyi internet tarifini aylıq xidmət haqqı daha ucuz
-              olan tarifə dəyişərsə, o zaman kampaniyadan çıxmış hesab olunur və
-              kampaniya çərçivəsində əldə olunmuş ödənişsiz ay əvəzsiz qaydada
-              ləğv olunacaq. Kampaniyaya qoşulmuş abunəçi şərtlərə uyğun olaraq
-              müəyyən müddət ərzində istifadə etdiyi internet tarifini aylıq
-              xidmət haqqı daha baha olan tarifə dəyişərsə, o zaman xidmət
-              haqlarının fərqini tam olaraq ödəməlidir.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="bg-white py-5 max-xl:px-5">
-        <div className=" overflow-auto  grid grid-cols-3 gap-5  max-w-6xl mx-auto max-xl:grid-cols-1">
-          <div className="w-[347px] h-[485px] max-xl:w-[291px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-[#5B2D90] mt-20">
-            <Image
-              className="left-[-300px] max-sm:left-0 max-sm:top-20"
-              src="/assets/campaigns/adsl.png"
-              width={300}
-              height={500}
-              alt=""
-            />
-          </div>
-          <div className="col-span-2 flex flex-col justify-center gap-5 order-first max-xl:order-last">
-            <h3 className="text-purple-900 text-[40px] font-bold leading-10 uppercase max-sm:text-[20px]">
-              3+1 ADSL
-            </h3>
-            <p className="text-[16px] text-[#757575]">
-              {' '}
-              İnternet abunəçisi qoşulduğu tarifin 3 aylıq xidmət haqqını
-              öncədən tam ödədikdə, həmin xidmətin 4-cü ayından ÖDƏNIŞSIZ
-              istifadə edəcək. Qeydlər: Kampaniya yalnız ADSL internet tarifinə
-              qoşulan fərdi istifadəçilərə (əhali qrupuna aid olan abunəçilərə)
-              şamil edilir. Abunəçi statik İP-xidmətinə qoşulduqda eyni qaydada
-              öncədən ödədiyi ayların sayına uyğun olaraq həm də statik İP-in
-              aylıq haqlarını müvafiq şəkildə öncədən ödəməlidir. Kampaniyaya
-              qoşulmuş abunəçi şərtlərə uyğun olaraq müəyyən müddət ərzində (4
-              ay) istifadə etdiyi internet tarifini aylıq xidmət haqqı daha ucuz
-              olan tarifə dəyişərsə, o zaman kampaniyadan çıxmış hesab olunur və
-              kampaniya çərçivəsində əldə olunmuş ödənişsiz ay əvəzsiz qaydada
-              ləğv olunacaq. Kampaniyaya qoşulmuş abunəçi şərtlərə uyğun olaraq
-              müəyyən müddət ərzində istifadə etdiyi internet tarifini aylıq
-              xidmət haqqı daha baha olan tarifə dəyişərsə, o zaman xidmət
-              haqlarının fərqini tam olaraq ödəməlidir.
-            </p>
+          <div className="bg-white py-5 max-xl:px-5">
+            <div className=" overflow-auto  grid grid-cols-3 gap-5  max-w-6xl mx-auto max-xl:grid-cols-1">
+              <div className="w-[347px] h-[485px] max-xl:w-[291px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-[#5B2D90] mt-20">
+                <Image
+                  className="absolute right-[140px] mt-14 max-sm:left-0 max-sm:top-20 "
+                  src="/assets/campaigns/adsl.png"
+                  width={900}
+                  height={500}
+                  alt=""
+                />
+              </div>
+              <div className="col-span-2 flex flex-col justify-center gap-5 order-first max-xl:order-last">
+                <h3 className="text-purple-900 text-[40px] font-bold leading-10 uppercase max-sm:text-[20px]">
+                  3+1 ADSL
+                </h3>
+                <p className="text-[16px] text-[#757575]">
+                  {campaign.description}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      ))}
     </>
   );
 };

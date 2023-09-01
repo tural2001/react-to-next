@@ -4,6 +4,9 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
+import { Speedometer } from '../components/Speedometer';
+import { speedbutton } from '../../public/assets';
+import Home from '../components/spee';
 
 const speedtest = () => {
   const { visible, setVisible } = useVisibleContext();
@@ -23,7 +26,7 @@ const speedtest = () => {
         <meta name="description" content={pageDescription} />
       </Head>
       {visible && (
-        <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
+        <div className="home-wrapper-1  max-w-5xl max-sm:hidden py-10 mx-auto   max-xl:hidden">
           <div className="grid grid-cols-3 justify-items-center">
             <Link href="/services/fiberoptik">
               <div className="">
@@ -98,9 +101,10 @@ const speedtest = () => {
           </div>
         </div>
       )}
+
       <div className="w-full  mx-auto bg-radialw-full  bg-gradient-to-br from-[#5B2D90] via-[#5e2f93] to-[#5B2D90] bg-radial ">
-        <div className="flex gap-10 justify-center items-center relative max-xl:hidden">
-          <div className="flex flex-col gap-10 relative">
+        <div className="flex gap-10 justify-center items-center  max-xl:hidden">
+          <div className="flex flex-col gap-10 ">
             <div className="flex justify-center items-center gap-5">
               <div className="">
                 <Image
@@ -147,10 +151,17 @@ const speedtest = () => {
               </div>
             </div>
           </div>
-          <div className="relative flex flex-col gap-10 justify-center items-center">
+          <div className=" flex flex-col gap-10 justify-center items-center">
             {/* <Image src={speedometer} className="w-[586px] h-[595px] " alt="" /> */}
-
-            {/* <Image src={button} className="w-[251px] " alt="" /> */}
+            {/* <Speedometer />
+            <Image
+              src="/assets/speedbutton.png"
+              width={300}
+              height={100}
+              className="w-[250px] h-[100px]"
+              alt=""
+            /> */}
+            <Home />
           </div>
           <div className="flex flex-col gap-5 relative">
             <div className="w-[207px] h-[138px] flex flex-col justify-center items-center ">

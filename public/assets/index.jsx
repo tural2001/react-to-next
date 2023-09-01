@@ -46,12 +46,12 @@ import right from './right.png';
 import blog from './blog.png';
 import blog2 from './blog2.png';
 import ribbon from './ribbon.png';
-import aboutus from './AboutUs/aboutus.png';
-import smaboutus from './AboutUs/smaboutus.png';
-import irq from './AboutUs/irq.png';
-import my from './AboutUs/my.png';
-import yes from './AboutUs/yes.png';
-import img from './AboutUs/img.png';
+import aboutus from './about/about.png';
+import smaboutus from './about/smaboutus.png';
+import irq from './about/irq.png';
+import my from './about/my.png';
+import yes from './about/yes.png';
+import img from './about/img.png';
 import speed from './Services/speed.png';
 import tv from './Services/tv.png';
 import aix from './Services/aix.png';
@@ -107,8 +107,10 @@ import download from './Speedtest/download.png';
 import ping from './Speedtest/ping.png';
 import map from './map.svg';
 import loading from './loading.gif';
+import speedbutton from './speedbutton.png';
 
 export {
+  speedbutton,
   loading,
   header,
   cellphone,

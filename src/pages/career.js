@@ -9,8 +9,31 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useVisibleContext } from '../components/VisibleContext';
 import Head from 'next/head';
+import { config } from '../utils/axiosconfig';
+import { base_url } from '../utils/base_url';
+import axios from 'axios';
 
-const career = () => {
+export async function getServerSideProps() {
+  try {
+    const Vacanciesresponse = await axios.get(
+      `${base_url}/api/vacancies`,
+      config
+    );
+    return {
+      props: {
+        VacanciesData: Vacanciesresponse.data,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {
+        error: 'An error occurred while fetching data',
+      },
+    };
+  }
+}
+const career = ({ VacanciesData }) => {
   const data = [
     {
       title: 'Developer full stack',
@@ -41,6 +64,7 @@ const career = () => {
       location: 'Bakı, Azərbaycan',
     },
   ];
+
   const { visible, setVisible } = useVisibleContext();
   const router = useRouter();
 
@@ -168,7 +192,7 @@ const career = () => {
               </h3>
             </div>
             <div className="grid grid-cols-2 max-md:grid-cols-1 max-xl:w-11/12 gap-7">
-              {data.map((item, index) => {
+              {VacanciesData.data.map((item, index) => {
                 return (
                   <div
                     className="border-l-[14px] border-[#5B2D90] w-[540px] h-[202px] max-xl:w-full max-xl:h-[135px] bg-white flex flex-col justify-center px-5 gap-7 rounded-xl"

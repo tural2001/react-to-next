@@ -10,9 +10,36 @@ import { HomePopup } from '../components/HomePopup';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useVisibleContext } from '../components/VisibleContext';
-import ConditionCanvas from '../components/Condition';
+// import ConditionCanvas from '../components/Condition';
+import { base_url } from '../utils/base_url';
+import { config } from '../utils/axiosconfig';
+import axios from 'axios';
 
-const home = () => {
+export async function getServerSideProps() {
+  try {
+    const Tariffresponse = await axios.get(`${base_url}/api/tariffs`, config);
+    const Reviewresponse = await axios.get(`${base_url}/api/reviews`, config);
+    const Blogresponse = await axios.get(`${base_url}/api/posts`, config);
+
+    return {
+      props: {
+        TariffData: Tariffresponse.data,
+        ReviewData: Reviewresponse.data,
+        BlogData: Blogresponse.data,
+      },
+    };
+  } catch (error) {
+    // Handle errors appropriately
+    console.error(error);
+    return {
+      props: {
+        error: 'An error occurred while fetching data',
+      },
+    };
+  }
+}
+
+const home = ({ TariffData, ReviewData, BlogData, error }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const { isOpen, toggleMenu } = useVisibleContext();
@@ -22,36 +49,6 @@ const home = () => {
       setIsLoading(false);
     }, 2000);
   }, []);
-
-  const testimonials = [
-    {
-      id: 1,
-      quote:
-        'Blog1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor nemo hic eius rerum modi in. Non itaque, sed numquam quos tempore illo eos voluptatibus voluptatum deserunt dolore voluptatem pariatur nulla!',
-      author: 'Lorem ',
-      width: 54,
-      height: 54,
-      image: '/assets/rey.png',
-    },
-    {
-      id: 2,
-      quote:
-        'Blog1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor nemo hic eius rerum modi in. Non itaque, sed numquam quos tempore illo eos voluptatibus voluptatum deserunt dolore voluptatem pariatur nulla!',
-      author: 'Lorem ',
-      width: 54,
-      height: 54,
-      image: '/assets/rey.png',
-    },
-    {
-      id: 3,
-      quote:
-        'Blog1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor nemo hic eius rerum modi in. Non itaque, sed numquam quos tempore illo eos voluptatibus voluptatum deserunt dolore voluptatem pariatur nulla!',
-      author: 'Lorem ',
-      width: 54,
-      height: 54,
-      image: '/assets/rey.png',
-    },
-  ];
 
   const data = [
     {
@@ -101,64 +98,6 @@ const home = () => {
       height: 31,
       title: 'Professional komanda',
       backgroundColor: '#F6C5EE',
-    },
-  ];
-  const data1 = [
-    {
-      id: 1,
-      image: '/assets/packets/basic.png',
-      width: 26,
-      height: 29,
-      name: 'Basic',
-      speed: 20,
-      title: 'Pulsuz qoşulma 1',
-      description: 'Pulsuz qoşulma',
-      price: 15,
-    },
-    {
-      id: 2,
-      image: '/assets/packets/silver.png',
-      width: 30,
-      height: 28,
-      name: 'Silver',
-      speed: 40,
-      title: 'Geniş əhatə dairəsi',
-      description: 'Pulsuz qoşulma',
-      price: 18,
-    },
-    {
-      id: 3,
-      image: '/assets/packets/gold.png',
-      width: 40,
-      height: 35,
-      name: 'Gold',
-      speed: 50,
-      title: 'Keyfiyyətli xidmət',
-      description: 'Pulsuz qoşulma',
-      price: 19,
-    },
-    {
-      id: 4,
-      key: 'key',
-      image: '/assets/packets/platinum.png',
-      width: 41,
-      height: 30,
-      name: 'Platinum',
-      speed: 50,
-      title: '24/7 Müştəri Dəstəyi',
-      description: 'Pulsuz qoşulma',
-      price: 25,
-    },
-    {
-      id: 5,
-      image: '/assets/packets/extra.png',
-      width: 34,
-      height: 28,
-      name: 'Extra',
-      speed: 70,
-      title: 'Geniş Texniki İmkanlar',
-      description: 'Pulsuz qoşulma',
-      price: 35,
     },
   ];
 
@@ -261,201 +200,199 @@ const home = () => {
           </div>
         </div>
       )}
-      <>
-        <div className="max-xl:relative absolute max-xl:z-[-1] w-full  bg-[#F7F6FB] ">
-          {' '}
-          <Image
-            src="/assets/home1.png"
-            width={500}
-            height={300}
-            className=" h-[535px]  w-full max-sm:h-[200px] max-md:h-[280px] max-xl:h-[350px] max-xl:top-14"
-            alt=""
-          />
-        </div>
-        <div className="home-wrapper-2   bg-[#F7F6FB] pb-10  hidden max-xl:block  overflow-hidden">
-          {' '}
-          <div className="absolute   max-xl:z-[-1]    max-xxl:right-0  max-sm:top-[105px] max-xxl:top-[145px]">
-            <Image
-              src="/assets/home2.png"
-              width={200}
-              height={150}
-              className="max-sm:w-[200px]   max-md:w-[250px] max-lg:w-[350px] max-xl:w-[400px]  max-xxl:w-[500px]"
-              alt=""
-            />
-          </div>
-          <div
-            className={`absolute ${
-              isOpen ? 'z-[-1]' : 'z-[1]'
-            }    max-xxl:left-1  max-xxl:top-20`}
-          >
-            <div className="relative mx-0 max-xxl:w-full max-xxl:h-[40px]">
-              {' '}
-              <div className="max-sm:left-2 max-sm:top-3  max-lg:left-3 max-xl:mx-1  max-xl:top-5 max-xl:left-2  max-xxl:left-20 max-xxl:w-full  flex flex-col">
-                <p className="text-[40px] text-white  font-light max-sm:text-[13px]  max-md:text-[20px] max-xl:text-[30px] ">
-                  Onlayn qeydiyyatdan keç, <br />{' '}
-                  <span className="font-extrabold">
-                    Fiber optik internetə qoşul!
-                  </span>{' '}
-                </p>
-                <HomePopup />
-              </div>
-              <div className="absolute top-[30rem] left-72 bg-white w-16 h-16 max-xxl:hidden rounded-full flex justify-center items-center">
-                <HiOutlineArrowSmallDown className="text-[#5B2D90] text-[30px] stroke-2" />
-              </div>
-            </div>
-          </div>
-          <div className="container max-w-[1087px] mx-auto mt-20 max-sm:mt-10 ">
-            {' '}
-            <div className="flex flex-col justify-center items-center gap-3">
-              <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-xxl:text-[30px]">
-                Əhatə dairəmiz
-              </h3>{' '}
-              Bölgəni seçin
-              <p className="text-center text-[#94A2B3] w-3/4 max-sm:text-[10px] max-sm:w-[307px] max-sm:mx-auto ">
-                “Bölgəni seçin” başlığından öz ünvanınızı seçməklə və ya xəritə
-                vizualının üzərində sizə lazım olan əraziyə klikləməklə həmin
-                ərazinin xidmət sahəmizə aid olub-olmadığını öyrənə bilərsiniz.
-              </p>
-            </div>
-            <div className="grid grid-cols-3  mt-14 max-xxl:justify-items-center">
-              <div className="max-xxl:col-span-3 max-xxl:flex max-xxl:flex-col max-xxl:justify-center max-xxl:items-center">
-                <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-sm:text-center"></h3>
-                <div className="border border-[#637381] rounded-3xl w-3/4 max-sm:w-[204px] max-sm:h-[40px] overflow-hidden max-sm:mt-3">
-                  <select
-                    id=""
-                    className="text-[#637381] bg-inherit  border-none text-[15px] font-medium rounded-lg block w-full p-2.5 focus:ring-0 hom"
-                  >
-                    <option value="">Seçin</option>
-
-                    <option value="">AZE</option>
-                    <option value="US">ENG</option>
-                  </select>
-                </div>
-                <button className="w-[178px] h-[40px]  bg-[#5B2D90] rounded-3xl text-[16px] text-white font-medium mt-5 max-sm:w-[132px] max-sm:h-[28px] max-sm:text-[12px] overflow-hidden ">
-                  Bax
-                </button>
-              </div>{' '}
-              <div className="col-span-2 flex justify-end items-center max-xxl:hidden">
-                <div className="bg-[#5B2D90] col-span-2 h-96 w-3/4 rounded-3xl overflow-hidden">
-                  <div className="absolute max-xxl:hidden svg">
-                    <SVG />
-                  </div>
-                </div>
-              </div>
-              <div className="col-span-3 pt-20 max-xxl:hidden">
-                <ul className="flex justify-center gap-20 text-[16px] font-medium">
-                  <li className="flex gap-2 items-center">
-                    <div className="w-9 h-9 rounded-full bg-[#5B2D90]" />
-                    Xidmət var
-                  </li>
-                  <li className="flex gap-2 items-center">
-                    <div className="w-9 h-9 rounded-full bg-[#9A7DFF]" />
-                    Xidmət veriləcək
-                  </li>{' '}
-                  <li className="flex gap-2 items-center">
-                    <div className="w-9 h-9  rounded-full bg-[#D3D3D3]" />
-                    Xidmət yoxdur
-                  </li>{' '}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="home-wrapper-2   bg-[#F7F6FB] pb-10 max-xl:hidden  relative overflow-hidden">
-          {' '}
-          <Image
-            src="/assets/home1.png"
-            width={500}
-            height={100}
-            className="w-full"
-            alt=""
-          />{' '}
+      <div className="max-xl:relative absolute max-xl:z-[-1] w-full  bg-[#F7F6FB] ">
+        {' '}
+        <Image
+          src="/assets/home1.png"
+          width={500}
+          height={300}
+          className=" h-[535px]  w-full max-sm:h-[200px] max-md:h-[280px] max-xl:h-[390px] max-xl:top-14"
+          alt=""
+        />
+      </div>
+      <div className="home-wrapper-2   bg-[#F7F6FB] pb-10  hidden max-xl:block  overflow-hidden">
+        {' '}
+        <div className="absolute   max-xl:z-[-1]    max-xxl:right-0  max-sm:top-[105px] max-xxl:top-[145px]">
           <Image
             src="/assets/home2.png"
-            width={500}
-            height={300}
-            className="absolute a-p top-40 right-20 max-sm:top-10 max-sm:w-[200px] max-xxl:top-32 max-md:right-[-20px] max-xxl:right-[25px] overflow-hidden max-md:w-[250px] max-lg:w-[350px] max-xl:w-[400px]  max-xxl:w-[500px] "
+            width={200}
+            height={150}
+            className="max-sm:w-[200px]   max-md:w-[250px] max-lg:w-[350px] max-xl:w-[400px]  max-xxl:w-[500px]"
             alt=""
           />
-          <div className=" mx-auto ">
-            <div className=" mx-auto max-xxl:w-[200px] max-xxl:h-[40px]">
-              {' '}
-              <div className="absolute p-a  top-32 left-44 max-sm:left-2 max-sm:top-3  max-lg:left-3 max-xl:mx-1  max-xl:top-5 max-xl:left-2  max-xxl:left-20 max-xxl:w-[520px] overflow-hidden flex flex-col">
-                <p className="text-[40px] text-white  font-light max-sm:text-[16px] max-xl:text-[30px] ">
-                  Onlayn qeydiyyatdan keç, <br />{' '}
-                  <span className="font-extrabold">
-                    Fiber optik internetə qoşul!
-                  </span>{' '}
-                </p>
-                <HomePopup />
-              </div>
-              <Link href="#">
-                <div className="absolute b-a top-[30rem] left-72 bg-white w-16 h-16 max-xxl:hidden rounded-full flex justify-center items-center">
-                  <HiOutlineArrowSmallDown className="text-[#5B2D90] text-[30px] stroke-2" />
-                </div>
-              </Link>
-            </div>
-          </div>
-          <div className="container max-w-[1087px] mx-auto mt-20 max-sm:mt-10 ">
+        </div>
+        <div
+          className={`absolute ${
+            isOpen ? 'z-[-1]' : 'z-[1]'
+          }    max-xxl:left-1  max-xxl:top-20`}
+        >
+          <div className="relative mx-0 max-xxl:w-full max-xxl:h-[40px]">
             {' '}
-            <div className="flex flex-col justify-center items-center gap-3">
-              <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-xxl:text-[30px]">
-                Əhatə dairəmiz
-              </h3>
-              <p className="text-center text-[#94A2B3] w-3/4 max-sm:text-[10px] max-sm:w-[307px] max-sm:mx-auto ">
-                “Bölgəni seçin” başlığından öz ünvanınızı seçməklə və ya xəritə
-                vizualının üzərində sizə lazım olan əraziyə klikləməklə həmin
-                ərazinin xidmət sahəmizə aid olub-olmadığını öyrənə bilərsiniz.
+            <div className="max-sm:left-2 max-sm:top-3  max-lg:left-3 max-xl:mx-1  max-xl:top-5 max-xl:left-2  max-xxl:left-20 max-xxl:w-full  flex flex-col">
+              <p className="text-[40px] text-white  font-light max-sm:text-[13px]  max-md:text-[20px] max-xl:text-[30px] ">
+                Onlayn qeydiyyatdan keç, <br />{' '}
+                <span className="font-extrabold">
+                  Fiber optik internetə qoşul!
+                </span>{' '}
               </p>
+              <HomePopup />
             </div>
-            <div className="grid grid-cols-3  mt-14 max-xxl:justify-items-center">
-              <div className="max-xxl:col-span-3 max-xxl:flex max-xxl:flex-col max-xxl:justify-center max-xxl:items-center">
-                <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-sm:text-center">
-                  Bölgəni seçin
-                </h3>
-                <div className="border border-[#637381] rounded-3xl w-3/4 max-sm:w-[204px] max-sm:h-[40px] overflow-hidden max-sm:mt-3">
-                  <select
-                    id="countries"
-                    className="text-[#637381] bg-inherit  border-none text-[15px] font-medium rounded-lg block w-full p-2.5 focus:ring-0 "
-                  >
-                    <option value="">Seçin</option>
-
-                    <option value="">AZE</option>
-                    <option value="US">ENG</option>
-                  </select>
-                </div>
-                <button className="w-[178px] h-[40px]  bg-[#5B2D90] rounded-3xl text-[16px] text-white font-medium mt-5 max-sm:w-[132px] max-sm:h-[28px] max-sm:text-[12px] overflow-hidden ">
-                  Bax
-                </button>
-              </div>{' '}
-              <div className="col-span-2 flex justify-end items-center max-xxl:hidden">
-                <div className="bg-[#5B2D90] col-span-2 h-96 w-3/4 rounded-3xl overflow-hidden">
-                  <div className="absolute max-xxl:hidden svg">
-                    <SVG />
-                    {/* <ConditionCanvas /> */}
-                  </div>
-                </div>
-              </div>
-              <div className="col-span-3 pt-20 max-xxl:hidden">
-                <ul className="flex justify-center gap-20 text-[16px] font-medium">
-                  <li className="flex gap-2 items-center">
-                    <div className="w-9 h-9 rounded-full bg-[#5B2D90]" />
-                    Xidmət var
-                  </li>
-                  <li className="flex gap-2 items-center">
-                    <div className="w-9 h-9 rounded-full bg-[#9A7DFF]" />
-                    Xidmət veriləcək
-                  </li>{' '}
-                  <li className="flex gap-2 items-center">
-                    <div className="w-9 h-9  rounded-full bg-[#D3D3D3]" />
-                    Xidmət yoxdur
-                  </li>{' '}
-                </ul>
-              </div>
+            <div className="absolute top-[30rem] left-72 bg-white w-16 h-16 max-xxl:hidden rounded-full flex justify-center items-center">
+              <HiOutlineArrowSmallDown className="text-[#5B2D90] text-[30px] stroke-2" />
             </div>
           </div>
         </div>
-      </>
+        <div className="container max-w-[1087px] mx-auto mt-20 max-sm:mt-10 ">
+          {' '}
+          <div className="flex flex-col justify-center items-center gap-3">
+            <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-xxl:text-[30px]">
+              Əhatə dairəmiz
+            </h3>{' '}
+            Bölgəni seçin
+            <p className="text-center text-[#94A2B3] w-3/4 max-sm:text-[10px] max-sm:w-[307px] max-sm:mx-auto ">
+              “Bölgəni seçin” başlığından öz ünvanınızı seçməklə və ya xəritə
+              vizualının üzərində sizə lazım olan əraziyə klikləməklə həmin
+              ərazinin xidmət sahəmizə aid olub-olmadığını öyrənə bilərsiniz.
+            </p>
+          </div>
+          <div className="grid grid-cols-3  mt-14 max-xxl:justify-items-center">
+            <div className="max-xxl:col-span-3 max-xxl:flex max-xxl:flex-col max-xxl:justify-center max-xxl:items-center">
+              <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-sm:text-center"></h3>
+              <div className="border border-[#637381] rounded-3xl w-3/4 max-sm:w-[204px] max-sm:h-[40px] overflow-hidden max-sm:mt-3">
+                <select
+                  id=""
+                  className="text-[#637381] bg-inherit  border-none text-[15px] font-medium rounded-lg block w-full p-2.5 focus:ring-0 hom"
+                >
+                  <option value="">Seçin</option>
+
+                  <option value="">AZE</option>
+                  <option value="US">ENG</option>
+                </select>
+              </div>
+              <button className="w-[178px] h-[40px]  bg-[#5B2D90] rounded-3xl text-[16px] text-white font-medium mt-5 max-sm:w-[132px] max-sm:h-[28px] max-sm:text-[12px] overflow-hidden ">
+                Bax
+              </button>
+            </div>{' '}
+            <div className="col-span-2 flex justify-end items-center max-xxl:hidden">
+              <div className="bg-[#5B2D90] col-span-2 h-96 w-3/4 rounded-3xl overflow-hidden">
+                <div className="absolute max-xxl:hidden svg">
+                  <SVG />
+                </div>
+              </div>
+            </div>
+            <div className="col-span-3 pt-20 max-xxl:hidden">
+              <ul className="flex justify-center gap-20 text-[16px] font-medium">
+                <li className="flex gap-2 items-center">
+                  <div className="w-9 h-9 rounded-full bg-[#5B2D90]" />
+                  Xidmət var
+                </li>
+                <li className="flex gap-2 items-center">
+                  <div className="w-9 h-9 rounded-full bg-[#9A7DFF]" />
+                  Xidmət veriləcək
+                </li>{' '}
+                <li className="flex gap-2 items-center">
+                  <div className="w-9 h-9  rounded-full bg-[#D3D3D3]" />
+                  Xidmət yoxdur
+                </li>{' '}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="home-wrapper-2   bg-[#F7F6FB] pb-10 max-xl:hidden  relative overflow-hidden">
+        {' '}
+        <Image
+          src="/assets/home1.png"
+          width={500}
+          height={100}
+          className="w-full"
+          alt=""
+        />{' '}
+        <Image
+          src="/assets/home2.png"
+          width={500}
+          height={300}
+          className="absolute a-p top-40 right-20 max-sm:top-10 max-sm:w-[200px] max-xxl:top-32 max-md:right-[-20px] max-xxl:right-[25px] overflow-hidden max-md:w-[250px] max-lg:w-[350px] max-xl:w-[400px]  max-xxl:w-[500px] "
+          alt=""
+        />
+        <div className=" mx-auto ">
+          <div className=" mx-auto max-xxl:w-[200px] max-xxl:h-[40px]">
+            {' '}
+            <div className="absolute p-a  top-32 left-44 max-sm:left-2 max-sm:top-3  max-lg:left-3 max-xl:mx-1  max-xl:top-5 max-xl:left-2  max-xxl:left-20 max-xxl:w-[520px] overflow-hidden flex flex-col">
+              <p className="text-[40px] text-white  font-light max-sm:text-[16px] max-xl:text-[30px] ">
+                Onlayn qeydiyyatdan keç, <br />{' '}
+                <span className="font-extrabold">
+                  Fiber optik internetə qoşul!
+                </span>{' '}
+              </p>
+              <HomePopup />
+            </div>
+            <Link href="#">
+              <div className="absolute b-a top-[30rem] left-72 bg-white w-16 h-16 max-xxl:hidden rounded-full flex justify-center items-center">
+                <HiOutlineArrowSmallDown className="text-[#5B2D90] text-[30px] stroke-2" />
+              </div>
+            </Link>
+          </div>
+        </div>
+        <div className="container max-w-[1087px] mx-auto mt-20 max-sm:mt-10 ">
+          {' '}
+          <div className="flex flex-col justify-center items-center gap-3">
+            <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-xxl:text-[30px]">
+              Əhatə dairəmiz
+            </h3>
+            <p className="text-center text-[#94A2B3] w-3/4 max-sm:text-[10px] max-sm:w-[307px] max-sm:mx-auto ">
+              “Bölgəni seçin” başlığından öz ünvanınızı seçməklə və ya xəritə
+              vizualının üzərində sizə lazım olan əraziyə klikləməklə həmin
+              ərazinin xidmət sahəmizə aid olub-olmadığını öyrənə bilərsiniz.
+            </p>
+          </div>
+          <div className="grid grid-cols-3  mt-14 max-xxl:justify-items-center">
+            <div className="max-xxl:col-span-3 max-xxl:flex max-xxl:flex-col max-xxl:justify-center max-xxl:items-center">
+              <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-sm:text-center">
+                Bölgəni seçin
+              </h3>
+              <div className="border border-[#637381] rounded-3xl w-3/4 max-sm:w-[204px] max-sm:h-[40px] overflow-hidden max-sm:mt-3">
+                <select
+                  id="countries"
+                  className="text-[#637381] bg-inherit  border-none text-[15px] font-medium rounded-lg block w-full p-2.5 focus:ring-0 "
+                >
+                  <option value="">Seçin</option>
+
+                  <option value="">AZE</option>
+                  <option value="US">ENG</option>
+                </select>
+              </div>
+              <button className="w-[178px] h-[40px]  bg-[#5B2D90] rounded-3xl text-[16px] text-white font-medium mt-5 max-sm:w-[132px] max-sm:h-[28px] max-sm:text-[12px] overflow-hidden ">
+                Bax
+              </button>
+            </div>{' '}
+            <div className="col-span-2 flex justify-end items-center max-xxl:hidden">
+              <div className="bg-[#5B2D90] col-span-2 h-96 w-3/4 rounded-3xl overflow-hidden">
+                <div className="absolute max-xxl:hidden svg">
+                  <SVG />
+                  {/* <ConditionCanvas /> */}
+                </div>
+              </div>
+            </div>
+            <div className="col-span-3 pt-20 max-xxl:hidden">
+              <ul className="flex justify-center gap-20 text-[16px] font-medium">
+                <li className="flex gap-2 items-center">
+                  <div className="w-9 h-9 rounded-full bg-[#5B2D90]" />
+                  Xidmət var
+                </li>
+                <li className="flex gap-2 items-center">
+                  <div className="w-9 h-9 rounded-full bg-[#9A7DFF]" />
+                  Xidmət veriləcək
+                </li>{' '}
+                <li className="flex gap-2 items-center">
+                  <div className="w-9 h-9  rounded-full bg-[#D3D3D3]" />
+                  Xidmət yoxdur
+                </li>{' '}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
       <Image
         src="/assets/wifi.png"
         width={300}
@@ -528,18 +465,18 @@ const home = () => {
             </button>
           </div>
           <div className="grid grid-cols-5  max-w-[1099px]  justify-items-center gap-5 mt-10 max-xl:hidden">
-            {data1.map((item) => (
+            {TariffData.data.map((item) => (
               <div className="h-[500px] w-[210px]  p-0 op" key={item.id}>
                 <div
                   className={`w-[200px] h-[350px] max-sm:w-[195px] max-sm:h-[332px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-b from-[#653E98] via-[transparent] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative z-10  mt-5  ml-1 ${
-                    item.key === 'key' ? 'outline-red' : ''
+                    item.most_wanted === 1 ? 'outline-red' : ''
                   }`}
                 >
                   <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
                     <Image
-                      src={item.image}
-                      width={item.width}
-                      height={item.height}
+                      src={'/assets/packets/basic.png'}
+                      width={26}
+                      height={29}
                       alt=""
                     />
                   </div>
@@ -588,7 +525,7 @@ const home = () => {
                 <div className="flex justify-center">
                   <div
                     className={`${
-                      item.key === 'key' ? 'flag-home' : 'hidden'
+                      item.most_wanted === 1 ? 'flag-home' : 'hidden'
                     }   mt-0 text-[8px] text-center font-medium justify-center`}
                   >
                     Üstünlük verilən
@@ -608,20 +545,20 @@ const home = () => {
               modules={[Pagination]}
               className="mySwiper"
             >
-              {data1.map((item) => (
+              {TariffData.data.map((item) => (
                 <SwiperSlide key={item.id}>
                   {' '}
                   <div className="h-[450px] w-[210px] flex flex-col justify-center items-center p-0 op">
                     <div
                       className={`w-[200px] h-[350px] max-sm:w-[195px] max-sm:h-[332px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative z-10   ${
-                        item.key === 'key' ? 'outline-red' : undefined
+                        item.most_wanted === 1 ? 'outline-red' : undefined
                       }`}
                     >
                       <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
                         <Image
-                          src={item.image}
-                          width={item.width}
-                          height={item.height}
+                          src={'/assets/packets/basic.png'}
+                          width={20}
+                          height={20}
                           alt=""
                         />
                       </div>
@@ -670,7 +607,7 @@ const home = () => {
                     <div className="flex justify-center">
                       <div
                         className={`${
-                          item.key === 'key' ? 'flag-home' : 'hidden'
+                          item.most_wanted === 1 ? 'flag-home' : 'hidden'
                         }   mt-0 text-[8px] text-center font-medium justify-center`}
                       >
                         Üstünlük verilən
@@ -714,24 +651,24 @@ const home = () => {
                 }}
                 className="mySwiper3"
               >
-                {testimonials.map((item) => {
+                {ReviewData.data.map((item) => {
                   return (
                     <SwiperSlide key={item.id}>
                       {' '}
                       <div className="flex overflow-hidden" key={item.id}>
                         <div className="w-[600px] h-[400px] border flex flex-col justify-center p-10 gap-8 rounded-2xl mt-10 border-[#C4C4C4]">
                           <p className="text-[14px] text-[#5F7285] leading-6 font-medium italic">
-                            {item.quote}
+                            {item.comment}
                           </p>
                           <div className="flex items-center gap-1">
                             <Image
-                              src={item.image}
-                              width={item.width}
-                              height={item.height}
+                              src="/assets/rey.png"
+                              width={54}
+                              height={54}
                               alt=""
                             />
                             <h4 className="text-[14px] text-[#1B263D] font-semibold">
-                              {item.author}
+                              {item.reviewer_name}
                             </h4>
                           </div>
                         </div>
@@ -756,7 +693,7 @@ const home = () => {
                 className="mySwiper2"
               >
                 <>
-                  {testimonials.map((item) => {
+                  {ReviewData.data.map((item) => {
                     return (
                       <SwiperSlide key={item.id}>
                         {' '}
@@ -767,9 +704,9 @@ const home = () => {
                             </p>
                             <div className="flex items-center gap-1">
                               <Image
-                                src={item.image}
-                                width={item.width}
-                                height={item.height}
+                                src="/assets/rey.png"
+                                width={54}
+                                height={54}
                                 alt=""
                               />
                               <h4 className="text-[14px] text-[#1B263D] font-semibold">
@@ -792,7 +729,7 @@ const home = () => {
           Bloq
         </h3>
         <div className="container max-w-[966px]  mx-auto  grid grid-cols-3 justify-items-center max-md:grid-cols-1 max-xl:grid-cols-2  max-xxl:mx-10  gap-12">
-          {data.map((item) => (
+          {BlogData.data.map((item) => (
             <div
               className="flex flex-col justify-center max-xxl:w-[315px]  gap-2 h-[347px] "
               key={item.id}
@@ -808,13 +745,13 @@ const home = () => {
                     alt=""
                   />
                   <p className="bg-[#5B2D90] text-[12px] rounded-xl w-[136px] text-center py-2   mb-2 text-white mt-5">
-                    09 fevral 2023
+                    {item.published_at}
                   </p>
                   <h3 className="text-[#212B36] text-[24px] font-bold">
-                    Fiber optik
+                    {item.title}
                   </h3>
                   <p className="text-[#94A2B3] text-[16px] font-normal">
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr.
+                    {item.description}
                   </p>
                 </div>
               </Link>

@@ -2,7 +2,28 @@ import React from 'react';
 import ServiceLayout from './layout';
 import Image from 'next/image';
 import Head from 'next/head';
+import { base_url } from '../../utils/base_url';
+import axios from 'axios';
+import { config } from '../../utils/axiosconfig';
 
+export async function getServerSideProps() {
+  try {
+    const Tariffresponse = await axios.get(`${base_url}/api/tariffs`, config);
+    return {
+      props: {
+        TariffData: Tariffresponse.data,
+      },
+    };
+  } catch (error) {
+    // Handle errors appropriately
+    console.error(error);
+    return {
+      props: {
+        error: 'An error occurred while fetching data',
+      },
+    };
+  }
+}
 const aix = () => {
   const pageTitle = 'Your Services Post Title';
   const pageDescription = 'Description of your services post.';

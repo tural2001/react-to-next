@@ -9,7 +9,7 @@ export const LoadingOverlay = () => {
   useEffect(() => {
     const loadingTimeout = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 100);
 
     return () => {
       clearTimeout(loadingTimeout);

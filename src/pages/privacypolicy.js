@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useVisibleContext } from '../components/VisibleContext';
 import Link from 'next/link';
 import Head from 'next/head';
+import Image from 'next/image';
 
 const privacypolicy = () => {
   const { visible, setVisible } = useVisibleContext();

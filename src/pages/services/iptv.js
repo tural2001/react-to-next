@@ -6,6 +6,28 @@ import { Pagination } from 'swiper/modules';
 
 import ServiceLayout from './layout';
 import Head from 'next/head';
+import { base_url } from '../../utils/base_url';
+import { config } from '../../utils/axiosconfig';
+import axios from 'axios';
+
+export async function getServerSideProps() {
+  try {
+    const Tariffresponse = await axios.get(`${base_url}/api/tariffs`, config);
+    return {
+      props: {
+        TariffData: Tariffresponse.data,
+      },
+    };
+  } catch (error) {
+    // Handle errors appropriately
+    console.error(error);
+    return {
+      props: {
+        error: 'An error occurred while fetching data',
+      },
+    };
+  }
+}
 
 const iptv = () => {
   const [selectedItem, setSelectedItem] = useState('ferdi');

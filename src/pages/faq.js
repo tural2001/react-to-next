@@ -7,8 +7,29 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Head from 'next/head';
+import axios from 'axios';
+import { base_url } from '../utils/base_url';
+import { config } from '../utils/axiosconfig';
 
-const faq = () => {
+export async function getServerSideProps() {
+  try {
+    const Faqsresponse = await axios.get(`${base_url}/api/faqs`, config);
+    return {
+      props: {
+        FaqsData: Faqsresponse.data,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {
+        error: 'An error occurred while fetching data',
+      },
+    };
+  }
+}
+
+const faq = ({ FaqsData }) => {
   const data = [
     {
       h4: 'İnternet xidmətinə qoşulmaq üçün nə etməliyəm?',
@@ -176,9 +197,8 @@ const faq = () => {
           </div>
 
           <ul className="flex flex-col gap-10 w-[826px] max-xl:w-full  mx-auto pb-10 ">
-            {data.map((item, index) => {
+            {FaqsData.data.map((item, index) => {
               const isLastItem = index === data.length - 1;
-
               return (
                 <li
                   className="flex flex-col gap-5 w-[826px] max-xl:w-full  mx-auto "
@@ -189,7 +209,7 @@ const faq = () => {
                       {faqItems[index] ? <BiMinus /> : <BiPlus />}
                     </span>
                     <h4 className="font-medium text-[16px] w-[680px] max-xl:w-full mx-auto">
-                      {item.h4}
+                      {item.question}
                     </h4>
                     <span className="w-[24px] h-[24px] rounded-full  text-black  justify-center items-center hidden max-xl:flex z-[-1]">
                       {faqItems[index] ? <BsChevronDown /> : <BsChevronDown />}
@@ -197,7 +217,7 @@ const faq = () => {
                   </div>
                   {faqItems[index] && (
                     <p className="text-[16px] text-[#6A7583] font-light leading-6 tracking-wide w-[680px] max-xl:w-3/4 mx-auto ease-in duration-300 z-[-1]">
-                      {item.p}
+                      {item.answer}
                     </p>
                   )}
                   {isLastItem ? null : <div className="h-[1px] bg-[#D0D5DD]" />}
