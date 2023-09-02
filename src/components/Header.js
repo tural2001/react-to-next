@@ -63,7 +63,7 @@ const Header = () => {
             </li>
             <li className="">
               {' '}
-              <Link href="/blog">Bloq </Link>
+              <Link href={`/blog/:id`}>Bloq </Link>
             </li>
           </ul>
           <ul className="flex justify-center items-center">

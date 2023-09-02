@@ -102,7 +102,7 @@ const speedtest = () => {
         </div>
       )}
 
-      <div className="w-full  mx-auto bg-radialw-full  bg-gradient-to-br from-[#5B2D90] via-[#5e2f93] to-[#5B2D90] bg-radial ">
+      <div className="w-full py-10  mx-auto bg-radialw-full  bg-gradient-to-br from-[#5B2D90] via-[#5e2f93] to-[#5B2D90] bg-radial ">
         <div className="flex gap-10 justify-center items-center  max-xl:hidden">
           <div className="flex flex-col gap-10 ">
             <div className="flex justify-center items-center gap-5">

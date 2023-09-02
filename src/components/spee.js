@@ -1,12 +1,4 @@
-/* eslint-disable no-useless-constructor */
 import React, { Component, useEffect, useState } from 'react';
-import {
-  CircularGauge,
-  Scale,
-  Label,
-  RangeContainer,
-  Range,
-} from 'devextreme-react/circular-gauge';
 import { ReactInternetSpeedMeter } from 'react-internet-meter';
 
 import axios from 'axios';
@@ -51,7 +43,7 @@ function IpDatas() {
         continent_name: resPattern.continent_name,
       });
     } catch {
-      console.log('dszdzd');
+      console.error('');
     }
   }
 }
@@ -134,13 +126,13 @@ class Home extends Component {
       transform: `rotate(${rotationAngle}deg)`,
     };
 
-    const needlexStyle = {
-      position: 'absolute',
-      zIndex: '-999',
-      transformOrigin: '262px 302.5px 0',
-      transform: `rotate(${rotationAngle}deg)`,
-      /* animation: 'rotate 3s infinite', */
-    };
+    // const needlexStyle = {
+    //   position: 'absolute',
+    //   zIndex: '-999',
+    //   transformOrigin: '262px 302.5px 0',
+    //   transform: `rotate(${rotationAngle}deg)`,
+    //   /* animation: 'rotate 3s infinite', */
+    // };
 
     const isNeedleVisible = rotationAngle >= -155;
 
@@ -555,7 +547,7 @@ class Home extends Component {
                   {isNeedleVisible && (
                     <path
                       id="needlex"
-                      style={needlexStyle}
+                      // style={needlexStyle}
                       d={
                         rotationAngle >= -155
                           ? 'M361.954 127.349C330.853 109.969 295.733 101.062 260.108 101.519C224.484 101.977 189.604 111.783 158.960 129.957C128.316 148.13 102.983 174.033 85.495 205.074C68.0074 236.114 58.9791 271.203 59.3137 306.829C59.6482 342.455 69.3338 377.369 87.4012 408.075'
@@ -760,9 +752,6 @@ class Home extends Component {
                     threshold={100}
                     imageUrl={this.state.myPic}
                     downloadSize="1100000" //bytes
-                    callbackFunctionOnNetworkDown={(speed) =>
-                      console.log(`Internet speed is down ${speed}`)
-                    }
                     callbackFunctionOnNetworkTest={(speed) => {
                       this.setState({
                         speedMbps: [...this.state.speedMbps, speed],
@@ -779,49 +768,6 @@ class Home extends Component {
           </div>
 
           <IpDatas />
-
-          <div className="context container d-flex justify-content-center py-2">
-            <a
-              role="button"
-              href="https://twitter.com/yioxreborn2048"
-              target="_blank"
-              className="btn btn-lg btn-floating mx-2 icon-tw"
-              style={{ color: 'white' }}
-              rel="noreferrer"
-            >
-              <i className="fab fa-twitter"></i>
-            </a>
-            <a
-              role="button"
-              href="https://www.youtube.com/@yaodabara"
-              target="_blank"
-              className="btn btn-lg btn-floating mx-2 icon-kedin"
-              style={{ color: 'white' }}
-              rel="noreferrer"
-            >
-              <i className="fab fa-linkedin"></i>
-            </a>
-            <a
-              role="button"
-              href="https://www.linkedin.com/in/dabarayao"
-              target="_blank"
-              className="btn btn-lg btn-floating mx-2 icon-you"
-              style={{ color: 'white' }}
-              rel="noreferrer"
-            >
-              <i className="fab fa-youtube"></i>
-            </a>
-            <a
-              role="button"
-              href="https://linktr.ee/dabarayao"
-              target="_blank"
-              className="btn btn-lg btn-floating mx-2 icon-kedin"
-              style={{ color: 'white' }}
-              rel="noreferrer"
-            >
-              <i className="fas fa-link"></i>
-            </a>
-          </div>
         </div>
       </div>
     );

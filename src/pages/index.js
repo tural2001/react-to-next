@@ -40,6 +40,8 @@ export async function getServerSideProps() {
 }
 
 const home = ({ TariffData, ReviewData, BlogData, error }) => {
+  console.log(BlogData.data);
+
   const [isLoading, setIsLoading] = useState(true);
 
   const { isOpen, toggleMenu } = useVisibleContext();
@@ -114,6 +116,10 @@ const home = ({ TariffData, ReviewData, BlogData, error }) => {
   useEffect(() => {
     setVisible(router.pathname === '/a');
   }, [router.pathname]);
+
+  const handleClick = (id) => {
+    router.push(`/blog/${id}`);
+  };
 
   const pageTitle = 'Your Home Post Title';
   const pageDescription = 'Description of your home post.';
@@ -729,34 +735,36 @@ const home = ({ TariffData, ReviewData, BlogData, error }) => {
           Bloq
         </h3>
         <div className="container max-w-[966px]  mx-auto  grid grid-cols-3 justify-items-center max-md:grid-cols-1 max-xl:grid-cols-2  max-xxl:mx-10  gap-12">
-          {BlogData.data.map((item) => (
-            <div
-              className="flex flex-col justify-center max-xxl:w-[315px]  gap-2 h-[347px] "
-              key={item.id}
-            >
-              <Link href="/blog" onClick={handleScrollUp} key={item.id}>
-                <div className="max-sm:flex max-sm:flex-col max-sm:justify-center">
-                  {' '}
-                  <Image
-                    src="/assets/blog.png"
-                    width={500}
-                    height={300}
-                    className="w-[280px] h-[168px] "
-                    alt=""
-                  />
-                  <p className="bg-[#5B2D90] text-[12px] rounded-xl w-[136px] text-center py-2   mb-2 text-white mt-5">
-                    {item.published_at}
-                  </p>
-                  <h3 className="text-[#212B36] text-[24px] font-bold">
-                    {item.title}
-                  </h3>
-                  <p className="text-[#94A2B3] text-[16px] font-normal">
-                    {item.description}
-                  </p>
+          {BlogData.data.map((item) => {
+            return (
+              <div
+                className="flex flex-col justify-center max-xxl:w-[315px]  gap-2 h-[347px] "
+                key={item.id}
+              >
+                <div key={item.id} onClick={() => handleClick(item.id)}>
+                  <div className="max-sm:flex max-sm:flex-col max-sm:justify-center">
+                    {' '}
+                    <Image
+                      src="/assets/blog.png"
+                      width={500}
+                      height={300}
+                      className="w-[280px] h-[168px] "
+                      alt=""
+                    />
+                    <p className="bg-[#5B2D90] text-[12px] rounded-xl w-[136px] text-center py-2   mb-2 text-white mt-5">
+                      {item.published_at}
+                    </p>
+                    <h3 className="text-[#212B36] text-[24px] font-bold">
+                      {item.title}
+                    </h3>
+                    <p className="text-[#94A2B3] text-[16px] font-normal">
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
-              </Link>
-            </div>
-          ))}
+              </div>
+            );
+          })}
         </div>
       </div>
       <Image
