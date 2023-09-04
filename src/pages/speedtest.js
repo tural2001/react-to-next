@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useVisibleContext } from '../components/VisibleContext';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -7,14 +7,79 @@ import Head from 'next/head';
 import { Speedometer } from '../components/Speedometer';
 import { speedbutton } from '../../public/assets';
 import Home from '../components/spee';
+import axios from 'axios';
 
-const speedtest = () => {
-  const { visible, setVisible } = useVisibleContext();
+const Speedtest = () => {
+  const [loading, setLoading] = useState(false);
+  const [btnStatus, setBtnStatus] = useState(0);
+  const [data, setData] = useState({
+    downloadSpeed: 0,
+    uploadSpeed: 0,
+    latency: '0',
+    useLocation: ' - ',
+    userIp: '0.0.0.0',
+  });
+
+  const config = {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    Accept: 'application/json',
+  };
+
   const router = useRouter();
-
+  const { visible, setVisible } = useVisibleContext();
   useEffect(() => {
     setVisible(router.pathname === '/a');
   }, [router, setVisible]);
+
+  const onSubmit = () => {
+    setLoading(true);
+
+    axios
+      .post('http://localhost:4000/speed', config)
+      .then((val) => {
+        setLoading(false);
+        setData(val?.data?.data);
+      })
+      .catch((e) => {
+        setLoading(false);
+        message.error('Something went wrong..!!', 5);
+      });
+  };
+  const [dashOffset, setDashOffset] = useState(0);
+  const [isIncreasing, setIsIncreasing] = useState(true);
+  const pathLength = 536; // SVG path uzunluğunu sabit bir değer olarak tanımlayın
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (isIncreasing) {
+        setDashOffset((prevOffset) => prevOffset + 10);
+        if (dashOffset >= pathLength) {
+          setIsIncreasing(false);
+        }
+      } else {
+        setDashOffset((prevOffset) => prevOffset - 10);
+        if (dashOffset <= 0) {
+          setIsIncreasing(true);
+        }
+      }
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, [dashOffset, isIncreasing]);
+
+  const [animationValue, setAnimationValue] = useState(0);
+
+  // Animasyon değeri değiştirme işlevi
+  const changeAnimationValue = () => {
+    if (animationValue === 0) {
+      setAnimationValue(100);
+    } else {
+      setAnimationValue(0);
+    }
+  };
+
+  const a = 20;
 
   const pageTitle = 'Your Speedtest Post Title';
   const pageDescription = 'Description of your speedtest post.';
@@ -115,10 +180,10 @@ const speedtest = () => {
                   alt=""
                 />
               </div>
-              <div className="w-[82px] h-[35px]">
-                <p className="text-[16px] font-bold text-white">192.168.0.1</p>
-                <p className="text-[8px] font-normal text-white"> IP Address</p>
-              </div>
+              {/* <div className="w-[82px] h-[35px]"> */}
+              <p className="text-[16px] font-bold text-white">{data.userIp}</p>
+              <p className="text-[8px] font-normal text-white"> IP Address</p>
+              {/* </div> */}
             </div>
             <div className="flex justify-center items-center gap-5">
               <div className="">
@@ -132,7 +197,7 @@ const speedtest = () => {
               </div>
               <div className="w-[82px] h-[35px]">
                 <p className="text-[16px] font-bold text-white">Azeronline</p>
-                <p className="text-[8px] font-normal text-white">Server(s)</p>
+                <p className="text-[8px] font-normal text-white">Server()</p>
               </div>
             </div>
             <div className="flex justify-center items-center gap-5">
@@ -161,7 +226,51 @@ const speedtest = () => {
               className="w-[250px] h-[100px]"
               alt=""
             /> */}
-            <Home />
+            <button onClick={changeAnimationValue}>Animasyonu Değiştir</button>
+
+            <svg
+              width="536"
+              height="535"
+              viewBox="0 0 536 535"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                id="needlex"
+                d="M361.954 127.349C330.853 109.969 295.733 101.062 260.108 101.519C224.484 101.977 189.604 111.783 158.960 129.957C128.316 148.13 102.983 174.033 85.495 205.074C68.0074 236.114 58.9791 271.203 59.3137 306.829C59.6482 342.455 69.3338 377.369 87.4012 408.075"
+                stroke="#FFA35B"
+                stroke-width="38.1147"
+                stroke-miterlimit="4.13936"
+                stroke-linecap="round"
+                className="svg-elem-1"
+                style={{
+                  strokeDashoffset:
+                    animationValue === 0
+                      ? '533.3721923828125px'
+                      : a === 10
+                      ? '866.744384765625px'
+                      : a === 20
+                      ? '1066.744384765625px'
+                      : '966.744384765625px',
+
+                  strokeDasharray: '533.3721923828125px',
+                  transition:
+                    'stroke-dashoffset 1s cubic-bezier(0.47, 0, 0.745, 0.715) 0s',
+                }}
+              ></path>
+            </svg>
+
+            <Image
+              src="/assets/speedtest/button.png"
+              width={166}
+              height={40}
+              className="w-[166px] "
+              alt=""
+            />
+
+            <button loading={loading} type="dashed" onClick={() => onSubmit()}>
+              {btnStatus === 0 ? 'Start' : 'Start Again'}
+            </button>
           </div>
           <div className="flex flex-col gap-5 relative">
             <div className="w-[207px] h-[138px] flex flex-col justify-center items-center ">
@@ -183,7 +292,7 @@ const speedtest = () => {
                 Download
               </h3>
               <p className="relative flex flex-col justify-center items-center text-white text-[28px] font-bold">
-                18.36{' '}
+                {data.downloadSpeed}
                 <span className="text-white text-[8px] font-bold">mb/s</span>
               </p>
             </div>
@@ -206,7 +315,7 @@ const speedtest = () => {
                 Upload
               </h3>
               <p className="relative flex flex-col justify-center items-center text-white text-[28px] font-bold">
-                18.36{' '}
+                {data.uploadSpeed}
                 <span className="text-white text-[8px] font-bold">mb/s</span>
               </p>
             </div>
@@ -229,8 +338,8 @@ const speedtest = () => {
                 Ping
               </h3>
               <p className="relative flex flex-col justify-center items-center text-white text-[28px] font-bold">
-                18.36{' '}
-                <span className="text-white text-[8px] font-bold">mb/s</span>
+                {data.latency}
+                <span className="text-white text-[8px] font-bold">ms</span>
               </p>
             </div>
           </div>
@@ -370,4 +479,4 @@ const speedtest = () => {
   );
 };
 
-export default speedtest;
+export default Speedtest;

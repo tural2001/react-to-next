@@ -19,23 +19,25 @@ const Header = () => {
   };
 
   const scrollToUstunluklerimiz = () => {
-    if (router.pathname === '/') {
-      let scrollToPosition;
+    let scrollToPosition;
+    if (window.innerWidth <= 650) {
+      scrollToPosition = 620; // Küçük cihazlar için kaydırma pozisyonu
+    } else if (window.innerWidth <= 1100) {
+      scrollToPosition = 1050; // Orta boy cihazlar için kaydırma pozisyonu
+    } else {
+      scrollToPosition = 1250; // Büyük cihazlar için kaydırma pozisyonu
+    }
 
-      if (window.innerWidth <= 650) {
-        scrollToPosition = 620; // Küçük cihazlar için kaydırma pozisyonu
-      } else if (window.innerWidth <= 1100) {
-        scrollToPosition = 1050; // Orta boy cihazlar için kaydırma pozisyonu
-      } else {
-        scrollToPosition = 1250; // Büyük cihazlar için kaydırma pozisyonu
-      }
-
+    if (router.pathname !== '/') {
+      window.location.href = '/'; // Eğer '/'' yolunda değilse ana sayfaya git
+    } else {
       window.scrollTo({
         top: scrollToPosition,
         behavior: 'smooth',
       });
     }
   };
+
   return (
     <>
       <div className="">
@@ -203,10 +205,7 @@ const Header = () => {
               <li className="">
                 <Link href="/about"> Haqqımızda</Link>
               </li>
-              <li
-                className="#/ cursor-pointer"
-                onClick={scrollToUstunluklerimiz}
-              >
+              <li className="cursor-pointer" onClick={scrollToUstunluklerimiz}>
                 Üstünlüklərimiz
               </li>
               <li className="">

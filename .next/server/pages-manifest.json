@@ -2,8 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/about": "pages/about.js",
-  "/campaigns": "pages/campaigns.js",
   "/": "pages/index.js",
-  "/blog/[id]": "pages/blog/[id].js"
+  "/speedtest": "pages/speedtest.js"
 }
