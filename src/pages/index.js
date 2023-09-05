@@ -40,9 +40,9 @@ export async function getServerSideProps() {
 }
 
 const home = ({ TariffData, ReviewData, BlogData, error }) => {
-  console.log(BlogData.data);
-
+  console.log(BlogData, TariffData, ReviewData);
   const [isLoading, setIsLoading] = useState(true);
+  1;
 
   const { isOpen, toggleMenu } = useVisibleContext();
 
@@ -471,7 +471,7 @@ const home = ({ TariffData, ReviewData, BlogData, error }) => {
             </button>
           </div>
           <div className="grid grid-cols-5  max-w-[1099px]  justify-items-center gap-5 mt-10 max-xl:hidden">
-            {TariffData.data.map((item) => (
+            {/* {TariffData.data.map((item) => (
               <div className="h-[500px] w-[210px]  p-0 op" key={item.id}>
                 <div
                   className={`w-[200px] h-[350px] max-sm:w-[195px] max-sm:h-[332px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-b from-[#653E98] via-[transparent] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative z-10  mt-5  ml-1 ${
@@ -538,7 +538,7 @@ const home = ({ TariffData, ReviewData, BlogData, error }) => {
                   </div>
                 </div>
               </div>
-            ))}
+            ))} */}
           </div>
           <div className="swiper">
             <Swiper
@@ -551,7 +551,7 @@ const home = ({ TariffData, ReviewData, BlogData, error }) => {
               modules={[Pagination]}
               className="mySwiper"
             >
-              {TariffData.data.map((item) => (
+              {/* {TariffData.data.map((item) => (
                 <SwiperSlide key={item.id}>
                   {' '}
                   <div className="h-[450px] w-[210px] flex flex-col justify-center items-center p-0 op">
@@ -621,7 +621,7 @@ const home = ({ TariffData, ReviewData, BlogData, error }) => {
                     </div>
                   </div>
                 </SwiperSlide>
-              ))}
+              ))} */}
             </Swiper>
           </div>
           <div className="relative   text-[20px] max-xl:text-[16px] font-medium text-white flex gap-5 justify-center items-center ">
@@ -657,7 +657,7 @@ const home = ({ TariffData, ReviewData, BlogData, error }) => {
                 }}
                 className="mySwiper3"
               >
-                {ReviewData.data.map((item) => {
+                {/* {ReviewData.data.map((item) => {
                   return (
                     <SwiperSlide key={item.id}>
                       {' '}
@@ -681,7 +681,7 @@ const home = ({ TariffData, ReviewData, BlogData, error }) => {
                       </div>
                     </SwiperSlide>
                   );
-                })}
+                })} */}
                 <SwiperNavButtons />
               </Swiper>
             </div>
@@ -699,7 +699,7 @@ const home = ({ TariffData, ReviewData, BlogData, error }) => {
                 className="mySwiper2"
               >
                 <>
-                  {ReviewData.data.map((item) => {
+                  {/* {ReviewData.data.map((item) => {
                     return (
                       <SwiperSlide key={item.id}>
                         {' '}
@@ -723,7 +723,7 @@ const home = ({ TariffData, ReviewData, BlogData, error }) => {
                         </div>
                       </SwiperSlide>
                     );
-                  })}
+                  })} */}
                 </>
               </Swiper>
             </div>
@@ -735,7 +735,7 @@ const home = ({ TariffData, ReviewData, BlogData, error }) => {
           Bloq
         </h3>
         <div className="container max-w-[966px]  mx-auto  grid grid-cols-3 justify-items-center max-md:grid-cols-1 max-xl:grid-cols-2  max-xxl:mx-10  gap-12">
-          {BlogData.data.map((item) => {
+          {/* {BlogData.data.map((item) => {
             return (
               <div
                 className="flex flex-col justify-center max-xxl:w-[315px]  gap-2 h-[347px] "
@@ -764,7 +764,7 @@ const home = ({ TariffData, ReviewData, BlogData, error }) => {
                 </div>
               </div>
             );
-          })}
+          })} */}
         </div>
       </div>
       <Image

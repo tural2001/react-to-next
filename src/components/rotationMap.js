@@ -1,0 +1,28 @@
+const rotationMap = [
+  { downloadSpeed: 0, rotate: -155 },
+  { downloadSpeed: 0.3, rotate: -145 },
+  { downloadSpeed: 0.5, rotate: -140 },
+  { downloadSpeed: 0.8, rotate: -135 },
+  { downloadSpeed: 1, rotate: -125 },
+  { downloadSpeed: 1.5, rotate: -115 },
+  { downloadSpeed: 2.5, rotate: -100 },
+  { downloadSpeed: 5, rotate: -80 },
+  { downloadSpeed: 6, rotate: -70 },
+  { downloadSpeed: 7, rotate: -60 },
+  { downloadSpeed: 8, rotate: -50 },
+  { downloadSpeed: 9, rotate: -40 },
+  { downloadSpeed: 10, rotate: -35 },
+  { downloadSpeed: 11, rotate: -30 },
+  { downloadSpeed: 12, rotate: -25 },
+  { downloadSpeed: 15, rotate: -10 },
+  { downloadSpeed: 20, rotate: 10 },
+  { downloadSpeed: 30, rotate: 30 },
+  { downloadSpeed: 40, rotate: 40 },
+  { downloadSpeed: 46, rotate: 48 },
+  { downloadSpeed: 50, rotate: 55 },
+  { downloadSpeed: 60, rotate: 60 },
+  { downloadSpeed: 75, rotate: 70 },
+  { downloadSpeed: 100, rotate: 90 },
+];
+
+export default rotationMap;

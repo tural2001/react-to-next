@@ -108,8 +108,10 @@ import ping from './Speedtest/ping.png';
 import map from './map.svg';
 import loading from './loading.gif';
 import speedbutton from './speedbutton.png';
+import speed_button from './speed_button.svg';
 
 export {
+  speed_button,
   speedbutton,
   loading,
   header,

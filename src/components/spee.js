@@ -8,46 +8,6 @@ import Image from 'next/image';
 https://app.ipgeolocation.io/
 */
 
-function IpDatas() {
-  const [intDatas, SetIntDatas] = useState({
-    org: '',
-    country: '',
-    city: '',
-    ip: '',
-    country_flag: '',
-    currency: '',
-    calling_code: '',
-    continent_name: '',
-  });
-  const [collapseState, setCollapseState] = useState('');
-
-  useEffect(() => {
-    fetchIp();
-  }, []);
-
-  async function fetchIp() {
-    try {
-      const response = await axios.get(
-        'https://api.ipgeolocation.io/ipgeo?apiKey=9bef10d9cf88449f8ef4d8b2c4447407'
-      );
-      var resPattern = response.data;
-
-      SetIntDatas({
-        ip: resPattern.ip,
-        org: resPattern.organization,
-        country: resPattern.country_name,
-        city: resPattern.city,
-        country_flag: resPattern.country_flag,
-        currency: resPattern.currency,
-        calling_code: resPattern.calling_code,
-        continent_name: resPattern.continent_name,
-      });
-    } catch {
-      console.error('');
-    }
-  }
-}
-
 class Home extends Component {
   constructor(props) {
     super(props);
