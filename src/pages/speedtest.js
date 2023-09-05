@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Head from 'next/head';
 import axios from 'axios';
 import StrokeMap from '../components/StrokeMap';
-import rotationMap from '../components/RotationMap';
+import rotationMap from '../components/rotationMap';
 
 const Speedtest = () => {
   const router = useRouter();
