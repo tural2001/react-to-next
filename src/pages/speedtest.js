@@ -15,32 +15,40 @@ const Speedtest = () => {
   const [rotation, setRotation] = useState(-155);
   const [dashOffset, setDashOffset] = useState(0);
   const [isIncreasing, setIsIncreasing] = useState(true);
-  const getStoredData = () => {
-    const storedData = JSON.parse(localStorage.getItem('myData'));
-    if (storedData) {
-      return storedData;
-    }
-    return {
-      downloadSpeed: 0,
-      uploadSpeed: 0,
-      latency: '0',
-      useLocation: ' - ',
-      userIp: '0.0.0.0',
-    };
-  };
+  // const getStoredData = () => {
+  //   const storedData = JSON.parse(localStorage.getItem('myData'));
+  //   if (storedData) {
+  //     return storedData;
+  //   }
+  //   return {
+  //     downloadSpeed: 0,
+  //     uploadSpeed: 0,
+  //     latency: '0',
+  //     useLocation: ' - ',
+  //     userIp: '0.0.0.0',
+  //   };
+  // };
 
-  const [data, setData] = useState(getStoredData);
+  // const [data, setData] = useState(getStoredData);
 
-  // Verileri Local Storage'a kaydet
-  useEffect(() => {
-    localStorage.setItem('myData', JSON.stringify(data));
-  }, [data]);
+  // // Verileri Local Storage'a kaydet
+  // useEffect(() => {
+  //   localStorage.setItem('myData', JSON.stringify(data));
+  // }, [data]);
 
   const config = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
     Accept: 'application/json',
   };
+
+  const [data, setData] = useState({
+    downloadSpeed: 0,
+    uploadSpeed: 0,
+    latency: '0',
+    useLocation: ' - ',
+    userIp: '0.0.0.0',
+  });
 
   const { visible, setVisible } = useVisibleContext();
   useEffect(() => {
@@ -86,9 +94,9 @@ const Speedtest = () => {
     transform: `rotate(${rotation}deg)`,
     transition: 'transform 3s ease',
   });
-  rotationMap;
+  <rotationMap />;
   function getStrokeDashOffset(downloadSpeed) {
-    StrokeMap;
+    <StrokeMap />;
     if (downloadSpeed > 100) {
       return '1708.9490966796875px';
     } else {
