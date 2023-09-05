@@ -109,8 +109,10 @@ import map from './map.svg';
 import loading from './loading.gif';
 import speedbutton from './speedbutton.png';
 import speed_button from './speed_button.svg';
+import speed_bg from './speed_bg.png';
 
 export {
+  speed_bg,
   speed_button,
   speedbutton,
   loading,

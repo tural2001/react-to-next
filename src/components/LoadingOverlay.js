@@ -19,14 +19,7 @@ export const LoadingOverlay = () => {
   if (isLoading) {
     return (
       <div className="loading-overlay">
-        <Image
-          src="/assets/loading.gif"
-          width={1000}
-          height={1000}
-          layout="responsive"
-          priority
-          alt="Loading"
-        />
+        <Image src="/assets/loading.gif" fill priority alt="Loading" />
       </div>
     );
   }
