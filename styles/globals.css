@@ -328,10 +328,10 @@ select option {
   color: black;
 }
 
-.st59:hover {
+.st0.active {
   fill: white;
   stroke: #5b2d90;
-  transform: translateY(-10px); /* Move the element up by 5 pixels on hover */
+  transform: translateY(-150px);
 }
 
 polygon .st0 {

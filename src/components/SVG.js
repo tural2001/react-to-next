@@ -1,6 +1,7 @@
 import React from 'react';
 
-export const SVG = () => {
+export const SVG = ({ region }) => {
+  console.log(region);
   return (
     <svg
       version="1.1"
@@ -10,11 +11,9 @@ export const SVG = () => {
       x="0px"
       y="0px"
       viewBox="0 0 1920 1080"
-      // style="enable-background:new 0 0 1920 1080;"
-      // xml:space="preserve"
     >
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'agstafa' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st1"
@@ -521,7 +520,7 @@ export const SVG = () => {
           </g>
           <g>
             <polygon
-              className="st59"
+              className={`st59 agstafa ${region == 'agstafa' ? 'active' : ''}`}
               points="423.31,181.31 431.86,182.32 447.78,189.46 452.34,190.47 458.3,190.68 468.32,189.88 
 471.6,190.55 474.25,193.43 481.06,199.17 517.62,211.96 534.69,215.63 539.97,217.51 539.87,218 536.3,218.71 528.89,219.5 
 519.56,223.87 523.62,231.02 532.81,237.98 535.87,239.59 528.19,241.12 515.71,243.26 506.11,246.51 498.54,251.03 
@@ -587,7 +586,7 @@ l9.38-0.63l8.93-0.71l10.22-4.14l6.32-6.79l-0.6-6.24l-0.54-7.04l11.71-3.31l15.63,
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'qazax' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st6"
@@ -1226,7 +1225,7 @@ l4.86,2.63l3.08,3.08l3.26,2.4l12.77,2.06l10.81,3.94L392.36,279.13"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'tovuz' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st34"
@@ -1892,7 +1891,7 @@ l27.21,4.47l13.73-0.58l3-2.51l4.3-3.14l8.42-4.24L636.83,278.05"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'semkir' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st43"
@@ -2422,7 +2421,7 @@ L662.02,305.87"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'samux' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st92"
@@ -2934,7 +2933,7 @@ l6.66-1.41l18-6.49l17.98-6.9L771.91,327.24"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'balaken' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st15"
@@ -3427,7 +3426,7 @@ l10.3-3.1l10.37-2.46l12.79-3.43L854.06,145.18"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'zaqatala' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st47"
@@ -3951,7 +3950,7 @@ l0.82,0.47l4.3-5.01l16.73-8.06l14.49-10.71l13.72-8.05l16.4-1.54l18.84,2.31l16.24
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'qax' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st8"
@@ -4501,7 +4500,7 @@ l12.72-3.05l41.12-6.13l26.89-6.93l9.46-6.02L957.54,219.33"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'seki' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st11"
@@ -5178,7 +5177,7 @@ l11.4-0.25L993.26,381.54"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'oguz' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st19"
@@ -5578,7 +5577,7 @@ l11.69-11.96l13.62-8.48l3.32-4.86l1.26-5.25l13.29-8.53l12.55-9.23L1065.02,310.09
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == '' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st52"
@@ -5687,7 +5686,7 @@ l-1.73,2.58l9.3,2.48L932.38,289.5"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'gedebey' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st99"
@@ -6333,7 +6332,7 @@ l3.7-1.02l3.8-0.29l3.77,0.28l3.69,0.64l5.27,2.57L413.54,363.52"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'daskesen' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st4"
@@ -6671,7 +6670,7 @@ l-3.73,3.16l7.8,8.02l4.85,0.58l1.08-0.07l6.09-7.4l18.48-2.27l17.08,3.45l18.9,2.5
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'goygol' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st43"
@@ -7133,7 +7132,7 @@ l12.95-4.63l8.24-3.53L674.25,403.67"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'gence' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st31"
@@ -7230,7 +7229,7 @@ l-0.47,6.11l9.04,1.53L650.86,378.14"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'goranboy' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st31"
@@ -7846,7 +7845,7 @@ l6.75-1.99l6.52-1.83l6.47-1.56l16.7-6.13l6.76-1.05L797.86,422.06"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'yevlax' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st67"
@@ -8491,7 +8490,7 @@ l-0.08-1.67l0.98-2.4l1.16-1.24l2.22-1.59L876.96,404.39"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == '' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st35"
@@ -8569,7 +8568,7 @@ z M816.02,367.09l7.96,9.05l22.97-3l-0.94-2.47l-1.67-2.15l-4.56-0.49l-6.38,0.73l-
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == '' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st32"
@@ -8684,7 +8683,7 @@ l1.66,0.11L763.98,420.74"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == '' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st109"
@@ -8855,7 +8854,7 @@ l2.29-1.65L874.87,403.78"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'agdas' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st9"
@@ -9602,7 +9601,7 @@ l6.82-6.27L991.03,419.21"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'terter' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st11"
@@ -10167,7 +10166,7 @@ l4.55,1.56l2.03,1.77l5.99,1.23l7.79-1.03l3.96,4.96l0.04,5.27L793.05,496.88"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'kelbecer' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st130"
@@ -10926,7 +10925,7 @@ l11.91-0.17L686.78,516.7"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'berde' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st31"
@@ -11560,7 +11559,7 @@ L931.55,485.01"
           </g>
           <g>
             <polygon
-              className="st59"
+              className={`st59 ${region == 'berde' ? 'active' : ''}`}
               points="874.03,418.19 875.21,418.99 877.11,420.89 874.32,422.58 872.21,425.67 872.33,428.72 
 877.05,427.69 882.75,424.98 885.95,423.75 887.43,423.49 890.48,425.47 888.21,428.87 884.45,432.79 886.07,435.14 
 888.97,436.11 890.29,437.54 891.16,439.23 891.75,440 892.32,440.43 891.2,442.48 892.64,443.47 897.43,443.95 901.36,443.85 
@@ -11593,7 +11592,7 @@ L931.55,485.01"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'agdam' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st110"
@@ -12173,7 +12172,7 @@ L820.14,564.7"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'xocali' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st80"
@@ -12726,7 +12725,7 @@ l-4.78,1.56l-6.09,3.27l-1.39,4.34l2.8,1.64l4.93-1.05l4.31-3.48l2.65-2.28L687.65,
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == '' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st34"
@@ -12859,7 +12858,7 @@ l-4.78,1.56l-6.09,3.27l-1.39,4.34l2.8,1.64l4.93-1.05l4.31-3.48l2.65-2.28L687.66,
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'qusar' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st37"
@@ -13255,7 +13254,7 @@ l6.93,3.99l9.43,2.18l9.38,1.82l65.09-18.9l66.1-17.51l23.61-7.54l23.67-4.29L1332.
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'qebele' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st35"
@@ -13780,7 +13779,7 @@ L1148.95,333.3"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'quba' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st8"
@@ -14217,7 +14216,7 @@ l-6.26-8.23L1332.48,331.63"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'ismayilli' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st31"
@@ -14760,7 +14759,7 @@ l7.09-2.19l8.39-1.79l7.37-1.98l2.38-1.9l3.81-1.81l5.32-0.96l5.34-0.83l20.6-3.44l
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'goycay' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st98"
@@ -15116,7 +15115,7 @@ l5.7-1.03l6.03-1.96l6.42,0.92l16.3,7.31l8.89,3.6l10.21,1.75l7.71,0.16L1082.64,46
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'ucar' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st51"
@@ -15454,7 +15453,7 @@ l14.57,0.93l14.21,2.39l16.07-0.1l15.85,0.76l8.62-3.53l7.74-5.01L1075.7,470.45"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'zerdab' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st31"
@@ -16051,7 +16050,7 @@ l-0.97,5.25l1.15,3.72l4.93-0.38l3.45-0.68l3.47,0.74l1.71,0.66l7.75-2.12l9.2-1.53
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'agcabedi' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st148"
@@ -16670,7 +16669,7 @@ l9.46-1.28l2.81-1.96l4.56-1.2l7.06,0.95l6.49,0.26l9.84-1.37l9.94-0.69l9.98-4.01l
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'beyleqan' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st93"
@@ -17139,7 +17138,7 @@ l5.89-6.69l15.3-5.23L981.08,606.23"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'agsu' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st11"
@@ -17682,7 +17681,7 @@ l7.18-3.73l3.15-4.88l3.59-5.26l15.7-4.8l15.96-2.34L1265.61,470.81"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'xacmaz' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st11"
@@ -18139,7 +18138,7 @@ l14.08-1.7l13.13,1.9L1462.19,292.65"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'sabran' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st101"
@@ -18650,7 +18649,7 @@ l4.9-2.33l4.29-3.16l3.47-7.81l-1.69-7.94l13.81-7.11l20.5,1.77l9.62-1.33l10.42-0.
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'siyezen' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st8"
@@ -19038,7 +19037,7 @@ l5.41,4.1l-1.74,8.01l5.22,3.15l7.15,2.48l9.17,5.02l10.45,3.4l13.04,1.86l13.94-0.
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'samaxi' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st42"
@@ -19734,7 +19733,7 @@ l0.17-3.28l2.23-3.69l1.08-4.55l0.07-4.65l1.82-3.95l0.38-3.26l-3.3-2.41l-1.46-3.2
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'xizi' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st1"
@@ -20265,7 +20264,7 @@ l6.28-7.66l4.49-2.36l5.05-2.28l9.59-3.24l8-4.9l4.8-4.33l10.4,0.17l0.74-0.16l-0.1
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'qobustan' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st80"
@@ -20724,7 +20723,7 @@ L1435.61,484.91"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'sumqayit' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st35"
@@ -20926,7 +20925,7 @@ L1575.68,475.36"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'abseron' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st43"
@@ -21821,7 +21820,7 @@ l12.41,0l8.35-3.3l9.92-4.26l23.66,1.65l8.55-0.16l9.03,0.57l6.09,1.68l5.32,1.61l6
           </g>
           <g>
             <polygon
-              className="st59"
+              className={`st59 ${region == 'abseron' ? 'active' : ''}`}
               points="1611.84,490.98 1619.18,493.57 1614.01,495.77 1600.75,496.59 1587.16,497.11 1579.53,498.37 
 1572.61,498.96 1567.29,497.35 1561.21,495.67 1552.18,495.1 1543.62,495.25 1519.96,493.61 1510.05,497.87 1501.7,501.17 
 1489.29,501.16 1477.23,505.87 1472.32,516.91 1469.48,528.63 1462.9,540.14 1450.64,548.38 1444.58,550.65 1440.5,554.31 
@@ -21850,7 +21849,7 @@ l12.41,0l8.35-3.3l9.92-4.26l23.66,1.65l8.55-0.16l9.03,0.57l6.09,1.68l5.32,1.61l6
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'haciqabul' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st37"
@@ -22628,7 +22627,7 @@ l9.17,4.31l13.6,2.55l13.75,1.92l4.69,0.92l4.14,1.05l7.48-0.51l7.99-0.41l4.49,3.1
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == '' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st8"
@@ -22823,7 +22822,7 @@ l1.11,1.41l4.69,2.02l1.11,1.12l1.07,0.37l4.35-1.6l5.5-2.2l4.45-2.03L1304.47,587.
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'kurdemir' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st130"
@@ -23698,7 +23697,7 @@ L1181.71,536.9"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'sabirabad' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st34"
@@ -24680,7 +24679,7 @@ L1285.9,640.82"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'lacin' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st43"
@@ -25413,7 +25412,7 @@ l0.88,2.36l-1.21,2.32l-3.17,1.64l-2.1,0.35l7.13,3.94l11.59,1.88l12.77-3.78l22.22
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'qubadli' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st80"
@@ -25813,7 +25812,7 @@ l8.51,1.29l-4.04,15.46l8.33,4.31l10.37-5.55l12.67-5.49L620.92,689.12"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'sederek' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st101"
@@ -25958,7 +25957,7 @@ l-12.35-1.2l-13.29,0.23l-7.37,1.08l1.16,2.35l-0.52,8.05l2.22,3.29l2.3,1.15l10.9-
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'serur' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st1"
@@ -26357,7 +26356,7 @@ l0.48,0.63l7.47,4.39l13.83-3.82l12.9-7.52L191.15,586.65"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'kengerli' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st8"
@@ -26724,7 +26723,7 @@ l-1.5-5.37l2.9-2.48l2.59-1.78l0.55-5.68L202.24,602.57"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'babek' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st31"
@@ -27626,7 +27625,7 @@ l4.36,2.19l0.72-2.23l1.46-4.87L254.52,698.57"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'naxcivan' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st52"
@@ -27716,7 +27715,7 @@ L256.09,649.84z M263.32,658.36l7.95-5.94l-15.72-1.21l-17.99-0.83l-14.98-1.78l-11
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'sahbuz' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st101"
@@ -28134,7 +28133,7 @@ l13.68-2.87l13.79-1.7l10.06-1.99l4.79,4.65l5.58,1.2l7.29-3.44l10.81-4.93l-0.54-2
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'culfa' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st11"
@@ -28621,7 +28620,7 @@ l2.97-3.48l3.81-3.4l7.57-3.06L372.68,654.79"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'ordubad' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st37"
@@ -28941,7 +28940,7 @@ l-7.85,3.65l-3.09,3.15l-2.87,3.73l-2.05,1.67l-0.26,1.69l7.79,4.79l6.6,6.14l-7.35
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'imisli' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st32"
@@ -29864,7 +29863,7 @@ l7.34-0.45l21.23,2.1l3.21-0.17l3.25-1.16l4.43-2.43l1.43-2.22l18.11,2.5l16,10.3l1
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'saatli' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st37"
@@ -30333,7 +30332,7 @@ l13.88,7.31l11.22,5.14l13.08-5.74l-6.85-2.74l12.1-3.9l14.58-0.41l14.1-2.41L1210.
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'bilesuvar' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st101"
@@ -30862,7 +30861,7 @@ l5.58-1.94l3.8-2.73l4.85-2.38l5.54,0.43l3.95,1.83l6.12,1.52l6.05,0.45L1200.85,69
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'celilabad' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st8"
@@ -31477,7 +31476,7 @@ l6.69-1.85l-2.08-4.67l2.85-5.48l6.95-0.39l4.55,1.32l2.27-0.86l2.17-3.65l7.29,0.5
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'yardimli' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st37"
@@ -31795,7 +31794,7 @@ l7.16-2.79l7.31-1.67l6.79-2.21L1060.51,796.1"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == '' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st34"
@@ -31920,7 +31919,7 @@ l-1.98-1.35l-0.96,1.32l1.15,3.02l2.69,1.96l3.5-0.32L1804.77,555.52"
             />
           </g>
         </g>
-        <g className="st0">
+        <g className={`st0 ${region == 'baki' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st20"
@@ -33505,7 +33504,7 @@ l-1.75-2.73l1.44-4.41l-0.8-0.9l-4.3,0.4l-1.84-0.85l-1.82,3.67l5.82,7.98l-3.46,4.
           </g>
           <g>
             <path
-              className="st59"
+              className={`st59   ${region == ' ' ? 'active' : ''}`}
               d="M1733.6,556.04l0.46,3.97l-0.59,4.35l-0.64,0.79l-1.84-4.61l-3.42-5.78l-4.87-5.39l-10.94-7.77l-5.16-2.47
 l-5.71-1.92l-12.11-2.09l-9.81-2.96l-5.55-0.94l-3.41-0.07l-4.45,0.63l-2.63,0.17l-10.62-0.93l-5.99,0.79l-11.58,3.66l-4.73-0.41
 l-1.19-0.92l-2.05-3.65l-1.69-1.74l-2.85-1.01l-6.9-1.37l-6.61-3.1l-7.07,1.42l-12.48,4.28l-0.45,5.18l-9.35,3.67l-12.67,2.35
@@ -33645,7 +33644,7 @@ l4.87,5.39l3.42,5.78L1732.83,565.15"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'selyan' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st108"
@@ -34460,7 +34459,7 @@ l1-2.31l3.26-4.22l4.55-4.7l5.09-4.39l4.79-3.1L1371.84,666.32"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'susa' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st35"
@@ -34779,7 +34778,7 @@ L665.86,597.12"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == '' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st43"
@@ -34869,7 +34868,7 @@ L665.86,597.12"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'xocavend' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st92"
@@ -35745,7 +35744,7 @@ L818.06,598.63"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == '' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st80"
@@ -35835,7 +35834,7 @@ L818.06,598.63"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'masalli' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st46"
@@ -36216,7 +36215,7 @@ l9.33-2.09l4.96-2.14l5.32-1.26l11.58,1.15L1183.01,806.93"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'lerik' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st85"
@@ -36727,7 +36726,7 @@ l6.54-0.82l6.67-1.48L1104.51,861.66"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'neftcala' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st133"
@@ -37387,7 +37386,7 @@ l10.53-22.71l6.38-6.65l10.05-4.87l11.3-1.36l12.43,7.18l2.17,3.26l2.56,2.62L1364.
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'lenkeran' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st52"
@@ -37977,7 +37976,7 @@ l3.3-4.21l4.21-7.17l2.97-3.22L1300.07,764.46"
             />
           </g>
         </g>
-        <g className="st0">
+        <g className={`st0 ${region == 'lenkeran' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st11"
@@ -38327,7 +38326,7 @@ l11.67-27.56l-3.6,1.75l-5.63,0.88l-1.03-2.39l0.53-2.81l3.25-6.87l6.47-1.49l-0.6-
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'astara' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st57"
@@ -38572,7 +38571,7 @@ l6.3,5.51l0.98,0.14l12.46,1.72l7.05-0.49l8.31-1.19l8.01-1.86l7.26-2.77l7.51-1.47
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'fuzuli' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st34"
@@ -39078,7 +39077,7 @@ l4.02-1.04L886.97,636"
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'cebrayil' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st85"
@@ -39565,7 +39564,7 @@ l3.58-1.61l2.1-1.35l8.49-7.48l14.42-8.34l1.99-2.05l4.14-1.76l15.66-3.54L767.02,6
         </g>
       </g>
       <g>
-        <g className="st0">
+        <g className={`st0 ${region == 'zengilan' ? 'active' : ''}`}>
           <g>
             <polygon
               className="st32"
