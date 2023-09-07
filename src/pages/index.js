@@ -21,7 +21,7 @@ export async function getServerSideProps() {
     const Reviewresponse = await axios.get(`${base_url}/api/reviews`, config);
     const Blogresponse = await axios.get(`${base_url}/api/posts`, config);
     const Regionresponse = await axios.get(
-      `${base_url}/api/regions?perPage=100`,
+      `${base_url}/api/regions?perPage=74`,
       config
     );
 
@@ -43,16 +43,9 @@ export async function getServerSideProps() {
   }
 }
 
-const home = ({
-  TariffData,
-  ReviewData,
-  BlogData,
-  RegionData,
-  error,
-  region,
-}) => {
-  console.log(RegionData.data);
+const home = ({ TariffData, ReviewData, BlogData, RegionData, error }) => {
   const [selectedValue, setSelectedValue] = useState('');
+  const [svgValue, setSvgValue] = useState('');
 
   const [isLoading, setIsLoading] = useState(true);
   1;
@@ -136,8 +129,15 @@ const home = ({
 
   const pageTitle = 'Your Home Post Title';
   const pageDescription = 'Description of your home post.';
+
   const handleButtonClick = () => {
-    setSelectedValue(selectedValue);
+    if (selectedValue) {
+      // Eğer selectedValue doluysa, SVG bileşenine değeri iletilmesi için setSvgValue'i kullanın
+      setSvgValue(selectedValue);
+    } else {
+      // Eğer selectedValue boşsa, SVG bileşenine bir değer iletilmemesi için setSvgValue'i null yapın
+      setSvgValue(null);
+    }
   };
 
   return (
@@ -377,6 +377,7 @@ const home = ({
                 <select
                   className="text-[#637381] bg-inherit border-none text-[15px] font-medium rounded-lg block w-full p-2.5 focus:ring-0 hom"
                   value={selectedValue}
+                  id=""
                   onChange={(e) => setSelectedValue(e.target.value)}
                 >
                   <option value="">Seçiniz</option>
@@ -397,7 +398,7 @@ const home = ({
             <div className="col-span-2 flex justify-end items-center max-xxl:hidden">
               <div className="bg-[#5B2D90] col-span-2 h-96 w-3/4 rounded-3xl overflow-hidden">
                 <div className="absolute max-xxl:hidden svg">
-                  <SVG region={selectedValue} />
+                  <SVG region={svgValue} RegionData={RegionData} />
                 </div>
               </div>
             </div>

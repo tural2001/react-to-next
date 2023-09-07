@@ -331,7 +331,13 @@ select option {
 .st0.active {
   fill: white;
   stroke: #5b2d90;
-  transform: translateY(-150px);
+  transform: translateY(-100px);
+}
+
+.st59:hover {
+  fill: blue;
+  stroke: #5b2d90;
+  transform: translateY(-100px);
 }
 
 polygon .st0 {
