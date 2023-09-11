@@ -20,8 +20,34 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useVisibleContext } from '../components/VisibleContext';
 import Head from 'next/head';
+import axios from 'axios';
+import { base_url } from '../utils/base_url';
+import { config } from '../utils/axiosconfig';
+import Popup from 'reactjs-popup';
 
-const payment = () => {
+export async function getServerSideProps() {
+  try {
+    const Paymentresponse = await axios.get(`${base_url}/api/payments`, config);
+    const Popupresponse = await axios.get(`${base_url}/api/popups`, config);
+
+    return {
+      props: {
+        PaymentData: Paymentresponse.data,
+        PopupData: Popupresponse.data,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {
+        error: 'An error occurred while fetching data',
+      },
+    };
+  }
+}
+
+const payment = ({ PaymentData, PopupData }) => {
+  console.log(PopupData);
   const { visible, setVisible } = useVisibleContext();
   const router = useRouter();
 
@@ -208,10 +234,82 @@ const payment = () => {
               </h3>
             </div>
             <div className="grid grid-cols-3 max-xl:grid-cols-2 gap-5 py-5">
-              <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px]  bg-white flex justify-center items-center max-xl:hidden">
-                <AzercellPopup />
-              </div>
-              <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white hidden justify-center items-center max-xl:flex">
+              {PaymentData?.data.map((payment, i) => {
+                return (
+                  <div
+                    className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px]  bg-white flex justify-center items-center max-xl:hidden"
+                    key={1}
+                  >
+                    <Popup
+                      trigger={
+                        <Image
+                          // aria-describedby={props.description}
+                          suppressHydrationWarning={true}
+                          width={292}
+                          height={191}
+                          layout="responsive"
+                          src="/assets/payment/azercell.png"
+                          className=" max-xl:w-[75px] max-xl:h-[24px]"
+                          alt=""
+                          key={i}
+                        />
+                      }
+                      modal
+                      nested
+                      contentStyle={{
+                        padding: '0px',
+                        borderRadius: '50px',
+                        borderColor: 'white',
+                        width: '1110px',
+                        height: '575px',
+                        overflow: 'hidden',
+                      }}
+                    >
+                      {(close) => (
+                        <>
+                          <Image
+                            src="/assets/popup/x.png"
+                            className="absolute right-5 top-5 w-[40px] h-[42px]"
+                            alt=""
+                            width={40}
+                            height={42}
+                            onClick={close}
+                          />
+                          {PopupData?.data.map((popup, i) => {
+                            return (
+                              <div
+                                className="flex justify-center mt-32 gap-5"
+                                key={i}
+                              >
+                                <div className="flex justify-center items-center">
+                                  {' '}
+                                  <Image
+                                    width={285}
+                                    height={315}
+                                    src="/assets/popup/bankpopup.png"
+                                    className="rounded-3xl w-[285px] h-[315px]"
+                                    alt=""
+                                  />
+                                </div>
+                                <div className="w-[595px] h-[300px] leading-[115%] overflow-hidden">
+                                  <h2 className="text-[#444444] text-[13.5px] font-bold mt-32">
+                                    {popup.handle}
+                                  </h2>
+                                  <p className="text-[12px] text-[#B4B4B4]">
+                                    {popup.content}
+                                  </p>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </>
+                      )}
+                    </Popup>
+                  </div>
+                );
+              })}
+
+              {/* <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white hidden justify-center items-center max-xl:flex">
                 <AzercellPopupsm />
               </div>
               <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px]  bg-white flex justify-center items-center max-xl:hidden">
@@ -220,12 +318,12 @@ const payment = () => {
               <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white hidden justify-center items-center max-xl:flex">
                 <UmicoPopupsm />{' '}
               </div>
-              {/* <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px]  bg-white flex justify-center items-cente max-xl:hidden">
+ <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px]  bg-white flex justify-center items-cente max-xl:hidden">
                 <CibPopup />{' '}
               </div>
               <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white hidden justify-center items-center max-xl:flex">
                 <CibPopupsm />{' '}
-              </div> */}
+              </div> 
               <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px]  bg-white flex justify-center items-center max-xl:hidden">
                 <EdvPopup />
               </div>
@@ -255,7 +353,7 @@ const payment = () => {
               </div>
               <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white hidden justify-center items-center max-xl:flex">
                 <SmsPopupsm />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

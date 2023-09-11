@@ -13,8 +13,8 @@ export const SVG = ({ region, RegionData }) => {
   };
 
   const closePopup = () => {
-    setSelectedRegion(''); // Seçili bölgeyi sıfırlayın
-    setIsPopupOpen(false); // Popup'ı kapatın
+    setSelectedRegion('');
+    setIsPopupOpen(false);
   };
   return (
     <div>

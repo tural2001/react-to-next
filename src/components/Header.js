@@ -7,8 +7,31 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useVisibleContext } from './VisibleContext';
+import { base_url } from '../utils/base_url';
+import { config } from '../utils/axiosconfig';
 
-const Header = () => {
+export async function getServerSideProps() {
+  try {
+    const Blogresponse = await axios.get(
+      `${base_url}/api/posts?published=true`,
+      config
+    );
+    return {
+      props: {
+        BlogData: Blogresponse.data,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {
+        error: 'An error occurred while fetching data',
+      },
+    };
+  }
+}
+
+const Header = ({ BlogData }) => {
   const { isOpen, toggleMenu } = useVisibleContext();
   const router = useRouter();
 
@@ -65,7 +88,7 @@ const Header = () => {
             </li>
             <li className="">
               {' '}
-              <Link href={`/blog/:id`}>Bloq </Link>
+              <Link href={`/blog`}>Bloq </Link>
             </li>
           </ul>
           <ul className="flex justify-center items-center">

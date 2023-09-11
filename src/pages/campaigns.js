@@ -11,7 +11,7 @@ import axios from 'axios';
 export async function getServerSideProps() {
   try {
     const Campaignsresponse = await axios.get(
-      `${base_url}/api/campaigns`,
+      `${base_url}/api/posts?published=true`,
       config
     );
     return {
@@ -29,6 +29,7 @@ export async function getServerSideProps() {
   }
 }
 const Campaigns = ({ CampaignsData }) => {
+  console.log(CampaignsData);
   const { visible, setVisible } = useVisibleContext();
   const router = useRouter();
 
@@ -144,52 +145,62 @@ const Campaigns = ({ CampaignsData }) => {
           />
         </div>
       </div>
-      {CampaignsData.data.map((campaign, index) => (
-        <div key={index}>
-          <div className="bg-[#F7F6FB] py-5 mt-20 max-xl:mt-0 max-sm:py-0 max-xl:px-5 ">
-            <div className=" overflow-auto  grid grid-cols-3 gap-5  max-w-6xl mx-auto max-xl:grid-cols-1">
-              <div className="w-[347px] h-[485px] max-xl:w-[291px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-[#5B2D90] mt-20">
-                <Image
-                  className="absolute left-[70px] mt-10 max-sm:left-0 max-sm:top-20 "
-                  src="/assets/campaigns/adsl.png"
-                  width={900}
-                  height={500}
-                  alt=""
-                />
-              </div>
-              <div className="col-span-2 max-xl:col-span-1 flex flex-col justify-center gap-5 ">
-                <h3 className="text-purple-900 text-[40px] font-bold leading-10 uppercase max-sm:text-[20px]">
-                  3+1 ADSL
-                </h3>
-                <p className="text-[16px] text-[#757575] max-sm:text-justify leading-[25px]  ">
-                  {campaign.description}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="bg-white py-5 max-xl:px-5">
-            <div className=" overflow-auto  grid grid-cols-3 gap-5  max-w-6xl mx-auto max-xl:grid-cols-1">
-              <div className="w-[347px] h-[485px] max-xl:w-[291px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-[#5B2D90] mt-20">
-                <Image
-                  className="absolute right-[140px] mt-14 max-sm:left-0 max-sm:top-20 "
-                  src="/assets/campaigns/adsl.png"
-                  width={900}
-                  height={500}
-                  alt=""
-                />
-              </div>
-              <div className="col-span-2 flex flex-col justify-center gap-5 order-first max-xl:order-last">
-                <h3 className="text-purple-900 text-[40px] font-bold leading-10 uppercase max-sm:text-[20px]">
-                  3+1 ADSL
-                </h3>
-                <p className="text-[16px] text-[#757575]">
-                  {campaign.description}
-                </p>
+
+      {CampaignsData?.data.map((campaign, index) => {
+        if (index % 2 === 0) {
+          return (
+            <div
+              className="bg-[#F7F6FB] py-5 mt-20 max-xl:mt-0 max-sm:py-0 max-xl:px-5"
+              key={index}
+            >
+              <div className=" overflow-auto  grid grid-cols-3 gap-5  max-w-6xl mx-auto max-xl:grid-cols-1">
+                <div className="w-[347px] h-[485px] max-xl:w-[291px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-[#5B2D90] mt-20">
+                  <Image
+                    className="absolute left-[-200px] mt-10 max-sm:left-0 max-sm:top-20 "
+                    src="/assets/campaigns/adsl.png"
+                    width={900}
+                    height={500}
+                    alt=""
+                  />
+                </div>
+                <div className="col-span-2 max-xl:col-span-1 flex flex-col justify-center gap-5 ">
+                  <h3 className="text-purple-900 text-[40px] font-bold leading-10 uppercase max-sm:text-[20px]">
+                    3+1 ADSL
+                  </h3>
+                  <p className="text-[16px] text-[#757575] max-sm:text-justify leading-[25px]">
+                    {campaign.description}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      ))}
+          );
+        } else {
+          return (
+            <div className="bg-white py-5 max-xl:px-5" key={index}>
+              <div className=" overflow-auto  grid grid-cols-3 gap-5  max-w-6xl mx-auto max-xl:grid-cols-1">
+                <div className="w-[347px] h-[485px] max-xl:w-[291px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-[#5B2D90] mt-20">
+                  <Image
+                    className="absolute right-[-50px] mt-14 max-sm:left-0 max-sm:top-20 "
+                    src="/assets/campaigns/adsl.png"
+                    width={900}
+                    height={500}
+                    alt=""
+                  />
+                </div>
+                <div className="col-span-2 flex flex-col justify-center gap-5 order-first max-xl:order-last">
+                  <h3 className="text-purple-900 text-[40px] font-bold leading-10 uppercase max-sm:text-[20px]">
+                    3+1 ADSL
+                  </h3>
+                  <p
+                    className="text-[16px] text-[#757575]"
+                    dangerouslySetInnerHTML={{ __html: campaign.description }}
+                  ></p>
+                </div>
+              </div>
+            </div>
+          );
+        }
+      })}
     </>
   );
 };

@@ -15,7 +15,10 @@ import axios from 'axios';
 export async function getServerSideProps({ query }) {
   try {
     const { id } = query;
-    const Blogresponse = await axios.get(`${base_url}/api/posts`, config);
+    const Blogresponse = await axios.get(
+      `${base_url}/api/posts?published=true`,
+      config
+    );
     return {
       props: {
         BlogData: Blogresponse.data,

@@ -30,6 +30,7 @@ export async function getServerSideProps() {
 }
 
 const adsl = ({ TariffData }) => {
+  console.log(TariffData);
   const { isOpen, toggleMenu } = useVisibleContext();
 
   const data5 = [
@@ -107,73 +108,75 @@ const adsl = ({ TariffData }) => {
             ADSL
           </h3>
           <div className="flex justify-center gap-3  items-center  mt-10 max-xl:hidden">
-            {data5.map((item, index) => (
-              <div className="h-[500px] w-[210px] p-0 op" key={item.id}>
-                <div
-                  key={index}
-                  className={`w-[200px] h-[350px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-start items-center gap-3   mt-5  ml-1 ${
-                    item.id === 'pro' ? 'outline-red' : ''
-                  }`}
-                >
-                  <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
-                    <Image
+            {TariffData?.data
+              ?.filter((item) => item.service?.title.az == 'Lorem ipsum')
+              .map((tariff, index) => (
+                <div className="h-[500px] w-[210px] p-0 op" key={tariff.id}>
+                  <div
+                    key={tariff.id}
+                    className={`w-[200px] h-[350px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-start items-center gap-3   mt-5  ml-1 ${
+                      tariff.id === 'pro' ? 'outline-red' : ''
+                    }`}
+                  >
+                    <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
+                      {/* <Image
                       src={item.image}
                       width={item.width}
                       height={item.height}
                       alt=""
-                    />
-                  </div>
-                  <p className="text-[20px] font-bold text-white">
-                    {item.name}
-                  </p>
-                  <div className="border-[1px] w-32 border-[#f1f1f1] opacity-20" />
-                  <p className="text-white text-[24px] font-bold">
-                    {item.speed} Mb/s
-                  </p>
-                  <div className="bg-[#FFA35B] w-full h-10 hover:flex justify-center items-center gap-2 hidden fiber">
-                    <Image
-                      src="/assets/packets/tv2.png"
-                      width={10}
-                      height={10}
-                      alt=""
-                    />
-                    <p className="text-[10px] font-bold text-[#5B2D90]">
-                      IP TV
+                    /> */}
+                    </div>
+                    <p className="text-[20px] font-bold text-white">
+                      {tariff.name}
                     </p>
+                    <div className="border-[1px] w-32 border-[#f1f1f1] opacity-20" />
+                    <p className="text-white text-[24px] font-bold">
+                      {tariff.speed} Mb/s
+                    </p>
+                    <div className="bg-[#FFA35B] w-full h-10 hover:flex justify-center items-center gap-2 hidden fiber">
+                      <Image
+                        src="/assets/packets/tv2.png"
+                        width={10}
+                        height={10}
+                        alt=""
+                      />
+                      <p className="text-[10px] font-bold text-[#5B2D90]">
+                        IP TV
+                      </p>
+                    </div>
+                    <p className="text-white text-[10px] font-bold flex gap-1">
+                      <Image
+                        src="/assets/packets/pq2.png"
+                        width={11}
+                        height={15}
+                        alt=""
+                      />
+                      {tariff.description}
+                    </p>
+                    <div className="border-[1px] w-32 border-[#f1f1f1] opacity-20" />
+                    <p className="text-[20px] font-bold text-[#FFA35B] flex justify-center items-center gap-1 ">
+                      {tariff.price}{' '}
+                      <Image
+                        src="/assets/packets/azn.png"
+                        width={20}
+                        height={20}
+                        className="h-5"
+                        alt=""
+                      />
+                    </p>
+                    <TariffsPopup />
                   </div>
-                  <p className="text-white text-[10px] font-bold flex gap-1">
-                    <Image
-                      src="/assets/packets/pq2.png"
-                      width={11}
-                      height={15}
-                      alt=""
-                    />
-                    {item.description}
-                  </p>
-                  <div className="border-[1px] w-32 border-[#f1f1f1] opacity-20" />
-                  <p className="text-[20px] font-bold text-[#FFA35B] flex justify-center items-center gap-1 ">
-                    {item.price}{' '}
-                    <Image
-                      src="/assets/packets/azn.png"
-                      width={20}
-                      height={20}
-                      className="h-5"
-                      alt=""
-                    />
-                  </p>
-                  <TariffsPopup />
-                </div>
-                <div className="flex justify-center">
-                  <div
-                    className={`${
-                      item.id === 'pro' ? 'flag-services' : 'hidden'
-                    }   mt-0 text-[8px] text-center font-medium justify-center`}
-                  >
-                    Üstünlük verilən
+                  <div className="flex justify-center">
+                    <div
+                      className={`${
+                        tariff.id === 'pro' ? 'flag-services' : 'hidden'
+                      }   mt-0 text-[8px] text-center font-medium justify-center`}
+                    >
+                      Üstünlük verilən
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
           <div className={`swiper ${isOpen ? 'open' : ''}`}>
             <Swiper
