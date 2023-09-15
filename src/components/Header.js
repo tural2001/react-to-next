@@ -112,7 +112,10 @@ const Header = ({ BlogData }) => {
 
           <ul className="flex  gap-2 max-sm:gap-1 ">
             <li className="overflow-hidden">
-              <a className="text-white flex items-center gap-2 max-sm:gap-1 overflow-hidden">
+              <a
+                href="tel:8220"
+                className="text-white flex items-center gap-2 max-sm:gap-1 overflow-hidden"
+              >
                 <div className="container bg-white mx-auto w-7 h-7 rounded-full flex justify-center items-center overflow-hidden">
                   <Image
                     src="/assets/cellphone.png"

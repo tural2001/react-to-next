@@ -24,9 +24,12 @@ export async function getServerSideProps() {
     };
   }
 }
-const aix = () => {
-  const pageTitle = 'Your Services Post Title';
-  const pageDescription = 'Description of your services post.';
+const aix = ({ TariffData }) => {
+  const filteredData = TariffData.data.filter((item) => item.title === 'ipsum');
+
+  const pageTitle = filteredData.map((item) => item.meta_title);
+  const pageDescription = filteredData.map((item) => item.meta_description);
+
   return (
     <>
       <Head>

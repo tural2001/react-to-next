@@ -4,45 +4,53 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
+import { base_url } from '../utils/base_url';
+import { config } from '../utils/axiosconfig';
+import axios from 'axios';
 
-const about = () => {
-  const data = [
-    {
-      name: 'Elçin Niyazov',
-      job: 'direktor',
-      image: '/assets/about/img.png',
-    },
-    {
-      name: 'Elçin Niyazov',
-      job: 'direktor',
-      image: '/assets/about/img.png',
-    },
-    {
-      name: 'Elçin Niyazov',
-      job: 'direktor',
-      image: '/assets/about/img.png',
-    },
-    {
-      name: 'Elçin Niyazov',
-      job: 'direktor',
-      image: '/assets/about/img.png',
-    },
-    {
-      name: 'Elçin Niyazov',
-      job: 'direktor',
-      image: '/assets/about/img.png',
-    },
-  ];
+export async function getServerSideProps() {
+  try {
+    const Valuesresponse = await axios.get(
+      `${base_url}/api/our-values`,
+      config
+    );
+    const Structureresponse = await axios.get(
+      `${base_url}/api/structures`,
+      config
+    );
+    const Pageresponse = await axios.get(`${base_url}/api/pages`, config);
+
+    return {
+      props: {
+        ValuesData: Valuesresponse.data,
+        PageData: Pageresponse.data,
+        StructureData: Structureresponse.data,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {
+        error: 'An error occurred while fetching data',
+      },
+    };
+  }
+}
+
+const about = ({ ValuesData, StructureData, PageData }) => {
+  console.log(PageData.data);
 
   const { visible, setVisible } = useVisibleContext();
   const router = useRouter();
-
+  const filteredData = PageData.data.filter(
+    (item) => item.slug === 'haqqimizda'
+  );
   useEffect(() => {
     setVisible(router.pathname === '/a');
   }, [router, setVisible]);
 
-  const pageTitle = 'Your About Post Title';
-  const pageDescription = 'Description of your about post.';
+  const pageTitle = filteredData.map((item) => item.meta_title);
+  const pageDescription = filteredData.map((item) => item.meta_description);
   return (
     <>
       <Head>
@@ -136,47 +144,52 @@ const about = () => {
         />
       </div>
       <div className="about-wrapper-1 max-w-[1100px] grid grid-cols-2 max-sm:grid-cols-1 max-lg:grid-cols-1 max-xl:grid-cols-1 gap-10 mx-auto max-sm:py-10  py-20  bg-white">
-        <div className="max-sm:mx-10 max-lg:mx-10 max-xl:mx-10">
-          <h3 className="max-xl:hidden block text-center text-purple-900 text-[40px] max-sm:text-[20px] max-lg:text-[30px] font-bold leading-10 overflow-hidden max-xl:text-[30px]  ">
-            HAQQIMIZDA
-          </h3>{' '}
-          <h3 className="h3 text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xl:text-[30px] max-xxl:text-white ">
-            HAQQIMIZDA
-          </h3>
-          <div className="hidden max-xl:block absolute  z-[1] max-xl:z-[-1] top-[130px] right-48 max-xxl:right-5  max-xxl:top-20 ">
-            <Image
-              src="/assets/about/about.png"
-              width={210}
-              height={193}
-              className="w-[210px] h-[193px]"
-              alt=""
-            />
-          </div>
-          <p className="text-justify text-neutral-500 text-[20px] font-normal leading-7 mt-10 max-sm:text-[16px] max-lg:text-[18px] ">
-            “Azeronline LTD” Birgə Müəssisəsi 1999-cu il, 29 dekabr tarixində
-            Azercell Telekom BM tərəfindən təsis edilmişdır. Azərbaycanda
-            yaranan ilk İnternet provayder şirkətlərindən biri olan Azeronline
-            həm fərdi, həm də korporativ müştərilərinə müasir texnologiyalara
-            əsaslanan Fiber optik, Simsiz və Ayrılmış xətt kimi İnternet
-            xidmətləri də təqdim edir. Müştərilərimiz arasında iri şirkətlər,
-            banklar, eləcə də dövlət qurumları yer almaqdadır.
-            <br />
-            <br />
-          </p>
-        </div>
-        <div className="max-xl:hidden flex justify-center items-center">
-          {' '}
-          <div className="w-[475px] h-[264px] flex justify-center items-center  rounded-xl bg-[#5B2D90] ">
-            {' '}
-            <Image
-              className="w-[497.67px] h-[457px]   max-xl:hidden"
-              src="/assets/about/about.png"
-              width={497}
-              height={457}
-              alt=""
-            />
-          </div>
-        </div>
+        {PageData?.data
+          ?.filter((item) => item.slug === 'haqqimizda')
+          .map((item, index) => {
+            return (
+              <>
+                <div
+                  className="max-sm:mx-10 max-lg:mx-10 max-xl:mx-10"
+                  key={item.id}
+                >
+                  <h3 className="max-xl:hidden text-purple-900 text-[40px] font-bold leading-10 overflow-hidden max-sm:text-[20px] max-lg:text-[30px] max-xl:text-[30px] ">
+                    {item.title}
+                  </h3>{' '}
+                  <h3 className="h3 text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xl:text-[30px] max-xxl:text-white ">
+                    {item.title}
+                  </h3>
+                  <div className="hidden max-xl:block absolute  z-[1] max-xl:z-[-1] top-[130px] right-48 max-xxl:right-0  max-xxl:top-20 ">
+                    <Image
+                      src="/assets/about/about.png"
+                      width={210}
+                      height={193}
+                      className="w-[210px] h-[193px]"
+                      alt=""
+                    />
+                  </div>
+                  <p className="text-justify text-neutral-500 text-[20px] font-normal leading-7 mt-10 max-sm:text-[16px] max-lg:text-[18px] ">
+                    {item.content}
+                    <br />
+                    <br />
+                  </p>
+                </div>
+                <div className="max-xl:hidden flex justify-center items-center">
+                  {' '}
+                  <div className="w-[475px] h-[264px] flex justify-center items-center  rounded-xl bg-[#5B2D90] ">
+                    {' '}
+                    <Image
+                      className="w-[497.67px] h-[457px] mt-20  max-xl:hidden"
+                      src="/assets/about/about.png"
+                      width={497}
+                      height={457}
+                      alt=""
+                    />
+                  </div>
+                </div>
+              </>
+            );
+          })}
       </div>
       <div className="about-wrapper-2 bg-[#F7F6FB] py-20">
         <div className="max-w-[1100px] mx-auto grid grid-cols-2 gap-20">
@@ -198,64 +211,31 @@ const about = () => {
               DƏYƏRLƏRİMİZ
             </h3>
             <div className="grid grid-cols-3 gap-10 mx-auto mt-10 max-sm:flex max-sm:flex-col max-sm:mx-5 max-sm:justify-center max-sm:items-center max-lg:grid-cols-2  max-lg:gap-5 max-xl:gap-2 ">
-              <div className=" w-[323.30px] h-[400px] max-sm:w-[300px] max-sm:h-[312px]  max-lg:w-[280px] max-lg:h-[342px] max-xl:w-[270px] max-xl:h-[400px] px-[39px] py-[40px]  bg-white rounded-3xl  justify-center items-center  flex flex-col gap-5">
-                <div className="w-[225px] h-[270.25px] flex flex-col gap-3">
-                  {' '}
-                  <Image
-                    src="/assets/about/yes.png"
-                    width={68}
-                    height={44}
-                    className="w-[68px] max-sm:w-[44px]"
-                    alt=""
-                  />
-                  <h4 className=" text-black text-[24px] font-semibold max-sm:text-[20px]">
-                    Yüksək etik standartlar
-                  </h4>
-                  <p className=" text-neutral-500 text-[16px] font-normal leading-snug">
-                    Dürüstlük və məsuliyyət üzərində qurulmuş iş prinsipi.
-                  </p>
-                </div>
-              </div>
-              <div className=" w-[323.30px] h-[400px] max-sm:w-[300px] max-sm:h-[312px]  max-lg:w-[280px] max-lg:h-[342px] max-xl:w-[270px] max-xl:h-[400px] px-[39px] py-[40px]  bg-white rounded-3xl  justify-center items-center  flex flex-col gap-5">
-                <div className="w-[225px] h-[270.25px] flex flex-col gap-3">
-                  <Image
-                    src="/assets/about/my.png"
-                    width={68}
-                    height={44}
-                    className="w-[68px] max-sm:w-[44px]"
-                    alt=""
-                  />
-
-                  <h4 className=" text-black text-[24px] font-semibold max-sm:text-[20px]">
-                    Müştəri
-                    <br />
-                    yönümlülük
-                  </h4>
-                  <p className=" text-neutral-500 text-[16px] font-normal leading-snug">
-                    Artan keyfiyyət qarşısında münasib
-                    <br />
-                    xidmət haqqı.
-                  </p>
-                </div>
-              </div>
-              <div className=" w-[323.30px] h-[400px] max-sm:w-[300px] max-sm:h-[312px]  max-lg:w-[280px] max-lg:h-[342px] max-xl:w-[270px] max-xl:h-[400px] px-[39px] py-[40px]  bg-white rounded-3xl  justify-center items-center  flex flex-col gap-5">
-                <div className="w-[225px] h-[270.25px] flex flex-col gap-3">
-                  <Image
-                    src="/assets/about/irq.png"
-                    width={68}
-                    height={44}
-                    className="w-[68px] max-sm:w-[44px]"
-                    alt=""
-                  />
-
-                  <h4 className=" text-black text-[24px] font-semibold max-sm:text-[20px]">
-                    İnsan resurslarına qayğı
-                  </h4>
-                  <p className="  text-neutral-500 text-[16px] font-normal leading-snug">
-                    Komandamız ən dəyərli silahımızdır.
-                  </p>
-                </div>
-              </div>
+              {ValuesData?.data?.slice(0, 6).map((item) => {
+                return (
+                  <div
+                    className=" w-[323.30px] h-[400px] max-sm:w-[300px] max-sm:h-[312px]  max-lg:w-[280px] max-lg:h-[342px] max-xl:w-[270px] max-xl:h-[400px] px-[39px] py-[40px]  bg-white rounded-3xl  justify-center items-center  flex flex-col gap-5"
+                    key={item.id}
+                  >
+                    <div className="w-[225px] h-[270.25px] flex flex-col gap-3">
+                      {' '}
+                      <Image
+                        src="/assets/about/yes.png"
+                        width={68}
+                        height={44}
+                        className="w-[68px] max-sm:w-[44px]"
+                        alt=""
+                      />
+                      <h4 className=" text-black text-[24px] font-semibold max-sm:text-[20px]">
+                        {item.title}
+                      </h4>
+                      <p className=" text-neutral-500 text-[16px] font-normal leading-snug">
+                        {item.description}{' '}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -265,15 +245,15 @@ const about = () => {
           Sturuktur
         </h3>
         <div className="grid grid-cols-4 max-sm:grid-cols-2 max-lg:grid-cols-3 max-xl:grid-cols-3 max-lg:mt-10 mt-20 max-sm:mt-5 max-xl:mt-5  max-xl:gap-5">
-          {data.map((item, index) => {
+          {StructureData?.data?.map((item) => {
             return (
               <div
                 className="w-[246.31px] max-sm:w-[132px] max-lg:w-[222px] max-img:w-[202px] max-sm:h-[262px] max-lg:h-[400px]  max-md:h-[330px] max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:gap-1  max-lg:flex max-lg:flex-col max-lg:justify-center max-lg:items-center max-lg:gap-2  max-xl:flex max-xl:flex-col max-xl:justify-center max-xl:items-center max-xl:gap-1   "
-                key={index}
+                key={item.id}
               >
                 <Image
                   className="w-[244px] h-[309px] max-sm:w-[132px] max-m:w-[162px] max-sm:h-[168px] max-lg:w-[220px] max-lg:h-[268px] max-md:h-[238px] max-md:w-[200px] rounded-2xl"
-                  src={item.image}
+                  src="/assets/about/img.png"
                   width={244}
                   height={309}
                   alt=""
@@ -282,7 +262,7 @@ const about = () => {
                   {item.name}
                 </h3>
                 <h2 className=" text-center text-stone-300 text-[15px] font-medium leading-snug max-sm:text-[12px]">
-                  {item.job}
+                  {item.profession}
                 </h2>
               </div>
             );

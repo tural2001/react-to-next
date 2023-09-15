@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { CiLocationOn } from 'react-icons/ci';
 import Dropzone from 'react-dropzone';
 import { CvPopup } from '../components/CvPopup';
@@ -12,7 +12,8 @@ import Head from 'next/head';
 import { config } from '../utils/axiosconfig';
 import { base_url } from '../utils/base_url';
 import axios from 'axios';
-
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 export async function getServerSideProps() {
   try {
     const Vacanciesresponse = await axios.get(
@@ -33,37 +34,18 @@ export async function getServerSideProps() {
     };
   }
 }
+
+let schema = yup.object({
+  name: yup.string().required('Name is Required'),
+  email: yup.string().required('Email is Required'),
+  phone: yup.string().required('Phone is Required'),
+  notes: yup.string().required('Notes is Required'),
+  vacancy_name: yup.string().required('Vancancy is Required'),
+  cv: yup.mixed().required('Cv is Required'),
+});
+
 const career = ({ VacanciesData }) => {
-  const data = [
-    {
-      title: 'Developer full stack',
-      location: 'Bakı, Azərbaycan',
-    },
-    {
-      title: 'Developer full stack',
-      location: 'Bakı, Azərbaycan',
-    },
-    {
-      title: 'Developer full stack',
-      location: 'Bakı, Azərbaycan',
-    },
-    {
-      title: 'Developer full stack',
-      location: 'Bakı, Azərbaycan',
-    },
-    {
-      title: 'Developer full stack',
-      location: 'Bakı, Azərbaycan',
-    },
-    {
-      title: 'Developer full stack',
-      location: 'Bakı, Azərbaycan',
-    },
-    {
-      title: 'Developer full stack',
-      location: 'Bakı, Azərbaycan',
-    },
-  ];
+  const [isFileDetected, setIsFileDetected] = useState(false);
 
   const { visible, setVisible } = useVisibleContext();
   const router = useRouter();
@@ -74,6 +56,49 @@ const career = ({ VacanciesData }) => {
 
   const pageTitle = 'Your Career Post Title';
   const pageDescription = 'Description of your career post.';
+
+  const onDrop = useCallback((acceptedFiles) => {
+    formik.setFieldValue('cv', acceptedFiles);
+    setIsFileDetected(true);
+
+    // acceptedFiles'ı axios.post isteği içinde kullanma
+    const formData = new FormData();
+    formData.append('file', acceptedFiles[0]); // Varsayılan olarak sadece bir dosya ekleyeceğinizi varsayıyorum.
+
+    axios
+      .post(`${base_url}/api/upload-media`, formData, {
+        headers: {
+          ...config.headers, // headers konfigürasyonunu kullanarak gerekli başlıkları ekleyin
+          'Content-Type': 'multipart/form-data',
+          // Dosya yükleme işlemi olduğu için bu başlığı ayarlamalısınız.
+        },
+      })
+      .then((response) => {
+        // İşlem başarılıysa yapılacak işlemleri burada gerçekleştirin.
+      })
+      .catch((error) => {
+        // Hata durumunda yapılacak işlemleri burada gerçekleştirin.
+      });
+
+    // dispatch(uploadImg(acceptedFiles)); işlemi Redux veya benzeri bir yönetim sistemi kullanıyorsanız uygun bir şekilde yerleştirilmelidir.
+  }, []);
+
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      name: '',
+      phone: '',
+      email: '',
+      notes: '',
+      vacancy_name: '',
+      cv: null,
+    },
+    validationSchema: schema,
+    onSubmit: (values) => {
+      axios.post(`${base_url}/api/career-forms`, values, config);
+      formik.resetForm();
+    },
+  });
   return (
     <>
       <Head>
@@ -229,7 +254,28 @@ const career = ({ VacanciesData }) => {
               </h3>
             </div>
             <form
-              action=""
+              onSubmit={(e) => {
+                e.preventDefault();
+                const requiredFields = [
+                  'name',
+                  'phone',
+                  'cv',
+                  'email',
+                  'notes',
+                  'vacancy_name',
+                ];
+                const errors = {};
+                requiredFields.forEach((fieldName) => {
+                  if (formik.touched[fieldName] && !formik.values[fieldName]) {
+                    errors[fieldName] = 'This field is Required';
+                  }
+                });
+                if (Object.keys(errors).length > 0) {
+                  toast.error('Please fill in the required fields.');
+                  return;
+                }
+                formik.handleSubmit(e);
+              }}
               className="grid grid-cols-2 max-xl:flex max-xl:flex-col max-xl:w-full max-xl:justify-center max-xl:items-center gap-7 py-10 "
             >
               <div className="w-full flex flex-col justify-center max-xl:items-center gap-2 ">
@@ -241,6 +287,10 @@ const career = ({ VacanciesData }) => {
                   type="text"
                   className="border border-[#DBDBDB]  bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12  focus:ring-0"
                   placeholder="Lorem ipsum"
+                  name="name"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.name}
                 />
               </div>
               <div className="w-full flex flex-col justify-center  gap-2 max-xl:items-center">
@@ -249,9 +299,18 @@ const career = ({ VacanciesData }) => {
                   Əlaqə nömrəsi <span className="text-[#ED1C24]">*</span>
                 </label>
                 <input
-                  type="text"
+                  type="tel"
                   className="border border-[#DBDBDB]  bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12  focus:ring-0"
                   placeholder="+994 _ _  _ _ _  _ _  _ _"
+                  name="phone"
+                  onChange={(e) => {
+                    const inputPhone = e.target.value.replace(/\D/g, ''); // Remove non-digit characters
+                    if (inputPhone.length <= 9) {
+                      formik.setFieldValue('phone', inputPhone); // Update the field value
+                    }
+                  }}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.phone}
                 />
               </div>
               <div className="w-full flex flex-col justify-center gap-2 max-xl:items-center">
@@ -264,6 +323,10 @@ const career = ({ VacanciesData }) => {
                   type="text"
                   className="border border-[#DBDBDB]  bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12  focus:ring-0"
                   placeholder="Lorem ipsum"
+                  name="vacancy_name"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.vacancy_name}
                 />
               </div>
               <div className="w-full   flex flex-col justify-center gap-2 max-xl:items-center">
@@ -272,9 +335,13 @@ const career = ({ VacanciesData }) => {
                   E-poçt ünvanı <span className="text-[#ED1C24]">*</span>
                 </label>
                 <input
-                  type="text"
-                  className="border border-[#DBDBDB]  bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12   focus:ring-0"
+                  type="email"
+                  className="border border-[#DBDBDB]  bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12  focus:ring-0"
                   placeholder="Lorem ipsum"
+                  name="email"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.email}
                 />
               </div>
               <div className="w-full flex flex-col justify-center gap-2 max-xl:items-center">
@@ -283,40 +350,89 @@ const career = ({ VacanciesData }) => {
                 </label>
                 <textarea
                   className="border-[#DBDBDB] w-[445px] h-[189px] max-xl:w-11/12     bg-[#F4F4F4] rounded-lg"
-                  name=""
                   cols="10"
                   rows="8"
+                  name="notes"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.notes}
                 ></textarea>
               </div>
               <div className="w-full   flex flex-col justify-center gap-2 max-xl:items-center">
                 <label htmlFor="" className="text-black  text-[16px]">
                   CV faylını yükləyin <span className="text-[#ED1C24]">*</span>
                 </label>
-                <Dropzone>
+                <Dropzone onDrop={onDrop}>
                   {({ getRootProps, getInputProps }) => (
                     <section>
-                      <div
-                        {...getRootProps()}
-                        className="border border-[#DBDBDB] w-[445px] h-[189px] max-xl:w-11/12    bg-[#F4F4F4] rounded-lg flex justify-center items-center"
-                      >
+                      <div {...getRootProps()}>
                         <input {...getInputProps()} />
-                        <p className="uppercase text-[12px] max-xl:text-[10px]  text-[#9A9A9A] flex flex-col justify-center items-center font-semibold  gap-4">
-                          <Image
-                            src="/assets/addfile.png"
-                            width={78}
-                            height={78}
-                            alt=""
-                            className="w-[78px] h-[78px] max-xl:w-[40px] max-xl:h-[40px]"
-                          />
-                          PDF, DOC, DOCX, maks 2 mb
-                        </p>
+
+                        <div className="border border-[#DBDBDB] w-[445px] h-[189px] max-xl:w-11/12    bg-[#F4F4F4] rounded-lg flex justify-center items-center">
+                          <label
+                            htmlFor="dropzone-file"
+                            className={`flex flex-col items-center justify-center w-full h-48    rounded-lg cursor-pointer  ${
+                              isFileDetected
+                                ? 'bg-green-200'
+                                : ' hover:bg-gray-100'
+                            } `}
+                          >
+                            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                              {isFileDetected ? (
+                                <p className="mb-2 text-sm text-yellow-600 dark:text-yellow-400">
+                                  File detected
+                                </p>
+                              ) : (
+                                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                  <span className="font-semibold">
+                                    Click to upload
+                                  </span>{' '}
+                                  or drag and drop
+                                </p>
+                              )}
+
+                              <svg
+                                aria-hidden="true"
+                                className="w-10 h-10 mb-3 text-gray-400"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                                ></path>
+                              </svg>
+                              <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                <span className="font-semibold">
+                                  Click to upload
+                                </span>{' '}
+                                or drag and drop
+                              </p>
+                              <p className="text-xs text-gray-500 dark:text-gray-400">
+                                SVG, PNG, JPG or GIF (MAX. 800x400px)
+                              </p>
+                            </div>
+                            <input
+                              id="dropzone-file"
+                              type="file"
+                              className="hidden"
+                            />
+                          </label>
+                        </div>
                       </div>
                     </section>
                   )}
                 </Dropzone>
               </div>
 
-              <button className="col-span-2 w-[349px] h-[66px] max-xl:w-full  max-xl:h-[35px] text-[16px] bg-[#5B2D90] text-white rounded-full mt-5">
+              <button
+                type="submit"
+                className="col-span-2 w-[349px] h-[66px] max-xl:w-full  max-xl:h-[35px] text-[16px] bg-[#5B2D90] text-white rounded-full mt-5"
+              >
                 Göndər
               </button>
             </form>

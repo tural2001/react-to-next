@@ -334,9 +334,7 @@ select option {
   transform: translateY(-100px);
 }
 
-.st59:hover {
-  fill: blue;
-  stroke: #5b2d90;
+.st0:hover {
   transform: translateY(-100px);
 }
 
@@ -517,9 +515,9 @@ polygon .st0 {
 .st58 {
   fill: #3c007b;
 }
-.st59 {
+/* .st59 {
   fill: #d3d3d3;
-}
+} */
 .st60 {
   fill: #3e0080;
 }

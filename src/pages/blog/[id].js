@@ -49,9 +49,6 @@ const blog = ({ BlogData, id }) => {
     setVisible(router.pathname === '/');
   }, [router.pathname]);
 
-  const pageTitle = 'Your Blog Post Title';
-  const pageDescription = 'Description of your blog post.';
-
   const totalPages = Math.ceil(BlogData.data.length / blogsPerPage);
   const startIndex = (currentPage - 1) * blogsPerPage;
   const endIndex = startIndex + blogsPerPage;
@@ -76,12 +73,9 @@ const blog = ({ BlogData, id }) => {
       setIsNavigating(false);
     }
   };
-  const handleScrollUp = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
+
+  const pageTitle = paginatedBlogs.map((item) => item.meta_title);
+  const pageDescription = paginatedBlogs.map((item) => item.meta_description);
 
   return (
     <>

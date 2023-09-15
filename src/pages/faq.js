@@ -10,7 +10,8 @@ import Head from 'next/head';
 import axios from 'axios';
 import { base_url } from '../utils/base_url';
 import { config } from '../utils/axiosconfig';
-
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 export async function getServerSideProps() {
   try {
     const Faqsresponse = await axios.get(`${base_url}/api/faqs`, config);
@@ -28,6 +29,12 @@ export async function getServerSideProps() {
     };
   }
 }
+
+let schema = yup.object({
+  name: yup.string().required('Name is Required'),
+  phone: yup.string().required('Phone is Required'),
+  question: yup.string().required('Question is Required'),
+});
 
 const faq = ({ FaqsData }) => {
   const data = [
@@ -75,6 +82,20 @@ const faq = ({ FaqsData }) => {
   useEffect(() => {
     setVisible(router.pathname === '/a');
   }, [router, setVisible]);
+
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      name: '',
+      phone: '',
+      question: '',
+    },
+    validationSchema: schema,
+    onSubmit: (values) => {
+      axios.post(`${base_url}/api/faq-forms`, values, config);
+      formik.resetForm();
+    },
+  });
 
   const pageTitle = 'Your Faq Post Title';
   const pageDescription = 'Description of your faq post.';
@@ -233,7 +254,21 @@ const faq = ({ FaqsData }) => {
             Sualınız var?
           </h3>
           <form
-            action=""
+            onSubmit={(e) => {
+              e.preventDefault();
+              const requiredFields = ['name', 'phone', 'question'];
+              const errors = {};
+              requiredFields.forEach((fieldName) => {
+                if (formik.touched[fieldName] && !formik.values[fieldName]) {
+                  errors[fieldName] = 'This field is Required';
+                }
+              });
+              if (Object.keys(errors).length > 0) {
+                toast.error('Please fill in the required fields.');
+                return;
+              }
+              formik.handleSubmit(e);
+            }}
             className="grid grid-cols-2 max-xl:grid-cols-1 gap-5  justify-items-between py-10 max-xl:mx-5"
           >
             <div className="w-full flex flex-col  justify-center gap-2">
@@ -243,8 +278,11 @@ const faq = ({ FaqsData }) => {
               </label>
               <input
                 type="text"
-                className="border-[#5B2D90]  bg-white rounded-md w-[469px] h-[58px] max-xl:w-full focus:ring-0"
-                placeholder="Mark"
+                className="border-[#5B2D90] bg-white rounded-md w-[469px] h-[58px] max-xl:w-full focus:ring-0"
+                name="name"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.name} // Use 'value' instead of 'values'
               />
             </div>
             <div className="w-full flex flex-col justify-center gap-2">
@@ -253,9 +291,18 @@ const faq = ({ FaqsData }) => {
                 Əlaqə nömrəsi <span className="text-[#ED1C24]">*</span>
               </label>
               <input
-                type="text"
+                type="tel"
                 className="border-[#5B2D90]  bg-white rounded-xl w-[469px] h-[58px] max-xl:w-full focus:ring-0"
                 placeholder="+994 _ _  _ _ _  _ _  _ _"
+                name="phone"
+                onChange={(e) => {
+                  const inputPhone = e.target.value.replace(/\D/g, ''); // Remove non-digit characters
+                  if (inputPhone.length <= 9) {
+                    formik.setFieldValue('phone', inputPhone); // Update the field value
+                  }
+                }}
+                onBlur={formik.handleBlur}
+                value={formik.values.phone}
               />
             </div>
             <div className="w-full flex flex-col col-span-2 max-xl:col-span-1 justify-center gap-2">
@@ -264,12 +311,18 @@ const faq = ({ FaqsData }) => {
               </label>
               <textarea
                 className="border-[#5B2D90] w-[980px] max-xl:w-full  bg-white rounded-xl"
-                name=""
                 cols="30"
                 rows="8"
+                name="question"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.question}
               ></textarea>
             </div>
-            <button className="w-[250px] h-[58px] bg-[#5B2D90] text-white rounded-full text-[16px]">
+            <button
+              type="submit"
+              className="w-[250px] h-[58px] bg-[#5B2D90] text-white rounded-full text-[16px]"
+            >
               Göndər
             </button>
           </form>

@@ -15,39 +15,15 @@ import { base_url } from '../utils/base_url';
 import { config } from '../utils/axiosconfig';
 import axios from 'axios';
 
-export async function getServerSideProps() {
-  try {
-    const Tariffresponse = await axios.get(`${base_url}/api/tariffs`, config);
-    const Reviewresponse = await axios.get(`${base_url}/api/reviews`, config);
-    const Blogresponse = await axios.get(
-      `${base_url}/api/posts?published=true`,
-      config
-    );
-    const Regionresponse = await axios.get(
-      `${base_url}/api/regions?perPage=74`,
-      config
-    );
-
-    return {
-      props: {
-        TariffData: Tariffresponse.data,
-        ReviewData: Reviewresponse.data,
-        BlogData: Blogresponse.data,
-        RegionData: Regionresponse.data,
-      },
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      props: {
-        error: 'An error occurred while fetching data',
-      },
-    };
-  }
-}
-
-const home = ({ TariffData, ReviewData, BlogData, RegionData, error }) => {
-  console.log(BlogData);
+const home = ({
+  TariffData,
+  ReviewData,
+  BlogData,
+  RegionData,
+  AdvantageData,
+  ColorData,
+  error,
+}) => {
   const [selectedValue, setSelectedValue] = useState('');
   const [svgValue, setSvgValue] = useState('');
 
@@ -61,57 +37,6 @@ const home = ({ TariffData, ReviewData, BlogData, RegionData, error }) => {
       setIsLoading(false);
     }, 2000);
   }, []);
-
-  const data = [
-    {
-      id: 1,
-      image: '/assets/pq.png',
-      width: 32,
-      height: 32,
-      title: 'Pulsuz qoşulma',
-      backgroundColor: '#DCC5F6',
-    },
-    {
-      id: 2,
-      image: '/assets/ged.png',
-      width: 33,
-      height: 35,
-      title: 'Geniş əhatə dairəsi',
-      backgroundColor: '#C0D9FF',
-    },
-    {
-      id: 3,
-      image: '/assets/kx.png',
-      width: 36,
-      height: 34,
-      title: 'Keyfiyyətli xidmət',
-      backgroundColor: '#C4FFD5',
-    },
-    {
-      id: 4,
-      image: '/assets/md.png',
-      width: 40,
-      height: 39,
-      title: '24/7 Müştəri Dəstəyi',
-      backgroundColor: '#FFD7BA',
-    },
-    {
-      id: 5,
-      image: '/assets/gti.png',
-      width: 33,
-      height: 35,
-      title: 'Geniş Texniki İmkanlar',
-      backgroundColor: '#FFE1E1',
-    },
-    {
-      id: 6,
-      image: '/assets/pk.png',
-      width: 38,
-      height: 31,
-      title: 'Professional komanda',
-      backgroundColor: '#F6C5EE',
-    },
-  ];
 
   const { visible, setVisible } = useVisibleContext();
 
@@ -136,10 +61,8 @@ const home = ({ TariffData, ReviewData, BlogData, RegionData, error }) => {
 
   const handleButtonClick = () => {
     if (selectedValue) {
-      // Eğer selectedValue doluysa, SVG bileşenine değeri iletilmesi için setSvgValue'i kullanın
       setSvgValue(selectedValue);
     } else {
-      // Eğer selectedValue boşsa, SVG bileşenine bir değer iletilmemesi için setSvgValue'i null yapın
       setSvgValue(null);
     }
   };
@@ -285,15 +208,19 @@ const home = ({ TariffData, ReviewData, BlogData, RegionData, error }) => {
             <div className="max-xxl:col-span-3 max-xxl:flex max-xxl:flex-col max-xxl:justify-center max-xxl:items-center">
               <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-sm:text-center"></h3>
               <div className="border border-[#637381] rounded-3xl w-3/4 max-sm:w-[204px] max-sm:h-[40px] overflow-hidden max-sm:mt-3">
-                {data.map((region, index) => {
-                  <select
-                    id=""
-                    key={index}
-                    className="text-[#637381] bg-inherit  border-none text-[15px] font-medium rounded-lg block w-full p-2.5 focus:ring-0 hom"
-                  >
-                    <option value={region.handle}>{region.handle}</option>
-                  </select>;
-                })}
+                <select
+                  className="text-[#637381] bg-inherit border-none text-[15px] font-medium rounded-lg block w-full p-2.5 focus:ring-0 hom"
+                  value={selectedValue}
+                  id=""
+                  onChange={(e) => setSelectedValue(e.target.value)}
+                >
+                  <option value="">Seçiniz</option>
+                  {RegionData?.data?.map((region) => (
+                    <option key={region.id} value={region.handle}>
+                      {region.handle}
+                    </option>
+                  ))}
+                </select>
               </div>
               <button className="w-[178px] h-[40px]  bg-[#5B2D90] rounded-3xl text-[16px] text-white font-medium mt-5 max-sm:w-[132px] max-sm:h-[28px] max-sm:text-[12px] overflow-hidden ">
                 Bax
@@ -308,18 +235,15 @@ const home = ({ TariffData, ReviewData, BlogData, RegionData, error }) => {
             </div>
             <div className="col-span-3 pt-20 max-xxl:hidden">
               <ul className="flex justify-center gap-20 text-[16px] font-medium">
-                <li className="flex gap-2 items-center">
-                  <div className="w-9 h-9 rounded-full bg-[#5B2D90]" />
-                  Xidmət var
-                </li>
-                <li className="flex gap-2 items-center">
-                  <div className="w-9 h-9 rounded-full bg-[#9A7DFF]" />
-                  Xidmət veriləcək
-                </li>{' '}
-                <li className="flex gap-2 items-center">
-                  <div className="w-9 h-9  rounded-full bg-[#D3D3D3]" />
-                  Xidmət yoxdur
-                </li>{' '}
+                {ColorData?.data?.map((item) => {
+                  console.log(item.code);
+                  return (
+                    <li className="flex gap-2 items-center" key={item.id}>
+                      <div className={`w-9 h-9 rounded-full`} />
+                      {item.name}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>
@@ -408,18 +332,17 @@ const home = ({ TariffData, ReviewData, BlogData, RegionData, error }) => {
             </div>
             <div className="col-span-3 pt-20 max-xxl:hidden">
               <ul className="flex justify-center gap-20 text-[16px] font-medium">
-                <li className="flex gap-2 items-center">
-                  <div className="w-9 h-9 rounded-full bg-[#5B2D90]" />
-                  Xidmət var
-                </li>
-                <li className="flex gap-2 items-center">
-                  <div className="w-9 h-9 rounded-full bg-[#9A7DFF]" />
-                  Xidmət veriləcək
-                </li>{' '}
-                <li className="flex gap-2 items-center">
-                  <div className="w-9 h-9  rounded-full bg-[#D3D3D3]" />
-                  Xidmət yoxdur
-                </li>{' '}
+                {ColorData?.data?.map((item, index) => {
+                  return (
+                    <li className="flex gap-2 items-center" key={index}>
+                      <div
+                        className={`w-9 h-9 rounded-full `}
+                        style={{ backgroundColor: item.code }}
+                      />
+                      {item.name}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>
@@ -443,7 +366,7 @@ const home = ({ TariffData, ReviewData, BlogData, RegionData, error }) => {
             Üstünlüklərimiz
           </h3>
           <div className="grid grid-cols-3 justify-items-center gap-5 mt-10 max-lg:grid-cols-1 max-xxl:grid-cols-2">
-            {data.map((item) => (
+            {AdvantageData?.data?.slice(0, 6).map((item) => (
               <div
                 key={item.id}
                 className="w-[344px] h-[204px] max-sm:h-[124px] max-sm:w-[308px] max-xxl:h-[174px] max-xxl:w-[445px]  flex flex-col justify-center items-center border border-[#CDCDCD] p-5 gap-5 rounded-2xl max-xl:flex-row max-xl:justify-strech   max-xl:items-center  max-xxl:flex-col max-xxl:justify-strech   max-xxl:items-start"
@@ -453,12 +376,12 @@ const home = ({ TariffData, ReviewData, BlogData, RegionData, error }) => {
                     style={{ backgroundColor: item.backgroundColor }}
                     className="flex justify-center items-center w-[65px] h-[65px] rounded-xl "
                   >
-                    <Image
+                    {/* <Image
                       src={item.image}
                       width={item.width}
                       height={item.height}
                       alt=""
-                    />
+                    /> */}
                   </div>
                   <p className="text-[24px] font-semibold max-md:text-[15px] max-xxl:text-[16px]">
                     {item.title}
@@ -497,7 +420,7 @@ const home = ({ TariffData, ReviewData, BlogData, RegionData, error }) => {
             </button>
           </div>
           <div className="grid grid-cols-5  max-w-[1099px]  justify-items-center gap-5 mt-10 max-xl:hidden">
-            {TariffData?.data.map((item) => (
+            {TariffData?.data?.map((item) => (
               <div className="h-[500px] w-[210px]  p-0 op" key={item.id}>
                 <div
                   className={`w-[200px] h-[350px] max-sm:w-[195px] max-sm:h-[332px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-b from-[#653E98] via-[transparent] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative z-10  mt-5  ml-1 ${
@@ -577,7 +500,7 @@ const home = ({ TariffData, ReviewData, BlogData, RegionData, error }) => {
               modules={[Pagination]}
               className="mySwiper"
             >
-              {TariffData?.data.map((item) => (
+              {TariffData?.data?.map((item) => (
                 <SwiperSlide key={item.id}>
                   {' '}
                   <div className="h-[450px] w-[210px] flex flex-col justify-center items-center p-0 op">
@@ -671,7 +594,6 @@ const home = ({ TariffData, ReviewData, BlogData, RegionData, error }) => {
           <h3 className="text-[40px] text-[#5B2D90] font-bold text-center max-md:text-[20px]  max-xl:text-[30px]">
             Müştəri rəyləri
           </h3>
-
           <div className="w-full flex   ">
             <div className="swiper">
               <Swiper
@@ -683,7 +605,7 @@ const home = ({ TariffData, ReviewData, BlogData, RegionData, error }) => {
                 }}
                 className="mySwiper3"
               >
-                {ReviewData?.data.map((item) => {
+                {ReviewData?.data?.map((item) => {
                   return (
                     <SwiperSlide key={item.id}>
                       {' '}
@@ -725,7 +647,7 @@ const home = ({ TariffData, ReviewData, BlogData, RegionData, error }) => {
                 className="mySwiper2"
               >
                 <>
-                  {ReviewData?.data.map((item) => {
+                  {ReviewData?.data?.map((item) => {
                     return (
                       <SwiperSlide key={item.id}>
                         {' '}
@@ -761,13 +683,13 @@ const home = ({ TariffData, ReviewData, BlogData, RegionData, error }) => {
           Bloq
         </h3>
         <div className="container max-w-[966px]  mx-auto  grid grid-cols-3 justify-items-center max-md:grid-cols-1 max-xl:grid-cols-2  max-xxl:mx-10  gap-12">
-          {BlogData?.data.map((item) => {
+          {BlogData?.data?.map((item) => {
             return (
               <div
                 className="flex flex-col justify-center max-xxl:w-[315px]  gap-2 h-[347px] "
                 key={item.id}
               >
-                <div key={item.id} onClick={() => handleClick(item.id)}>
+                <div key={item.id} onClick={() => handleClick(item.slug)}>
                   <div className="max-sm:flex max-sm:flex-col max-sm:justify-center">
                     {' '}
                     <Image
@@ -824,4 +746,42 @@ const home = ({ TariffData, ReviewData, BlogData, RegionData, error }) => {
     </>
   );
 };
+
+export async function getServerSideProps() {
+  try {
+    const Tariffresponse = await axios.get(`${base_url}/api/tariffs`, config);
+    const Reviewresponse = await axios.get(`${base_url}/api/reviews`, config);
+    const Colorresponse = await axios.get(`${base_url}/api/colors`, config);
+    const Advantageresponse = await axios.get(
+      `${base_url}/api/advantages`,
+      config
+    );
+    const Blogresponse = await axios.get(
+      `${base_url}/api/posts?published=true`,
+      config
+    );
+    const Regionresponse = await axios.get(
+      `${base_url}/api/regions?perPage=74`,
+      config
+    );
+
+    return {
+      props: {
+        TariffData: Tariffresponse.data,
+        ReviewData: Reviewresponse.data,
+        BlogData: Blogresponse.data,
+        RegionData: Regionresponse.data,
+        AdvantageData: Advantageresponse.data,
+        ColorData: Colorresponse.data,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {
+        error: 'An error occurred while fetching data',
+      },
+    };
+  }
+}
 export default home;
