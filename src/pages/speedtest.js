@@ -12,17 +12,10 @@ const Speedtes = () => {
   const [loading, setLoading] = useState(false);
   const [rotation, setRotation] = useState(-155);
   const [active, setActive] = useState(false);
-  const [download, setDownload] = useState(
-    localStorage.getItem('download') || null
-  );
-  const [upload, setUpload] = useState(localStorage.getItem('upload') || null);
-  const [latency, setLatency] = useState(
-    localStorage.getItem('latency') || null
-  );
-  const [ipAddress, setIpAddress] = useState(
-    localStorage.getItem('upload') || null
-  );
-
+  const [download, setDownload] = useState(null);
+  const [upload, setUpload] = useState(null);
+  const [latency, setLatency] = useState(null);
+  const [ipAddress, setIpAddress] = useState(null);
   const [error, setError] = useState(null);
 
   const startSpeedTest = async () => {
@@ -39,12 +32,7 @@ const Speedtes = () => {
         setLatency(data.latency);
         const ip = await publicIpv4();
         setIpAddress(ip);
-
-        // Verileri localStorage'a yaz
-        localStorage.setItem('downloadSpeed', data.downloadSpeed.toString());
-        localStorage.setItem('uploadSpeed', data.uploadSpeed.toString());
-        localStorage.setItem('latency', data.latency.toString());
-        localStorage.setItem('ipAddress', ip);
+        console.log(ipAddress);
       } else {
         setError('Something went wrong');
       }
@@ -73,9 +61,9 @@ const Speedtes = () => {
   }, [router, setVisible]);
 
   const onSubmit = () => {
-    localStorage.setItem('uploadSpeed', '0');
-    localStorage.setItem('downloadSpeed', '0');
-    localStorage.setItem('latency', '0');
+    setDownload(0);
+    setUpload(0);
+    setLatency(0);
   };
 
   const [isActive, setIsActive] = useState(false);
@@ -212,7 +200,7 @@ const Speedtes = () => {
     }
     return 0;
   };
-
+  console.log(download);
   useEffect(() => {
     const newRotation = findRotationForSpeed(download);
 
@@ -324,7 +312,7 @@ const Speedtes = () => {
                 />
               </div>
               <div className="w-[82px] h-[35px] ">
-                <p className="text-[16px] font-bold text-white">{ipAddress}</p>
+                {ipAddress}
                 <p className="text-[8px] font-normal text-white"> IP Address</p>
               </div>
             </div>
@@ -1047,7 +1035,7 @@ const Speedtes = () => {
                 Download
               </h3>
               <p className="relative flex flex-col justify-center items-center text-white text-[28px] font-bold">
-                {Math.floor(parseFloat(localStorage.getItem('downloadSpeed')))}
+                {Math.floor(download)}
                 <span className="text-white text-[8px] font-bold">mb/s</span>
               </p>
             </div>
@@ -1070,7 +1058,7 @@ const Speedtes = () => {
                 Upload
               </h3>
               <p className="relative flex flex-col justify-center items-center text-white text-[28px] font-bold">
-                {Math.floor(parseFloat(localStorage.getItem('uploadSpeed')))}
+                {Math.floor(upload)}
                 <span className="text-white text-[8px] font-bold">mb/s</span>
               </p>
             </div>
@@ -1093,7 +1081,7 @@ const Speedtes = () => {
                 Ping
               </h3>
               <p className="relative flex flex-col justify-center items-center text-white text-[28px] font-bold">
-                {Math.floor(parseFloat(localStorage.getItem('latency')))}
+                {Math.floor(latency / 6)}
                 <span className="text-white text-[8px] font-bold">ms</span>
               </p>
             </div>
@@ -1791,7 +1779,7 @@ const Speedtes = () => {
                 Download
               </h3>
               <p className="relative flex flex-col justify-center items-center text-white text-[28px] font-bold">
-                {Math.floor(parseFloat(localStorage.getItem('download')))}
+                {download}
                 <span className="text-white text-[8px] font-bold">mb/s</span>
               </p>
             </div>
@@ -1814,7 +1802,7 @@ const Speedtes = () => {
                 Upload
               </h3>
               <p className="relative flex flex-col justify-center items-center text-white text-[28px] font-bold">
-                {Math.floor(parseFloat(localStorage.getItem('upload')))}
+                {upload}
                 <span className="text-white text-[8px] font-bold">mb/s</span>
               </p>
             </div>
@@ -1837,7 +1825,7 @@ const Speedtes = () => {
                 Ping
               </h3>
               <p className="relative flex flex-col justify-center items-center text-white text-[28px] font-bold">
-                {Math.floor(parseFloat(localStorage.getItem('latency' / 6)))}
+                {latency}
                 <span className="text-white text-[8px] font-bold">ms</span>
               </p>
             </div>
@@ -1854,9 +1842,7 @@ const Speedtes = () => {
                 />
               </div>
               <div className="w-[82px] h-[35px]">
-                <p className="text-[16px] font-bold text-white">
-                  {localStorage.getItem('ipAddress')}
-                </p>
+                <p className="text-[16px] font-bold text-white">{ipAddress} </p>
                 <p className="text-[8px] font-normal text-white"> IP Address</p>
               </div>
             </div>
