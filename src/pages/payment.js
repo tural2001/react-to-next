@@ -47,7 +47,6 @@ export async function getServerSideProps() {
 }
 
 const payment = ({ PaymentData, PopupData }) => {
-  console.log(PopupData);
   const { visible, setVisible } = useVisibleContext();
   const router = useRouter();
 
@@ -175,53 +174,26 @@ const payment = ({ PaymentData, PopupData }) => {
               </h3>
             </div>
             <div className="grid grid-cols-3 max-xl:grid-cols-2 gap-5 py-5">
-              <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white flex justify-center items-center">
-                <Link href="/paybybankcard">
-                  <Image
-                    src="/assets/payment/hokumetodenisportali.png"
-                    width={259}
-                    height={107}
-                    className="w-[259px] h-[107px] max-xl:w-[104px] max-xl:h-[42px]"
-                    alt=""
-                  />
-                </Link>
-              </div>
-              <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white flex justify-center items-center">
-                <Image
-                  src="/assets/payment/hesabaz.png"
-                  width={266}
-                  height={44}
-                  className="w-[266px] h-[44px] max-xl:w-[106px] max-xl:h-[17px]"
-                  alt=""
-                />
-              </div>
-              <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white flex justify-center items-center">
-                <Image
-                  src="/assets/payment/asanodenis.png"
-                  width={167}
-                  height={107}
-                  className="w-[167px] h-[107px] max-xl:w-[67px] max-xl:h-[42px]"
-                  alt=""
-                />
-              </div>
-              <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white flex justify-center items-center">
-                <Image
-                  src="/assets/payment/portmanat.png"
-                  width={260}
-                  height={43}
-                  className="w-[260px] h-[43px] max-xl:w-[104px] max-xl:h-[17px]"
-                  alt=""
-                />
-              </div>
-              <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white flex justify-center items-center">
-                <Image
-                  src="/assets/payment/cib.png"
-                  width={157}
-                  height={61}
-                  className="w-[157px] h-[61px] max-xl:w-[63px] max-xl:h-[24px]"
-                  alt=""
-                />
-              </div>
+              {PaymentData?.data
+                .filter((item) => item.redirect_link !== null)
+                .map((item) => {
+                  return (
+                    <div
+                      className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white flex justify-center items-center"
+                      key={item.id}
+                    >
+                      <Link href="/paybybankcard">
+                        <Image
+                          src="/assets/payment/hokumetodenisportali.png"
+                          width={259}
+                          height={107}
+                          className="w-[259px] h-[107px] max-xl:w-[104px] max-xl:h-[42px]"
+                          alt=""
+                        />
+                      </Link>
+                    </div>
+                  );
+                })}
             </div>
           </div>
         </div>
@@ -234,126 +206,82 @@ const payment = ({ PaymentData, PopupData }) => {
               </h3>
             </div>
             <div className="grid grid-cols-3 max-xl:grid-cols-2 gap-5 py-5">
-              {PaymentData?.data.map((payment, i) => {
-                return (
-                  <div
-                    className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px]  bg-white flex justify-center items-center max-xl:hidden"
-                    key={1}
-                  >
-                    <Popup
-                      trigger={
-                        <Image
-                          // aria-describedby={props.description}
-                          suppressHydrationWarning={true}
-                          width={292}
-                          height={191}
-                          layout="responsive"
-                          src="/assets/payment/azercell.png"
-                          className=" max-xl:w-[75px] max-xl:h-[24px]"
-                          alt=""
-                          key={i}
-                        />
-                      }
-                      modal
-                      nested
-                      contentStyle={{
-                        padding: '0px',
-                        borderRadius: '50px',
-                        borderColor: 'white',
-                        width: '1110px',
-                        height: '575px',
-                        overflow: 'hidden',
-                      }}
+              {PaymentData?.data
+                .filter((item) => item.redirect_link === null)
+                .map((item) => {
+                  return (
+                    <div
+                      className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px]  bg-white flex justify-center items-center max-xl:hidden"
+                      key={item.id}
                     >
-                      {(close) => (
-                        <>
+                      <Popup
+                        trigger={
                           <Image
-                            src="/assets/popup/x.png"
-                            className="absolute right-5 top-5 w-[40px] h-[42px]"
+                            // aria-describedby={props.description}
+                            suppressHydrationWarning={true}
+                            width={292}
+                            height={191}
+                            layout="responsive"
+                            src="/assets/payment/azercell.png"
+                            className=" max-xl:w-[75px] max-xl:h-[24px]"
                             alt=""
-                            width={40}
-                            height={42}
-                            onClick={close}
+                            key={item.id}
                           />
-                          {PopupData?.data.map((popup, i) => {
-                            return (
-                              <div
-                                className="flex justify-center mt-32 gap-5"
-                                key={i}
-                              >
-                                <div className="flex justify-center items-center">
-                                  {' '}
-                                  <Image
-                                    width={285}
-                                    height={315}
-                                    src="/assets/popup/bankpopup.png"
-                                    className="rounded-3xl w-[285px] h-[315px]"
-                                    alt=""
-                                  />
+                        }
+                        modal
+                        nested
+                        contentStyle={{
+                          padding: '0px',
+                          borderRadius: '50px',
+                          borderColor: 'white',
+                          width: '1110px',
+                          height: '575px',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        {(close) => (
+                          <>
+                            <Image
+                              src="/assets/popup/x.png"
+                              className="absolute right-5 top-5 w-[40px] h-[42px]"
+                              alt=""
+                              width={40}
+                              height={42}
+                              onClick={close}
+                            />
+                            {PopupData?.data.map((popup) => {
+                              return (
+                                <div
+                                  className="flex justify-center mt-32 gap-5"
+                                  key={popup.id}
+                                >
+                                  <div className="flex justify-center items-center">
+                                    {' '}
+                                    <Image
+                                      width={285}
+                                      height={315}
+                                      src="/assets/popup/bankpopup.png"
+                                      className="rounded-3xl w-[285px] h-[315px]"
+                                      alt=""
+                                    />
+                                  </div>
+                                  <div className="w-[595px] h-[300px] leading-[115%] overflow-hidden">
+                                    <h2 className="text-[#444444] text-[13.5px] font-bold mt-32">
+                                      {popup.handle}
+                                    </h2>
+                                    <p className="text-[12px] text-[#B4B4B4]">
+                                      {popup.content}
+                                    </p>
+                                  </div>
                                 </div>
-                                <div className="w-[595px] h-[300px] leading-[115%] overflow-hidden">
-                                  <h2 className="text-[#444444] text-[13.5px] font-bold mt-32">
-                                    {popup.handle}
-                                  </h2>
-                                  <p className="text-[12px] text-[#B4B4B4]">
-                                    {popup.content}
-                                  </p>
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </>
-                      )}
-                    </Popup>
-                  </div>
-                );
-              })}
-
-              {/* <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white hidden justify-center items-center max-xl:flex">
-                <AzercellPopupsm />
-              </div>
-              <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px]  bg-white flex justify-center items-center max-xl:hidden">
-                <UmicoPopup />{' '}
-              </div>
-              <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white hidden justify-center items-center max-xl:flex">
-                <UmicoPopupsm />{' '}
-              </div>
- <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px]  bg-white flex justify-center items-cente max-xl:hidden">
-                <CibPopup />{' '}
-              </div>
-              <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white hidden justify-center items-center max-xl:flex">
-                <CibPopupsm />{' '}
-              </div> 
-              <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px]  bg-white flex justify-center items-center max-xl:hidden">
-                <EdvPopup />
-              </div>
-              <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white hidden justify-center items-center max-xl:flex">
-                <EdvPopupsm />
-              </div>
-              <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px]  bg-white flex justify-center items-center max-xl:hidden">
-                <AniPayPopup />
-              </div>
-              <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white hidden justify-center items-center max-xl:flex">
-                <AniPayPopupsm />
-              </div>
-              <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px]  bg-white flex justify-center items-center max-xl:hidden">
-                <BankPopup />
-              </div>
-              <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white hidden justify-center items-center max-xl:flex">
-                <BankPopupsm />
-              </div>
-              <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px]  bg-white flex justify-center items-center max-xl:hidden">
-                <OdenisPopup />
-              </div>
-              <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white hidden justify-center items-center max-xl:flex">
-                <OdenisPopupsm />
-              </div>
-              <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px]  bg-white flex justify-center items-center max-xl:hidden">
-                <SmsPopup />
-              </div>
-              <div className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white hidden justify-center items-center max-xl:flex">
-                <SmsPopupsm />
-              </div> */}
+                              );
+                            })}
+                          </>
+                        )}
+                      </Popup>
+                    </div>
+                  );
+                })}
             </div>
           </div>
         </div>

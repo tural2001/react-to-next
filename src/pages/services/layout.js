@@ -43,7 +43,6 @@ function ServiceLayout({ children }) {
   useEffect(() => {
     setSelectedItem(router.pathname);
   }, [router.pathname]);
-
   return (
     <div>
       <div className="services-wrapper-1 max-w-[1100px] mx-auto pt-10 max-xl:pt-5">
