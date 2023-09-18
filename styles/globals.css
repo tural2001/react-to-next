@@ -333,10 +333,10 @@ select option {
   stroke: #5b2d90;
   transform: translateY(-100px);
 }
-
+/* 
 .st0:hover {
   transform: translateY(-100px);
-}
+} */
 
 polygon .st0 {
   enable-background: new;
@@ -2085,4 +2085,10 @@ svg.active .svg-elem-74 {
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 15px 50px -20px;
   box-shadow: rgba(0, 0, 0, 0.25) -5px 5px 10px -15px; /* Sadece sol ve alt köşede gölge */
+}
+
+.radio-container {
+  display: flex;
+  align-items: center; /* Dikey hizalama */
+  gap: 10px; /* Inputlar arasındaki boşluk */
 }

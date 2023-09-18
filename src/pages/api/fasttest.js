@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   const speedtest = new FastSpeedtest({
     token: 'YXNkZmFzZGxmbnNkYWZoYXNkZmhrYWxm&',
     verbose: false,
-    timeout: 3000,
+    timeout: 5000,
     https: true,
     urlCount: 5,
     bufferSize: 8,

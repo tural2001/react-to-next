@@ -13,7 +13,9 @@ import { config } from '../utils/axiosconfig';
 import { base_url } from '../utils/base_url';
 import axios from 'axios';
 import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
+
 export async function getServerSideProps() {
   try {
     const Vacanciesresponse = await axios.get(
@@ -36,16 +38,23 @@ export async function getServerSideProps() {
 }
 
 let schema = yup.object({
-  name: yup.string().required('Name is Required'),
-  email: yup.string().required('Email is Required'),
-  phone: yup.string().required('Phone is Required'),
-  notes: yup.string().required('Notes is Required'),
-  vacancy_name: yup.string().required('Vancancy is Required'),
-  cv: yup.mixed().required('Cv is Required'),
+  name: yup.string().required('*'),
+  email: yup.string().required('*'),
+  phone: yup.string().required('*'),
+  notes: yup.string().required('*'),
+  vacancy_name: yup.string().required('*'),
+  cv: yup.mixed().required('*'),
 });
 
 const career = ({ VacanciesData }) => {
   const [isFileDetected, setIsFileDetected] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showNameError, setShowNameError] = useState(true);
+  const [showEmailError, setShowEmailError] = useState(true);
+  const [showPhoneError, setShowPhoneError] = useState(true);
+  const [showVacancy_nameError, setShowVacancy_nameError] = useState(true);
+  const [showNotesError, setShowNotesError] = useState(true);
+  const [showCvError, setShowCvError] = useState(true);
 
   const { visible, setVisible } = useVisibleContext();
   const router = useRouter();
@@ -94,11 +103,72 @@ const career = ({ VacanciesData }) => {
       cv: null,
     },
     validationSchema: schema,
-    onSubmit: (values) => {
-      axios.post(`${base_url}/api/career-forms`, values, config);
-      formik.resetForm();
+    onSubmit: async (values) => {
+      if (values.phone.length < 13) {
+        formik.setFieldError('phone', 'Nömrəni doğru daxil edin');
+        return;
+      }
+
+      try {
+        await axios.post(`${base_url}/api/career-forms`, values, config);
+        setTimeout(() => {
+          setIsFileDetected(false);
+        }, 100);
+        setShowSuccessAlert(true);
+        setTimeout(() => {
+          setShowSuccessAlert(false);
+        }, 10000);
+        formik.resetForm();
+      } catch (error) {}
     },
   });
+
+  const handleNameChange = (e) => {
+    const inputValue = e.target.value;
+    formik.handleChange(e);
+    setShowNameError(inputValue.trim() === ''); // Eğer input değeri boşsa showError'u true yap
+  };
+  // Input değeri değiştiğinde showPhoneError'ı güncelle
+  const handlePhoneChange = (e) => {
+    const inputValue = e.target.value;
+    // Kullanıcının girdiğini temizleme ve düzenleme işlemleri
+    const cleanedInput = inputValue.replace(/\D/g, '');
+    const formattedPhone = cleanedInput.startsWith('994')
+      ? `+994${cleanedInput.substring(3)}`
+      : `+994${cleanedInput}`;
+    if (formattedPhone.length <= 13) {
+      formik.setFieldValue('phone', formattedPhone); // Update the field value
+    }
+    // SetFieldValue'i çağırarak Formik değerini güncelle
+
+    // Input değeri boşsa showError'u true yap
+    setShowPhoneError(formattedPhone.trim() === '');
+  };
+
+  // Input değeri değiştiğinde showQuestionError'ı güncelle
+  const handleEmailChange = (e) => {
+    const inputValue = e.target.value;
+    formik.handleChange(e);
+    setShowEmailError(inputValue.trim() === ''); // Eğer input değeri boşsa showError'u true yap
+  };
+
+  const handleVacancyChange = (e) => {
+    const inputValue = e.target.value;
+    formik.handleChange(e);
+    setShowVacancy_nameError(inputValue.trim() === ''); // Eğer input değeri boşsa showError'u true yap
+  };
+
+  const handleNotesChange = (e) => {
+    const inputValue = e.target.value;
+    formik.handleChange(e);
+    setShowNotesError(inputValue.trim() === ''); // Eğer input değeri boşsa showError'u true yap
+  };
+
+  const handleCvChange = (e) => {
+    const inputValue = e.target.value;
+    formik.handleChange(e);
+    se(inputValue.trim() === ''); // Eğer input değeri boşsa showError'u true yap
+  };
   return (
     <>
       <Head>
@@ -280,87 +350,141 @@ const career = ({ VacanciesData }) => {
             >
               <div className="w-full flex flex-col justify-center max-xl:items-center gap-2 ">
                 {' '}
-                <label htmlFor="" className="text-black  text-[16px]">
-                  Ad Soyad <span className="text-[#ED1C24]">*</span>
+                <label
+                  htmlFor=""
+                  className="text-black flex gap-2 items-center  text-[16px] font-medium"
+                >
+                  Ad Soyad{' '}
+                  {showNameError && <span className="text-[#ED1C24]">*</span>}
+                  <div className="error text-white">
+                    {formik.touched.name && formik.errors.name}
+                  </div>
                 </label>
                 <input
                   type="text"
-                  className="border border-[#DBDBDB]  bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12  focus:ring-0"
-                  placeholder="Lorem ipsum"
+                  className={`border  ${
+                    formik.touched.name && formik.errors.name
+                      ? 'border-[#ED1C24]'
+                      : 'border-[#DBDBDB]'
+                  }   bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12 p-2 focus:ring-0`}
                   name="name"
-                  onChange={formik.handleChange}
+                  onChange={handleNameChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.name}
                 />
               </div>
               <div className="w-full flex flex-col justify-center  gap-2 max-xl:items-center">
-                {' '}
-                <label htmlFor="" className="text-black  text-[16px]">
-                  Əlaqə nömrəsi <span className="text-[#ED1C24]">*</span>
+                <label
+                  htmlFor=""
+                  className="text-black flex gap-2 items-center  text-[16px] font-medium"
+                >
+                  Əlaqə nömrəsi{' '}
+                  {showPhoneError && <span className="text-[#ED1C24]">*</span>}
+                  <div className="error text-white">
+                    {formik.touched.phone && formik.errors.phone}
+                  </div>
                 </label>
                 <input
                   type="tel"
-                  className="border border-[#DBDBDB]  bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12  focus:ring-0"
+                  className={`border  ${
+                    formik.touched.phone && formik.errors.phone
+                      ? 'border-[#ED1C24]'
+                      : 'border-[#DBDBDB]'
+                  }   bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12 p-2 focus:ring-0`}
                   placeholder="+994 _ _  _ _ _  _ _  _ _"
                   name="phone"
-                  onChange={(e) => {
-                    const inputPhone = e.target.value.replace(/\D/g, ''); // Remove non-digit characters
-                    if (inputPhone.length <= 9) {
-                      formik.setFieldValue('phone', inputPhone); // Update the field value
-                    }
-                  }}
+                  onChange={handlePhoneChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.phone}
                 />
               </div>
               <div className="w-full flex flex-col justify-center gap-2 max-xl:items-center">
                 {' '}
-                <label htmlFor="" className="text-black  text-[16px]">
-                  Müraciət etdiyiniz vakansiyanın adı
-                  <span className="text-[#ED1C24]">*</span>
+                <label
+                  htmlFor=""
+                  className="text-black flex gap-2 items-center  text-[16px] font-medium"
+                >
+                  Müraciət etdiyiniz vakansiyanın adı{' '}
+                  {showVacancy_nameError && (
+                    <span className="text-[#ED1C24]">*</span>
+                  )}
+                  <div className="error text-white">
+                    {formik.touched.vacancy_name && formik.errors.vacancy_name}
+                  </div>
                 </label>
                 <input
                   type="text"
-                  className="border border-[#DBDBDB]  bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12  focus:ring-0"
-                  placeholder="Lorem ipsum"
+                  className={`border  ${
+                    formik.touched.vacancy_name && formik.errors.vacancy_name
+                      ? 'border-[#ED1C24]'
+                      : 'border-[#DBDBDB]'
+                  }   bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12 p-2 focus:ring-0`}
                   name="vacancy_name"
-                  onChange={formik.handleChange}
+                  onChange={handleVacancyChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.vacancy_name}
                 />
               </div>
               <div className="w-full   flex flex-col justify-center gap-2 max-xl:items-center">
                 {' '}
-                <label htmlFor="" className="text-black  text-[16px]">
-                  E-poçt ünvanı <span className="text-[#ED1C24]">*</span>
+                <label
+                  htmlFor=""
+                  className="text-black flex gap-2 items-center  text-[16px] font-medium"
+                >
+                  E-poçt ünvanı{' '}
+                  {showEmailError && <span className="text-[#ED1C24]">*</span>}
+                  <div className="error text-white">
+                    {formik.touched.email && formik.errors.email}
+                  </div>
                 </label>
                 <input
                   type="email"
-                  className="border border-[#DBDBDB]  bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12  focus:ring-0"
-                  placeholder="Lorem ipsum"
+                  className={`border  ${
+                    formik.touched.email && formik.errors.email
+                      ? 'border-[#ED1C24]'
+                      : 'border-[#DBDBDB]'
+                  }   bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12 p-2 focus:ring-0`}
                   name="email"
-                  onChange={formik.handleChange}
+                  onChange={handleEmailChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.email}
                 />
               </div>
               <div className="w-full flex flex-col justify-center gap-2 max-xl:items-center">
-                <label htmlFor="" className="text-black  text-[16px]">
-                  Qeydiniz <span className="text-[#ED1C24]">*</span>
+                <label
+                  htmlFor=""
+                  className="text-black flex gap-2 items-center  text-[16px] font-medium"
+                >
+                  Qeydiniz{' '}
+                  {showNotesError && <span className="text-[#ED1C24]">*</span>}
+                  <div className="error text-white">
+                    {formik.touched.notes && formik.errors.notes}
+                  </div>
                 </label>
                 <textarea
-                  className="border-[#DBDBDB] w-[445px] h-[189px] max-xl:w-11/12     bg-[#F4F4F4] rounded-lg"
+                  className={`border  ${
+                    formik.touched.notes && formik.errors.notes
+                      ? 'border-[#ED1C24]'
+                      : 'border-[#DBDBDB]'
+                  }  w-[445px] h-[189px] max-xl:w-11/12  p-3  bg-[#F4F4F4] rounded-lg`}
                   cols="10"
                   rows="8"
                   name="notes"
-                  onChange={formik.handleChange}
+                  onChange={handleNotesChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.notes}
                 ></textarea>
               </div>
               <div className="w-full   flex flex-col justify-center gap-2 max-xl:items-center">
-                <label htmlFor="" className="text-black  text-[16px]">
-                  CV faylını yükləyin <span className="text-[#ED1C24]">*</span>
+                <label
+                  htmlFor=""
+                  className="text-black flex gap-2 items-center  text-[16px] font-medium"
+                >
+                  CV faylını yükləyin{' '}
+                  {showCvError && <span className="text-[#ED1C24]">*</span>}
+                  <div className="error text-white">
+                    {formik.touched.cv && formik.errors.cv}
+                  </div>
                 </label>
                 <Dropzone onDrop={onDrop}>
                   {({ getRootProps, getInputProps }) => (
@@ -368,7 +492,13 @@ const career = ({ VacanciesData }) => {
                       <div {...getRootProps()}>
                         <input {...getInputProps()} />
 
-                        <div className="border border-[#DBDBDB] w-[445px] h-[189px] max-xl:w-11/12    bg-[#F4F4F4] rounded-lg flex justify-center items-center">
+                        <div
+                          className={`border  ${
+                            formik.touched.cv && formik.errors.cv
+                              ? 'border-[#ED1C24]'
+                              : 'border-[#DBDBDB]'
+                          }  w-[445px] h-[189px] max-xl:w-11/12    bg-[#F4F4F4] rounded-lg flex justify-center items-center`}
+                        >
                           <label
                             htmlFor="dropzone-file"
                             className={`flex flex-col items-center justify-center w-full h-48    rounded-lg cursor-pointer  ${
@@ -428,7 +558,6 @@ const career = ({ VacanciesData }) => {
                   )}
                 </Dropzone>
               </div>
-
               <button
                 type="submit"
                 className="col-span-2 w-[349px] h-[66px] max-xl:w-full  max-xl:h-[35px] text-[16px] bg-[#5B2D90] text-white rounded-full mt-5"
@@ -436,6 +565,15 @@ const career = ({ VacanciesData }) => {
                 Göndər
               </button>
             </form>
+            {showSuccessAlert && (
+              <div
+                class="p-4 mb-4 text-sm text-white rounded-lg w-full bg-[#5B2D90] flex justify-center items-center  "
+                role="alert"
+              >
+                <span class="font-medium"></span> Müraciətiniz göndərildi
+                tezliklə sizə geri dönüş ediləcək
+              </div>
+            )}
           </div>
         </div>
       </div>

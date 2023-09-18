@@ -2,6 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/speedtest": "pages/speedtest.js",
-  "/campaigns": "pages/campaigns.js"
+  "/faq": "pages/faq.js",
+  "/career": "pages/career.js"
 }

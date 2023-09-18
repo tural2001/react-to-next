@@ -301,6 +301,7 @@ const home = ({
               <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-sm:text-center">
                 Bölgəni seçin
               </h3>
+
               <div className="border border-[#637381] rounded-3xl w-3/4 max-sm:w-[204px] max-sm:h-[40px] overflow-hidden max-sm:mt-3">
                 <select
                   className="text-[#637381] bg-inherit border-none text-[15px] font-medium rounded-lg block w-full p-2.5 focus:ring-0 hom"

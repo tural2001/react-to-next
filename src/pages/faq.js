@@ -11,6 +11,8 @@ import axios from 'axios';
 import { base_url } from '../utils/base_url';
 import { config } from '../utils/axiosconfig';
 import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
+
 import * as yup from 'yup';
 export async function getServerSideProps() {
   try {
@@ -31,9 +33,9 @@ export async function getServerSideProps() {
 }
 
 let schema = yup.object({
-  name: yup.string().required('Name is Required'),
-  phone: yup.string().required('Phone is Required'),
-  question: yup.string().required('Question is Required'),
+  name: yup.string().required('*'),
+  phone: yup.string().required('*'),
+  question: yup.string().required('*'),
 });
 
 const faq = ({ FaqsData }) => {
@@ -82,6 +84,7 @@ const faq = ({ FaqsData }) => {
   useEffect(() => {
     setVisible(router.pathname === '/a');
   }, [router, setVisible]);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -93,9 +96,47 @@ const faq = ({ FaqsData }) => {
     validationSchema: schema,
     onSubmit: (values) => {
       axios.post(`${base_url}/api/faq-forms`, values, config);
+
+      setShowSuccessAlert(true);
+      setTimeout(() => {
+        setShowSuccessAlert(false);
+      }, 10000);
       formik.resetForm();
     },
   });
+
+  const [showNameError, setShowNameError] = useState(true);
+  const [showPhoneError, setShowPhoneError] = useState(true);
+  const [showQuestionError, setShowQuestionError] = useState(true);
+
+  const handleNameChange = (e) => {
+    const inputValue = e.target.value;
+    formik.handleChange(e);
+    setShowNameError(inputValue.trim() === ''); // Eğer input değeri boşsa showError'u true yap
+  };
+  // Input değeri değiştiğinde showPhoneError'ı güncelle
+  const handlePhoneChange = (e) => {
+    const inputValue = e.target.value;
+    // Kullanıcının girdiğini temizleme ve düzenleme işlemleri
+    const cleanedInput = inputValue.replace(/\D/g, '');
+    const formattedPhone = cleanedInput.startsWith('994')
+      ? `+994${cleanedInput.substring(3)}`
+      : `+994${cleanedInput}`;
+    if (formattedPhone.length <= 13) {
+      formik.setFieldValue('phone', formattedPhone); // Update the field value
+    }
+    // SetFieldValue'i çağırarak Formik değerini güncelle
+
+    // Input değeri boşsa showError'u true yap
+    setShowPhoneError(formattedPhone.trim() === '');
+  };
+
+  // Input değeri değiştiğinde showQuestionError'ı güncelle
+  const handleQuestionChange = (e) => {
+    const inputValue = e.target.value;
+    formik.handleChange(e);
+    setShowQuestionError(inputValue.trim() === ''); // Eğer input değeri boşsa showError'u true yap
+  };
 
   const pageTitle = 'Your Faq Post Title';
   const pageDescription = 'Description of your faq post.';
@@ -218,8 +259,8 @@ const faq = ({ FaqsData }) => {
           </div>
 
           <ul className="flex flex-col gap-10 w-[826px] max-xl:w-full  mx-auto pb-10 ">
-            {FaqsData.data.map((item, index) => {
-              const isLastItem = index === data.length - 1;
+            {FaqsData?.data?.map((item, index) => {
+              const isLastItem = index === data?.length - 1;
               return (
                 <li
                   className="flex flex-col gap-5 w-[826px] max-xl:w-full  mx-auto "
@@ -273,52 +314,92 @@ const faq = ({ FaqsData }) => {
           >
             <div className="w-full flex flex-col  justify-center gap-2">
               {' '}
-              <label htmlFor="" className="text-black  text-[16px] font-medium">
-                Ad Soyad <span className="text-[#ED1C24]">*</span>
+              <label
+                htmlFor=""
+                className="text-black flex gap-2 items-center  text-[16px] font-medium"
+              >
+                Ad Soyad{' '}
+                {showNameError && <span className="text-[#ED1C24]">*</span>}
+                <div className="error text-white">
+                  {formik.touched.name && formik.errors.name}
+                </div>
               </label>
               <input
                 type="text"
-                className="border-[#5B2D90] bg-white rounded-md w-[469px] h-[58px] max-xl:w-full focus:ring-0"
+                className={`border ${
+                  formik.touched.name && formik.errors.name
+                    ? 'border-[#ED1C24]'
+                    : 'border-[#5B2D90]'
+                } bg-white p-2 rounded-md w-[469px] h-[58px] max-xl:w-full focus:ring-0`}
                 name="name"
-                onChange={formik.handleChange}
+                onChange={handleNameChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.name} // Use 'value' instead of 'values'
+                value={formik.values.name}
               />
             </div>
             <div className="w-full flex flex-col justify-center gap-2">
               {' '}
-              <label htmlFor="" className="text-black  text-[16px]">
-                Əlaqə nömrəsi <span className="text-[#ED1C24]">*</span>
+              <label
+                htmlFor=""
+                className="text-black flex gap-2 items-center  text-[16px] font-medium"
+              >
+                Əlaqə nömrəsi{' '}
+                {showPhoneError && <span className="text-[#ED1C24]">*</span>}
+                <div className="error text-white">
+                  {formik.touched.phone && formik.errors.phone}
+                </div>
               </label>
               <input
                 type="tel"
-                className="border-[#5B2D90]  bg-white rounded-xl w-[469px] h-[58px] max-xl:w-full focus:ring-0"
+                className={`border${
+                  formik.touched.phone && formik.errors.phone
+                    ? 'border-[#ED1C24]'
+                    : 'border-[#5B2D90]'
+                } bg-white p-2 rounded-md w-[469px] h-[58px] max-xl:w-full focus:ring-0`}
                 placeholder="+994 _ _  _ _ _  _ _  _ _"
                 name="phone"
-                onChange={(e) => {
-                  const inputPhone = e.target.value.replace(/\D/g, ''); // Remove non-digit characters
-                  if (inputPhone.length <= 9) {
-                    formik.setFieldValue('phone', inputPhone); // Update the field value
-                  }
-                }}
+                // onChange={(e) => {
+                //   const inputValue = e.target.value;
+                //   const cleanedInput = inputValue.replace(/\D/g, '');
+
+                //   const formattedPhone = cleanedInput.startsWith('994')
+                //     ? `+994${cleanedInput.substring(3)}`
+                //     : `+994${cleanedInput}`;
+                //   if (formattedPhone.length <= 13) {
+                //     formik.setFieldValue('phone', formattedPhone); // Update the field value
+                //   }
+                // }}
+                onChange={handlePhoneChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.phone}
               />
             </div>
             <div className="w-full flex flex-col col-span-2 max-xl:col-span-1 justify-center gap-2">
-              <label htmlFor="" className="text-black  text-[16px]">
-                Sualınız <span className="text-[#ED1C24]">*</span>
+              <label
+                htmlFor=""
+                className="text-black flex gap-2 items-center  text-[16px] font-medium"
+              >
+                Sualınız{' '}
+                {showQuestionError && <span className="text-[#ED1C24]">*</span>}
+                <div className="error text-white">
+                  {formik.touched.question && formik.errors.question}
+                </div>
               </label>
               <textarea
-                className="border-[#5B2D90] w-[980px] max-xl:w-full  bg-white rounded-xl"
+                className={`border ${
+                  formik.touched.question && formik.errors.question
+                    ? 'border-[#ED1C24]'
+                    : 'border-[#5B2D90]'
+                } w-[980px] p-3 max-xl:w-full  bg-white rounded-xl`}
                 cols="30"
                 rows="8"
                 name="question"
-                onChange={formik.handleChange}
+                onChange={handleQuestionChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.question}
               ></textarea>
             </div>
+
             <button
               type="submit"
               className="w-[250px] h-[58px] bg-[#5B2D90] text-white rounded-full text-[16px]"
@@ -326,6 +407,15 @@ const faq = ({ FaqsData }) => {
               Göndər
             </button>
           </form>
+          {showSuccessAlert && (
+            <div
+              class="p-4 mb-4 text-sm text-white rounded-lg bg-[#5B2D90] flex justify-center items-center  "
+              role="alert"
+            >
+              <span class="font-medium"></span> Müraciətiniz göndərildi tezliklə
+              sizə geri dönüş ediləcək
+            </div>
+          )}
         </div>
       </div>
     </>

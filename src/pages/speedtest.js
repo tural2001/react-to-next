@@ -311,7 +311,7 @@ const Speedtes = () => {
                   alt=""
                 />
               </div>
-              <div className="w-[82px] h-[35px] ">
+              <div className="w-[82px] h-[35px] text-white  ">
                 {ipAddress}
                 <p className="text-[8px] font-normal text-white"> IP Address</p>
               </div>

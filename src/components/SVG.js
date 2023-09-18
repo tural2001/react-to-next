@@ -40595,7 +40595,7 @@ l5.43-2l7.53-5.74l5.29-2.98l2.66-0.84l5.56-1.11l2.35-0.74l2.08-1.07l10.5-6.49L63
 export const MapPopup = ({ isOpen, onClose, RegionData, selectedRegion }) => {
   const selectedHandle = selectedRegion;
 
-  const selectedData = RegionData.data.find(
+  const selectedData = RegionData?.data?.find(
     (region) => region.handle === selectedHandle
   );
 
@@ -40627,8 +40627,8 @@ export const MapPopup = ({ isOpen, onClose, RegionData, selectedRegion }) => {
           />
 
           <div className="absolute top-32 w-[439px]  left-10">
-            <h3>{selectedData.name}</h3>
-            <p>{selectedData.description}</p>
+            <h3>{selectedData?.name}</h3>
+            <p>{selectedData?.description}</p>
           </div>
         </>
       )}
