@@ -22,15 +22,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/career": [
+    "/registration": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/career.js"
-    ],
-    "/faq": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/faq.js"
+      "static/chunks/pages/registration.js"
     ]
   },
   "ampFirstPages": []

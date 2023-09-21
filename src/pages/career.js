@@ -70,26 +70,18 @@ const career = ({ VacanciesData }) => {
     formik.setFieldValue('cv', acceptedFiles);
     setIsFileDetected(true);
 
-    // acceptedFiles'ı axios.post isteği içinde kullanma
     const formData = new FormData();
-    formData.append('file', acceptedFiles[0]); // Varsayılan olarak sadece bir dosya ekleyeceğinizi varsayıyorum.
+    formData.append('file', acceptedFiles[0]);
 
     axios
       .post(`${base_url}/api/upload-media`, formData, {
         headers: {
-          ...config.headers, // headers konfigürasyonunu kullanarak gerekli başlıkları ekleyin
+          ...config.headers,
           'Content-Type': 'multipart/form-data',
-          // Dosya yükleme işlemi olduğu için bu başlığı ayarlamalısınız.
         },
       })
-      .then((response) => {
-        // İşlem başarılıysa yapılacak işlemleri burada gerçekleştirin.
-      })
-      .catch((error) => {
-        // Hata durumunda yapılacak işlemleri burada gerçekleştirin.
-      });
-
-    // dispatch(uploadImg(acceptedFiles)); işlemi Redux veya benzeri bir yönetim sistemi kullanıyorsanız uygun bir şekilde yerleştirilmelidir.
+      .then((response) => {})
+      .catch((error) => {});
   }, []);
 
   const formik = useFormik({
@@ -126,9 +118,9 @@ const career = ({ VacanciesData }) => {
   const handleNameChange = (e) => {
     const inputValue = e.target.value;
     formik.handleChange(e);
-    setShowNameError(inputValue.trim() === ''); // Eğer input değeri boşsa showError'u true yap
+    setShowNameError(inputValue.trim() === '');
   };
-  // Input değeri değiştiğinde showPhoneError'ı güncelle
+
   const handlePhoneChange = (e) => {
     const inputValue = e.target.value;
     // Kullanıcının girdiğini temizleme ve düzenleme işlemleri

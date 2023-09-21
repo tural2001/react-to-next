@@ -89,12 +89,10 @@ const home = ({
                 </div>
                 <div className="">
                   <div className="flex justify-center">
-                    {' '}
                     <h3 className=" font-medium text-[28px] py-4  tracking-[0.5px]">
                       Internet
                     </h3>
                   </div>
-
                   <ul className="flex flex-col justify-center items-center gap-2 text-[#909090]  font-normal ">
                     <li>Fiber optik</li>
                     <li>Simsiz</li>
@@ -590,7 +588,7 @@ const home = ({
         }  max-xxl:hidden`}
         alt=""
       />
-      <div className="home-wrapper-6 w-full mt-40 mx-auto relative overflow-hidden">
+      <div className="home-wrapper-6 w-full mt-40 mx-auto py-20 relative overflow-hidden">
         <div className="container max-w-7xl   mx-auto  flex flex-col gap-10 justify-center items-center">
           <h3 className="text-[40px] text-[#5B2D90] font-bold text-center max-md:text-[20px]  max-xl:text-[30px]">
             Müştəri rəyləri
@@ -716,7 +714,7 @@ const home = ({
           })}
         </div>
       </div>
-      <Image
+      {/* <Image
         src="/assets/packets/wifi2.png"
         width={300}
         height={300}
@@ -724,9 +722,9 @@ const home = ({
           visible ? 'top-[325rem]' : 'top-[301rem]'
         } max-sm:right-0 max-sm:top-[356rem] max-md:top-[400rem]  z-10 max-md:w-[130px] max-xxl:hidden`}
         alt=""
-      />
+      /> */}
       <div className="home-wrapper-8 w-full  pb-20 mx-auto relative  py-20  overflow-hidden">
-        <div className="container max-w-6xl mx-auto flex justify-center">
+        <div className=" max-w-6xl mx-auto flex justify-center">
           <div className="w-[752px] h-[337px] max-sm:w-[280px] max-sm:h-[280px] max-md:w-[450px] max-md:h-[300px] bg-[#5B2D90] p-10 max-md:px-2 max-md:py-5 rounded-3xl flex flex-col gap-10 max-sm:gap-3 max-md:gap-10  justify-center items-center">
             <h2 className="text-white text-[24px] font-bold max-md:text-[20px] max-md:text-center">
               KARYERANIZI BİZİMLƏ QURUN!

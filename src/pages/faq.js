@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BiMinus, BiPlus } from 'react-icons/bi';
 import { BsChevronDown } from 'react-icons/bs';
-
 import { useVisibleContext } from '../components/VisibleContext';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -94,14 +93,23 @@ const faq = ({ FaqsData }) => {
       question: '',
     },
     validationSchema: schema,
-    onSubmit: (values) => {
-      axios.post(`${base_url}/api/faq-forms`, values, config);
+    onSubmit: async (values) => {
+      if (values.phone.length < 13) {
+        formik.setFieldError('phone', 'Nömrəni doğru daxil edin');
+        return;
+      }
 
-      setShowSuccessAlert(true);
-      setTimeout(() => {
-        setShowSuccessAlert(false);
-      }, 10000);
-      formik.resetForm();
+      try {
+        await axios.post(`${base_url}/api/faq-forms`, values, config);
+        setTimeout(() => {
+          setIsFileDetected(false);
+        }, 100);
+        setShowSuccessAlert(true);
+        setTimeout(() => {
+          setShowSuccessAlert(false);
+        }, 10000);
+        formik.resetForm();
+      } catch (error) {}
     },
   });
 
@@ -112,30 +120,24 @@ const faq = ({ FaqsData }) => {
   const handleNameChange = (e) => {
     const inputValue = e.target.value;
     formik.handleChange(e);
-    setShowNameError(inputValue.trim() === ''); // Eğer input değeri boşsa showError'u true yap
+    setShowNameError(inputValue.trim() === '');
   };
-  // Input değeri değiştiğinde showPhoneError'ı güncelle
   const handlePhoneChange = (e) => {
     const inputValue = e.target.value;
-    // Kullanıcının girdiğini temizleme ve düzenleme işlemleri
     const cleanedInput = inputValue.replace(/\D/g, '');
     const formattedPhone = cleanedInput.startsWith('994')
       ? `+994${cleanedInput.substring(3)}`
       : `+994${cleanedInput}`;
     if (formattedPhone.length <= 13) {
-      formik.setFieldValue('phone', formattedPhone); // Update the field value
+      formik.setFieldValue('phone', formattedPhone);
     }
-    // SetFieldValue'i çağırarak Formik değerini güncelle
 
-    // Input değeri boşsa showError'u true yap
     setShowPhoneError(formattedPhone.trim() === '');
   };
-
-  // Input değeri değiştiğinde showQuestionError'ı güncelle
   const handleQuestionChange = (e) => {
     const inputValue = e.target.value;
     formik.handleChange(e);
-    setShowQuestionError(inputValue.trim() === ''); // Eğer input değeri boşsa showError'u true yap
+    setShowQuestionError(inputValue.trim() === '');
   };
 
   const pageTitle = 'Your Faq Post Title';
@@ -330,7 +332,7 @@ const faq = ({ FaqsData }) => {
                   formik.touched.name && formik.errors.name
                     ? 'border-[#ED1C24]'
                     : 'border-[#5B2D90]'
-                } bg-white p-2 rounded-md w-[469px] h-[58px] max-xl:w-full focus:ring-0`}
+                } bg-white p-2 rounded-md w-[460px] h-[58px] max-xl:w-full focus:ring-0`}
                 name="name"
                 onChange={handleNameChange}
                 onBlur={formik.handleBlur}
@@ -351,24 +353,13 @@ const faq = ({ FaqsData }) => {
               </label>
               <input
                 type="tel"
-                className={`border${
+                className={`border  ${
                   formik.touched.phone && formik.errors.phone
                     ? 'border-[#ED1C24]'
                     : 'border-[#5B2D90]'
-                } bg-white p-2 rounded-md w-[469px] h-[58px] max-xl:w-full focus:ring-0`}
+                }   bg-white rounded-lg w-[464px] h-[58px] max-xl:w-11/12 p-2 focus:ring-0`}
                 placeholder="+994 _ _  _ _ _  _ _  _ _"
                 name="phone"
-                // onChange={(e) => {
-                //   const inputValue = e.target.value;
-                //   const cleanedInput = inputValue.replace(/\D/g, '');
-
-                //   const formattedPhone = cleanedInput.startsWith('994')
-                //     ? `+994${cleanedInput.substring(3)}`
-                //     : `+994${cleanedInput}`;
-                //   if (formattedPhone.length <= 13) {
-                //     formik.setFieldValue('phone', formattedPhone); // Update the field value
-                //   }
-                // }}
                 onChange={handlePhoneChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.phone}
