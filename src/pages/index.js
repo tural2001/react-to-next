@@ -683,7 +683,6 @@ const home = ({
         </h3>
         <div className="container max-w-[966px]  mx-auto  grid grid-cols-3 justify-items-center max-md:grid-cols-1 max-xl:grid-cols-2  max-xxl:mx-10  gap-12">
           {BlogData?.data?.map((item) => {
-            console.log(item.description);
             return (
               <div
                 className="flex flex-col justify-center max-xxl:w-[315px]  gap-2 h-[347px] "
@@ -705,12 +704,6 @@ const home = ({
                     <h3 className="text-[#212B36] text-[24px] font-bold">
                       {item.title}
                     </h3>
-                    <span
-                      className="text-[16px] text-[#757575]"
-                      dangerouslySetInnerHTML={{
-                        __html: item.description,
-                      }}
-                    ></span>
                   </div>
                 </div>
               </div>

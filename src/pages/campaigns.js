@@ -163,14 +163,14 @@ const Campaigns = ({ CampaignsData }) => {
                     alt=""
                   />
                 </div>
-                <div className="col-span-2 max-xl:col-span-1 flex flex-col justify-center gap-5 ">
+                <div className="col-span-2 max-xl:col-span-1 flex flex-col justify-center gap-5">
                   <h3 className="text-purple-900 text-[40px] font-bold leading-10 uppercase max-sm:text-[20px]">
                     3+1 ADSL
                   </h3>
-                  <p
+                  <span
                     className="text-[16px] text-[#757575]"
                     dangerouslySetInnerHTML={{ __html: campaign.description }}
-                  ></p>
+                  ></span>
                 </div>
               </div>
             </div>
@@ -192,10 +192,10 @@ const Campaigns = ({ CampaignsData }) => {
                   <h3 className="text-purple-900 text-[40px] font-bold leading-10 uppercase max-sm:text-[20px]">
                     3+1 ADSL
                   </h3>
-                  <p
+                  <span
                     className="text-[16px] text-[#757575]"
                     dangerouslySetInnerHTML={{ __html: campaign.description }}
-                  ></p>
+                  ></span>
                 </div>
               </div>
             </div>

@@ -73,34 +73,7 @@ const registration = ({ FormsData }) => {
     initialValues[item.name] = '';
   });
   console.log(initialValues);
-  // const schemaFields = {};
 
-  // FormsData?.data?.forEach((field) => {
-  //   let fieldSchema;
-  //   console.log(field);
-
-  //   switch (field.type) {
-  //     case 'string':
-  //       fieldSchema = yup.string();
-  //       break;
-  //     case 'number':
-  //       fieldSchema = yup.number();
-  //       break;
-  //     // Diğer türleri ekleyebilirsiniz
-  //     default:
-  //       fieldSchema = yup.mixed(); // Varsayılan olarak bir şema
-  //       break;
-  //   }
-
-  //   if (field.required) {
-  //     // Eğer alan zorunluysa, hem empty hem de required hata mesajını ekleyin
-  //     fieldSchema = fieldSchema.required(`${field.label} alanı zorunludur.`);
-  //   }
-
-  //   schemaFields[field.name] = fieldSchema;
-  // });
-
-  // const schema = yup.object().shape(schemaFields);
   const formik = useFormik({
     initialValues,
     // validationSchema: schema,
@@ -318,282 +291,322 @@ const registration = ({ FormsData }) => {
               formik.handleSubmit(e);
             }
           }}
-          className="grid grid-cols-2 gap-5 py-10 max-lg:flex max-lg:flex-col max-lg:justify-center max-lg:items-center max-sm:gap-7 max-md:mx-10"
+          className="grid grid-cols-2  gap-5 py-10 max-lg:flex max-lg:flex-col max-lg:justify-center max-lg:items-center max-sm:gap-7 max-md:mx-10"
         >
-          {FormsData?.data?.map((item) => {
-            const itemName = item.name;
-
-            return (
+          {/* Type 1 */}
+          {FormsData?.data
+            ?.filter((item) => item.type == 1)
+            .map((item) => (
               <div
-                className={`w-[442px] max-sm:w-full 
-               justify-center gap-2`}
+                className={`w-[442px]  max-sm:w-full 
+             justify-center gap-2`}
                 key={item.id}
               >
-                {item.type == 1 && (
-                  <>
-                    <label htmlFor="" className="text-[#637381] text-[20px]">
-                      {item.label}
-                      {item.required && showTextErrors[item.name] && (
-                        <span className="text-[#ED1C24]">*</span>
-                      )}
-                      <div className="error text-red-500"></div>
-                    </label>
-                    <input
-                      type="text"
-                      name={item.name}
-                      className="border p-2 bg-[#F4F4F4] rounded-xl w-[442px] max-sm:w-full h-[50px] focus:ring-0"
-                      onChange={(e) => handleTextChange(e, item.name)}
-                      onBlur={formik.handleBlur}
-                      value={formik.values[item.name]}
-                    />
-                  </>
-                )}
-                {item.type == 2 && (
-                  <>
-                    <label htmlFor="" className="text-[#637381] text-[20px]">
-                      {item.label}
-                      {item.required && showTextErrors[item.name] && (
-                        <span className="text-[#ED1C24]">*</span>
-                      )}
-                      <div className="error text-red-500"></div>
-                    </label>
-                    <input
-                      type="tel"
-                      className="border-none p-2 bg-[#F4F4F4] rounded-xl w-[442px] max-sm:w-full h-[50px] focus:ring-0"
-                      placeholder="+994 _ _  _ _ _  _ _  _ _"
-                      name={item.label}
-                      onChange={(event) => handlePhoneChange(event, item.name)}
-                      onBlur={formik.handleBlur}
-                      value={formik.values[item.name]}
-                    />
-                  </>
-                )}
-                {item.type == 3 && (
-                  <>
-                    <label htmlFor="" className="text-[#637381] text-[20px]">
-                      {item.label}
-                      {item.required && showTextErrors[item.name] && (
-                        <span className="text-[#ED1C24]">*</span>
-                      )}
-                      <div className="error text-red-500"></div>
-                    </label>
-                    <div
-                      className={`flex flex-row border ${
-                        errorFields.includes(itemName) ? 'border-red-500' : ''
-                      }  justify-space p-2 bg-[#F4F4F4] rounded-xl h-[50px] gap-5  `}
-                    >
-                      {item.data
-                        .toString()
-                        .split('|')
-                        .map((value, index) => (
-                          <div className="flex gap-2 items-center" key={index}>
-                            <label htmlFor={value}>{value}</label>
-                            <input
-                              type="radio"
-                              name={item.name}
-                              className={`p-2 border-2  bg-[#F4F4F4] rounded-xl w-4 max-sm:w-full h-4 focus:ring-0`}
-                              onChange={(event) =>
-                                handleRadioChange(event, item.name)
-                              }
-                              onBlur={formik.handleBlur}
-                              value={value}
-                              checked={formik.values[item.name] === value}
-                              key={index}
-                            />
-                            <div className="error text-white">
-                              {formik.touched[item.name] &&
-                                formik.errors[item.name]}
-                            </div>
-                          </div>
-                        ))}
-                    </div>
-                  </>
-                )}
-                {item.type == 4 && (
-                  <>
-                    <label htmlFor="" className="text-[#637381] text-[20px]">
-                      {item.label}
-                      {item.required && showTextErrors[item.name] && (
-                        <span className="text-[#ED1C24]">*</span>
-                      )}
-                      <div className="error text-red-500"></div>
-                    </label>
-
-                    <div
-                      className={`flex flex-row border ${
-                        errorFields.includes(itemName) ? 'border-red-500' : ''
-                      }  justify-space p-2 bg-[#F4F4F4] rounded-xl h-[50px] gap-5  `}
-                    >
-                      {item.data
-                        .toString()
-                        .split('|')
-                        .map((value, index) => (
-                          <div className="flex gap-2 items-center" key={index}>
-                            <>
-                              <label htmlFor={value}>{value}</label>
-                              <input
-                                type="checkbox"
-                                name={item.name}
-                                className=" p-10 bg-[#F4F4F4] rounded-xl w-4 max-sm:w-full h-4 focus:ring-4"
-                                onChange={(event) =>
-                                  handleCheckboxChange(event, item.name, value)
-                                }
-                                onBlur={formik.handleBlur}
-                                value={value}
-                                checked={formik.values[item.name] === value}
-                                key={index}
-                              />
-                            </>
-                          </div>
-                        ))}
-                    </div>
-                  </>
-                )}
-
-                {item.type == 5 && (
-                  <>
-                    <label htmlFor="" className="text-[#637381] text-[20px]">
-                      {item.label}
-                      {item.required && showTextErrors[item.name] && (
-                        <span className="text-[#ED1C24]">*</span>
-                      )}
-                      <div className="error text-red-500"></div>
-                    </label>
-                    <Dropzone
-                      onDrop={(acceptedFiles) =>
-                        onDrop(acceptedFiles, item.name)
-                      }
-                    >
-                      {({ getRootProps, getInputProps }) => (
-                        <section>
-                          <div {...getRootProps()}>
-                            <input {...getInputProps()} />
-
-                            <div className="border border-[#DBDBDB] w-[445px] h-[189px] max-xl:w-11/12    bg-[#F4F4F4] rounded-lg flex justify-center items-center">
-                              <label
-                                htmlFor="dropzone-file"
-                                className={`flex flex-col items-center justify-center w-full h-48    rounded-lg cursor-pointer  ${
-                                  isFileDetected
-                                    ? 'bg-green-200'
-                                    : ' hover:bg-gray-100'
-                                } `}
-                              >
-                                <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                  {isFileDetected ? (
-                                    <p className="mb-2 text-sm text-yellow-600 dark:text-yellow-400">
-                                      File detected
-                                    </p>
-                                  ) : (
-                                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                      <span className="font-semibold">
-                                        Click to upload
-                                      </span>{' '}
-                                      or drag and drop
-                                    </p>
-                                  )}
-
-                                  <svg
-                                    aria-hidden="true"
-                                    className="w-10 h-10 mb-3 text-gray-400"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                                    ></path>
-                                  </svg>
-                                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                    <span className="font-semibold">
-                                      Click to upload
-                                    </span>{' '}
-                                    or drag and drop
-                                  </p>
-                                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                                    SVG, PNG, JPG or GIF (MAX. 800x400px)
-                                  </p>
-                                </div>
-                                <input
-                                  id="dropzone-file"
-                                  type="file"
-                                  className="hidden"
-                                />
-                              </label>
-                            </div>
-                          </div>
-                        </section>
-                      )}
-                    </Dropzone>
-                  </>
-                )}
-                {item.type == 6 && (
-                  <>
-                    <label htmlFor="" className="text-[#637381] text-[20px]">
-                      {item.label}
-                      {item.required && showTextErrors[item.name] && (
-                        <span className="text-[#ED1C24]">*</span>
-                      )}
-                      <div className="error text-red-500"></div>
-                    </label>
-                    <select
-                      name={item.name}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values[item.name]}
-                    >
-                      <option value="">Lütfen seçin</option>
-
-                      {item.data
-                        .toString()
-                        .split('|')
-                        .map((value, index) => (
-                          <option value={value} key={index}>
-                            {value}
-                          </option>
-                        ))}
-                    </select>
-                  </>
-                )}
-                {item.type == 7 && (
-                  <>
-                    <label htmlFor="" className="text-[#637381] text-[20px]">
-                      {item.label}
-                      {item.required && showTextErrors[item.name] && (
-                        <span className="text-[#ED1C24]">*</span>
-                      )}
-                      <div className="error text-red-500"></div>
-                    </label>
-                    <textarea
-                      className="w-[980px] p-3 max-xl:w-full  bg-[#F4F4F4] rounded-xl "
-                      name={item.name}
-                      cols="10"
-                      rows="8"
-                      onChange={(event) =>
-                        handleTextareaChange(event, item.name)
-                      }
-                      onBlur={formik.handleBlur}
-                      value={formik.values[item.name]}
-                    ></textarea>
-                    <div className="flex justify-start   items-center gap-2 mt-8">
-                      <input
-                        type="checkbox"
-                        className="rounded"
-                        name=""
-                        id=""
-                      />
-                      <p className="text-[12px] text-[#5E5E5E]">
-                        Şərtlərlə tanış oldum
-                      </p>
-                    </div>
-                  </>
-                )}
+                <label htmlFor="" className="text-[#637381] text-[20px]">
+                  {item.label}
+                  {item.required && showTextErrors[item.name] && (
+                    <span className="text-[#ED1C24]">*</span>
+                  )}
+                  <div className="error text-red-500"></div>
+                </label>
+                <input
+                  type="text"
+                  name={item.name}
+                  className="border p-2 bg-[#F4F4F4] rounded-xl w-[442px] max-sm:w-full h-[50px] focus:ring-0"
+                  onChange={(e) => handleTextChange(e, item.name)}
+                  onBlur={formik.handleBlur}
+                  value={formik.values[item.name]}
+                />
               </div>
-            );
-          })}
+            ))}
+
+          {/* Type 2 */}
+          {FormsData?.data
+            ?.filter((item) => item.type == 2)
+            .map((item) => (
+              <div
+                className={`w-[442px]  max-sm:w-full 
+             justify-center gap-2`}
+                key={item.id}
+              >
+                <label htmlFor="" className="text-[#637381] text-[20px]">
+                  {item.label}
+                  {item.required && showTextErrors[item.name] && (
+                    <span className="text-[#ED1C24]">*</span>
+                  )}
+                  <div className="error text-red-500"></div>
+                </label>
+                <input
+                  type="tel"
+                  className="border-none p-2 bg-[#F4F4F4] rounded-xl w-[442px] max-sm:w-full h-[50px] focus:ring-0"
+                  placeholder="+994 _ _  _ _ _  _ _  _ _"
+                  name={item.label}
+                  onChange={(event) => handlePhoneChange(event, item.name)}
+                  onBlur={formik.handleBlur}
+                  value={formik.values[item.name]}
+                />
+              </div>
+            ))}
+
+          {/* Type 6 */}
+          {FormsData?.data
+            ?.filter((item) => item.type == 6)
+            .map((item) => (
+              <div
+                className={`w-[442px]  max-sm:w-full 
+             justify-center gap-2`}
+                key={item.id}
+              >
+                <label htmlFor="" className="text-[#637381] text-[20px]">
+                  {item.label}
+                  {item.required && showTextErrors[item.name] && (
+                    <span className="text-[#ED1C24]">*</span>
+                  )}
+                  <div className="error text-red-500"></div>
+                </label>
+                <select
+                  name={item.name}
+                  onChange={(event) => handleTextChange(event, item.name)}
+                  onBlur={formik.handleBlur}
+                  value={formik.values[item.name]}
+                  className={`flex flex-row border ${
+                    formik.errors[item.name] ? 'border-red-500' : ''
+                  }  justify-space p-2 bg-[#F4F4F4] rounded-xl w-full h-[50px] gap-5  `}
+                >
+                  <option value="">Select</option>
+
+                  {item.data
+                    .toString()
+                    .split('|')
+                    .map((value, index) => (
+                      <option value={value} key={index}>
+                        {value}
+                      </option>
+                    ))}
+                </select>
+              </div>
+            ))}
+
+          {FormsData?.data
+            ?.filter((item) => item.type == 3)
+            .map((item) => (
+              <div
+                className={`w-[442px]  max-sm:w-full 
+             justify-center gap-2`}
+                key={item.id}
+              >
+                <label htmlFor="" className="text-[#637381] text-[20px]">
+                  {item.label}
+                  {item.required && showTextErrors[item.name] && (
+                    <span className="text-[#ED1C24]">*</span>
+                  )}
+                  <div className="error text-red-500"></div>
+                </label>
+                <div
+                  className={`flex flex-row border ${
+                    formik.errors[item.name] ? 'border-red-500' : ''
+                  }  justify-space p-2 bg-[#F4F4F4] rounded-xl h-[50px] gap-5  `}
+                >
+                  {item.data
+                    .toString()
+                    .split('|')
+                    .map((value, index) => (
+                      <div className="flex gap-2 items-center" key={index}>
+                        <label htmlFor={value}>{value}</label>
+                        <input
+                          type="radio"
+                          name={item.name}
+                          className={`p-2 border-2  bg-[#F4F4F4] rounded-xl w-4 max-sm:w-full h-4 focus:ring-0`}
+                          onChange={(event) =>
+                            handleRadioChange(event, item.name)
+                          }
+                          onBlur={formik.handleBlur}
+                          value={value}
+                          checked={formik.values[item.name] === value}
+                          key={index}
+                        />
+                        <div className="error text-white">
+                          {formik.touched[item.name] &&
+                            formik.errors[item.name]}
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            ))}
+
+          {/* Type 4 */}
+          {FormsData?.data
+            ?.filter((item) => item.type == 4)
+            .map((item) => (
+              <div
+                className={`w-[442px]  max-sm:w-full 
+             justify-center gap-2`}
+                key={item.id}
+              >
+                <label htmlFor="" className="text-[#637381] text-[20px]">
+                  {item.label}
+                  {item.required && showTextErrors[item.name] && (
+                    <span className="text-[#ED1C24]">*</span>
+                  )}
+                  <div className="error text-red-500"></div>
+                </label>
+                <div
+                  className={`flex flex-row border ${
+                    formik.errors[item.name] ? 'border-red-500' : ''
+                  }   justify-space p-2 bg-[#F4F4F4] rounded-xl h-[50px] gap-5  `}
+                >
+                  {item.data
+                    .toString()
+                    .split('|')
+                    .map((value, index) => (
+                      <div className="flex gap-2 items-center" key={index}>
+                        <>
+                          <label htmlFor={value}>{value}</label>
+                          <input
+                            type="checkbox"
+                            name={item.name}
+                            className=" p-10 bg-[#F4F4F4] rounded-xl w-4 max-sm:w-full h-4 focus:ring-4"
+                            onChange={(event) =>
+                              handleCheckboxChange(event, item.name, value)
+                            }
+                            onBlur={formik.handleBlur}
+                            value={value}
+                            checked={formik.values[item.name] === value}
+                            key={index}
+                          />
+                        </>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            ))}
+
+          {/* Type 5 */}
+          {FormsData?.data
+            ?.filter((item) => item.type == 5)
+            .map((item) => (
+              <div
+                className={`w-[442px]  max-sm:w-full 
+             justify-center gap-2`}
+                key={item.id}
+              >
+                <label htmlFor="" className="text-[#637381] text-[20px]">
+                  {item.label}
+                  {item.required && showTextErrors[item.name] && (
+                    <span className="text-[#ED1C24]">*</span>
+                  )}
+                  <div className="error text-red-500"></div>
+                </label>
+                <Dropzone
+                  onDrop={(acceptedFiles) => onDrop(acceptedFiles, item.name)}
+                >
+                  {({ getRootProps, getInputProps }) => (
+                    <section>
+                      <div {...getRootProps()}>
+                        <input {...getInputProps()} />
+
+                        <div
+                          className={`w-[920px] h-[189px] max-xl:w-11/12 ${
+                            formik.errors[item.name] ? 'border-red-500' : ''
+                          }     bg-[#F4F4F4] rounded-lg flex justify-center items-center`}
+                        >
+                          <label
+                            htmlFor="dropzone-file"
+                            className={`flex flex-col items-center justify-center w-full h-48    rounded-lg cursor-pointer  ${
+                              isFileDetected
+                                ? 'bg-green-200'
+                                : ' hover:bg-gray-100'
+                            } `}
+                          >
+                            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                              {isFileDetected ? (
+                                <p className="mb-2 text-sm text-yellow-600 dark:text-yellow-400">
+                                  File detected
+                                </p>
+                              ) : (
+                                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                  <span className="font-semibold">
+                                    Click to upload
+                                  </span>{' '}
+                                  or drag and drop
+                                </p>
+                              )}
+
+                              <svg
+                                aria-hidden="true"
+                                className="w-10 h-10 mb-3 text-gray-400"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                                ></path>
+                              </svg>
+                              <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                <span className="font-semibold">
+                                  Click to upload
+                                </span>{' '}
+                                or drag and drop
+                              </p>
+                              <p className="text-xs text-gray-500 dark:text-gray-400">
+                                SVG, PNG, JPG or GIF (MAX. 800x400px)
+                              </p>
+                            </div>
+                            <input
+                              id="dropzone-file"
+                              type="file"
+                              className="hidden"
+                            />
+                          </label>
+                        </div>
+                      </div>
+                    </section>
+                  )}
+                </Dropzone>
+              </div>
+            ))}
+
+          {/* Type 7 */}
+          {FormsData?.data
+            ?.filter((item) => item.type == 7)
+            .map((item) => (
+              <div
+                className={`w-[442px]  col-span-2 max-sm:w-full 
+             justify-center gap-2`}
+                key={item.id}
+              >
+                <label htmlFor="" className="text-[#637381] text-[20px]">
+                  {item.label}
+                  {item.required && showTextErrors[item.name] && (
+                    <span className="text-[#ED1C24]">*</span>
+                  )}
+                  <div className="error text-red-500"></div>
+                </label>
+                <textarea
+                  className={`w-[920px] p-3 max-xl:w-full  ${
+                    formik.errors[item.name] ? 'border-red-500' : ''
+                  }  bg-[#F4F4F4] rounded-xl`}
+                  name={item.name}
+                  cols="10"
+                  rows="8"
+                  onChange={(event) => handleTextareaChange(event, item.name)}
+                  onBlur={formik.handleBlur}
+                  value={formik.values[item.name]}
+                ></textarea>
+                <div className="flex justify-start   items-center gap-2 mt-8">
+                  <input type="checkbox" className="rounded" name="" id="" />
+                  <p className="text-[12px] text-[#5E5E5E]">
+                    Şərtlərlə tanış oldum
+                  </p>
+                </div>
+              </div>
+            ))}
 
           <button
             type="submit"
@@ -602,6 +615,7 @@ const registration = ({ FormsData }) => {
             Qeydiyyatı tamamla
           </button>
         </form>
+
         {showSuccessAlert && (
           <div
             className="p-4 mb-4 text-sm text-white rounded-lg bg-[#5B2D90] flex justify-center items-center  "

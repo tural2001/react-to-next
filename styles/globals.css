@@ -2092,3 +2092,7 @@ svg.active .svg-elem-74 {
   align-items: center; /* Dikey hizalama */
   gap: 10px; /* Inputlar arasındaki boşluk */
 }
+p img {
+  display: inline !important;
+  vertical-align: middle !important;
+}
