@@ -205,7 +205,9 @@ const blog = ({ BlogData, id }) => {
                 </div>
                 <div className="text-[16px] text-[#637381] leading-[25px] max-xl:text-justify">
                   {' '}
-                  <p>{item.description}</p>
+                  <span
+                    dangerouslySetInnerHTML={{ __html: item.description }}
+                  ></span>
                 </div>
                 <div className="flex justify-center">
                   <Image

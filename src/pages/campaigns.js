@@ -167,9 +167,10 @@ const Campaigns = ({ CampaignsData }) => {
                   <h3 className="text-purple-900 text-[40px] font-bold leading-10 uppercase max-sm:text-[20px]">
                     3+1 ADSL
                   </h3>
-                  <p className="text-[16px] text-[#757575] max-sm:text-justify leading-[25px]">
-                    {campaign.description}
-                  </p>
+                  <p
+                    className="text-[16px] text-[#757575]"
+                    dangerouslySetInnerHTML={{ __html: campaign.description }}
+                  ></p>
                 </div>
               </div>
             </div>

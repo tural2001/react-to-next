@@ -683,12 +683,13 @@ const home = ({
         </h3>
         <div className="container max-w-[966px]  mx-auto  grid grid-cols-3 justify-items-center max-md:grid-cols-1 max-xl:grid-cols-2  max-xxl:mx-10  gap-12">
           {BlogData?.data?.map((item) => {
+            console.log(item.description);
             return (
               <div
                 className="flex flex-col justify-center max-xxl:w-[315px]  gap-2 h-[347px] "
                 key={item.id}
               >
-                <div key={item.id} onClick={() => handleClick(item.slug)}>
+                <div key={item.id} onClick={() => handleClick(item.id)}>
                   <div className="max-sm:flex max-sm:flex-col max-sm:justify-center">
                     {' '}
                     <Image
@@ -698,15 +699,18 @@ const home = ({
                       className="w-[280px] h-[168px] "
                       alt=""
                     />
-                    <p className="bg-[#5B2D90] text-[12px] rounded-xl w-[136px] text-center py-2   mb-2 text-white mt-5">
+                    <h2 className="bg-[#5B2D90] text-[12px] rounded-xl w-[136px] text-center py-2   mb-2 text-white mt-5">
                       {item.published_at}
-                    </p>
+                    </h2>
                     <h3 className="text-[#212B36] text-[24px] font-bold">
                       {item.title}
                     </h3>
-                    <p className="text-[#94A2B3] text-[16px] font-normal">
-                      {item.description}
-                    </p>
+                    <span
+                      className="text-[16px] text-[#757575]"
+                      dangerouslySetInnerHTML={{
+                        __html: item.description,
+                      }}
+                    ></span>
                   </div>
                 </div>
               </div>

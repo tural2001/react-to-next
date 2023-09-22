@@ -27,11 +27,11 @@ export async function getServerSideProps() {
   }
 }
 
-let schema = yup.object({
-  label: yup.string().required('Name is Required'),
-  type: yup.string().required('Question is Required'),
-  name: yup.string().required('Question is Required'),
-});
+// let schema = yup.object({
+//   label: yup.string().required('Name is Required'),
+//   type: yup.string().required('Question is Required'),
+//   name: yup.string().required('Question is Required'),
+// });
 const registration = ({ FormsData }) => {
   const [isFileDetected, setIsFileDetected] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
@@ -73,9 +73,35 @@ const registration = ({ FormsData }) => {
     initialValues[item.name] = '';
   });
   console.log(initialValues);
+  const schemaFields = {};
+
+  FormsData?.data?.forEach((field) => {
+    let fieldSchema;
+
+    switch (field.type) {
+      case 'string':
+        fieldSchema = yup.string();
+        break;
+      case 'number':
+        fieldSchema = yup.number();
+        break;
+      // Diğer türleri ekleyebilirsiniz
+      default:
+        fieldSchema = yup.mixed(); // Varsayılan olarak bir şema
+        break;
+    }
+
+    if (field.required) {
+      fieldSchema = fieldSchema.required(`${field.name} alanı zorunludur.`);
+    }
+
+    schemaFields[field.name] = fieldSchema;
+  });
+
+  const schema = yup.object().shape(schemaFields);
   const formik = useFormik({
     initialValues,
-    // validationSchema: schema,
+    validationSchema: schema,
     onSubmit: async (values) => {
       const dataString = JSON.stringify(values);
       console.log(dataString);
@@ -274,7 +300,7 @@ const registration = ({ FormsData }) => {
                     )}
                     <div className="error text-white">
                       {formik.touched[item.name] && formik.errors[item.name]}
-                    </div>{' '}
+                    </div>
                   </label>
                   <input
                     type="text"
