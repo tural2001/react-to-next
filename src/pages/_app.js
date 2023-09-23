@@ -5,23 +5,25 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'reactjs-popup/dist/index.css';
 import 'swiper/css';
 import 'swiper/css/pagination';
-
 import { VisibleProvider } from '../components/VisibleContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { LoadingOverlay } from '../components/LoadingOverlay';
+import { BlogDataProvider } from '../components/BlogData';
 
 function MyApp({ Component, pageProps, pageTitle }) {
   return (
     <VisibleProvider>
-      <Head>
-        <title>{pageTitle}</title>
-        <meta name="description" content="Your page description." />
-      </Head>
-      <Header />
-      <LoadingOverlay />
-      <Component {...pageProps} />
-      <Footer />
+      <BlogDataProvider>
+        <Head>
+          <title>{pageTitle}</title>
+          <meta name="description" content="Your page description." />
+        </Head>
+        <Header />
+        <LoadingOverlay />
+        <Component {...pageProps} />
+        <Footer />
+      </BlogDataProvider>
     </VisibleProvider>
   );
 }

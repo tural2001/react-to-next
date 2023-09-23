@@ -10,10 +10,10 @@ import { HomePopup } from '../components/HomePopup';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useVisibleContext } from '../components/VisibleContext';
-// import ConditionCanvas from '../components/Condition';
 import { base_url } from '../utils/base_url';
 import { config } from '../utils/axiosconfig';
 import axios from 'axios';
+import Header from '../components/Header';
 
 const home = ({
   TariffData,
@@ -28,7 +28,6 @@ const home = ({
   const [svgValue, setSvgValue] = useState('');
 
   const [isLoading, setIsLoading] = useState(true);
-  1;
 
   const { isOpen, toggleMenu } = useVisibleContext();
 
@@ -52,8 +51,8 @@ const home = ({
     setVisible(router.pathname === '/a');
   }, [router.pathname]);
 
-  const handleClick = (id) => {
-    router.push(`/blog/${id}`);
+  const handleClick = (slug) => {
+    router.push(`/blog/${slug}`);
   };
 
   const pageTitle = 'Your Home Post Title';
@@ -158,7 +157,6 @@ const home = ({
         />
       </div>
       <div className="home-wrapper-2   bg-[#F7F6FB] pb-10  hidden max-xl:block  overflow-hidden">
-        {' '}
         <div className="absolute   max-xl:z-[-1]    max-xxl:right-0  max-sm:top-[105px] max-xxl:top-[145px]">
           <Image
             src="/assets/home2.png"
@@ -234,7 +232,6 @@ const home = ({
             <div className="col-span-3 pt-20 max-xxl:hidden">
               <ul className="flex justify-center gap-20 text-[16px] font-medium">
                 {ColorData?.data?.map((item) => {
-                  console.log(item.code);
                   return (
                     <li className="flex gap-2 items-center" key={item.id}>
                       <div className={`w-9 h-9 rounded-full`} />
@@ -688,7 +685,7 @@ const home = ({
                 className="flex flex-col justify-center max-xxl:w-[315px]  gap-2 h-[347px] "
                 key={item.id}
               >
-                <div key={item.id} onClick={() => handleClick(item.id)}>
+                <div key={item.id} onClick={() => handleClick(item.slug)}>
                   <div className="max-sm:flex max-sm:flex-col max-sm:justify-center">
                     {' '}
                     <Image

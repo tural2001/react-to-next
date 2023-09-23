@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Popup from 'reactjs-popup';
 export const SVG = ({ region, RegionData }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [selectedRegion, setSelectedRegion] = useState('');
+  const [selectedRegion, setSelectedRegion] = useState(null);
 
   const openPopup = (regionValue) => {
     setSelectedRegion(regionValue);
@@ -21,163 +21,191 @@ export const SVG = ({ region, RegionData }) => {
   }));
 
   const agstafaColor =
-    handleAndColorList?.find((item) => item.handle === 'agstafa')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'agstafa')?.color ||
+    null;
   const abseronColor =
-    handleAndColorList?.find((item) => item.handle === 'abseron')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'abseron')?.color ||
+    null;
   const agcabediColor =
-    handleAndColorList?.find((item) => item.handle === 'agcabedi')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'agcabedi')?.color ||
+    null;
   const agdamColor =
-    handleAndColorList?.find((item) => item.handle === 'agdam')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'agdam')?.color || null;
   const agsuColor =
-    handleAndColorList?.find((item) => item.handle === 'agsu')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'agsu')?.color || null;
   const astaraColor =
-    handleAndColorList?.find((item) => item.handle === 'astara')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'astara')?.color || null;
   const agdasColor =
-    handleAndColorList?.find((item) => item.handle === 'agdas')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'agdas')?.color || null;
   const babekColor =
-    handleAndColorList?.find((item) => item.handle === 'babek')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'babek')?.color || null;
   const balakenColor =
-    handleAndColorList?.find((item) => item.handle === 'balaken')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'balaken')?.color ||
+    null;
   const berdeColor =
-    handleAndColorList?.find((item) => item.handle === 'berde')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'berde')?.color || null;
   const beyleqanColor =
-    handleAndColorList?.find((item) => item.handle === 'beyleqan')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'beyleqan')?.color ||
+    null;
   const bilesuvarColor =
     handleAndColorList?.find((item) => item.handle === 'bilesuvar')?.color ||
-    '';
+    null;
   const cebrayilColor =
-    handleAndColorList?.find((item) => item.handle === 'cebrayil')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'cebrayil')?.color ||
+    null;
   const celilabadColor =
     handleAndColorList?.find((item) => item.handle === 'celilabad')?.color ||
-    '';
+    null;
   const culfaColor =
-    handleAndColorList?.find((item) => item.handle === 'culfa')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'culfa')?.color || null;
   const daskesenColor =
-    handleAndColorList?.find((item) => item.handle === 'daskesen')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'daskesen')?.color ||
+    null;
   const fuzuliColor =
-    handleAndColorList?.find((item) => item.handle === 'fuzuli')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'fuzuli')?.color || null;
   const genceColor =
-    handleAndColorList?.find((item) => item.handle === 'gence')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'gence')?.color || null;
   const gedebeyColor =
-    handleAndColorList?.find((item) => item.handle === 'gedebey')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'gedebey')?.color ||
+    null;
   const goranboyColor =
-    handleAndColorList?.find((item) => item.handle === 'goranboy')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'goranboy')?.color ||
+    null;
   const goycayColor =
-    handleAndColorList?.find((item) => item.handle === 'goycay')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'goycay')?.color || null;
   const haciqabulColor =
     handleAndColorList?.find((item) => item.handle === 'haciqabul')?.color ||
-    '';
+    null;
   const goygolColor =
-    handleAndColorList?.find((item) => item.handle === 'goygol')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'goygol')?.color || null;
   const imisliColor =
-    handleAndColorList?.find((item) => item.handle === 'imisli')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'imisli')?.color || null;
   const ismayilliColor =
     handleAndColorList?.find((item) => item.handle === 'ismayilli')?.color ||
-    '';
+    null;
   const kelbecerColor =
-    handleAndColorList?.find((item) => item.handle === 'kelbecer')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'kelbecer')?.color ||
+    null;
   const kengerliColor =
-    handleAndColorList?.find((item) => item.handle === 'kengerli')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'kengerli')?.color ||
+    null;
   const kurdemirColor =
-    handleAndColorList?.find((item) => item.handle === 'kurdemir')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'kurdemir')?.color ||
+    null;
   const lacinColor =
-    handleAndColorList?.find((item) => item.handle === 'lacin')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'lacin')?.color || null;
   const lenkeranColor =
-    handleAndColorList?.find((item) => item.handle === 'lenkeran')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'lenkeran')?.color ||
+    null;
   const lerikColor =
-    handleAndColorList?.find((item) => item.handle === 'lerik')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'lerik')?.color || null;
   const masalliColor =
-    handleAndColorList?.find((item) => item.handle === 'masalli')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'masalli')?.color ||
+    null;
   const mingecevirColor =
     handleAndColorList?.find((item) => item.handle === 'mingecevir')?.color ||
-    '';
+    null;
   const naftalanColor =
-    handleAndColorList?.find((item) => item.handle === 'naftalan')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'naftalan')?.color ||
+    null;
   const neftcalaColor =
-    handleAndColorList?.find((item) => item.handle === 'neftcala')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'neftcala')?.color ||
+    null;
   const naxcivanColor =
-    handleAndColorList?.find((item) => item.handle === 'naxcivan')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'naxcivan')?.color ||
+    null;
   const oguzColor =
-    handleAndColorList?.find((item) => item.handle === 'oguz')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'oguz')?.color || null;
   const ordubadColor =
-    handleAndColorList?.find((item) => item.handle === 'ordubad')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'ordubad')?.color ||
+    null;
   const qaxColor =
-    handleAndColorList?.find((item) => item.handle === 'qax')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'qax')?.color || null;
   const qazaxColor =
-    handleAndColorList?.find((item) => item.handle === 'qazax')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'qazax')?.color || null;
   const qubaColor =
-    handleAndColorList?.find((item) => item.handle === 'quba')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'quba')?.color || null;
   const qebeleColor =
-    handleAndColorList?.find((item) => item.handle === 'qebele')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'qebele')?.color || null;
   const qubadliColor =
-    handleAndColorList?.find((item) => item.handle === 'qubadli')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'qubadli')?.color ||
+    null;
   const qobustanColor =
-    handleAndColorList?.find((item) => item.handle === 'qobustan')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'qobustan')?.color ||
+    null;
   const qusarColor =
-    handleAndColorList?.find((item) => item.handle === 'qusar')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'qusar')?.color || null;
   const sumqayitColor =
-    handleAndColorList?.find((item) => item.handle === 'sumqayit')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'sumqayit')?.color ||
+    null;
   const sabirabadColor =
     handleAndColorList?.find((item) => item.handle === 'sabirabad')?.color ||
-    '';
+    null;
   const sederekColor =
-    handleAndColorList?.find((item) => item.handle === 'sederek')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'sederek')?.color ||
+    null;
   const sahbuzColor =
-    handleAndColorList?.find((item) => item.handle === 'sahbuz')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'sahbuz')?.color || null;
   const sekiColor =
-    handleAndColorList?.find((item) => item.handle === 'seki')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'seki')?.color || null;
   const salyanColor =
-    handleAndColorList?.find((item) => item.handle === 'salyan')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'salyan')?.color || null;
   const samaxiColor =
-    handleAndColorList?.find((item) => item.handle === 'samaxi')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'samaxi')?.color || null;
   const serurColor =
-    handleAndColorList?.find((item) => item.handle === 'serur')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'serur')?.color || null;
   const saatliColor =
-    handleAndColorList?.find((item) => item.handle === 'saatli')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'saatli')?.color || null;
   const sabranColor =
-    handleAndColorList?.find((item) => item.handle === 'sabran')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'sabran')?.color || null;
   const siyezenColor =
-    handleAndColorList?.find((item) => item.handle === 'siyezen')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'siyezen')?.color ||
+    null;
   const semkirColor =
-    handleAndColorList?.find((item) => item.handle === 'semkir')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'semkir')?.color || null;
   const samuxColor =
-    handleAndColorList?.find((item) => item.handle === 'samux')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'samux')?.color || null;
   const sirvanColor =
-    handleAndColorList?.find((item) => item.handle === 'sirvan')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'sirvan')?.color || null;
   const susaColor =
-    handleAndColorList?.find((item) => item.handle === 'susa')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'susa')?.color || null;
   const terterColor =
-    handleAndColorList?.find((item) => item.handle === 'terter')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'terter')?.color || null;
   const tovuzColor =
-    handleAndColorList?.find((item) => item.handle === 'tovuz')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'tovuz')?.color || null;
   const ucarColor =
-    handleAndColorList?.find((item) => item.handle === 'ucar')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'ucar')?.color || null;
   const xankendiColor =
-    handleAndColorList?.find((item) => item.handle === 'xankendi')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'xankendi')?.color ||
+    null;
   const xacmazColor =
-    handleAndColorList?.find((item) => item.handle === 'xacmaz')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'xacmaz')?.color || null;
   const xocaliColor =
-    handleAndColorList?.find((item) => item.handle === 'xocali')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'xocali')?.color || null;
   const xiziColor =
-    handleAndColorList?.find((item) => item.handle === 'xizi')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'xizi')?.color || null;
   const xocavendColor =
-    handleAndColorList?.find((item) => item.handle === 'xocavend')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'xocavend')?.color ||
+    null;
   const yardimliColor =
-    handleAndColorList?.find((item) => item.handle === 'yardimli')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'yardimli')?.color ||
+    null;
   const zengilanColor =
-    handleAndColorList?.find((item) => item.handle === 'zengilan')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'zengilan')?.color ||
+    null;
   const zaqatalaColor =
-    handleAndColorList?.find((item) => item.handle === 'zaqatala')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'zaqatala')?.color ||
+    null;
   const zerdabColor =
-    handleAndColorList?.find((item) => item.handle === 'zerdab')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'zerdab')?.color || null;
 
   const bakiColor =
-    handleAndColorList?.find((item) => item.handle === 'baki')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'baki')?.color || null;
   const yevlaxColor =
-    handleAndColorList?.find((item) => item.handle === 'yevlax')?.color || '';
+    handleAndColorList?.find((item) => item.handle === 'yevlax')?.color || null;
 
   const closePopup = () => {
-    setSelectedRegion('');
+    setSelectedRegion(null);
     setIsPopupOpen(false);
   };
   return (
@@ -193,7 +221,7 @@ export const SVG = ({ region, RegionData }) => {
       >
         <g>
           <g
-            className={`st0 ${region == 'agstafa' ? 'active' : ''}`}
+            className={`st0 ${region == 'agstafa' ? 'active' : null}`}
             onClick={() => openPopup('agstafa')}
           >
             <g>
@@ -703,7 +731,7 @@ export const SVG = ({ region, RegionData }) => {
             <g>
               <polygon
                 className={`st59`}
-                style={{ fill: agstafaColor ? agstafaColor : '' }}
+                style={{ fill: agstafaColor ? agstafaColor : null }}
                 points="423.31,181.31 431.86,182.32 447.78,189.46 452.34,190.47 458.3,190.68 468.32,189.88 
 471.6,190.55 474.25,193.43 481.06,199.17 517.62,211.96 534.69,215.63 539.97,217.51 539.87,218 536.3,218.71 528.89,219.5 
 519.56,223.87 523.62,231.02 532.81,237.98 535.87,239.59 528.19,241.12 515.71,243.26 506.11,246.51 498.54,251.03 
@@ -770,7 +798,7 @@ l9.38-0.63l8.93-0.71l10.22-4.14l6.32-6.79l-0.6-6.24l-0.54-7.04l11.71-3.31l15.63,
         </g>
         <g>
           <g
-            className={`st0 ${region == 'qazax' ? 'active' : ''}`}
+            className={`st0 ${region == 'qazax' ? 'active' : null}`}
             onClick={() => openPopup('qazax')}
           >
             <g>
@@ -1119,7 +1147,7 @@ z M305.28,264.86l5.31-3.82l-0.23-5.72l-9.23-2.21l-4.17,1.12l-1.97,2.44l0.21,3.08
             <g>
               <polygon
                 className="st59"
-                style={{ fill: qazaxColor ? qazaxColor : '' }}
+                style={{ fill: qazaxColor ? qazaxColor : null }}
                 points="301.13,253.1 310.36,255.31 310.59,261.03 305.28,264.86 297.27,262.34 295.2,259.74 
 294.99,256.66 296.96,254.22 			"
               />
@@ -1301,7 +1329,7 @@ z M305.28,264.86l5.31-3.82l-0.23-5.72l-9.23-2.21l-4.17,1.12l-1.97,2.44l0.21,3.08
             <g>
               <polygon
                 className="st59"
-                style={{ fill: abseronColor ? abseronColor : '' }}
+                style={{ fill: abseronColor ? abseronColor : null }}
                 points="350.91,275.95 351.52,276.08 356.86,280.15 354.25,281.49 349.42,280.58 349.08,276.26 
 349.46,276.11 350.18,275.95 			"
               />
@@ -1359,7 +1387,7 @@ l4.86,2.63l3.08,3.08l3.26,2.4l12.77,2.06l10.81,3.94L392.36,279.13"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: qazaxColor ? qazaxColor : '' }}
+                style={{ fill: qazaxColor ? qazaxColor : null }}
                 points="408.83,268.06 406.05,275.53 405.89,276.76 392.36,279.13 386.74,278.08 375.92,274.14 
 363.16,272.07 359.9,269.67 356.82,266.6 351.96,263.97 345.46,257.75 339.96,255.16 336.7,259.85 334.45,261.69 330.33,261.08 
 325.76,258.42 324.03,254.95 329.53,249.15 356.4,252.17 368.96,248.69 370.41,244.7 368.09,241.18 356.37,233.11 351.66,231.66 
@@ -1415,7 +1443,7 @@ l4.86,2.63l3.08,3.08l3.26,2.4l12.77,2.06l10.81,3.94L392.36,279.13"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'tovuz' ? 'active' : ''}`}
+            className={`st0 ${region == 'tovuz' ? 'active' : null}`}
             onClick={() => openPopup('tovuz')}
           >
             <g>
@@ -2039,7 +2067,7 @@ l4.86,2.63l3.08,3.08l3.26,2.4l12.77,2.06l10.81,3.94L392.36,279.13"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: tovuzColor ? tovuzColor : '' }}
+                style={{ fill: tovuzColor ? tovuzColor : null }}
                 points="537.82,240.53 549.12,246.48 586.85,258.85 600.3,261.07 607.4,261.33 613.81,260.62 
 621.94,258.68 635.97,265.54 648.64,270.92 636.83,278.05 622.02,284.07 613.61,288.31 609.3,291.45 606.3,293.96 592.57,294.54 
 565.36,290.07 550.38,290.43 542.94,296.31 534.85,302.07 524.22,305.12 513.03,308.08 503.54,311.3 493.29,313.78 485.5,318.76 
@@ -2085,7 +2113,7 @@ l27.21,4.47l13.73-0.58l3-2.51l4.3-3.14l8.42-4.24L636.83,278.05"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'semkir' ? 'active' : ''}`}
+            className={`st0 ${region == 'semkir' ? 'active' : null}`}
             onClick={() => openPopup('semkir')}
           >
             <g>
@@ -2577,7 +2605,7 @@ l27.21,4.47l13.73-0.58l3-2.51l4.3-3.14l8.42-4.24L636.83,278.05"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: semkirColor ? semkirColor : '' }}
+                style={{ fill: semkirColor ? semkirColor : null }}
                 points="649.99,272 656.86,281.22 663.9,291.28 666.83,298.8 662.02,305.87 656.05,309.53 651.39,314.52 
 648.25,318.2 644.16,321.73 637.63,329.27 639.02,337 632.81,340.74 626.68,344.78 623.42,348.96 620.8,352.95 613.54,358.61 
 610.8,362.38 607.75,365.69 599.47,368.03 590.61,367.15 578.37,367.68 566.35,370.86 554.8,365.52 540.6,370.06 524.79,378.43 
@@ -2619,7 +2647,7 @@ L662.02,305.87"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'samux' ? 'active' : ''}`}
+            className={`st0 ${region == 'samux' ? 'active' : null}`}
             onClick={() => openPopup('samux')}
           >
             <g>
@@ -3109,7 +3137,7 @@ l6.66-1.41l18-6.49l17.98-6.9L771.91,327.24"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: samuxColor ? samuxColor : '' }}
+                style={{ fill: samuxColor ? samuxColor : null }}
                 points="657.99,258.03 662.15,259.37 665.21,262.05 670.68,268.71 683.28,278.87 688.19,281.37 
 703.39,285.97 706.69,288.53 711.6,295.24 716.3,297.79 723.51,298.23 727.49,295.95 730.81,292.65 735.25,289.72 741.49,288.26 
 746.24,288.96 751.42,290.32 757.94,290.29 762.68,287.82 768.66,291.79 781.39,293.17 790.12,297.68 788.61,303.4 
@@ -3135,7 +3163,7 @@ l6.66-1.41l18-6.49l17.98-6.9L771.91,327.24"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'balaken' ? 'active' : ''}`}
+            className={`st0 ${region == 'balaken' ? 'active' : null}`}
             onClick={() => openPopup('balaken')}
           >
             <g>
@@ -3585,7 +3613,7 @@ l6.66-1.41l18-6.49l17.98-6.9L771.91,327.24"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: balakenColor ? balakenColor : '' }}
+                style={{ fill: balakenColor ? balakenColor : null }}
                 points="790.53,115.52 795.41,116.79 803.03,117.25 815.28,119.37 818.98,121.26 818.64,125.07 
 813.16,133.71 812.96,137.86 817.3,141.03 823.43,141.54 829.67,140.03 840.75,136.31 846.67,135.66 858.65,135.31 
 861.51,134.56 861.21,138.35 854.06,145.18 842.17,150.03 829.39,153.46 819.01,155.92 808.71,159.03 801.06,164.89 
@@ -3632,7 +3660,7 @@ l10.3-3.1l10.37-2.46l12.79-3.43L854.06,145.18"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'zaqatala' ? 'active' : ''}`}
+            className={`st0 ${region == 'zaqatala' ? 'active' : null}`}
             onClick={() => openPopup('zaqatala')}
           >
             <g>
@@ -4122,7 +4150,7 @@ l0.82,0.47l4.3-5.01l16.73-8.06l14.49-10.71l13.72-8.05l16.4-1.54l18.84,2.31l16.24
             <g>
               <polygon
                 className="st59"
-                style={{ fill: zaqatalaColor ? zaqatalaColor : '' }}
+                style={{ fill: zaqatalaColor ? zaqatalaColor : null }}
                 points="871.06,131.22 872.02,131.31 872.06,133.24 870.58,142 870.69,145.06 872.31,147.97 886.39,159.62 
 890.38,161.75 894.08,162.76 900.92,163.92 903.34,164.96 903.89,166.04 903.55,170.09 903.82,171.83 906.31,175.3 
 917.06,183.38 920.81,190.24 920.23,196.77 922.29,201.04 908.16,208.4 891.31,209.03 875.07,204.22 856.22,201.91 
@@ -4160,7 +4188,7 @@ l0.82,0.47l4.3-5.01l16.73-8.06l14.49-10.71l13.72-8.05l16.4-1.54l18.84,2.31l16.24
         </g>
         <g>
           <g
-            className={`st0 ${region == 'qax' ? 'active' : ''}`}
+            className={`st0 ${region == 'qax' ? 'active' : null}`}
             onClick={() => openPopup('qax')}
           >
             <g>
@@ -4687,7 +4715,7 @@ l12.72-3.05l41.12-6.13l26.89-6.93l9.46-6.02L957.54,219.33"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: qaxColor ? qaxColor : '' }}
+                style={{ fill: qaxColor ? qaxColor : null }}
                 points="947.14,200.95 951.25,202.01 954.02,205.08 954.31,208.73 953.58,212.59 954.12,216.1 
 958.16,218.73 957.54,219.33 950.49,227.73 941.03,233.75 914.13,240.69 873.01,246.82 860.3,249.87 853.75,252.87 849.08,256.6 
 844.26,259.19 837.9,261.15 828,268.79 821.22,279.01 818.73,287.99 829.83,293.03 840.54,312.45 830.55,335.35 811.92,326.57 
@@ -4714,7 +4742,7 @@ l12.72-3.05l41.12-6.13l26.89-6.93l9.46-6.02L957.54,219.33"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'seki' ? 'active' : ''}`}
+            className={`st0 ${region == 'seki' ? 'active' : null}`}
             onClick={() => openPopup('seki')}
           >
             <g>
@@ -5164,7 +5192,7 @@ l12.72-3.05l41.12-6.13l26.89-6.93l9.46-6.02L957.54,219.33"
             <g>
               <path
                 className="st59"
-                style={{ fill: sekiColor ? sekiColor : '' }}
+                style={{ fill: sekiColor ? sekiColor : null }}
                 d="M975.19,366.78l22.42,10.25l-4.35,4.5l-9.85,0.73l-11.4,0.25l-9.64-2.3l-4.32-1.86l-4.96-1.43l-3.73,0.62
 l-2.24,0.51l-6.27-0.59l-6.15-2.35l-10.79-2.68l-10.91-2.37l-18.73-7.15l-18.9-6.9l-21.37-10.31l-21.43-9.43l10.51-24.03
 L832,292.14l-10.64-4.82l2.19-8.02l6.49-9.88l9.39-7.24l5.97-1.84l5.38-2.85l4.55-3.67l5.89-2.74l12.34-2.96l41.15-6.14
@@ -5395,7 +5423,7 @@ l11.4-0.25L993.26,381.54"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'oguz' ? 'active' : ''}`}
+            className={`st0 ${region == 'oguz' ? 'active' : null}`}
             onClick={() => openPopup('oguz')}
           >
             <g>
@@ -5761,7 +5789,7 @@ l11.4-0.25L993.26,381.54"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: oguzColor ? oguzColor : '' }}
+                style={{ fill: oguzColor ? oguzColor : null }}
                 points="989.7,273.61 990.59,273.91 1019.04,278.09 1024.14,279.7 1028.92,286.55 1033.32,289.65 
 1039.8,290.25 1051.76,287.27 1057.33,286.57 1062.28,287.36 1074.15,292.59 1072.73,294.74 1069.81,300.31 1069.94,303.06 
 1069.74,305.45 1065.02,310.09 1060.34,315.29 1047.79,324.52 1034.5,333.05 1033.24,338.3 1029.92,343.16 1016.31,351.64 
@@ -5799,7 +5827,7 @@ l11.69-11.96l13.62-8.48l3.32-4.86l1.26-5.25l13.29-8.53l12.55-9.23L1065.02,310.09
         </g>
         <g>
           <g
-            className={`st0 ${region == 'seki' ? 'active' : ''}`}
+            className={`st0 ${region == 'seki' ? 'active' : null}`}
             onClick={() => openPopup('a')}
           >
             <g>
@@ -5885,7 +5913,7 @@ l-1.73,2.58l9.3,2.48L932.38,289.5"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: sekiColor ? sekiColor : '' }}
+                style={{ fill: sekiColor ? sekiColor : null }}
                 points="935.38,273.29 937.31,274.56 940.22,280.52 939.1,284.58 932.38,289.5 928.66,290.19 919.36,287.7 
 921.09,285.12 925.68,280.94 929.46,277.13 932.78,274.05 			"
               />
@@ -5912,7 +5940,7 @@ l-1.73,2.58l9.3,2.48L932.38,289.5"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'gedebey' ? 'active' : ''}`}
+            className={`st0 ${region == 'gedebey' ? 'active' : null}`}
             onClick={() => openPopup('gedebey')}
           >
             <g>
@@ -6428,7 +6456,7 @@ l-1.73,2.58l9.3,2.48L932.38,289.5"
             <g>
               <path
                 className="st59"
-                style={{ fill: gedebeyColor ? gedebeyColor : '' }}
+                style={{ fill: gedebeyColor ? gedebeyColor : null }}
                 d="M512.83,376.51l-1.54,4.99l-3.21,2.42l0.68,2.27l-22.82,5.21l-11.68,13.54l1.68,4.25l2.03,3.74l0.45,4.08
 l-4.77,3.71l-2.78,5.28l-3.9,3.98l-3.93,2.16l-1.69,3.26l-3.17,2.67l-54.39-26.54l-12.19-10.2l-3.81-11.81l-1.28-2.83l-4.87-2.76
 l-1.61-1.71l-0.2-2.16l1.55-4.65l-0.1-2.33l-3.33-4.18l-4.52-3.12l-3.84-3.42l-1.61-5l4.14-8.67l10.04-6.26l13.06-4.11
@@ -6562,7 +6590,7 @@ l3.7-1.02l3.8-0.29l3.77,0.28l3.69,0.64l5.27,2.57L413.54,363.52"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'daskesen' ? 'active' : ''}`}
+            className={`st0 ${region == 'daskesen' ? 'active' : null}`}
             onClick={() => openPopup('daskesen')}
           >
             <g>
@@ -6880,7 +6908,7 @@ l-3.73,3.16l7.8,8.02l4.85,0.58l1.08-0.07l6.09-7.4l18.48-2.27l17.08,3.45l18.9,2.5
             <g>
               <polygon
                 className="st59"
-                style={{ fill: daskesenColor ? daskesenColor : '' }}
+                style={{ fill: daskesenColor ? daskesenColor : null }}
                 points="554.31,367.18 565.15,372.18 573.65,376.93 581.63,382.21 588.04,385.51 592.43,388.73 
 580.2,395.59 565.36,403.73 569.79,411.23 577.27,416.97 584.34,421.54 581.51,427.26 565.13,434.15 553.17,444.54 534,443.99 
 515.1,441.43 498.02,437.98 479.54,440.26 473.45,447.66 472.37,447.73 467.51,447.15 459.71,439.13 463.45,435.98 
@@ -6904,7 +6932,7 @@ l-3.73,3.16l7.8,8.02l4.85,0.58l1.08-0.07l6.09-7.4l18.48-2.27l17.08,3.45l18.9,2.5
         </g>
         <g>
           <g
-            className={`st0 ${region == 'goygol' ? 'active' : ''}`}
+            className={`st0 ${region == 'goygol' ? 'active' : null}`}
             onClick={() => openPopup('goygol')}
           >
             <g>
@@ -7330,7 +7358,7 @@ l-3.73,3.16l7.8,8.02l4.85,0.58l1.08-0.07l6.09-7.4l18.48-2.27l17.08,3.45l18.9,2.5
             <g>
               <polygon
                 className="st59"
-                style={{ fill: goygolColor ? goygolColor : '' }}
+                style={{ fill: goygolColor ? goygolColor : null }}
                 points="639.47,338.63 642.51,348.59 645.96,361.59 643.46,363.54 639.5,365.86 635.2,368.11 
 627.44,374.73 626.86,382.19 638.56,384.17 652.17,379.22 663.56,372.5 678.29,374.53 681,384.83 674.43,397.46 677.25,400.58 
 674.25,403.67 666.31,407.28 658.07,410.81 645.12,415.44 632.86,420.99 625.14,425.54 616.6,429.48 602.26,440.9 595.27,454.93 
@@ -7370,7 +7398,7 @@ l12.95-4.63l8.24-3.53L674.25,403.67"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'gence' ? 'active' : ''}`}
+            className={`st0 ${region == 'gence' ? 'active' : null}`}
             onClick={() => openPopup('gence')}
           >
             <g>
@@ -7450,7 +7478,7 @@ l-0.47,6.11l9.04,1.53L650.86,378.14"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: genceColor ? genceColor : '' }}
+                style={{ fill: genceColor ? genceColor : null }}
                 points="647.71,362.46 660.27,363.72 661.96,371.56 650.86,378.14 638.42,382.66 629.38,381.13 
 629.85,375.03 636.89,369 641.13,366.79 645.28,364.35 			"
               />
@@ -7471,7 +7499,7 @@ l-0.47,6.11l9.04,1.53L650.86,378.14"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'goranboy' ? 'active' : ''}`}
+            className={`st0 ${region == 'goranboy' ? 'active' : null}`}
             onClick={() => openPopup('goranboy')}
           >
             <g>
@@ -8091,7 +8119,7 @@ l6.75-1.99l6.52-1.83l6.47-1.56l16.7-6.13l6.76-1.05L797.86,422.06"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'yevlax' ? 'active' : ''}`}
+            className={`st0 ${region == 'yevlax' ? 'active' : null}`}
             onClick={() => openPopup('yevlax')}
           >
             <g>
@@ -8714,7 +8742,7 @@ l2.29-1.65L874.87,403.78"
             <g>
               <path
                 className="st59"
-                style={{ fill: yevlaxColor ? yevlaxColor : '' }}
+                style={{ fill: yevlaxColor ? yevlaxColor : null }}
                 d="M895.37,386.89l-7.06,6.81l-4.01,7.93l0.56,6.62l-5.61,5.96l-7.99,3.56l-9.29,2.01l-15.35,11.3l-16.46,0.08
 l-18.64-0.02L793.1,441.3l-2.7-2.8l-2.43-3.87l0.23-3.59l-0.45-2.81l6.61-1.03l5.55-4.57l2.99-3.41l-1.88-2.78l-9.42-0.07
 l-6.43-1.9l2.56-8.81l4.87-9.27l-5.44-5.68l-10.21-1.47l-12.33,2.8l-2.26-4.05l11.23-5.78l10.99-6.39l-8.56-5.1l-10.55-1.91
@@ -8740,7 +8768,7 @@ l-0.08-1.67l0.98-2.4l1.16-1.24l2.22-1.59L876.96,404.39"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'a' ? 'active' : ''}`}
+            className={`st0 ${region == 'a' ? 'active' : null}`}
             onClick={() => openPopup('a')}
           >
             <g>
@@ -8794,7 +8822,7 @@ l-0.08-1.67l0.98-2.4l1.16-1.24l2.22-1.59L876.96,404.39"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: yevlaxColor ? yevlaxColor : '' }}
+                style={{ fill: yevlaxColor ? yevlaxColor : null }}
                 points="824.03,365.59 833.39,368.76 839.77,368.03 844.33,368.52 846,370.67 846.95,373.14 823.97,376.14 
 816.02,367.09 			"
               />
@@ -8822,7 +8850,7 @@ z M816.02,367.09l7.96,9.05l22.97-3l-0.94-2.47l-1.67-2.15l-4.56-0.49l-6.38,0.73l-
         </g>
         <g>
           <g
-            className={`st0 ${region == 'yevlax' ? 'active' : ''}`}
+            className={`st0 ${region == 'yevlax' ? 'active' : null}`}
             onClick={() => openPopup('a')}
           >
             <g>
@@ -8941,7 +8969,7 @@ l1.66,0.11L763.98,420.74"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'yevlax' ? 'active' : ''}`}
+            className={`st0 ${region == 'yevlax' ? 'active' : null}`}
             onClick={() => openPopup('a')}
           >
             <g>
@@ -9085,7 +9113,7 @@ l1.66,0.11L763.98,420.74"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: yevlaxColor ? yevlaxColor : '' }}
+                style={{ fill: yevlaxColor ? yevlaxColor : null }}
                 points="873.27,400.79 875.99,401.22 876.45,401.56 874.87,403.78 872.72,405.6 870.43,407.25 
 868.95,408.79 867.86,411.47 867.89,412.73 865.16,414.13 856.53,413.1 849.64,409.55 848.92,402.89 855.06,399.38 
 867.31,400.43 			"
@@ -9116,7 +9144,7 @@ l2.29-1.65L874.87,403.78"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'agdas' ? 'active' : ''}`}
+            className={`st0 ${region == 'agdas' ? 'active' : null}`}
             onClick={() => openPopup('agdas')}
           >
             <g>
@@ -9812,7 +9840,7 @@ l2.29-1.65L874.87,403.78"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: agdasColor ? agdasColor : '' }}
+                style={{ fill: agdasColor ? agdasColor : null }}
                 points="912.83,371.59 922.76,373.74 933.36,376.35 939.52,378.73 947.13,379.49 949.93,378.85 
 952.6,378.42 956.59,379.56 960.85,381.4 971.32,383.91 981.84,383.68 978.75,392.24 974.98,401.82 980,406.88 987.77,410.82 
 990.78,414.2 992.91,417.38 991.03,419.21 986.94,420.9 980.12,427.17 976.15,433.42 967.31,430.79 955.84,430.54 945.29,433.18 
@@ -9867,7 +9895,7 @@ l6.82-6.27L991.03,419.21"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'terter' ? 'active' : ''}`}
+            className={`st0 ${region == 'terter' ? 'active' : null}`}
             onClick={() => openPopup('terter')}
           >
             <g>
@@ -10387,7 +10415,7 @@ l6.82-6.27L991.03,419.21"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: terterColor ? terterColor : '' }}
+                style={{ fill: terterColor ? terterColor : null }}
                 points="785.38,428.88 785.76,431.21 785.51,434.83 788.14,439.14 791.5,442.61 790.97,447.53 
 790.54,452.72 792.67,455.34 795.84,457.38 798.23,462.81 803.38,467.08 810.34,469.44 803.04,482.17 800.32,489.44 
 800.22,493.54 799.7,496.95 793.05,496.88 787.12,495.15 787.08,489.88 783.12,484.92 775.33,485.94 769.34,484.72 
@@ -10436,7 +10464,7 @@ l4.55,1.56l2.03,1.77l5.99,1.23l7.79-1.03l3.96,4.96l0.04,5.27L793.05,496.88"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'kelbecer' ? 'active' : ''}`}
+            className={`st0 ${region == 'kelbecer' ? 'active' : null}`}
             onClick={() => openPopup('kelbecer')}
           >
             <g>
@@ -11138,7 +11166,7 @@ l4.55,1.56l2.03,1.77l5.99,1.23l7.79-1.03l3.96,4.96l0.04,5.27L793.05,496.88"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: kelbecerColor ? kelbecerColor : '' }}
+                style={{ fill: kelbecerColor ? kelbecerColor : null }}
                 points="497.59,439.41 514.17,442.75 533.39,445.34 553.27,445.93 572.82,452.36 595.56,456.48 
 625.97,462.07 658.3,454.59 656.69,456.69 653.35,459.81 650.16,460.77 646.31,462.12 641.16,470.05 640.67,477.9 639.93,485.12 
 640.95,491.88 649.16,491.14 656.57,488.93 672.07,491.23 682.36,499.98 687.81,503.76 689.28,508.13 690.62,513.14 
@@ -11199,7 +11227,7 @@ l11.91-0.17L686.78,516.7"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'berde' ? 'active' : ''}`}
+            className={`st0 ${region == 'berde' ? 'active' : null}`}
             onClick={() => openPopup('berde')}
           >
             <g>
@@ -11836,7 +11864,7 @@ L931.55,485.01"
             <g>
               <polygon
                 className={`st59`}
-                style={{ fill: berdeColor ? berdeColor : '' }}
+                style={{ fill: berdeColor ? berdeColor : null }}
                 points="874.03,418.19 875.21,418.99 877.11,420.89 874.32,422.58 872.21,425.67 872.33,428.72 
 877.05,427.69 882.75,424.98 885.95,423.75 887.43,423.49 890.48,425.47 888.21,428.87 884.45,432.79 886.07,435.14 
 888.97,436.11 890.29,437.54 891.16,439.23 891.75,440 892.32,440.43 891.2,442.48 892.64,443.47 897.43,443.95 901.36,443.85 
@@ -11870,7 +11898,7 @@ L931.55,485.01"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'agdam' ? 'active' : ''}`}
+            className={`st0 ${region == 'agdam' ? 'active' : null}`}
             onClick={() => openPopup('agdam')}
           >
             <g>
@@ -12386,7 +12414,7 @@ L931.55,485.01"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: agdamColor ? agdamColor : '' }}
+                style={{ fill: agdamColor ? agdamColor : null }}
                 points="763.27,483.24 765.34,483.91 767.62,485.9 774.93,487.41 781.61,486.51 784.63,490.21 
 784.68,496.08 792.21,498.27 800.59,498.35 820.77,499.13 838.03,500.95 825.9,505.63 809.98,509.48 806.12,514.84 
 812.14,519.39 803.94,522.22 792.04,523.25 788.64,529.42 785.36,534.91 781.72,536.04 776.57,537.22 778.03,548.98 
@@ -12454,7 +12482,7 @@ L820.14,564.7"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'xocali' ? 'active' : ''}`}
+            className={`st0 ${region == 'xocali' ? 'active' : null}`}
             onClick={() => openPopup('xocali')}
           >
             <g>
@@ -12948,7 +12976,7 @@ l0.41-7.82l-6.25-6.4l-3.69-3.69L688.56,574.82"
             <g>
               <path
                 className="st59"
-                style={{ fill: xocaliColor ? xocaliColor : '' }}
+                style={{ fill: xocaliColor ? xocaliColor : null }}
                 d="M697.71,569.33l-4.88,2.63l-4.26,2.85l1.63,4.53l3.69,3.69l6.25,6.4l-0.41,7.82l-10.1,3.72l-10.69,2.85
 l-5.64-2.62l-5.03-3.97l1.93-3.61l1.79-4.13l2.26-6.14l0.42-7.67l-4.28-3.07l-11.84-3.03l-12.36-2.37l-12.48-0.19l-6.9,1.22
 l-6.46,1.08l-11.92-0.05l1.33-12.87l-4.27-12.58l-4.58-3.98l-4.96-2.81l0.31-5.13l6.38-5.53l18.06-4.06l6.78,2.89l6.57,4.15
@@ -13011,7 +13039,7 @@ l-4.78,1.56l-6.09,3.27l-1.39,4.34l2.8,1.64l4.93-1.05l4.31-3.48l2.65-2.28L687.65,
         </g>
         <g>
           <g
-            className={`st0 ${region == 'xocali' ? 'active' : ''}`}
+            className={`st0 ${region == 'xocali' ? 'active' : null}`}
             onClick={() => openPopup('a')}
           >
             <g>
@@ -13113,7 +13141,7 @@ l-4.78,1.56l-6.09,3.27l-1.39,4.34l2.8,1.64l4.93-1.05l4.31-3.48l2.65-2.28L687.65,
             <g>
               <polygon
                 className="st59"
-                style={{ fill: xocaliColor ? xocaliColor : '' }}
+                style={{ fill: xocaliColor ? xocaliColor : null }}
                 points="684.55,554.54 685.56,554.89 687.91,555.97 688.75,558.1 687.66,558.99 685.23,558.91 
 682.58,561.2 678.28,564.67 673.34,565.72 670.54,564.08 671.93,559.74 678.02,556.47 682.8,554.91 			"
               />
@@ -13148,7 +13176,7 @@ l-4.78,1.56l-6.09,3.27l-1.39,4.34l2.8,1.64l4.93-1.05l4.31-3.48l2.65-2.28L687.66,
         </g>
         <g>
           <g
-            className={`st0 ${region == 'qusar' ? 'active' : ''}`}
+            className={`st0 ${region == 'qusar' ? 'active' : null}`}
             onClick={() => openPopup('qusar')}
           >
             <g>
@@ -13522,7 +13550,7 @@ l6.93,3.99l9.43,2.18l9.38,1.82l65.09-18.9l66.1-17.51l23.61-7.54l23.67-4.29L1332.
             <g>
               <polygon
                 className="st59"
-                style={{ fill: qusarColor ? qusarColor : '' }}
+                style={{ fill: qusarColor ? qusarColor : null }}
                 points="1349.24,201.97 1353.82,206.7 1342.3,217.32 1342.41,228.88 1350.44,229.97 1355.99,231.48 
 1354.25,234.98 1347.58,238.52 1349.9,245.73 1349.17,254.38 1332.03,258.01 1313.88,259.58 1290.21,263.88 1266.6,271.42 
 1200.5,288.92 1135.42,307.82 1126.04,306.01 1116.61,303.83 1109.68,299.84 1109.17,298.08 1111.85,298.17 1124.97,297.12 
@@ -13548,7 +13576,7 @@ l6.93,3.99l9.43,2.18l9.38,1.82l65.09-18.9l66.1-17.51l23.61-7.54l23.67-4.29L1332.
         </g>
         <g>
           <g
-            className={`st0 ${region == 'qebele' ? 'active' : ''}`}
+            className={`st0 ${region == 'qebele' ? 'active' : null}`}
             onClick={() => openPopup('qebele')}
           >
             <g>
@@ -14032,7 +14060,7 @@ L1148.95,333.3"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: qebeleColor ? qebeleColor : '' }}
+                style={{ fill: qebeleColor ? qebeleColor : null }}
                 points="1076.11,293.46 1081.95,296.03 1087.45,297.28 1106.81,297.97 1107.58,300.57 1115.12,304.9 
 1125.17,307.28 1134.4,309.07 1135.55,322.23 1153.52,331.29 1148.95,333.3 1143.87,336.77 1140.47,340.62 1137.19,343.29 
 1134.39,342.64 1129.84,341.89 1125.75,344.24 1122.67,347.02 1122.23,354.43 1125.83,361.71 1122.09,367.73 1112.82,370.74 
@@ -14077,7 +14105,7 @@ L1148.95,333.3"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'quba' ? 'active' : ''}`}
+            className={`st0 ${region == 'quba' ? 'active' : null}`}
             onClick={() => openPopup('quba')}
           >
             <g>
@@ -14493,7 +14521,7 @@ l-6.26-8.23L1332.48,331.63"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: qubaColor ? qubaColor : '' }}
+                style={{ fill: qubaColor ? qubaColor : null }}
                 points="1349.62,255.72 1352.19,262.03 1356.34,268.93 1358.52,275.36 1361.02,281.78 1364.29,286.47 
 1372.77,286.05 1379.33,285.36 1382.81,288 1375.78,296.16 1371.68,305.23 1374.22,308.22 1373.04,310.84 1368.6,313.04 
 1363.82,315.24 1345.45,321.45 1332.48,331.63 1341.46,339.81 1347.72,348.04 1342.08,352.66 1333.73,355.11 1325.26,359.74 
@@ -14518,7 +14546,7 @@ l-6.26-8.23L1332.48,331.63"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'ismayilli' ? 'active' : ''}`}
+            className={`st0 ${region == 'ismayilli' ? 'active' : null}`}
             onClick={() => openPopup('ismayilli')}
           >
             <g>
@@ -15032,7 +15060,7 @@ l7.09-2.19l8.39-1.79l7.37-1.98l2.38-1.9l3.81-1.81l5.32-0.96l5.34-0.83l20.6-3.44l
             <g>
               <polygon
                 className="st59"
-                style={{ fill: ismayilliColor ? ismayilliColor : '' }}
+                style={{ fill: ismayilliColor ? ismayilliColor : null }}
                 points="1155.48,332.06 1162.77,333.74 1170.81,334.86 1177.58,337.4 1196.91,346.98 1210.24,352.41 
 1231.04,355.19 1243.25,364.82 1251.74,374.15 1263.52,381.32 1261.04,390.37 1248.14,398.63 1237.75,408.66 1225.27,416.51 
 1205.6,422.11 1185,425.55 1179.65,426.38 1174.34,427.34 1170.53,429.15 1168.15,431.05 1160.77,433.03 1152.38,434.82 
@@ -15065,7 +15093,7 @@ l7.09-2.19l8.39-1.79l7.37-1.98l2.38-1.9l3.81-1.81l5.32-0.96l5.34-0.83l20.6-3.44l
         </g>
         <g>
           <g
-            className={`st0 ${region == 'goycay' ? 'active' : ''}`}
+            className={`st0 ${region == 'goycay' ? 'active' : null}`}
             onClick={() => openPopup('goycay')}
           >
             <g>
@@ -15383,7 +15411,7 @@ l7.09-2.19l8.39-1.79l7.37-1.98l2.38-1.9l3.81-1.81l5.32-0.96l5.34-0.83l20.6-3.44l
             <g>
               <polygon
                 className="st59"
-                style={{ fill: goycayColor ? goycayColor : '' }}
+                style={{ fill: goycayColor ? goycayColor : null }}
                 points="1032.46,407.1 1040.96,409.36 1056.36,414.16 1063.54,414.43 1077.13,416.53 1090.05,420.44 
 1103.61,423.97 1112.09,430.25 1100.99,439.05 1098,447.82 1094.96,458.77 1082.64,461.3 1076.41,459.04 1068.69,458.88 
 1058.49,457.13 1049.6,453.53 1033.29,446.23 1026.87,445.31 1020.84,447.27 1015.13,448.3 1009.79,446.26 1004.4,442.45 
@@ -15425,7 +15453,7 @@ l5.7-1.03l6.03-1.96l6.42,0.92l16.3,7.31l8.89,3.6l10.21,1.75l7.71,0.16L1082.64,46
         </g>
         <g>
           <g
-            className={`st0 ${region == 'ucar' ? 'active' : ''}`}
+            className={`st0 ${region == 'ucar' ? 'active' : null}`}
             onClick={() => openPopup('ucar')}
           >
             <g>
@@ -15743,7 +15771,7 @@ l14.57,0.93l14.21,2.39l16.07-0.1l15.85,0.76l8.62-3.53l7.74-5.01L1075.7,470.45"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: ucarColor ? ucarColor : '' }}
+                style={{ fill: ucarColor ? ucarColor : null }}
                 points="966.42,432.15 975.8,434.94 978.85,438.4 984.05,442.01 996.84,440.73 1002.54,443.46 
 1007.92,447.26 1014.5,449.81 1021.47,448.55 1027,446.77 1031.84,447.43 1047.97,454.67 1057.02,458.34 1068.02,460.25 
 1075.43,460.41 1080.91,462.38 1075.7,470.45 1069.35,478.45 1061.61,483.46 1052.99,486.99 1037.15,486.23 1021.07,486.33 
@@ -15767,7 +15795,7 @@ l14.57,0.93l14.21,2.39l16.07-0.1l15.85,0.76l8.62-3.53l7.74-5.01L1075.7,470.45"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'zerdab' ? 'active' : ''}`}
+            className={`st0 ${region == 'zerdab' ? 'active' : null}`}
             onClick={() => openPopup('zerdab')}
           >
             <g>
@@ -16335,7 +16363,7 @@ l-0.97,5.25l1.15,3.72l4.93-0.38l3.45-0.68l3.47,0.74l1.71,0.66l7.75-2.12l9.2-1.53
             <g>
               <polygon
                 className="st59"
-                style={{ fill: zerdabColor ? zerdabColor : '' }}
+                style={{ fill: zerdabColor ? zerdabColor : null }}
                 points="945.66,462.38 957.96,469.47 970.31,477.76 972.97,482.1 976.06,486.32 984.16,486.37 
 992.4,484.42 1006.11,485.29 1020.44,487.71 1036.79,487.61 1051.67,488.32 1044.27,503.3 1040.38,518.43 1033.95,522.55 
 1025.99,525.87 1016.79,527.4 1009.04,529.51 1007.33,528.86 1003.86,528.12 1000.41,528.8 995.48,529.18 994.33,525.46 
@@ -16368,7 +16396,7 @@ l-0.97,5.25l1.15,3.72l4.93-0.38l3.45-0.68l3.47,0.74l1.71,0.66l7.75-2.12l9.2-1.53
         </g>
         <g>
           <g
-            className={`st0 ${region == 'agcabedi' ? 'active' : ''}`}
+            className={`st0 ${region == 'agcabedi' ? 'active' : null}`}
             onClick={() => openPopup('agcabedi')}
           >
             <g>
@@ -16963,7 +16991,7 @@ l9.46-1.28l2.81-1.96l4.56-1.2l7.06,0.95l6.49,0.26l9.84-1.37l9.94-0.69l9.98-4.01l
             <g>
               <polygon
                 className="st59"
-                style={{ fill: agcabediColor ? agcabediColor : '' }}
+                style={{ fill: agcabediColor ? agcabediColor : null }}
                 points="920.01,490.22 921.3,491.02 922.15,492.22 924.59,499.83 928.3,506.65 928.64,508.46 
 934.54,507.87 940.58,505.92 946.55,504.62 952.34,505.56 953.78,506.66 954.24,509.25 955.93,510.65 959.98,511.15 
 963.12,510.42 965.11,510.21 968.22,511.98 980.3,506.25 981.97,506.32 980.79,511.41 981.56,514.8 986.13,516.08 967.78,529.87 
@@ -16991,7 +17019,7 @@ l9.46-1.28l2.81-1.96l4.56-1.2l7.06,0.95l6.49,0.26l9.84-1.37l9.94-0.69l9.98-4.01l
         </g>
         <g>
           <g
-            className={`st0 ${region == 'beyleqan' ? 'active' : ''}`}
+            className={`st0 ${region == 'beyleqan' ? 'active' : null}`}
             onClick={() => openPopup('beyleqan')}
           >
             <g>
@@ -17444,7 +17472,7 @@ l5.89-6.69l15.3-5.23L981.08,606.23"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: beyleqanColor ? beyleqanColor : '' }}
+                style={{ fill: beyleqanColor ? beyleqanColor : null }}
                 points="988.51,516.46 991.3,516.84 993.7,517.92 992.88,520.15 991.88,525.56 976.72,531.15 
 984.54,538.67 990.6,545.38 986.51,552.91 974.01,556.35 967.53,557.71 960.93,560.96 962.87,564.9 966.79,567.31 958.9,574.01 
 953.89,580.42 963.51,584.69 970.37,590.28 978.1,595.95 985.48,600.72 981.08,606.23 967.63,609.13 952.33,614.36 
@@ -17464,7 +17492,7 @@ l5.89-6.69l15.3-5.23L981.08,606.23"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'agsu' ? 'active' : ''}`}
+            className={`st0 ${region == 'agsu' ? 'active' : null}`}
             onClick={() => openPopup('agsu')}
           >
             <g>
@@ -17968,7 +17996,7 @@ l5.89-6.69l15.3-5.23L981.08,606.23"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: agsuColor ? agsuColor : '' }}
+                style={{ fill: agsuColor ? agsuColor : null }}
                 points="1248.45,400.91 1248.97,402.29 1249.53,405.34 1255.89,411.31 1257.92,418.01 1253.55,421.39 
 1247.82,425.21 1247.36,426.89 1246.39,428.85 1244.01,430.27 1241.08,431.77 1225.43,437.45 1217.78,446.5 1223.28,453.47 
 1232.98,457.04 1252.4,459.16 1257.27,461.36 1262.01,464.43 1267.3,466.64 1270.18,468.66 1265.61,470.81 1259.34,471.91 
@@ -18011,7 +18039,7 @@ l7.18-3.73l3.15-4.88l3.59-5.26l15.7-4.8l15.96-2.34L1265.61,470.81"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'xacmaz' ? 'active' : ''}`}
+            className={`st0 ${region == 'xacmaz' ? 'active' : null}`}
             onClick={() => openPopup('xacmaz')}
           >
             <g>
@@ -18446,7 +18474,7 @@ l14.08-1.7l13.13,1.9L1462.19,292.65"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: xacmazColor ? xacmazColor : '' }}
+                style={{ fill: xacmazColor ? xacmazColor : null }}
                 points="1387.83,178.22 1389.39,179.43 1396.45,183.09 1403.88,189.04 1419.33,210.96 1426.19,217.26 
 1428.46,220.83 1427.59,226.24 1440.97,240.39 1445.43,254.82 1450.76,256.57 1453.93,259.62 1455.85,263.12 1456.93,266.2 
 1460.78,272.18 1461.33,273.57 1462.59,274.89 1469.14,276.76 1470.82,277.57 1473.16,281.31 1477.31,293.64 1462.19,292.65 
@@ -18472,7 +18500,7 @@ l14.08-1.7l13.13,1.9L1462.19,292.65"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'sabran' ? 'active' : ''}`}
+            className={`st0 ${region == 'sabran' ? 'active' : null}`}
             onClick={() => openPopup('sabran')}
           >
             <g>
@@ -18946,7 +18974,7 @@ l14.08-1.7l13.13,1.9L1462.19,292.65"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: sabranColor ? sabranColor : '' }}
+                style={{ fill: sabranColor ? sabranColor : null }}
                 points="1435.05,289.39 1447.56,291.2 1461.59,293.97 1476.93,295.01 1477.96,294.94 1481.47,305.41 
 1483.87,309.11 1485.45,313.33 1484.97,317.98 1479.69,336.9 1479.61,341.16 1480.82,342.16 1479.82,342.17 1471.44,336.31 
 1462.7,330.05 1452.29,330.91 1442.67,332.24 1422.17,330.47 1408.36,337.58 1410.04,345.52 1406.58,353.33 1402.29,356.49 
@@ -18987,7 +19015,7 @@ l4.9-2.33l4.29-3.16l3.47-7.81l-1.69-7.94l13.81-7.11l20.5,1.77l9.62-1.33l10.42-0.
         </g>
         <g>
           <g
-            className={`st0 ${region == 'siyezen' ? 'active' : ''}`}
+            className={`st0 ${region == 'siyezen' ? 'active' : null}`}
             onClick={() => openPopup('siyezen')}
           >
             <g>
@@ -19341,7 +19369,7 @@ l4.9-2.33l4.29-3.16l3.47-7.81l-1.69-7.94l13.81-7.11l20.5,1.77l9.62-1.33l10.42-0.
             <g>
               <polygon
                 className="st59"
-                style={{ fill: siyezenColor ? siyezenColor : '' }}
+                style={{ fill: siyezenColor ? siyezenColor : null }}
                 points="1461.47,331.52 1469.45,337.23 1478.49,343.57 1482.07,343.5 1482.67,345.53 1480.24,361.11 
 1487.7,375.42 1510.95,400.17 1511.79,401.55 1501.23,400.46 1489.67,400.63 1475.73,401.52 1462.69,399.66 1452.24,396.26 
 1443.07,391.24 1435.92,388.76 1430.7,385.61 1432.44,377.6 1427.03,373.51 1419.33,374.26 1413.04,376.95 1410.03,380.36 
@@ -19379,7 +19407,7 @@ l5.41,4.1l-1.74,8.01l5.22,3.15l7.15,2.48l9.17,5.02l10.45,3.4l13.04,1.86l13.94-0.
         </g>
         <g>
           <g
-            className={`st0 ${region == 'samaxi' ? 'active' : ''}`}
+            className={`st0 ${region == 'samaxi' ? 'active' : null}`}
             onClick={() => openPopup('samaxi')}
           >
             <g>
@@ -20027,7 +20055,7 @@ l5.41,4.1l-1.74,8.01l5.22,3.15l7.15,2.48l9.17,5.02l10.45,3.4l13.04,1.86l13.94-0.
             <g>
               <polygon
                 className="st59"
-                style={{ fill: samaxiColor ? samaxiColor : '' }}
+                style={{ fill: samaxiColor ? samaxiColor : null }}
                 points="1246.65,365.38 1266.53,367.23 1286.46,372.69 1302.68,378.76 1319.79,383.51 1332.25,388.76 
 1343.65,394.18 1335.2,404.38 1341.54,414.02 1329.23,416.68 1316.15,420.59 1308.08,429.49 1304.85,438.7 1298.17,442.12 
 1291.57,446.12 1293.04,449.41 1296.34,451.82 1295.95,455.08 1294.13,459.02 1294.07,463.67 1292.98,468.22 1290.75,471.92 
@@ -20079,7 +20107,7 @@ l0.17-3.28l2.23-3.69l1.08-4.55l0.07-4.65l1.82-3.95l0.38-3.26l-3.3-2.41l-1.46-3.2
         </g>
         <g>
           <g
-            className={`st0 ${region == 'xizi' ? 'active' : ''}`}
+            className={`st0 ${region == 'xizi' ? 'active' : null}`}
             onClick={() => openPopup('xizi')}
           >
             <g>
@@ -20581,7 +20609,7 @@ l6.28-7.66l4.49-2.36l5.05-2.28l9.59-3.24l8-4.9l4.8-4.33l10.4,0.17l0.74-0.16l-0.1
             <g>
               <polygon
                 className="st59"
-                style={{ fill: xiziColor ? xiziColor : '' }}
+                style={{ fill: xiziColor ? xiziColor : null }}
                 points="1425.77,375 1429.9,378.11 1428.12,386.19 1434.13,389.82 1441.35,392.31 1450.51,397.35 
 1461.41,400.91 1475.29,402.92 1489.55,402 1500.75,401.84 1512.04,403 1513.48,406.53 1518.29,410.2 1529.28,416.06 
 1535.86,415.67 1539.44,418.43 1542.75,422.47 1547.64,424.86 1549.41,426.83 1546.3,430.93 1537.61,438.47 1533.95,442.52 
@@ -20614,7 +20642,7 @@ l6.28-7.66l4.49-2.36l5.05-2.28l9.59-3.24l8-4.9l4.8-4.33l10.4,0.17l0.74-0.16l-0.1
         </g>
         <g>
           <g
-            className={`st0 ${region == 'qobustan' ? 'active' : ''}`}
+            className={`st0 ${region == 'qobustan' ? 'active' : null}`}
             onClick={() => openPopup('qobustan')}
           >
             <g>
@@ -21051,7 +21079,7 @@ L1435.61,484.91"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: qobustanColor ? qobustanColor : '' }}
+                style={{ fill: qobustanColor ? qobustanColor : null }}
                 points="1342.92,415.14 1357.21,419.16 1368.95,426.82 1373.81,430.9 1377.75,435.96 1385.58,443.86 
 1395.37,450.2 1409.09,454.58 1428.44,472.97 1443.42,479.88 1435.61,484.91 1425.99,488.62 1416.4,491.58 1407.16,492.96 
 1398.01,493.12 1387.97,495.24 1381.36,499.6 1374.62,502.26 1364.13,503.23 1345.94,510.44 1338.01,513.51 1332.37,515.95 
@@ -21077,7 +21105,7 @@ L1435.61,484.91"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'sumqayit' ? 'active' : ''}`}
+            className={`st0 ${region == 'sumqayit' ? 'active' : null}`}
             onClick={() => openPopup('sumqayit')}
           >
             <g>
@@ -21245,7 +21273,7 @@ L1435.61,484.91"
             <g>
               <polygon
                 className={`st59`}
-                style={{ fill: sumqayitColor ? sumqayitColor : '' }}
+                style={{ fill: sumqayitColor ? sumqayitColor : null }}
                 points="1535.43,453.99 1536.18,455.4 1540.1,458.77 1544.45,461.62 1547.91,463.05 1560.2,464.62 
 1565.02,465.89 1568.58,467.65 1576.1,473.58 1576.94,473.97 1575.68,475.36 1572.41,477.53 1569.28,479.51 1554.42,481.03 
 1541.42,479.09 1538.82,474.64 1536.53,469.52 1529.88,462.12 1521.42,457.24 1524.91,454.09 1534.03,454.23 			"
@@ -21283,7 +21311,7 @@ L1575.68,475.36"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'abseron' ? 'active' : ''}`}
+            className={`st0 ${region == 'abseron' ? 'active' : null}`}
             onClick={() => openPopup('abseron')}
           >
             <g>
@@ -22181,7 +22209,7 @@ l12.41,0l8.35-3.3l9.92-4.26l23.66,1.65l8.55-0.16l9.03,0.57l6.09,1.68l5.32,1.61l6
             </g>
             <g>
               <polygon
-                className={`st59 ${region == 'abseron' ? 'active' : ''}`}
+                className={`st59 ${region == 'abseron' ? 'active' : null}`}
                 style={{ fill: abseronColor }}
                 onClick={() => openPopup('agsu')}
                 points="1611.84,490.98 1619.18,493.57 1614.01,495.77 1600.75,496.59 1587.16,497.11 1579.53,498.37 
@@ -22213,7 +22241,7 @@ l12.41,0l8.35-3.3l9.92-4.26l23.66,1.65l8.55-0.16l9.03,0.57l6.09,1.68l5.32,1.61l6
         </g>
         <g>
           <g
-            className={`st0 ${region == 'haciqabul' ? 'active' : ''}`}
+            className={`st0 ${region == 'haciqabul' ? 'active' : null}`}
             onClick={() => openPopup('haciqabul')}
           >
             <g>
@@ -22965,7 +22993,7 @@ l9.17,4.31l13.6,2.55l13.75,1.92l4.69,0.92l4.14,1.05l7.48-0.51l7.99-0.41l4.49,3.1
             <g>
               <polygon
                 className="st59"
-                style={{ fill: haciqabulColor ? haciqabulColor : '' }}
+                style={{ fill: haciqabulColor ? haciqabulColor : null }}
                 points="1284.62,502.1 1295.39,507.21 1310.48,507.62 1309.44,515.19 1315.03,520.84 1321.52,526.27 
 1327.05,532.08 1331.8,539.66 1337.2,546.74 1346.73,549.35 1356.87,550.78 1370.06,551.8 1381.9,554.05 1385.94,559.54 
 1384.91,566.61 1387.59,573.57 1390.76,579.93 1389.47,583.94 1390.18,587.82 1394.06,592.3 1397.14,596.88 1399.43,602.92 
@@ -22995,7 +23023,7 @@ l9.17,4.31l13.6,2.55l13.75,1.92l4.69,0.92l4.14,1.05l7.48-0.51l7.99-0.41l4.49,3.1
         </g>
         <g>
           <g
-            className={`st0 ${region == 'sirvan' ? 'active' : ''}`}
+            className={`st0 ${region == 'sirvan' ? 'active' : null}`}
             onClick={() => openPopup('a')}
           >
             <g>
@@ -23160,7 +23188,7 @@ l1.11,1.41l4.69,2.02l1.11,1.12l1.07,0.37l4.35-1.6l5.5-2.2l4.45-2.03L1304.47,587.
             <g>
               <polygon
                 className="st59"
-                style={{ fill: sirvanColor ? sirvanColor : '' }}
+                style={{ fill: sirvanColor ? sirvanColor : null }}
                 points="1287.71,580.72 1293.06,582.17 1300.92,583.01 1303.77,583.01 1305.4,583.88 1305.73,585.42 
 1304.47,587.53 1302.55,591.22 1298.11,593.25 1292.61,595.45 1288.26,597.04 1287.19,596.67 1286.07,595.55 1281.39,593.54 
 1280.28,592.12 1279.62,589.38 1280.96,586.69 1284.49,581.01 			"
@@ -23194,7 +23222,7 @@ l1.11,1.41l4.69,2.02l1.11,1.12l1.07,0.37l4.35-1.6l5.5-2.2l4.45-2.03L1304.47,587.
         </g>
         <g>
           <g
-            className={`st0 ${region == 'kurdemir' ? 'active' : ''}`}
+            className={`st0 ${region == 'kurdemir' ? 'active' : null}`}
             onClick={() => openPopup('kurdemir')}
           >
             <g>
@@ -24004,7 +24032,7 @@ l1.11,1.41l4.69,2.02l1.11,1.12l1.07,0.37l4.35-1.6l5.5-2.2l4.45-2.03L1304.47,587.
             <g>
               <polygon
                 className="st59"
-                style={{ fill: kurdemirColor ? kurdemirColor : '' }}
+                style={{ fill: kurdemirColor ? kurdemirColor : null }}
                 points="1121.34,446.76 1113.06,453.77 1106.06,462.95 1112.44,468.28 1122.82,468.08 1131.13,475.2 
 1151.48,468.71 1163.49,469.23 1172.29,472.93 1169.26,480.94 1165.63,489.32 1173.74,491.95 1180.3,494.79 1183.02,502.22 
 1190.51,507.8 1193.06,513.32 1191.12,520.43 1187.91,528.77 1181.71,536.9 1171.8,538.91 1162.08,542.57 1151.84,544.75 
@@ -24073,7 +24101,7 @@ L1181.71,536.9"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'sabirabad' ? 'active' : ''}`}
+            className={`st0 ${region == 'sabirabad' ? 'active' : null}`}
             onClick={() => openPopup('sabirabad')}
           >
             <g>
@@ -25027,7 +25055,7 @@ L1285.9,640.82"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: sabirabadColor ? sabirabadColor : '' }}
+                style={{ fill: sabirabadColor ? sabirabadColor : null }}
                 points="1182.57,538.14 1208.23,540.6 1231.32,546.69 1235.91,548.85 1234.39,551.14 1233.53,555.37 
 1234.12,555.85 1233.97,556.5 1232.73,558.79 1232.07,560.9 1233.52,561.58 1234.82,561.5 1240.62,564.23 1246.83,565.51 
 1251.1,566.85 1251.89,569.88 1255.14,571.22 1270.53,574.2 1275.42,575.7 1282.39,580.6 1278.79,586.42 1277.3,589.44 
@@ -25059,7 +25087,7 @@ L1285.9,640.82"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'lacin' ? 'active' : ''}`}
+            className={`st0 ${region == 'lacin' ? 'active' : null}`}
             onClick={() => openPopup('lacin')}
           >
             <g>
@@ -25749,7 +25777,7 @@ L1285.9,640.82"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: lacinColor ? lacinColor : '' }}
+                style={{ fill: lacinColor ? lacinColor : null }}
                 points="599.24,526.94 593.8,531.65 593.44,537.72 598.94,540.79 603.09,544.37 607.28,556.6 
 605.89,570.05 605.73,576.75 604.37,583.2 597.4,587.99 590.72,593.53 589.05,599.78 595.15,601.87 599.74,603.8 603.63,606.84 
 616.78,607.1 629.5,599.44 637.12,598.68 643.73,599.68 645.38,604.08 644.19,609.32 631.79,609.41 620.71,614.2 624.46,618.02 
@@ -25796,7 +25824,7 @@ l0.88,2.36l-1.21,2.32l-3.17,1.64l-2.1,0.35l7.13,3.94l11.59,1.88l12.77-3.78l22.22
         </g>
         <g>
           <g
-            className={`st0 ${region == 'qubadli' ? 'active' : ''}`}
+            className={`st0 ${region == 'qubadli' ? 'active' : null}`}
             onClick={() => openPopup('qubadli')}
           >
             <g>
@@ -26200,7 +26228,7 @@ l8.51,1.29l-4.04,15.46l8.33,4.31l10.37-5.55l12.67-5.49L620.92,689.12"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'sederek' ? 'active' : ''}`}
+            className={`st0 ${region == 'sederek' ? 'active' : null}`}
             onClick={() => openPopup('sederek')}
           >
             <g>
@@ -26320,7 +26348,7 @@ l8.51,1.29l-4.04,15.46l8.33,4.31l10.37-5.55l12.67-5.49L620.92,689.12"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: sederekColor ? sederekColor : '' }}
+                style={{ fill: sederekColor ? sederekColor : null }}
                 points="157.61,536.72 150.71,539.85 138.97,540.83 124.01,546.37 113.12,553.41 110.82,552.26 
 108.6,548.97 109.12,540.92 107.96,538.57 115.33,537.49 128.62,537.27 140.98,538.46 151.31,537.98 			"
               />
@@ -26349,7 +26377,7 @@ l-12.35-1.2l-13.29,0.23l-7.37,1.08l1.16,2.35l-0.52,8.05l2.22,3.29l2.3,1.15l10.9-
         </g>
         <g>
           <g
-            className={`st0 ${region == 'serur' ? 'active' : ''}`}
+            className={`st0 ${region == 'serur' ? 'active' : null}`}
             onClick={() => openPopup('serur')}
           >
             <g>
@@ -26728,7 +26756,7 @@ l0.48,0.63l7.47,4.39l13.83-3.82l12.9-7.52L191.15,586.65"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: serurColor ? serurColor : '' }}
+                style={{ fill: serurColor ? serurColor : null }}
                 points="185.58,530.99 193.22,534.33 206.59,551.14 207.77,554.71 207.2,558.5 204.53,563.15 
 198.13,570.55 197.76,574.11 202,576.46 191.15,586.65 180.39,598.37 167.49,605.89 153.66,609.71 146.19,605.32 145.71,604.69 
 145.55,603.79 144.72,602.5 142.16,601.83 139.04,601.6 138.03,601.39 132.67,598.02 132.45,596.96 136.25,594.46 131.38,590.67 
@@ -26752,7 +26780,7 @@ l0.48,0.63l7.47,4.39l13.83-3.82l12.9-7.52L191.15,586.65"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'kengerli' ? 'active' : ''}`}
+            className={`st0 ${region == 'kengerli' ? 'active' : null}`}
             onClick={() => openPopup('kengerli')}
           >
             <g>
@@ -27070,7 +27098,7 @@ l0.48,0.63l7.47,4.39l13.83-3.82l12.9-7.52L191.15,586.65"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: kengerliColor ? kengerliColor : '' }}
+                style={{ fill: kengerliColor ? kengerliColor : null }}
                 points="231.58,572.28 232,572.89 229.84,573.79 220.63,578.91 213.89,585.05 207.96,591.26 203.21,596.81 
 202.24,602.57 203.87,608.52 203.32,614.2 200.73,615.97 197.82,618.45 199.33,623.82 196.36,627.85 190.31,629.32 182.3,630.64 
 174.72,631.26 169.45,629.78 164.15,627.75 162.2,620.98 160.77,618.64 158.52,617.55 156.78,615.53 155.53,613.24 
@@ -27123,7 +27151,7 @@ l-1.5-5.37l2.9-2.48l2.59-1.78l0.55-5.68L202.24,602.57"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'babek' ? 'active' : ''}`}
+            className={`st0 ${region == 'babek' ? 'active' : null}`}
             onClick={() => openPopup('babek')}
           >
             <g>
@@ -27957,7 +27985,7 @@ l-1.5-5.37l2.9-2.48l2.59-1.78l0.55-5.68L202.24,602.57"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: babekColor ? babekColor : '' }}
+                style={{ fill: babekColor ? babekColor : null }}
                 points="232.87,574.15 236.61,579.58 237.93,584.25 239.77,587.03 243.7,588.44 256.73,590.36 
 260.61,592.11 266.41,597.52 263.37,599.06 252.44,602.56 241.63,608.51 245.79,611.17 250.97,613.04 251.38,617.3 
 252.28,622.35 263.56,627.13 274.46,631.88 276.5,634.23 278.03,636.44 277,638.52 275.58,640.36 277.04,644.12 281.85,644.08 
@@ -28029,7 +28057,7 @@ l4.36,2.19l0.72-2.23l1.46-4.87L254.52,698.57"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'naxcivan' ? 'active' : ''}`}
+            className={`st0 ${region == 'naxcivan' ? 'active' : null}`}
             onClick={() => openPopup('naxcivan')}
           >
             <g>
@@ -28102,7 +28130,7 @@ L256.09,649.84z M263.32,658.36l7.95-5.94l-15.72-1.21l-17.99-0.83l-14.98-1.78l-11
             <g>
               <polygon
                 className="st59"
-                style={{ fill: naxcivanColor ? naxcivanColor : '' }}
+                style={{ fill: naxcivanColor ? naxcivanColor : null }}
                 points="271.28,652.42 263.32,658.36 249.99,661.49 225.62,660.93 211.38,651.91 222.58,648.59 
 237.57,650.38 255.55,651.21 			"
               />
@@ -28123,7 +28151,7 @@ L256.09,649.84z M263.32,658.36l7.95-5.94l-15.72-1.21l-17.99-0.83l-14.98-1.78l-11
         </g>
         <g>
           <g
-            className={`st0 ${region == 'sahbuz' ? 'active' : ''}`}
+            className={`st0 ${region == 'sahbuz' ? 'active' : null}`}
             onClick={() => openPopup('sahbuz')}
           >
             <g>
@@ -28520,7 +28548,7 @@ l13.68-2.87l13.79-1.7l10.06-1.99l4.79,4.65l5.58,1.2l7.29-3.44l10.81-4.93l-0.54-2
             <g>
               <polygon
                 className="st59"
-                style={{ fill: sahbuzColor ? sahbuzColor : '' }}
+                style={{ fill: sahbuzColor ? sahbuzColor : null }}
                 points="363.02,590.12 369.65,592.4 374.48,595.41 375.62,597.95 374.13,601.23 370.72,606.45 
 368.71,616.23 366.13,619.17 352.62,627.18 348.43,631.58 348.97,633.59 338.16,638.52 330.87,641.96 325.29,640.76 
 320.5,636.11 310.43,638.1 296.64,639.8 282.97,642.67 279.11,642.7 278.18,640.31 279.33,638.82 280.66,636.19 278.81,633.53 
@@ -28545,7 +28573,7 @@ l13.68-2.87l13.79-1.7l10.06-1.99l4.79,4.65l5.58,1.2l7.29-3.44l10.81-4.93l-0.54-2
         </g>
         <g>
           <g
-            className={`st0 ${region == 'culfa' ? 'active' : ''}`}
+            className={`st0 ${region == 'culfa' ? 'active' : null}`}
             onClick={() => openPopup('culfa')}
           >
             <g>
@@ -28983,7 +29011,7 @@ l13.68-2.87l13.79-1.7l10.06-1.99l4.79,4.65l5.58,1.2l7.29-3.44l10.81-4.93l-0.54-2
             <g>
               <polygon
                 className="st59"
-                style={{ fill: culfaColor ? culfaColor : '' }}
+                style={{ fill: culfaColor ? culfaColor : null }}
                 points="349.05,635.32 349.16,635.69 364.25,639.5 368.48,642.53 372.36,646.4 377.66,649.97 
 380.24,651.09 372.68,654.79 365.29,658.08 357.72,661.14 353.91,664.54 350.94,668.02 347.27,671.83 342.9,675.45 
 335.03,681.16 327.3,686.86 319.55,690.57 311.48,694.31 307.85,697.9 305.11,701.48 302.74,703.42 302.31,706.06 310.63,711.15 
@@ -29036,7 +29064,7 @@ l2.97-3.48l3.81-3.4l7.57-3.06L372.68,654.79"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'ordubad' ? 'active' : ''}`}
+            className={`st0 ${region == 'ordubad' ? 'active' : null}`}
             onClick={() => openPopup('ordubad')}
           >
             <g>
@@ -29324,7 +29352,7 @@ l2.97-3.48l3.81-3.4l7.57-3.06L372.68,654.79"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: ordubadColor ? ordubadColor : '' }}
+                style={{ fill: ordubadColor ? ordubadColor : null }}
                 points="382.18,651.74 395.16,657.25 399.23,660.74 400.18,662.34 400.1,663.69 399.07,664.85 
 387.31,670.62 382.86,676.04 382.84,681.86 386.19,688.21 390.6,694.76 393.17,701.72 396.76,726.49 404.27,744.91 
 403.39,744.89 388.59,741.21 372.32,734.78 316.52,722.43 311.95,720.83 319.3,716.24 312.7,710.1 304.9,705.31 305.17,703.62 
@@ -29360,7 +29388,7 @@ l-7.85,3.65l-3.09,3.15l-2.87,3.73l-2.05,1.67l-0.26,1.69l7.79,4.79l6.6,6.14l-7.35
         </g>
         <g>
           <g
-            className={`st0 ${region == 'imisli' ? 'active' : ''}`}
+            className={`st0 ${region == 'imisli' ? 'active' : null}`}
             onClick={() => openPopup('imisli')}
           >
             <g>
@@ -30218,7 +30246,7 @@ l-7.85,3.65l-3.09,3.15l-2.87,3.73l-2.05,1.67l-0.26,1.69l7.79,4.79l6.6,6.14l-7.35
             <g>
               <polygon
                 className="st59"
-                style={{ fill: imisliColor ? imisliColor : '' }}
+                style={{ fill: imisliColor ? imisliColor : null }}
                 points="1073.15,528.99 1072.21,534.37 1073.3,537.38 1086.25,544.27 1088.55,545.12 1090.63,545.43 
 1091.04,545.91 1088.75,549.64 1101.03,547.46 1106.13,547.28 1110.44,548.04 1111.92,548.76 1113.84,550.14 1115.09,551.64 
 1115.41,555.84 1119.48,555.35 1123.97,553.46 1125.06,553.31 1126.56,552.95 1128.42,552.68 1130.22,552.78 1131.63,553.59 
@@ -30287,7 +30315,7 @@ l7.34-0.45l21.23,2.1l3.21-0.17l3.25-1.16l4.43-2.43l1.43-2.22l18.11,2.5l16,10.3l1
         </g>
         <g>
           <g
-            className={`st0 ${region == 'saatli' ? 'active' : ''}`}
+            className={`st0 ${region == 'saatli' ? 'active' : null}`}
             onClick={() => openPopup('saatli')}
           >
             <g>
@@ -30719,7 +30747,7 @@ l7.34-0.45l21.23,2.1l3.21-0.17l3.25-1.16l4.43-2.43l1.43-2.22l18.11,2.5l16,10.3l1
             <g>
               <polygon
                 className="st59"
-                style={{ fill: saatliColor ? saatliColor : '' }}
+                style={{ fill: saatliColor ? saatliColor : null }}
                 points="1154.89,565.87 1160.34,568.1 1164.26,571.08 1161.47,573.37 1157.65,576.7 1159.06,580.29 
 1162.91,582.95 1167.39,583.59 1171.38,581.91 1177.88,580.45 1184.14,581.25 1194.16,585.97 1203.79,591.53 1213.95,595.53 
 1219.49,602.65 1217.6,606.41 1213.99,610.07 1212.5,615.66 1213.92,620.7 1210.67,627.58 1201.38,632.81 1187.28,635.22 
@@ -30760,7 +30788,7 @@ l13.88,7.31l11.22,5.14l13.08-5.74l-6.85-2.74l12.1-3.9l14.58-0.41l14.1-2.41L1210.
         </g>
         <g>
           <g
-            className={`st0 ${region == 'bilesuvar' ? 'active' : ''}`}
+            className={`st0 ${region == 'bilesuvar' ? 'active' : null}`}
             onClick={() => openPopup('bilesuvar')}
           >
             <g>
@@ -31267,7 +31295,7 @@ l5.58-1.94l3.8-2.73l4.85-2.38l5.54,0.43l3.95,1.83l6.12,1.52l6.05,0.45L1200.85,69
             <g>
               <polygon
                 className="st59"
-                style={{ fill: bilesuvarColor ? bilesuvarColor : '' }}
+                style={{ fill: bilesuvarColor ? bilesuvarColor : null }}
                 points="1001.71,614.26 1016.88,616.35 1032.36,626.3 1045.67,638.33 1073.89,653.17 1110.24,644.07 
 1128.78,637.3 1141.42,643.95 1154.14,649.79 1169.59,642.97 1180.47,645.09 1191.13,649.16 1203.54,653.14 1215.11,656.65 
 1204.7,666.25 1197.85,677.31 1201.71,681.97 1204.62,686.58 1200.85,691.6 1195.97,696.48 1189.92,696.03 1183.8,694.51 
@@ -31293,7 +31321,7 @@ l5.58-1.94l3.8-2.73l4.85-2.38l5.54,0.43l3.95,1.83l6.12,1.52l6.05,0.45L1200.85,69
         </g>
         <g>
           <g
-            className={`st0 ${region == 'celilabad' ? 'active' : ''}`}
+            className={`st0 ${region == 'celilabad' ? 'active' : null}`}
             onClick={() => openPopup('celilabad')}
           >
             <g>
@@ -31878,7 +31906,7 @@ l6.69-1.85l-2.08-4.67l2.85-5.48l6.95-0.39l4.55,1.32l2.27-0.86l2.17-3.65l7.29,0.5
             <g>
               <polygon
                 className="st59"
-                style={{ fill: celilabadColor ? celilabadColor : '' }}
+                style={{ fill: celilabadColor ? celilabadColor : null }}
                 points="1178.64,694.01 1182.25,695.68 1189.02,697.38 1193.78,697.73 1186.04,701.47 1176.99,706.77 
 1170.71,714.85 1169.1,723.09 1172.93,737.07 1163.92,749.84 1160.03,748.35 1152.74,747.85 1150.57,751.5 1148.3,752.36 
 1143.75,751.05 1136.8,751.43 1133.95,756.91 1136.02,761.58 1129.33,763.43 1120.72,764.41 1111.07,766.9 1102.36,771.05 
@@ -31912,7 +31940,7 @@ l6.69-1.85l-2.08-4.67l2.85-5.48l6.95-0.39l4.55,1.32l2.27-0.86l2.17-3.65l7.29,0.5
         </g>
         <g>
           <g
-            className={`st0 ${region == 'yardimli' ? 'active' : ''}`}
+            className={`st0 ${region == 'yardimli' ? 'active' : null}`}
             onClick={() => openPopup('yardimli')}
           >
             <g>
@@ -32198,7 +32226,7 @@ l6.69-1.85l-2.08-4.67l2.85-5.48l6.95-0.39l4.55,1.32l2.27-0.86l2.17-3.65l7.29,0.5
             <g>
               <polygon
                 className="st59"
-                style={{ fill: yardimliColor ? yardimliColor : '' }}
+                style={{ fill: yardimliColor ? yardimliColor : null }}
                 points="1061.24,767.91 1068.73,772.09 1073.73,778.12 1075.13,787.11 1086.73,789.2 1060.51,796.1 
 1030.43,802.65 1023.63,804.86 1016.32,806.53 1009.16,809.32 1002.63,812.62 997.8,816.65 994.45,820.82 989.62,823.05 
 984.4,825.97 978.93,826.95 978.95,825.81 975.99,823.63 943.73,809.77 929.67,799.97 927.02,793.88 930.21,785.72 
@@ -32234,7 +32262,7 @@ l7.16-2.79l7.31-1.67l6.79-2.21L1060.51,796.1"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'baki' ? 'active' : ''}`}
+            className={`st0 ${region == 'baki' ? 'active' : null}`}
             onClick={() => openPopup('a')}
           >
             <g>
@@ -32336,7 +32364,7 @@ l7.16-2.79l7.31-1.67l6.79-2.21L1060.51,796.1"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: bakiColor ? bakiColor : '' }}
+                style={{ fill: bakiColor ? bakiColor : null }}
                 points="1807.04,551.17 1806.77,554.15 1804.77,555.52 1800.43,554.42 1796.92,554.73 1794.23,552.78 
 1793.08,549.75 1794.04,548.44 1796.02,549.78 1799.58,549.48 1802.62,548.64 1804.61,548.76 			"
               />
@@ -32363,7 +32391,7 @@ l-1.98-1.35l-0.96,1.32l1.15,3.02l2.69,1.96l3.5-0.32L1804.77,555.52"
             </g>
           </g>
           <g
-            className={`st0 ${region == 'baki' ? 'active' : ''}`}
+            className={`st0 ${region == 'baki' ? 'active' : null}`}
             onClick={() => openPopup('baki')}
           >
             <g>
@@ -33203,7 +33231,7 @@ l0.34,3.74l5.07,1.21l6.4,0.18L1551.87,516.5"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: bakiColor ? bakiColor : '' }}
+                style={{ fill: bakiColor ? bakiColor : null }}
                 points="1751.61,522.75 1753.01,525.61 1752.27,527.7 1750.14,528.63 1746.27,528.78 1742.24,528.29 
 1745.71,523.73 1739.89,515.75 1741.71,512.08 1743.55,512.93 1747.85,512.53 1748.64,513.43 1747.2,517.85 1748.95,520.58 			
 "
@@ -33953,7 +33981,7 @@ l-1.75-2.73l1.44-4.41l-0.8-0.9l-4.3,0.4l-1.84-0.85l-1.82,3.67l5.82,7.98l-3.46,4.
               <path
                 className={`st59`}
                 onClick={() => openPopup('agsu')}
-                style={{ fill: bakiColor ? bakiColor : '' }}
+                style={{ fill: bakiColor ? bakiColor : null }}
                 d="M1733.6,556.04l0.46,3.97l-0.59,4.35l-0.64,0.79l-1.84-4.61l-3.42-5.78l-4.87-5.39l-10.94-7.77l-5.16-2.47
 l-5.71-1.92l-12.11-2.09l-9.81-2.96l-5.55-0.94l-3.41-0.07l-4.45,0.63l-2.63,0.17l-10.62-0.93l-5.99,0.79l-11.58,3.66l-4.73-0.41
 l-1.19-0.92l-2.05-3.65l-1.69-1.74l-2.85-1.01l-6.9-1.37l-6.61-3.1l-7.07,1.42l-12.48,4.28l-0.45,5.18l-9.35,3.67l-12.67,2.35
@@ -34094,7 +34122,7 @@ l4.87,5.39l3.42,5.78L1732.83,565.15"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'salyan' ? 'active' : ''}`}
+            className={`st0 ${region == 'salyan' ? 'active' : null}`}
             onClick={() => openPopup('selyan')}
           >
             <g>
@@ -34883,7 +34911,7 @@ l1-2.31l3.26-4.22l4.55-4.7l5.09-4.39l4.79-3.1L1371.84,666.32"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: salyanColor ? salyanColor : '' }}
+                style={{ fill: salyanColor ? salyanColor : null }}
                 points="1312.61,597.39 1321.2,602.48 1330.6,606.91 1344.81,609.62 1358.56,611.54 1363.07,612.42 
 1367.69,613.6 1375.8,613.05 1382.52,612.7 1386.04,615.15 1388.49,618.81 1394.99,623.65 1401.16,627.88 1393.64,635.26 
 1389.93,644.47 1387.78,651.7 1387.61,657.89 1379.95,661.41 1371.84,666.32 1370.41,669.95 1365.62,673.05 1360.53,677.44 
@@ -34913,7 +34941,7 @@ l1-2.31l3.26-4.22l4.55-4.7l5.09-4.39l4.79-3.1L1371.84,666.32"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'susa' ? 'active' : ''}`}
+            className={`st0 ${region == 'susa' ? 'active' : null}`}
             onClick={() => openPopup('susa')}
           >
             <g>
@@ -35219,7 +35247,7 @@ L665.86,597.12"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: susaColor ? susaColor : '' }}
+                style={{ fill: susaColor ? susaColor : null }}
                 points="645.5,568.61 657.45,570.9 662.79,572.23 660.44,573.63 659.54,576.4 662.21,578.25 667.67,578.59 
 670.67,577.32 672.16,576.98 671.81,583.36 669.6,589.34 667.84,593.41 665.86,597.12 655.37,603.3 646.94,608.14 647.88,603.99 
 645.9,598.53 637.54,597.27 628.93,598.13 628.41,598.21 615.99,605.7 605.11,605.49 601.74,602.83 596.71,600.7 591.75,598.99 
@@ -35236,7 +35264,7 @@ L665.86,597.12"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'a' ? 'active' : ''}`}
+            className={`st0 ${region == 'a' ? 'active' : null}`}
             onClick={() => openPopup('a')}
           >
             <g>
@@ -35297,7 +35325,7 @@ L665.86,597.12"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: susaColor ? susaColor : '' }}
+                style={{ fill: susaColor ? susaColor : null }}
                 points="664.98,572.77 668.49,573.65 671.38,575.7 669.74,576.08 667.15,577.14 663.59,576.92 
 662.09,575.89 662.66,574.16 			"
               />
@@ -35330,7 +35358,7 @@ L665.86,597.12"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'xocavend' ? 'active' : ''}`}
+            className={`st0 ${region == 'xocavend' ? 'active' : null}`}
             onClick={() => openPopup('xocavend')}
           >
             <g>
@@ -36156,7 +36184,7 @@ L818.06,598.63"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: xocavendColor ? xocavendColor : '' }}
+                style={{ fill: xocavendColor ? xocavendColor : null }}
                 points="749.04,555.88 758.63,559.97 771.18,567.2 787.18,571.1 793.02,567.79 798.54,565 806.95,565.18 
 814.65,567.13 817.47,576.84 828.91,583.09 829.32,590.99 818.06,598.63 807.32,599.23 795.74,599.5 786.64,600.01 
 777.89,600.12 771.37,601.37 764.85,604.08 758.04,605.52 751.03,606.4 737.42,605.85 728.64,611.19 740.24,613.7 746.83,613.79 
@@ -36210,7 +36238,7 @@ L818.06,598.63"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'a' ? 'active' : ''}`}
+            className={`st0 ${region == 'a' ? 'active' : null}`}
             onClick={() => openPopup('a')}
           >
             <g>
@@ -36304,7 +36332,7 @@ L818.06,598.63"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'masalli' ? 'active' : ''}`}
+            className={`st0 ${region == 'masalli' ? 'active' : null}`}
             onClick={() => openPopup('masalli')}
           >
             <g>
@@ -36634,7 +36662,7 @@ L818.06,598.63"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: masalliColor ? masalliColor : '' }}
+                style={{ fill: masalliColor ? masalliColor : null }}
                 points="1158.91,749.68 1176.99,756.77 1193.04,757.55 1188.21,763.27 1185.12,770.47 1190.39,774.59 
 1194.77,778.56 1192.57,783.14 1190.94,788.75 1192.08,795.86 1191.76,800.22 1183.13,806.88 1175.34,804.93 1163.77,803.78 
 1158.45,805.04 1153.48,807.18 1144.15,809.27 1133.86,811 1122.27,813.81 1111.56,814.12 1103.79,810.12 1097.08,804.88 
@@ -36689,7 +36717,7 @@ l9.33-2.09l4.96-2.14l5.32-1.26l11.58,1.15L1183.01,806.93"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'lerik' ? 'active' : ''}`}
+            className={`st0 ${region == 'lerik' ? 'active' : null}`}
             onClick={() => openPopup('lerik')}
           >
             <g>
@@ -37151,7 +37179,7 @@ l9.33-2.09l4.96-2.14l5.32-1.26l11.58,1.15L1183.01,806.93"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: lerikColor ? lerikColor : '' }}
+                style={{ fill: lerikColor ? lerikColor : null }}
                 points="1089.4,789.93 1095.08,796.51 1094.6,804.96 1082.69,812.96 1081.69,822.79 1092.22,828.75 
 1102.05,834.44 1104.21,838.98 1105.68,843.53 1103.13,847.19 1101.92,851.11 1106.82,854.08 1109.74,857.4 1104.51,861.66 
 1096.84,865.9 1090.17,867.38 1083.64,868.2 1077.69,867.16 1070.03,867.77 1063.16,869.11 1056.12,871.71 1051.75,876.4 
@@ -37204,7 +37232,7 @@ l6.54-0.82l6.67-1.48L1104.51,861.66"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'neftcala' ? 'active' : ''}`}
+            className={`st0 ${region == 'neftcala' ? 'active' : null}`}
             onClick={() => openPopup('neftcala')}
           >
             <g>
@@ -37816,7 +37844,7 @@ l6.54-0.82l6.67-1.48L1104.51,861.66"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: neftcalaColor ? neftcalaColor : '' }}
+                style={{ fill: neftcalaColor ? neftcalaColor : null }}
                 points="1290.83,676.3 1296.89,682.17 1303.42,689.79 1309.15,692.3 1315.9,693.71 1321.54,693.57 
 1327.7,691.99 1339.29,690.95 1350.8,690.04 1350.3,692 1351.24,696.34 1371,712.51 1373.19,715.11 1374.09,717.72 
 1373.71,718.19 1372.1,718.82 1366.85,725.88 1366.23,728.09 1366.39,728.65 1364.84,727.46 1363.75,725.88 1362.86,723.58 
@@ -37868,7 +37896,7 @@ l10.53-22.71l6.38-6.65l10.05-4.87l11.3-1.36l12.43,7.18l2.17,3.26l2.56,2.62L1364.
         </g>
         <g>
           <g
-            className={`st0 ${region == 'lenkeran' ? 'active' : ''}`}
+            className={`st0 ${region == 'lenkeran' ? 'active' : null}`}
             onClick={() => openPopup('lenkeran')}
           >
             <g>
@@ -38408,7 +38436,7 @@ l10.53-22.71l6.38-6.65l10.05-4.87l11.3-1.36l12.43,7.18l2.17,3.26l2.56,2.62L1364.
             <g>
               <polygon
                 className="st59"
-                style={{ fill: lenkeranColor ? lenkeranColor : '' }}
+                style={{ fill: lenkeranColor ? lenkeranColor : null }}
                 points="1300.16,758.45 1302.75,761.32 1300.07,764.46 1292.9,770.86 1289.93,774.08 1285.72,781.25 
 1282.42,785.47 1278.33,788.67 1253.76,795.17 1242.34,796.58 1237.14,792.85 1238.92,790.82 1239.6,789.13 1240.47,788.05 
 1243.18,786.97 1256.06,786.67 1261.63,785.68 1267.05,782.71 1271.52,778.62 1273.96,774.15 1272.49,769.6 1267.36,767.31 
@@ -38462,7 +38490,7 @@ l3.3-4.21l4.21-7.17l2.97-3.22L1300.07,764.46"
             </g>
           </g>
           <g
-            className={`st0 ${region == 'lenkeran' ? 'active' : ''}`}
+            className={`st0 ${region == 'lenkeran' ? 'active' : null}`}
             onClick={() => openPopup('lenkeran')}
           >
             <g>
@@ -38786,7 +38814,7 @@ l11.67-27.56l-3.6,1.75l-5.63,0.88l-1.03-2.39l0.53-2.81l3.25-6.87l6.47-1.49l-0.6-
             <g>
               <polygon
                 className="st59"
-                style={{ fill: lenkeranColor ? lenkeranColor : '' }}
+                style={{ fill: lenkeranColor ? lenkeranColor : null }}
                 points="1164.06,805.29 1174.53,806.31 1181.09,808.02 1172.72,811.87 1162.57,809.29 1158.9,817.58 
 1157.91,821.09 1157.63,824.55 1158.23,827.37 1151.76,828.86 1148.51,835.73 1147.98,838.54 1149.01,840.93 1154.64,840.04 
 1158.24,838.29 1146.58,865.85 1123.42,867.31 1100.37,866.02 1106.51,862.62 1112.89,857.46 1109.27,853.38 1104.83,850.66 
@@ -38816,7 +38844,7 @@ l11.67-27.56l-3.6,1.75l-5.63,0.88l-1.03-2.39l0.53-2.81l3.25-6.87l6.47-1.49l-0.6-
         </g>
         <g>
           <g
-            className={`st0 ${region == 'astara' ? 'active' : ''}`}
+            className={`st0 ${region == 'astara' ? 'active' : null}`}
             onClick={() => openPopup('astara')}
           >
             <g>
@@ -39026,7 +39054,7 @@ l11.67-27.56l-3.6,1.75l-5.63,0.88l-1.03-2.39l0.53-2.81l3.25-6.87l6.47-1.49l-0.6-
             <g>
               <polygon
                 className="st59"
-                style={{ fill: astaraColor ? astaraColor : '' }}
+                style={{ fill: astaraColor ? astaraColor : null }}
                 points="1145.68,867.16 1131.7,900.13 1115.77,896.65 1106.51,895.8 1099,897.27 1091.75,900.04 
 1083.74,901.91 1075.43,903.09 1068.38,903.59 1055.92,901.87 1054.94,901.73 1048.64,896.22 1044.44,888.2 1042.33,885.57 
 1047.47,881.08 1053.61,877.17 1057.9,872.59 1063.85,870.37 1070.34,869.1 1077.21,868.55 1083.25,869.62 1090.62,868.68 
@@ -39065,7 +39093,7 @@ l6.3,5.51l0.98,0.14l12.46,1.72l7.05-0.49l8.31-1.19l8.01-1.86l7.26-2.77l7.51-1.47
         </g>
         <g>
           <g
-            className={`st0 ${region == 'fuzuli' ? 'active' : ''}`}
+            className={`st0 ${region == 'fuzuli' ? 'active' : null}`}
             onClick={() => openPopup('fuzuli')}
           >
             <g>
@@ -39543,7 +39571,7 @@ l4.02-1.04L886.97,636"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: fuzuliColor ? fuzuliColor : '' }}
+                style={{ fill: fuzuliColor ? fuzuliColor : null }}
                 points="863.84,597.47 865.44,603.8 874.28,606.09 878.68,610.93 882.15,617.11 895.74,627.17 
 892.08,634.96 886.97,636 867.92,643.38 863.9,644.42 857.73,644.28 835.82,646.45 822.09,649.21 810.83,652.83 791.86,661.97 
 780.17,666.56 771.66,668.31 770.04,666.11 762.37,661.89 753.38,662.23 746.18,662.23 743.12,657.25 740.39,650.86 
@@ -39575,7 +39603,7 @@ l4.02-1.04L886.97,636"
         </g>
         <g>
           <g
-            className={`st0 ${region == 'cebrayil' ? 'active' : ''}`}
+            className={`st0 ${region == 'cebrayil' ? 'active' : null}`}
             onClick={() => openPopup('cebrayil')}
           >
             <g>
@@ -40013,7 +40041,7 @@ l4.02-1.04L886.97,636"
             <g>
               <polygon
                 className="st59"
-                style={{ fill: cebrayilColor ? cebrayilColor : '' }}
+                style={{ fill: cebrayilColor ? cebrayilColor : null }}
                 points="660.25,636.3 665.46,639.3 673.14,641.92 673.78,644 671.92,646.99 678.56,652.02 686.5,655.83 
 688.35,660.23 696.99,660.14 703,658.04 708.25,658.09 713.71,658.38 715.58,654.99 715.11,648.41 722.37,644.29 730.24,647.64 
 738.14,651.68 740.75,657.76 744.32,663.59 753.16,663.6 761.23,663.29 767.82,666.86 769.26,668.8 767.02,669.27 735.9,673.11 
@@ -40066,7 +40094,7 @@ l3.58-1.61l2.1-1.35l8.49-7.48l14.42-8.34l1.99-2.05l4.14-1.76l15.66-3.54L767.02,6
         </g>
         <g>
           <g
-            className={`st0 ${region == 'zengilan' ? 'active' : ''}`}
+            className={`st0 ${region == 'zengilan' ? 'active' : null}`}
             onClick={() => openPopup('zengilan')}
           >
             <g>
@@ -40537,7 +40565,7 @@ l5.43-2l7.53-5.74l5.29-2.98l2.66-0.84l5.56-1.11l2.35-0.74l2.08-1.07l10.5-6.49L63
             <g>
               <polygon
                 className="st59"
-                style={{ fill: zengilanColor ? zengilanColor : '' }}
+                style={{ fill: zengilanColor ? zengilanColor : null }}
                 points="633.65,687.97 639.39,695.36 639.23,700.77 634.47,702.31 629.27,704.61 618.77,711.1 
 616.69,712.17 614.34,712.91 608.78,714.01 606.12,714.85 600.83,717.83 593.3,723.58 587.87,725.58 569.52,728.88 
 562.99,730.98 557.7,733.52 545.26,742.27 540.82,744.85 535.94,746.93 530.77,748.57 525.67,749.77 519.15,750.61 
@@ -40622,7 +40650,7 @@ export const MapPopup = ({ isOpen, onClose, RegionData, selectedRegion }) => {
             width={40}
             height={42}
             onClick={() => {
-              onClose(); // Popup'ı kapatmak için onClose fonksiyonunu çağırın
+              onClose();
             }}
           />
 

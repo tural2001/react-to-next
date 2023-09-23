@@ -1087,8 +1087,6 @@ const Speedtes = () => {
             </div>
           </div>
         </div>
-
-        <div></div>
       </div>
       <div className="w-full mx-0  bg-[#5B2D90] ">
         <div className="hidden max-xl:flex max-xl:flex-col max-xl:gap-10 max-xl:justify-center max-xl:items-center">
