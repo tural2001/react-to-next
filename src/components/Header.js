@@ -122,7 +122,7 @@ const Header = () => {
               <div className="">
                 <select
                   id="countries"
-                  className="text-white bg-inherit border-none text-[15px] max-sm:text-[12px] font-medium rounded-lg block w-full p-0 focus:ring-0 select"
+                  className="text-white bg-inherit border-none text-[15px] max-sm:text-[12px]  font-medium rounded-lg block w-full p-0 focus:ring-0 select"
                 >
                   <option className="text-black" value="AZE">
                     AZE
@@ -141,7 +141,7 @@ const Header = () => {
                 {isOpen ? <LiaTimesSolid /> : <GrMenu />}
               </div>
               {isOpen && (
-                <div className="absolute  overflow-auto  bg-white right-0 top-[43px] border-t-[2px] rounded-t-[5px] border-[#5B2D90] max-sm:w-[300px] max-md:w-[300px] max-lg:w-[400px] flex justify-center items-center gap-10 pt-10 pb-5 pl-10 max-sm:pr-0 max-xl:pr-7 rounded-b-3xl nav-menu">
+                <div className="absolute  overflow-auto  bg-white right-0 top-[43px] border-t-[2px] rounded-t-[5px] border-[#5B2D90] max-sm:w-[300px] max-md:w-[300px] max-lg:w-[300px] max-xl:w-[300px] flex justify-center items-center gap-10 pt-10 pb-5 pl-10 max-sm:pr-0 max-xl:pr-7 rounded-b-3xl nav-menu">
                   <ul className="flex flex-col gap-4 justify-center items-end ">
                     <li
                       className="border border-[#5B2D90] text-[#5B2D90] p-2 rounded-3xl w-[170px] h-[40px] text-center overflow-hidden"

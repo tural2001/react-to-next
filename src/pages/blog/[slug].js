@@ -171,7 +171,7 @@ const blog = ({ BlogData, slug }) => {
                 height={200}
               />
             </div>
-            <div className="container max-w-[1050px] w-full   mx-auto">
+            <div className="container max-w-[1050px] w-full  max-md:py-10  mx-auto">
               <div className="flex flex-col justify-center items-center gap-10">
                 {' '}
                 <h3 className="h3  text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xxl:text-[30px] max-xxl:text-white ">
@@ -195,7 +195,7 @@ const blog = ({ BlogData, slug }) => {
                     {item.title}
                   </h3>
                   <p className="text-[24px] text-[#B7B7B7] max-sm:text-[16px]">
-                    {item.published_at}
+                    {item.published_at.slice(0, 10)}
                   </p>
                 </div>
                 <div className="text-[16px] text-[#637381] leading-[25px] max-xl:text-justify">
@@ -209,10 +209,10 @@ const blog = ({ BlogData, slug }) => {
           </div>
         </>
       ))}
-      <div className="flex justify-between max-w-[1050px] mx-auto items-center my-10">
+      <div className="flex justify-between max-w-[1050px] max-xl:mx-5 mx-auto items-center my-10">
         <button
           onClick={goToPreviousPage}
-          className="flex text-[20px] text-[#5B2D90] w-[292px]   h-[68px] max-sm:w-[124px] max-:h-[40px] max-sm:text-[12px] items-center justify-center bg-[#F9F9F9] gap-2 rounded-full"
+          className="flex text-[20px] text-[#5B2D90] w-[292px] h-[68px] max-sm:w-[124px] max-sm:h-[40px] max-sm:text-[12px] items-center justify-center bg-[#F9F9F9] gap-2 rounded-full"
         >
           <BsArrowLeft />
           Əvvəlki
