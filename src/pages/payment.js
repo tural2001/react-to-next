@@ -1,20 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import { AzercellPopup } from '../components/AzercellPopup';
-import { AzercellPopupsm } from '../components/AzercellPopupsm';
-import { UmicoPopup } from '../components/UmicoPopup';
-import { EdvPopup } from '../components/EdvPopup';
-import { AniPayPopup } from '../components/AniPayPopup';
-import { BankPopup } from '../components/BankPopup';
-import { OdenisPopup } from '../components/OdenisPopup';
-import { CibPopup } from '../components/CibPopup';
-import { SmsPopup } from '../components/SmsPopup';
-import { UmicoPopupsm } from '../components/UmicoPopupsm';
-import { BankPopupsm } from '../components/BankPopupsm';
-import { AniPayPopupsm } from '../components/AniPayPopupsm';
-import { EdvPopupsm } from '../components/EdvPopupsm';
-import { CibPopupsm } from '../components/CibPopupsm';
-import { OdenisPopupsm } from '../components/OdenisPopupsm';
-import { SmsPopupsm } from '../components/SmsPopupsm';
+import React, { useEffect, useState } from 'react';
+
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -24,16 +9,19 @@ import axios from 'axios';
 import { base_url } from '../utils/base_url';
 import { config } from '../utils/axiosconfig';
 import Popup from 'reactjs-popup';
+import { LoadingOverlay } from '../components/LoadingOverlay';
 
 export async function getServerSideProps() {
   try {
     const Paymentresponse = await axios.get(`${base_url}/api/payments`, config);
     const Popupresponse = await axios.get(`${base_url}/api/popups`, config);
+    const Settingresponse = await axios.get(`${base_url}/api/settings`, config);
 
     return {
       props: {
         PaymentData: Paymentresponse.data,
         PopupData: Popupresponse.data,
+        SettingData: Settingresponse.data,
       },
     };
   } catch (error) {
@@ -46,22 +34,36 @@ export async function getServerSideProps() {
   }
 }
 
-const payment = ({ PaymentData, PopupData }) => {
+const payment = ({ PaymentData, SettingData }) => {
   const { visible, setVisible } = useVisibleContext();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
 
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
   useEffect(() => {
     setVisible(router.pathname === '/a');
   }, [router, setVisible]);
 
-  const pageTitle = 'Your Payment Post Title';
-  const pageDescription = 'Description of your payment post.';
+  const pageTitle = SettingData?.data
+    .filter((item) => item.key === 'payment_page_meta_title')
+    ?.map((item) => item.value);
+  const pageDescription = SettingData?.data
+    ?.filter((item) => item.key === 'payment_page_meta_description')
+    .map((item) => item.value);
   return (
     <>
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
       </Head>
+      {isLoading ? <LoadingOverlay /> : null}
       {visible && (
         <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
           <div className="grid grid-cols-3 justify-items-center">
@@ -182,7 +184,7 @@ const payment = ({ PaymentData, PopupData }) => {
                       className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white flex justify-center items-center"
                       key={item.id}
                     >
-                      <Link href="/paybybankcard">
+                      <Link href={item.redirect_link}>
                         <Image
                           src="/assets/payment/hokumetodenisportali.png"
                           width={259}
@@ -249,28 +251,28 @@ const payment = ({ PaymentData, PopupData }) => {
                               height={42}
                               onClick={close}
                             />
-                            {PopupData?.data.map((popup) => {
+                            {PaymentData?.data.map((payment) => {
                               return (
                                 <div
                                   className="flex justify-center mt-32 gap-5"
-                                  key={popup.id}
+                                  key={payment.id}
                                 >
                                   <div className="flex justify-center items-center">
                                     {' '}
                                     <Image
                                       width={285}
                                       height={315}
-                                      src="/assets/popup/bankpopup.png"
+                                      src={payment.image}
                                       className="rounded-3xl w-[285px] h-[315px]"
                                       alt=""
                                     />
                                   </div>
                                   <div className="w-[595px] h-[300px] leading-[115%] overflow-hidden">
                                     <h2 className="text-[#444444] text-[13.5px] font-bold mt-32">
-                                      {popup.handle}
+                                      {payment.name}
                                     </h2>
                                     <p className="text-[12px] text-[#B4B4B4]">
-                                      {popup.content}
+                                      {payment.description}
                                     </p>
                                   </div>
                                 </div>

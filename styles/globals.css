@@ -2064,3 +2064,28 @@ p img {
   display: inline !important;
   vertical-align: middle !important;
 }
+
+.home_n {
+  background-image: url('/src/assets/home1.png');
+  z-index: 0;
+}
+
+.home_m {
+  background-image: url('/src/assets/home1.png');
+}
+
+/* .carousel {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+} */
+
+.carousel .control-dots {
+  position: absolute;
+  bottom: -18px !important;
+  margin: 10px 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+  z-index: 1;
+}

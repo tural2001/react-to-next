@@ -11,6 +11,7 @@ import { useVisibleContext } from '../../components/VisibleContext';
 import { base_url } from '../../utils/base_url';
 import { config } from '../../utils/axiosconfig';
 import axios from 'axios';
+import { LoadingOverlay } from '../../components/LoadingOverlay';
 
 export async function getServerSideProps({ query }) {
   try {
@@ -43,7 +44,16 @@ const blog = ({ BlogData, slug }) => {
   const router = useRouter();
 
   const currentPage = BlogData.data.findIndex((item) => item.slug === slug) + 1;
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
 
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
   useEffect(() => {
     setVisible(router.pathname === '/');
   }, [router.pathname]);
@@ -82,6 +92,7 @@ const blog = ({ BlogData, slug }) => {
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
       </Head>
+      {isLoading ? <LoadingOverlay /> : null}
       {visible && (
         <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
           <div className="grid grid-cols-3 justify-items-center">

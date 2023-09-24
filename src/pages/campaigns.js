@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useVisibleContext } from '../components/VisibleContext';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { base_url } from '../utils/base_url';
 import { config } from '../utils/axiosconfig';
 import axios from 'axios';
+import { LoadingOverlay } from '../components/LoadingOverlay';
 
 export async function getServerSideProps() {
   try {
@@ -14,9 +15,12 @@ export async function getServerSideProps() {
       `${base_url}/api/posts?published=true`,
       config
     );
+    const Settingresponse = await axios.get(`${base_url}/api/settings`, config);
+
     return {
       props: {
         CampaignsData: Campaignsresponse.data,
+        SettingData: Settingresponse.data,
       },
     };
   } catch (error) {
@@ -28,23 +32,39 @@ export async function getServerSideProps() {
     };
   }
 }
-const Campaigns = ({ CampaignsData }) => {
-  console.log(CampaignsData);
+const Campaigns = ({ CampaignsData, SettingData }) => {
   const { visible, setVisible } = useVisibleContext();
   const router = useRouter();
+
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   useEffect(() => {
     setVisible(router.pathname === '/a');
   }, [router, setVisible]);
 
-  const pageTitle = 'Your About Post Title';
-  const pageDescription = 'Description of your about post.';
+  const pageTitle = SettingData?.data
+    .filter((item) => item.key === 'campaign_page_meta_title')
+    ?.map((item) => item.value);
+  const pageDescription = SettingData?.data
+    ?.filter((item) => item.key === 'campaign_page_meta_description')
+    .map((item) => item.value);
+
   return (
     <>
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
       </Head>
+      {isLoading ? <LoadingOverlay /> : null}
       {visible && (
         <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
           <div className="grid grid-cols-3 justify-items-center">

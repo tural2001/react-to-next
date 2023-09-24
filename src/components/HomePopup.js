@@ -2,18 +2,35 @@ import { useEffect, useState } from 'react';
 import Popup from 'reactjs-popup';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 export const HomePopup = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const router = useRouter();
   useEffect(() => {
-    const hasSeenPopup = localStorage.getItem('hasSeenPopup');
-    if (hasSeenPopup !== 'true') {
-      setTimeout(() => {
-        setIsOpen(true);
-        localStorage.setItem('hasSeenPopup', 'true');
-      }, 5000);
-    }
-  }, []);
+    const handleRouteChange = () => {
+      if (router.pathname !== '/registration') {
+        const hasSeenPopup = localStorage.getItem('hasSeenPopup');
+
+        if (!hasSeenPopup) {
+          const timeout = setTimeout(() => {
+            setIsOpen(true);
+            localStorage.setItem('hasSeenPopup', 'true');
+          }, 5000);
+
+          return () => {
+            clearTimeout(timeout);
+          };
+        }
+      }
+    };
+
+    router.events.on('routeChangeComplete', handleRouteChange);
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router]);
 
   const handleTriggerClick = () => {
     setIsOpen(true);

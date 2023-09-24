@@ -6,8 +6,28 @@ import Image from 'next/image';
 import Head from 'next/head';
 import rotationMap from '../components/rotationMap';
 import { publicIpv4 } from 'public-ip';
+import { LoadingOverlay } from '../components/LoadingOverlay';
 
-const Speedtes = () => {
+export async function getServerSideProps() {
+  try {
+    const Settingresponse = await axios.get(`${base_url}/api/settings`, config);
+
+    return {
+      props: {
+        SettingData: Settingresponse.data,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {
+        error: 'An error occurred while fetching data',
+      },
+    };
+  }
+}
+
+const Speedtes = ({ SettingData }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [rotation, setRotation] = useState(-155);
@@ -17,6 +37,17 @@ const Speedtes = () => {
   const [latency, setLatency] = useState(null);
   const [ipAddress, setIpAddress] = useState(null);
   const [error, setError] = useState(null);
+
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   const startSpeedTest = async () => {
     setLoading(true);
@@ -213,8 +244,12 @@ const Speedtes = () => {
     setNeedleStyle(newNeedleStyle);
   }, [download]);
 
-  const pageTitle = 'Your Speedtest Post Title';
-  const pageDescription = 'Description of your speedtest post.';
+  const pageTitle = SettingData?.data
+    .filter((item) => item.key === 'speedtest_page_meta_title')
+    ?.map((item) => item.value);
+  const pageDescription = SettingData?.data
+    ?.filter((item) => item.key === 'speedtest_page_meta_description')
+    .map((item) => item.value);
 
   return (
     <>
@@ -222,6 +257,7 @@ const Speedtes = () => {
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
       </Head>
+      {isLoading ? <LoadingOverlay /> : null}
       {visible && (
         <div className="home-wrapper-1  max-w-5xl max-sm:hidden py-10 mx-auto   max-xl:hidden">
           <div className="grid grid-cols-3 justify-items-center">

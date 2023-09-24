@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useVisibleContext } from '../components/VisibleContext';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -7,6 +7,7 @@ import Head from 'next/head';
 import { base_url } from '../utils/base_url';
 import { config } from '../utils/axiosconfig';
 import axios from 'axios';
+import { LoadingOverlay } from '../components/LoadingOverlay';
 
 export async function getServerSideProps() {
   try {
@@ -18,6 +19,7 @@ export async function getServerSideProps() {
       `${base_url}/api/structures`,
       config
     );
+    const Settingresponse = await axios.get(`${base_url}/api/settings`, config);
     const Pageresponse = await axios.get(`${base_url}/api/pages`, config);
 
     return {
@@ -25,6 +27,7 @@ export async function getServerSideProps() {
         ValuesData: Valuesresponse.data,
         PageData: Pageresponse.data,
         StructureData: Structureresponse.data,
+        SettingData: Settingresponse.data,
       },
     };
   } catch (error) {
@@ -37,26 +40,44 @@ export async function getServerSideProps() {
   }
 }
 
-const about = ({ ValuesData, StructureData, PageData }) => {
-  console.log(PageData.data);
+const about = ({ ValuesData, StructureData, PageData, SettingData }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   const { visible, setVisible } = useVisibleContext();
   const router = useRouter();
-  const filteredData = PageData.data.filter(
+  const filteredData = PageData?.data?.filter(
     (item) => item.slug === 'haqqimizda'
   );
   useEffect(() => {
     setVisible(router.pathname === '/a');
   }, [router, setVisible]);
 
-  const pageTitle = filteredData.map((item) => item.meta_title);
-  const pageDescription = filteredData.map((item) => item.meta_description);
+  const pageTitle = filteredData?.map((item) => item.meta_title);
+  const pageDescription = filteredData?.map((item) => item.meta_description);
+  const mission_title = SettingData?.data
+    .filter((item) => item.key === 'about_page_mission_title')
+    ?.map((item) => item.value);
+
+  const mission_description = SettingData?.data
+    .filter((item) => item.key === 'about_page_mission_description')
+    ?.map((item) => item.value);
+
   return (
     <>
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
       </Head>
+      {isLoading ? <LoadingOverlay /> : null}
       {visible && (
         <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
           <div className="grid grid-cols-3 justify-items-center">
@@ -168,11 +189,9 @@ const about = ({ ValuesData, StructureData, PageData }) => {
                       alt=""
                     />
                   </div>
-                  <p className="text-justify text-neutral-500 text-[20px] font-normal leading-7 mt-10 max-sm:text-[16px] max-lg:text-[18px] ">
-                    {item.content}
-                    <br />
-                    <br />
-                  </p>
+                  <span
+                    dangerouslySetInnerHTML={{ __html: item.description }}
+                  ></span>
                 </div>
                 <div className="max-xl:hidden flex justify-center items-center">
                   {' '}
@@ -194,17 +213,16 @@ const about = ({ ValuesData, StructureData, PageData }) => {
       <div className="about-wrapper-2 bg-[#F7F6FB] py-20">
         <div className="max-w-[1100px] mx-auto grid grid-cols-2 gap-20">
           <div className="col-span-2 max-sm:mx-10 max-lg:mx-10 max-xl:mx-10">
-            {' '}
-            <h3 className=" text-purple-900 text-[40px] font-bold leading-10 overflow-hidden max-sm:text-[20px] max-lg:text-[30px] max-xl:text-[30px] ">
-              MİSSİYAMIZ
-            </h3>
-            <p className=" text-justify text-neutral-500 text-[20px] font-normal leading-7 mt-5 max-sm:text-[16px] max-lg:text-[18px]">
-              İnsanlara rahat həyat və səmərəli biznes üçün təqdim etdiyimiz
-              yüksək keyfiyyətli rəqəmsal xidmət və kompleks həlləri ölkənin ən
-              uzaq nöqtələrində belə əlçatan etmək, yeni və innovativ ideyalara
-              fokuslanaraq xidmət keyfiyyətini daha yüksək standartlara
-              uyğunlaşdırıb lider pozisiyamızı qorumaqdır.
-            </p>
+            {SettingData?.data.map((setting) => {
+              <>
+                <h3 className=" text-purple-900 text-[40px] font-bold leading-10 overflow-hidden max-sm:text-[20px] max-lg:text-[30px] max-xl:text-[30px] ">
+                  {mission_title}
+                </h3>
+                <p className=" text-justify text-neutral-500 text-[20px] font-normal leading-7 mt-5 max-sm:text-[16px] max-lg:text-[18px]">
+                  {mission_description}
+                </p>
+              </>;
+            })}{' '}
           </div>
           <div className="col-span-2 max-sm:flex max-sm:flex-col max-sm:mx-10 max-lg:mx-10 max-xl:mx-10">
             <h3 className="text-purple-900 text-[40px] font-bold leading-10 overflow-hidden max-sm:text-[20px] max-lg:text-[30px] max-xl:text-[30px]">
@@ -219,18 +237,19 @@ const about = ({ ValuesData, StructureData, PageData }) => {
                   >
                     <div className="w-[225px] h-[270.25px] flex flex-col gap-3">
                       {' '}
-                      <Image
-                        src="/assets/about/yes.png"
+                      {/* <Image
+                        src={item.icon}
                         width={68}
                         height={44}
+                        layout="responsive"
                         className="w-[68px] max-sm:w-[44px]"
                         alt=""
-                      />
+                      /> */}
                       <h4 className=" text-black text-[24px] font-semibold max-sm:text-[20px]">
                         {item.title}
                       </h4>
                       <p className=" text-neutral-500 text-[16px] font-normal leading-snug">
-                        {item.description}{' '}
+                        {item.description}
                       </p>
                     </div>
                   </div>
@@ -253,9 +272,10 @@ const about = ({ ValuesData, StructureData, PageData }) => {
               >
                 <Image
                   className="w-[244px] h-[309px] max-sm:w-[132px] max-m:w-[162px] max-sm:h-[168px] max-lg:w-[220px] max-lg:h-[268px] max-md:h-[238px] max-md:w-[200px] rounded-2xl"
-                  src="/assets/about/img.png"
+                  src={item.image}
                   width={244}
                   height={309}
+                  layout="responsive"
                   alt=""
                 />
                 <h3 className=" text-center text-black text-[21px] font-bold leading-loose max-sm:text-[12px]">

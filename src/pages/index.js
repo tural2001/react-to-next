@@ -13,8 +13,50 @@ import { useVisibleContext } from '../components/VisibleContext';
 import { base_url } from '../utils/base_url';
 import { config } from '../utils/axiosconfig';
 import axios from 'axios';
-import Header from '../components/Header';
+import { LoadingOverlay } from '../components/LoadingOverlay';
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // Carousel için stil dosyasını içe aktarın
+import { Carousel } from 'react-responsive-carousel';
+export async function getServerSideProps() {
+  try {
+    const Tariffresponse = await axios.get(`${base_url}/api/tariffs`, config);
+    const Reviewresponse = await axios.get(`${base_url}/api/reviews`, config);
+    const Colorresponse = await axios.get(`${base_url}/api/colors`, config);
+    const Advantageresponse = await axios.get(
+      `${base_url}/api/advantages`,
+      config
+    );
+    const Blogresponse = await axios.get(
+      `${base_url}/api/posts?published=true`,
+      config
+    );
+    const Regionresponse = await axios.get(
+      `${base_url}/api/regions?perPage=74`,
+      config
+    );
+    const Settingresponse = await axios.get(`${base_url}/api/settings`, config);
+    const Slideresponse = await axios.get(`${base_url}/api/slides`, config);
 
+    return {
+      props: {
+        TariffData: Tariffresponse.data,
+        ReviewData: Reviewresponse.data,
+        BlogData: Blogresponse.data,
+        RegionData: Regionresponse.data,
+        AdvantageData: Advantageresponse.data,
+        ColorData: Colorresponse.data,
+        SettingData: Settingresponse.data,
+        SlideData: Slideresponse.data,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {
+        error: 'An error occurred while fetching data',
+      },
+    };
+  }
+}
 const home = ({
   TariffData,
   ReviewData,
@@ -22,9 +64,11 @@ const home = ({
   RegionData,
   AdvantageData,
   ColorData,
+  SettingData,
+  SlideData,
   error,
 }) => {
-  console.log(AdvantageData);
+  console.log(SlideData);
   const [selectedValue, setSelectedValue] = useState('');
   const [svgValue, setSvgValue] = useState('');
 
@@ -33,11 +77,14 @@ const home = ({
   const { isOpen, toggleMenu } = useVisibleContext();
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
-  }, []);
+    }, 1000);
 
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
   const { visible, setVisible } = useVisibleContext();
 
   const handleScrollUp = () => {
@@ -56,8 +103,20 @@ const home = ({
     router.push(`/blog/${slug}`);
   };
 
-  const pageTitle = 'Your Home Post Title';
-  const pageDescription = 'Description of your home post.';
+  const pageTitle = SettingData?.data
+    .filter((item) => item.key === 'home_page_meta_title')
+    ?.map((item) => item.value);
+  const pageDescription = SettingData?.data
+    ?.filter((item) => item.key === 'home_page_meta_description')
+    .map((item) => item.value);
+
+  const career_title = SettingData?.data
+    .filter((item) => item.key === 'home_page_career_title')
+    ?.map((item) => item.value);
+
+  const career_description = SettingData?.data
+    .filter((item) => item.key === 'home_page_career_description')
+    ?.map((item) => item.value);
 
   const handleButtonClick = () => {
     if (selectedValue) {
@@ -153,6 +212,7 @@ const home = ({
           </div>
         </div>
       )}
+      {isLoading ? <LoadingOverlay /> : null}
       <div className="max-xl:relative absolute max-xl:z-[-1] w-full  bg-[#F7F6FB] ">
         {' '}
         <Image
@@ -163,38 +223,52 @@ const home = ({
           alt=""
         />
       </div>
-      <div className="home-wrapper-2   bg-[#F7F6FB] pb-10  hidden max-xl:block  overflow-hidden">
-        <div className="absolute   max-xl:z-[-1]    max-xxl:right-0  max-sm:top-[105px] max-xxl:top-[145px]">
-          <Image
-            src="/assets/home2.png"
-            width={200}
-            height={150}
-            className="max-sm:w-[200px]   max-md:w-[250px] max-lg:w-[350px] max-xl:w-[400px]  max-xxl:w-[500px]"
-            alt=""
-          />
+      <div className="home-wrapper-2   bg-[#F7F6FB] pb-10  hidden max-xl:block  ">
+        <div className="absolute  w-11/12   top-1/4 max-sm:top-[120px] max-xl:top-[200px]  left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
+          <Carousel
+            infiniteLoop={true}
+            autoPlay={false}
+            interval={5000}
+            showStatus={false}
+            showThumbs={false}
+            renderArrowPrev={() => null}
+            renderArrowNext={() => null}
+          >
+            {SlideData?.data?.map((slide) => (
+              <div key={slide.id} className=" flex justify-between">
+                <div className="flex justify-start flex-col">
+                  {' '}
+                  <p className="text-[20px] flex justify-start text-white font-light max-sm:text-[13px] max-md:text-[20px] max-xl:text-[30px]">
+                    {slide.title}
+                  </p>
+                  <p className="text-[20px] flex justify-start text-white font-light max-sm:text-[13px] max-md:text-[20px] max-xl:text-[30px]">
+                    {slide.description}
+                  </p>
+                  <Link
+                    href={slide.button_link}
+                    className="border p-2 rounded-3xl text-white text-[15px] w-[170px] h-[40px] max-sm:w-[120px] max-sm:h-[32px] max-sm:text-[11px] text-center mt-5 max-sm:mt-2 flex justify-center items-center overflow-hidden"
+                  >
+                    {slide.button_text}
+                  </Link>
+                </div>
+                <div className="max-sm:w-[150px]   max-md:w-[250px] max-lg:w-[300px] max-xl:w-[300px]">
+                  {' '}
+                  <Image
+                    src={slide.image}
+                    width={500}
+                    height={300}
+                    layout="responsive"
+                    alt=""
+                  />
+                </div>
+              </div>
+            ))}
+          </Carousel>
         </div>
-        <div
-          className={`absolute ${
-            isOpen ? 'z-[-1]' : 'z-[1]'
-          }    max-xxl:left-1  max-xxl:top-20`}
-        >
-          <div className="relative mx-0 max-xxl:w-full max-xxl:h-[40px]">
-            {' '}
-            <div className="max-sm:left-2 max-sm:top-3  max-lg:left-3 max-xl:mx-1  max-xl:top-5 max-xl:left-2  max-xxl:left-20 max-xxl:w-full  flex flex-col">
-              <p className="text-[40px] text-white  font-light max-sm:text-[13px]  max-md:text-[20px] max-xl:text-[30px] ">
-                Onlayn qeydiyyatdan keç, <br />{' '}
-                <span className="font-extrabold">
-                  Fiber optik internetə qoşul!
-                </span>{' '}
-              </p>
-              <HomePopup />
-            </div>
-            <div className="absolute top-[30rem] left-72 bg-white w-16 h-16 max-xxl:hidden rounded-full flex justify-center items-center">
-              <HiOutlineArrowSmallDown className="text-[#5B2D90] text-[30px] stroke-2" />
-            </div>
-          </div>
+        <div className="absolute top-[30rem] left-72 bg-white w-16 h-16 max-xxl:hidden rounded-full flex justify-center items-center">
+          <HiOutlineArrowSmallDown className="text-[#5B2D90] text-[30px] stroke-2" />
         </div>
-        <div className="container max-w-[1087px] mx-auto mt-20 max-sm:mt-10 ">
+        <div className="container max-w-[1087px] mx-auto mt-0 ">
           {' '}
           <div className="flex flex-col justify-center items-center gap-3">
             <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-xxl:text-[30px]">
@@ -251,7 +325,7 @@ const home = ({
           </div>
         </div>
       </div>
-      <div className="home-wrapper-2   bg-[#F7F6FB] pb-10 max-xl:hidden  relative overflow-hidden">
+      <div className="home-wrapper-2   bg-[#F7F6FB] pb-10 max-xl:hidden  relative ">
         {' '}
         <Image
           src="/assets/home1.png"
@@ -260,32 +334,73 @@ const home = ({
           className="w-full"
           alt=""
         />{' '}
-        <Image
-          src="/assets/home2.png"
-          width={500}
-          height={300}
-          className="absolute a-p top-40 right-20 max-sm:top-10 max-sm:w-[200px] max-xxl:top-32 max-md:right-[-20px] max-xxl:right-[25px] overflow-hidden max-md:w-[250px] max-lg:w-[350px] max-xl:w-[400px]  max-xxl:w-[500px] "
-          alt=""
-        />
-        <div className=" mx-auto ">
-          <div className=" mx-auto max-xxl:w-[200px] max-xxl:h-[40px]">
-            {' '}
-            <div className="absolute p-a  top-32 left-44 max-sm:left-2 max-sm:top-3  max-lg:left-3 max-xl:mx-1  max-xl:top-5 max-xl:left-2  max-xxl:left-20 max-xxl:w-[520px] overflow-hidden flex flex-col">
-              <p className="text-[40px] text-white  font-light max-sm:text-[16px] max-xl:text-[30px] ">
-                Onlayn qeydiyyatdan keç, <br />{' '}
-                <span className="font-extrabold">
-                  Fiber optik internetə qoşul!
-                </span>{' '}
-              </p>
-              <HomePopup />
-            </div>
-            <Link href="#">
-              <div className="absolute b-a top-[30rem] left-72 bg-white w-16 h-16 max-xxl:hidden rounded-full flex justify-center items-center">
-                <HiOutlineArrowSmallDown className="text-[#5B2D90] text-[30px] stroke-2" />
+        <div className="absolute container w-[1100px] mx-10 top-[300px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-sm:left-2 max-sm:top-3 max-lg:left-3   max-xl:left-2 ">
+          <Carousel
+            infiniteLoop={true}
+            autoPlay={true}
+            interval={5000}
+            showArrows={true}
+            showStatus={false}
+            showThumbs={false}
+            className=""
+            renderArrowPrev={() => null}
+            renderArrowNext={(onClickHandler, hasNext, label) =>
+              hasNext && (
+                <button
+                  type="button"
+                  onClick={onClickHandler}
+                  title={label}
+                  style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '10px',
+                    transform: 'translateY(-50%)',
+                    zIndex: '2',
+                  }}
+                >
+                  Next
+                </button>
+              )
+            }
+          >
+            {SlideData?.data?.map((slide) => (
+              <div
+                key={slide.id}
+                className="carousel flex justify-between max-w-[1150px]"
+              >
+                <div className="flex justify-start flex-col">
+                  {' '}
+                  <p className="text-[40px] flex justify-start text-white font-light max-sm:text-[13px] max-md:text-[20px] max-xl:text-[30px]">
+                    {slide.title}
+                  </p>
+                  <p className="text-[40px] flex justify-start text-white font-light max-sm:text-[13px] max-md:text-[20px] max-xl:text-[30px]">
+                    {slide.description}
+                  </p>
+                  <Link
+                    href={slide.button_link}
+                    className="border p-2 rounded-3xl text-white text-[15px] w-[170px] h-[40px] max-sm:w-[120px] max-sm:h-[32px] max-sm:text-[11px] text-center mt-5 max-sm:mt-2 flex justify-center items-center overflow-hidden"
+                  >
+                    {slide.button_text}
+                  </Link>
+                </div>
+                <div className="w-[650px] h-[522px] flex justify-end  top-20 right-0 max-sm:top-10 max-sm:w-[200px] max-xxl:top-32 max-md:right-[-20px] max-xxl:right-[25px] overflow-hidden max-md:w-[250px] max-lg:w-[350px] max-xl:w-[400px]  max-xxl:w-[500px] ">
+                  <Image
+                    src={slide.image}
+                    width={500}
+                    height={300}
+                    layout="responsive"
+                    alt=""
+                  />
+                </div>
               </div>
-            </Link>
-          </div>
+            ))}
+          </Carousel>
         </div>
+        <Link href="#/">
+          <div className="absolute b-a top-[30rem] left-72 bg-white w-16 h-16 max-xxl:hidden rounded-full flex justify-center items-center">
+            <HiOutlineArrowSmallDown className="text-[#5B2D90] text-[30px] stroke-2" />
+          </div>
+        </Link>
         <div className="container max-w-[1087px] mx-auto mt-20 max-sm:mt-10 ">
           {' '}
           <div className="flex flex-col justify-center items-center gap-3">
@@ -379,7 +494,7 @@ const home = ({
                     style={{ backgroundColor: item.backgroundColor }}
                     className="flex justify-center items-center w-[65px] h-[65px] rounded-xl "
                   >
-                    <Image src="/assets/md.png" width={40} height={40} alt="" />
+                    <Image src={item.image} width={40} height={40} alt="" />
                   </div>
                   <p className="text-[24px] font-semibold max-md:text-[15px] max-xxl:text-[16px]">
                     {item.title}
@@ -446,12 +561,7 @@ const home = ({
                       }`}
                     >
                       <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
-                        <Image
-                          src={'/assets/packets/basic.png'}
-                          width={26}
-                          height={29}
-                          alt=""
-                        />
+                        <Image src={item.image} width={26} height={29} alt="" />
                       </div>
                       <p className="text-[20px] font-bold text-white">
                         {item.name}
@@ -708,7 +818,7 @@ const home = ({
                           </p>
                           <div className="flex items-center gap-1">
                             <Image
-                              src="/assets/rey.png"
+                              src={item.reviewer_image}
                               width={54}
                               height={54}
                               alt=""
@@ -750,7 +860,7 @@ const home = ({
                             </p>
                             <div className="flex items-center gap-1">
                               <Image
-                                src="/assets/rey.png"
+                                src={item.reviewer_image}
                                 width={54}
                                 height={54}
                                 alt=""
@@ -785,9 +895,10 @@ const home = ({
                   <div className="max-sm:flex max-sm:flex-col max-sm:justify-center">
                     {' '}
                     <Image
-                      src="/assets/blog.png"
+                      src={item.image}
                       width={500}
                       height={300}
+                      layout="responsive"
                       className="w-[280px] h-[168px] "
                       alt=""
                     />
@@ -809,7 +920,7 @@ const home = ({
         width={300}
         height={300}
         className={`absolute right-[13rem]  ${
-          visible ? 'top-[325rem]' : 'top-[301rem]'
+          visible ? 'top-[325rem]' : 'top-[311rem]'
         } max-sm:right-0 max-sm:top-[356rem] max-md:top-[400rem]  z-10 max-md:w-[130px] max-xxl:hidden`}
         alt=""
       />
@@ -817,12 +928,10 @@ const home = ({
         <div className=" max-w-6xl mx-auto flex justify-center">
           <div className="w-[752px] h-[337px] max-sm:w-[280px] max-sm:h-[280px] max-md:w-[450px] max-md:h-[300px] bg-[#5B2D90] p-10 max-md:px-2 max-md:py-5 rounded-3xl flex flex-col gap-10 max-sm:gap-3 max-md:gap-10  justify-center items-center">
             <h2 className="text-white text-[24px] font-bold max-md:text-[20px] max-md:text-center">
-              KARYERANIZI BİZİMLƏ QURUN!
+              {career_title}
             </h2>
             <p className="text-white text-[16px] w-4/5 font-normal text-center max-md:text-[12px] max-sm:w-full overflow-hidden">
-              Böyük və mehriban kollektivimizin üzvü olmaq üçün şansını sına!
-              Vakansiyalar ilə aşağıdakı “Müraciət et” düyməsinə klikləməklə
-              tanış ola bilərsiniz.
+              {career_description}
             </p>
             <Link href="/career" onClick={handleScrollUp}>
               <button className="w-[172px] h-[52px] max-md:w-[190px] max-md:h-[41px] bg-white text-[#5B2D90] rounded-full text-[16px] font-medium">
@@ -836,41 +945,4 @@ const home = ({
   );
 };
 
-export async function getServerSideProps() {
-  try {
-    const Tariffresponse = await axios.get(`${base_url}/api/tariffs`, config);
-    const Reviewresponse = await axios.get(`${base_url}/api/reviews`, config);
-    const Colorresponse = await axios.get(`${base_url}/api/colors`, config);
-    const Advantageresponse = await axios.get(
-      `${base_url}/api/advantages`,
-      config
-    );
-    const Blogresponse = await axios.get(
-      `${base_url}/api/posts?published=true`,
-      config
-    );
-    const Regionresponse = await axios.get(
-      `${base_url}/api/regions?perPage=74`,
-      config
-    );
-
-    return {
-      props: {
-        TariffData: Tariffresponse.data,
-        ReviewData: Reviewresponse.data,
-        BlogData: Blogresponse.data,
-        RegionData: Regionresponse.data,
-        AdvantageData: Advantageresponse.data,
-        ColorData: Colorresponse.data,
-      },
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      props: {
-        error: 'An error occurred while fetching data',
-      },
-    };
-  }
-}
 export default home;

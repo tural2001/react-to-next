@@ -15,6 +15,7 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
+import { LoadingOverlay } from '../components/LoadingOverlay';
 
 export async function getServerSideProps() {
   try {
@@ -22,9 +23,12 @@ export async function getServerSideProps() {
       `${base_url}/api/vacancies`,
       config
     );
+    const Settingresponse = await axios.get(`${base_url}/api/settings`, config);
+
     return {
       props: {
         VacanciesData: Vacanciesresponse.data,
+        SettingData: Settingresponse.data,
       },
     };
   } catch (error) {
@@ -46,7 +50,7 @@ let schema = yup.object({
   cv: yup.mixed().required('*'),
 });
 
-const career = ({ VacanciesData }) => {
+const career = ({ VacanciesData, SettingData }) => {
   const [isFileDetected, setIsFileDetected] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showNameError, setShowNameError] = useState(true);
@@ -59,12 +63,20 @@ const career = ({ VacanciesData }) => {
   const { visible, setVisible } = useVisibleContext();
   const router = useRouter();
 
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
+
   useEffect(() => {
     setVisible(router.pathname === '/a');
   }, [router, setVisible]);
-
-  const pageTitle = 'Your Career Post Title';
-  const pageDescription = 'Description of your career post.';
 
   const onDrop = useCallback((acceptedFiles) => {
     formik.setFieldValue('cv', acceptedFiles);
@@ -129,44 +141,49 @@ const career = ({ VacanciesData }) => {
       ? `+994${cleanedInput.substring(3)}`
       : `+994${cleanedInput}`;
     if (formattedPhone.length <= 13) {
-      formik.setFieldValue('phone', formattedPhone); // Update the field value
+      formik.setFieldValue('phone', formattedPhone);
     }
-    // SetFieldValue'i çağırarak Formik değerini güncelle
 
-    // Input değeri boşsa showError'u true yap
     setShowPhoneError(formattedPhone.trim() === '');
   };
 
-  // Input değeri değiştiğinde showQuestionError'ı güncelle
   const handleEmailChange = (e) => {
     const inputValue = e.target.value;
     formik.handleChange(e);
-    setShowEmailError(inputValue.trim() === ''); // Eğer input değeri boşsa showError'u true yap
+    setShowEmailError(inputValue.trim() === '');
   };
 
   const handleVacancyChange = (e) => {
     const inputValue = e.target.value;
     formik.handleChange(e);
-    setShowVacancy_nameError(inputValue.trim() === ''); // Eğer input değeri boşsa showError'u true yap
+    setShowVacancy_nameError(inputValue.trim() === '');
   };
 
   const handleNotesChange = (e) => {
     const inputValue = e.target.value;
     formik.handleChange(e);
-    setShowNotesError(inputValue.trim() === ''); // Eğer input değeri boşsa showError'u true yap
+    setShowNotesError(inputValue.trim() === '');
   };
 
   const handleCvChange = (e) => {
     const inputValue = e.target.value;
     formik.handleChange(e);
-    se(inputValue.trim() === ''); // Eğer input değeri boşsa showError'u true yap
+    se(inputValue.trim() === '');
   };
+  const pageTitle = SettingData?.data
+    .filter((item) => item.key === 'career_page_meta_title')
+    ?.map((item) => item.value);
+  const pageDescription = SettingData?.data
+    ?.filter((item) => item.key === 'career_page_meta_description')
+    .map((item) => item.value);
+
   return (
     <>
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
       </Head>
+      {isLoading ? <LoadingOverlay /> : null}
       {visible && (
         <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
           <div className="grid grid-cols-3 justify-items-center">

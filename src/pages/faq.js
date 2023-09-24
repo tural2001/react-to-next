@@ -13,12 +13,16 @@ import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 
 import * as yup from 'yup';
+import { LoadingOverlay } from '../components/LoadingOverlay';
 export async function getServerSideProps() {
   try {
     const Faqsresponse = await axios.get(`${base_url}/api/faqs`, config);
+    const Settingresponse = await axios.get(`${base_url}/api/settings`, config);
+
     return {
       props: {
         FaqsData: Faqsresponse.data,
+        SettingData: Settingresponse.data,
       },
     };
   } catch (error) {
@@ -37,7 +41,7 @@ let schema = yup.object({
   question: yup.string().required('*'),
 });
 
-const faq = ({ FaqsData }) => {
+const faq = ({ FaqsData, SettingData }) => {
   const data = [
     {
       h4: 'İnternet xidmətinə qoşulmaq üçün nə etməliyəm?',
@@ -79,6 +83,16 @@ const faq = ({ FaqsData }) => {
 
   const { visible, setVisible } = useVisibleContext();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   useEffect(() => {
     setVisible(router.pathname === '/a');
@@ -140,14 +154,20 @@ const faq = ({ FaqsData }) => {
     setShowQuestionError(inputValue.trim() === '');
   };
 
-  const pageTitle = 'Your Faq Post Title';
-  const pageDescription = 'Description of your faq post.';
+  const pageTitle = SettingData?.data
+    .filter((item) => item.key === 'faq_page_meta_title')
+    ?.map((item) => item.value);
+  const pageDescription = SettingData?.data
+    ?.filter((item) => item.key === 'faq_page_meta_description')
+    .map((item) => item.value);
+
   return (
     <>
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
       </Head>
+      {isLoading ? <LoadingOverlay /> : null}
       {visible && (
         <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
           <div className="grid grid-cols-3 justify-items-center">

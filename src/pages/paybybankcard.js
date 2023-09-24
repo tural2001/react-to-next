@@ -4,17 +4,28 @@ import { BsSearch } from 'react-icons/bs';
 import { useVisibleContext } from '../components/VisibleContext';
 import Image from 'next/image';
 import Link from 'next/link';
+import { LoadingOverlay } from '../components/LoadingOverlay';
 
 const PaybyBankCard = () => {
   const { visible, setVisible } = useVisibleContext();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
 
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
   useEffect(() => {
     setVisible(router.pathname === '/a');
   }, [router, setVisible]);
   return (
     <>
       {' '}
+      {isLoading ? <LoadingOverlay /> : null}
       {visible && (
         <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
           <div className="grid grid-cols-3 justify-items-center">

@@ -9,6 +9,7 @@ import { useVisibleContext } from '../../components/VisibleContext';
 import { base_url } from '../../utils/base_url';
 import { config } from '../../utils/axiosconfig';
 import axios from 'axios';
+import { LoadingOverlay } from '../../components/LoadingOverlay';
 
 export async function getServerSideProps() {
   try {
@@ -31,6 +32,17 @@ export async function getServerSideProps() {
 
 const adsl = ({ TariffData }) => {
   console.log(TariffData);
+
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
   const { isOpen, toggleMenu } = useVisibleContext();
   const filteredData = TariffData.data.filter((item) => item.title === 'ipsum');
 
@@ -42,6 +54,7 @@ const adsl = ({ TariffData }) => {
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
       </Head>
+      {isLoading ? <LoadingOverlay /> : null}
       <ServiceLayout>
         <div
           className="services-wrapper-6 max-w-[1087px] mx-auto pt-20"

@@ -9,12 +9,17 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Dropzone from 'react-dropzone';
+import { LoadingOverlay } from '../components/LoadingOverlay';
+import Head from 'next/head';
 export async function getServerSideProps() {
   try {
     const Formresponse = await axios.get(`${base_url}/api/form-fields`, config);
+    const Settingresponse = await axios.get(`${base_url}/api/settings`, config);
+
     return {
       props: {
         FormsData: Formresponse.data,
+        SettingData: Settingresponse.data,
       },
     };
   } catch (error) {
@@ -32,12 +37,23 @@ export async function getServerSideProps() {
 //   type: yup.string().required('Question is Required'),
 //   name: yup.string().required('Question is Required'),
 // });
-const registration = ({ FormsData }) => {
+const registration = ({ FormsData, SettingData }) => {
   const [isFileDetected, setIsFileDetected] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
   const { visible, setVisible } = useVisibleContext();
   const router = useRouter();
+
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   const onDrop = useCallback(async (acceptedFiles, fieldName) => {
     try {
@@ -87,7 +103,6 @@ const registration = ({ FormsData }) => {
         }
       });
 
-      // If there are errors, set them in the formik state and prevent submission
       if (Object.keys(errors).length > 0) {
         formik.setErrors(errors);
         return;
@@ -186,8 +201,20 @@ const registration = ({ FormsData }) => {
     setErrorFields(newErrorFields);
   }, [formik.errors]);
 
+  const pageTitle = SettingData?.data
+    .filter((item) => item.key === 'register_page_meta_title')
+    ?.map((item) => item.value);
+  const pageDescription = SettingData?.data
+    ?.filter((item) => item.key === 'register_page_meta_description')
+    .map((item) => item.value);
+
   return (
     <>
+      <Head>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+      </Head>
+      {isLoading ? <LoadingOverlay /> : null}
       {visible && (
         <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
           <div className="grid grid-cols-3 justify-items-center">

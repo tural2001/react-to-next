@@ -8,6 +8,7 @@ import Head from 'next/head';
 import axios from 'axios';
 import { base_url } from '../../utils/base_url';
 import { config } from '../../utils/axiosconfig';
+import { LoadingOverlay } from '../../components/LoadingOverlay';
 
 export async function getServerSideProps() {
   try {
@@ -39,7 +40,16 @@ const simsiz = ({ TariffData }) => {
   const filteredData = TariffData.data.filter(
     (item) => item.title === 'Lorem ipsumsxxs'
   );
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
 
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
   const pageTitle = filteredData.map((item) => item.meta_title);
   const pageDescription = filteredData.map((item) => item.meta_description);
 
@@ -49,6 +59,7 @@ const simsiz = ({ TariffData }) => {
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
       </Head>
+      {isLoading ? <LoadingOverlay /> : null}
       <ServiceLayout>
         <div
           className="services-wrapper-4 max-w-[1087px] mx-auto pt-20"

@@ -5,6 +5,7 @@ import Head from 'next/head';
 import { base_url } from '../../utils/base_url';
 import axios from 'axios';
 import { config } from '../../utils/axiosconfig';
+import { LoadingOverlay } from '../../components/LoadingOverlay';
 
 export async function getServerSideProps() {
   try {
@@ -29,13 +30,23 @@ const aix = ({ TariffData }) => {
 
   const pageTitle = filteredData.map((item) => item.meta_title);
   const pageDescription = filteredData.map((item) => item.meta_description);
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
 
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
   return (
     <>
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
       </Head>
+      {isLoading ? <LoadingOverlay /> : null}
       <ServiceLayout>
         <div className="services-wrapper-5 bg-[#F7F6FB] max-lg:mt-10" id="aix">
           <div className="max-w-[1087px] mx-auto py-10">

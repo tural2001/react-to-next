@@ -10,6 +10,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { LoadingOverlay } from '../components/LoadingOverlay';
 import { BlogDataProvider } from '../components/BlogData';
+import { HomePopup } from '../components/HomePopup';
 
 function MyApp({ Component, pageProps, pageTitle }) {
   return (
@@ -20,9 +21,10 @@ function MyApp({ Component, pageProps, pageTitle }) {
           <meta name="description" content="Your page description." />
         </Head>
         <Header />
-        <LoadingOverlay />
+        {/* <LoadingOverlay /> */}
         <Component {...pageProps} />
         <Footer />
+        <HomePopup />
       </BlogDataProvider>
     </VisibleProvider>
   );

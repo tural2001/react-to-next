@@ -8,7 +8,16 @@ function ServiceLayout({ children }) {
   const [animationClasses, setAnimationClass] = useState(
     getAnimationClass('/services/fiberoptik')
   );
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
 
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
   const router = useRouter();
   const [isNavigating, setIsNavigating] = useState(false);
 

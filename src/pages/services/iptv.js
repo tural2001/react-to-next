@@ -40,7 +40,16 @@ const iptv = ({ TariffData }) => {
       setSelectedItem(item);
     }
   };
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
 
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
   const pageTitle = filteredData.map((item) => item.meta_title);
   const pageDescription = filteredData.map((item) => item.meta_description);
   return (
@@ -49,6 +58,7 @@ const iptv = ({ TariffData }) => {
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
       </Head>
+      {isLoading ? <LoadingOverlay /> : null}
       <ServiceLayout>
         <div className="services-wrapper-3 bg-[#F7F6FB] max-lg:mt-10" id="iptv">
           <div className="max-w-[1010px] mx-auto py-10" id="">

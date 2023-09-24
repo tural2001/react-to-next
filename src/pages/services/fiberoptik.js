@@ -10,6 +10,7 @@ import Head from 'next/head';
 import axios from 'axios';
 import { base_url } from '../../utils/base_url';
 import { config } from '../../utils/axiosconfig';
+import { LoadingOverlay } from '../../components/LoadingOverlay';
 
 export async function getServerSideProps() {
   try {
@@ -32,7 +33,16 @@ export async function getServerSideProps() {
 
 const fiberoptik = ({ TariffData }) => {
   const filteredData = TariffData.data.filter((item) => item.title === 'ipsum');
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
 
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
   const [selectedItem, setSelectedItem] = useState('ferdi');
 
   const handleItemClick = (item, position) => {
@@ -49,6 +59,7 @@ const fiberoptik = ({ TariffData }) => {
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
       </Head>
+      {isLoading ? <LoadingOverlay /> : null}
       <ServiceLayout>
         <div className="services-wrapper-1 max-w-[1100px] mx-auto pt-20 max-xl:pt-10">
           <div
