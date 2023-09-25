@@ -20,11 +20,10 @@ function MyApp({ Component, pageProps, pageTitle }) {
           <title>{pageTitle}</title>
           <meta name="description" content="Your page description." />
         </Head>
-        <Header />
-        {/* <LoadingOverlay /> */}
+        <Header {...pageProps} />
         <Component {...pageProps} />
-        <Footer />
-        <HomePopup />
+        <Footer {...pageProps} />
+        <HomePopup {...pageProps} />
       </BlogDataProvider>
     </VisibleProvider>
   );

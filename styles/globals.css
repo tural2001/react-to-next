@@ -22,26 +22,6 @@ option {
   font-family: 'Inter', sans-serif;
 }
 
-/* .optik:hover {
-  outline: 2px solid;
-  outline-color: #ffa35b;
-}
-
-.optik:hover .fiber {
-  display: flex;
-}
-.op:hover .flag {
-  display: flex;
-  position: absolute;
-  left: 10;
-} */
-
-/* .map {
-  background-image: url(./assets/map.png);
-  background-position: center;
-  background-repeat: no-repeat;
-} */
-
 .flag-home {
   width: 110px;
   height: 40px;
@@ -2052,13 +2032,13 @@ svg.active .svg-elem-74 {
   );
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 15px 50px -20px;
-  box-shadow: rgba(0, 0, 0, 0.25) -5px 5px 10px -15px; /* Sadece sol ve alt köşede gölge */
+  box-shadow: rgba(0, 0, 0, 0.25) -5px 5px 10px -15px;
 }
 
 .radio-container {
   display: flex;
-  align-items: center; /* Dikey hizalama */
-  gap: 10px; /* Inputlar arasındaki boşluk */
+  align-items: center;
+  gap: 10px;
 }
 p img {
   display: inline !important;
@@ -2074,18 +2054,12 @@ p img {
   background-image: url('/src/assets/home1.png');
 }
 
-/* .carousel {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-} */
-
 .carousel .control-dots {
+  display: none !important;
+}
+
+.campaign_img {
   position: absolute;
-  bottom: -18px !important;
-  margin: 10px 0;
-  padding: 0;
-  text-align: center;
-  width: 100%;
-  z-index: 1;
+  left: 20%;
+  transform: translateX(-50%);
 }

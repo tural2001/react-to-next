@@ -3,27 +3,39 @@ import Popup from 'reactjs-popup';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-export const HomePopup = (props) => {
+import { base_url } from '../utils/base_url';
+import axios from 'axios';
+import { config } from '../utils/axiosconfig';
+
+export const HomePopup = ({ ...pageProps }) => {
+  console.log(pageProps);
+
   const [isOpen, setIsOpen] = useState(false);
-
+  console.log(PopupData);
   const router = useRouter();
-  useEffect(() => {
-    const handleRouteChange = () => {
-      if (router.pathname !== '/registration') {
-        const hasSeenPopup = localStorage.getItem('hasSeenPopup');
 
-        if (!hasSeenPopup) {
-          const timeout = setTimeout(() => {
-            setIsOpen(true);
-            localStorage.setItem('hasSeenPopup', 'true');
-          }, 5000);
+  const handleRouteChange = () => {
+    if (router.pathname == '/registration') {
+      localStorage.setItem('hasSeenPopup', 'true');
+    }
+    if (router.pathname !== '/registration') {
+      const hasSeenPopup = localStorage.getItem('hasSeenPopup');
 
-          return () => {
-            clearTimeout(timeout);
-          };
-        }
+      if (!hasSeenPopup) {
+        const timeout = setTimeout(() => {
+          setIsOpen(true);
+          localStorage.setItem('hasSeenPopup', 'true');
+        }, 5000);
+
+        return () => {
+          clearTimeout(timeout);
+        };
       }
-    };
+    }
+  };
+
+  useEffect(() => {
+    handleRouteChange();
 
     router.events.on('routeChangeComplete', handleRouteChange);
 
@@ -61,40 +73,44 @@ export const HomePopup = (props) => {
       >
         {(close) => (
           <>
-            <div className="popup-content-2"></div>
-            <Image
-              src="/assets/popup/x.png"
-              className="absolute right-5 top-5 w-[40px] h-[42px]"
-              alt=""
-              width={40}
-              height={42}
-              onClick={() => {
-                close();
-                setIsOpen(false);
-              }}
-            />
-            <Image
-              src="/assets/popupqeydiyyat.png"
-              width={100}
-              height={100}
-              layout="responsive"
-              className="w-full"
-              alt=""
-            />
-            <div className="absolute top-32 w-[439px]  left-10">
-              {' '}
-              <p className="text-white text-[28px] font-light">
-                Onlayn qeydiyyatdan keç, {}
-                <span className="text-white text-[44px] font-extrabold">
-                  OPTİK İNTERNETƏ DAHA TEZ QOŞUL!
-                </span>
-              </p>
-              <Link href="registration">
-                <button className="w-[254px] h-[45px] border-[1px] border-white text-[20px] text-white rounded-full mt-3">
-                  Onlayn qeydiyyat
-                </button>
-              </Link>
-            </div>
+            {PopupData?.data?.map((item) => {
+              return (
+                <>
+                  <div className="popup-content-2"></div>
+                  <Image
+                    src="/assets/popup/x.png"
+                    className="absolute right-5 top-5 w-[40px] h-[42px]"
+                    alt=""
+                    width={40}
+                    height={42}
+                    onClick={() => {
+                      close();
+                      setIsOpen(false);
+                    }}
+                  />
+                  {/* <Image
+                  src={item.image}
+                  width={100}
+                  height={100}
+                  layout="responsive"
+                  className="w-full"
+                  alt=""
+                /> */}
+                  <div className="absolute top-32 bg-black w-[439px]  left-10">
+                    {' '}
+                    <p className="text-black text-[28px] mb-5 font-light">
+                      {item.content}
+                    </p>
+                    <Link
+                      href="registration"
+                      className="w-[254px] h-[45px] border-[1px] py-2.5 px-10 border-white text-[20px] text-white rounded-full   focus:0"
+                    >
+                      Onlayn qeydiyyat
+                    </Link>
+                  </div>
+                </>
+              );
+            })}
           </>
         )}
       </Popup>

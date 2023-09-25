@@ -199,7 +199,7 @@ const blog = ({ BlogData, slug }) => {
                   />
                 </div>
               </div>
-              <div className="flex flex-col mt-10 max-sm:w-3/4 max-xl:w-11/12  max-xl:mx-auto max-xl:mt-20">
+              <div className="flex flex-col mt-10 max-sm:w-3/4 max-xl:w-11/12 relative   max-xl:mx-auto max-xl:mt-20">
                 <div className="flex justify-between mb-5">
                   {' '}
                   <h3 className="text-[36px] font-semibold max-sm:text-[20px]">

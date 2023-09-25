@@ -7,7 +7,8 @@ import Image from 'next/image';
 import { useVisibleContext } from './VisibleContext';
 import { useBlogData } from './BlogData';
 
-const Header = () => {
+const Header = ({ ...pageProps }) => {
+  console.log(pageProps);
   const { blogData } = useBlogData();
   const slug =
     blogData?.data?.filter((item) => item.slug)?.map((item) => item.slug) || [];

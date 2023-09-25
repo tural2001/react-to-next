@@ -135,7 +135,7 @@ const career = ({ VacanciesData, SettingData }) => {
 
   const handlePhoneChange = (e) => {
     const inputValue = e.target.value;
-    // Kullanıcının girdiğini temizleme ve düzenleme işlemleri
+
     const cleanedInput = inputValue.replace(/\D/g, '');
     const formattedPhone = cleanedInput.startsWith('994')
       ? `+994${cleanedInput.substring(3)}`

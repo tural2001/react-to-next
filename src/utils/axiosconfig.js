@@ -4,6 +4,6 @@ export const config = {
   headers: {
     Authorization: `Bearer ${token}`,
     Accept: 'application/json',
-    'Content-Type': 'multipart/form-data', // Dosya yükleme işlemi olduğu için bu başlığı ayarlamalısınız.
+    'Content-Type': 'multipart/form-data',
   },
 };

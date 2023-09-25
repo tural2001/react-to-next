@@ -160,7 +160,7 @@ const Campaigns = ({ CampaignsData, SettingData }) => {
             src="/assets/campaigns/mikrafon.png"
             width={581}
             height={651}
-            className="w-[581px] h-[651px] max-sm:w-[155px] max-sm:h-[175px] max-xxl:w-[300px] max-xxl:h-[300px]"
+            className="w-[551px] h-[631px] max-sm:w-[155px] max-sm:h-[175px] max-xxl:w-[300px] max-xxl:h-[300px]"
             alt=""
           />
         </div>
@@ -173,13 +173,13 @@ const Campaigns = ({ CampaignsData, SettingData }) => {
               className="bg-[#F7F6FB] py-5 mt-20 max-xl:mt-0 max-sm:py-0 max-xl:px-5"
               key={index}
             >
-              <div className=" overflow-auto  grid grid-cols-3 gap-5  max-w-6xl mx-auto max-xl:grid-cols-1">
+              <div className="grid grid-cols-3 gap-5   mx-auto max-xl:grid-cols-1 w-[1100px] ">
                 <div className="w-[347px] h-[485px] max-xl:w-[291px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-[#5B2D90] mt-20">
                   <Image
-                    className="absolute left-[-200px] mt-10 max-sm:left-0 max-sm:top-20 "
-                    src="/assets/campaigns/adsl.png"
-                    width={900}
-                    height={500}
+                    className="campaign_img left-[0px]   max-sm:left-0 max-sm:top-20 "
+                    src="/assets/campaigns/mikrafon.png"
+                    width={500}
+                    height={455}
                     alt=""
                   />
                 </div>
@@ -216,6 +216,19 @@ const Campaigns = ({ CampaignsData, SettingData }) => {
                     className="text-[16px] text-[#757575]"
                     dangerouslySetInnerHTML={{ __html: campaign.description }}
                   ></span>
+                  <span>
+                    {' '}
+                    Lorem ipsum dolor sit amet consectetur adipisicing
+                    elit.dwwdwdw Quas blanditiis atque minus dicta veniam
+                    laudantium assumenda quae? Repellendus eligendi, illo
+                    expedita earum, est quo esse itaque porro odit, adipisci
+                    minus? Quas blanditiis atque minus dicta veniam laudantium
+                    assumenda quae? Repellendus eligendi, illo expedita earum,
+                    est quo esse itaque porro odit, adipisci minus? Quas
+                    blanditiis atque minus dicta veniam laudantium assumenda
+                    quae? Repellendus eligendi, illo expedita earum, est quo
+                    esse itaque porro odit, adipisci minus?
+                  </span>
                 </div>
               </div>
             </div>

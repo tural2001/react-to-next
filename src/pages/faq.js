@@ -11,9 +11,9 @@ import { base_url } from '../utils/base_url';
 import { config } from '../utils/axiosconfig';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
-
 import * as yup from 'yup';
 import { LoadingOverlay } from '../components/LoadingOverlay';
+
 export async function getServerSideProps() {
   try {
     const Faqsresponse = await axios.get(`${base_url}/api/faqs`, config);

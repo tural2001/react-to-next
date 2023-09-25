@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 import ServiceLayout from './layout';
@@ -21,7 +21,6 @@ export async function getServerSideProps() {
       },
     };
   } catch (error) {
-    // Handle errors appropriately
     console.error(error);
     return {
       props: {
@@ -34,6 +33,7 @@ export async function getServerSideProps() {
 const fiberoptik = ({ TariffData }) => {
   const filteredData = TariffData.data.filter((item) => item.title === 'ipsum');
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setIsLoading(false);
@@ -238,8 +238,8 @@ const fiberoptik = ({ TariffData }) => {
             <>
               <div className="grid grid-cols-5 justify-items-center gap-5 mt-10 max-xl:hidden">
                 {TariffData?.data
-                  ?.filter((item) => item.service?.title.az == 'Lorem ipsum')
-                  .map((tariff, index) => (
+                  ?.filter((item) => item.type == 1)
+                  .map((tariff) => (
                     <div className="h-[500px] w-[210px] p-0 op" key={tariff.id}>
                       <div
                         key={tariff.id}
@@ -319,7 +319,7 @@ const fiberoptik = ({ TariffData }) => {
                   className="mySwiper2"
                 >
                   {TariffData?.data
-                    ?.filter((item) => item.service?.title.az == 'Lorem ipsum')
+                    ?.filter((item) => item.type == 1)
                     .map((item) => (
                       <SwiperSlide key={item.id}>
                         {' '}
@@ -400,8 +400,8 @@ const fiberoptik = ({ TariffData }) => {
             <>
               <div className="flex  gap-5  justify-center  mt-10 max-xl:hidden">
                 {TariffData?.data
-                  ?.filter((item) => item.service?.title.az == 'Lorem ipsum')
-                  .map((tariff, index) => (
+                  ?.filter((item) => item.type == 2)
+                  .map((tariff) => (
                     <div className="h-[500px] w-[210px] p-0 op" key={tariff.id}>
                       <div
                         key={tariff.id}
@@ -481,7 +481,7 @@ const fiberoptik = ({ TariffData }) => {
                   className="mySwiper2"
                 >
                   {TariffData?.data
-                    ?.filter((item) => item.service?.title.az == 'Lorem ipsum')
+                    ?.filter((item) => item.type == 2)
                     .map((item) => (
                       <SwiperSlide key={item.id}>
                         {' '}

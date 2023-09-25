@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ServiceLayout from './layout';
 import { TariffsPopup } from '../../components/TariffsPopup';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -20,7 +20,6 @@ export async function getServerSideProps() {
       },
     };
   } catch (error) {
-    // Handle errors appropriately
     console.error(error);
     return {
       props: {

@@ -4,7 +4,8 @@ import Image from 'next/image';
 import { useBlogData } from './BlogData';
 import { useRouter } from 'next/router';
 
-const Footer = () => {
+const Footer = ({ ...pageProps }) => {
+  console.log(pageProps);
   const router = useRouter();
   const { blogData } = useBlogData();
   const slug =

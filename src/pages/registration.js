@@ -302,8 +302,6 @@ const registration = ({ FormsData, SettingData }) => {
           onSubmit={(e) => {
             e.preventDefault();
             const errors = {};
-
-            // Iterate through the form fields and check for required fields
             FormsData?.data?.forEach((item) => {
               if (item.name && item.required && !formik.values[item.name]) {
                 errors[item.name] = `${item.label} is required`;
@@ -312,8 +310,6 @@ const registration = ({ FormsData, SettingData }) => {
 
             formik.setErrors(errors);
             console.log(errors);
-
-            // Check if there are any errors; if not, proceed with form submission
             if (Object.keys(errors).length === 0) {
               formik.handleSubmit(e);
             }
@@ -534,7 +530,7 @@ const registration = ({ FormsData, SettingData }) => {
                         <input {...getInputProps()} />
 
                         <div
-                          className={`w-[920px] h-[189px] max-xl:w-11/12 ${
+                          className={`w-[442px] h-[189px] max-xl:w-11/12 ${
                             formik.errors[item.name] ? 'border-red-500' : ''
                           }     bg-[#F4F4F4] rounded-lg flex justify-center items-center`}
                         >

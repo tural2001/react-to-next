@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ServiceLayout from './layout';
 import Image from 'next/image';
 import Head from 'next/head';
@@ -16,7 +16,6 @@ export async function getServerSideProps() {
       },
     };
   } catch (error) {
-    // Handle errors appropriately
     console.error(error);
     return {
       props: {

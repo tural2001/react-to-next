@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TariffsPopup } from '../../components/TariffsPopup';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
@@ -19,7 +19,6 @@ export async function getServerSideProps() {
       },
     };
   } catch (error) {
-    // Handle errors appropriately
     console.error(error);
     return {
       props: {
@@ -237,8 +236,8 @@ const simsiz = ({ TariffData }) => {
             {selectedItem === 'ferdi' && (
               <div className="grid grid-cols-5 justify-items-center gap-5 mt-10 max-xl:hidden">
                 {TariffData?.data
-                  ?.filter((item) => item.service?.title.az == 'Lorem ipsum')
-                  .map((tariff, index) => (
+                  ?.filter((item) => item.type == 1)
+                  .map((tariff) => (
                     <div className="h-[500px] w-[210px] p-0 op" key={tariff.id}>
                       <div
                         key={tariff.id}
@@ -320,15 +319,13 @@ const simsiz = ({ TariffData }) => {
                   className="mySwiper2"
                 >
                   {TariffData?.data
-                    ?.filter(
-                      (item) => item.service?.title.az == 'Lorem ipsumsxxs'
-                    )
-                    .map((item, index) => (
-                      <SwiperSlide key={index}>
+                    ?.filter((item) => item.type == 1)
+                    .map((item) => (
+                      <SwiperSlide key={item.id}>
                         {' '}
                         <div className="h-[450px] w-[210px] flex flex-col justify-center items-center p-0 op">
                           <div
-                            key={index}
+                            key={item.id}
                             className={`w-[200px] h-[350px] max-sm:w-[195px] max-sm:h-[332px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative  0   ${
                               item.id === 'pro' ? 'outline-red' : ''
                             }`}
@@ -401,8 +398,8 @@ const simsiz = ({ TariffData }) => {
             {selectedItem === 'biznes' && (
               <div className="flex flex-cols  justify-center items-center gap-10  mt-10 max-xl:hidden">
                 {TariffData?.data
-                  ?.filter((item) => item.service?.title.az == 'Lorem ipsum')
-                  .map((tariff, index) => (
+                  ?.filter((item) => item.type == 2)
+                  .map((tariff) => (
                     <div className="h-[500px] w-[210px] p-0 op" key={tariff.id}>
                       <div
                         key={tariff.id}
@@ -484,13 +481,13 @@ const simsiz = ({ TariffData }) => {
                   className="mySwiper2"
                 >
                   {TariffData?.data
-                    ?.filter((item) => item.service?.title.az == 'Lorem ipsum')
-                    .map((item, index) => (
-                      <SwiperSlide key={index}>
+                    ?.filter((item) => item.type == 2)
+                    .map((item) => (
+                      <SwiperSlide key={item.id}>
                         {' '}
                         <div className="h-[450px] w-[210px] flex flex-col justify-center items-center p-0 op">
                           <div
-                            key={index}
+                            key={item.id}
                             className={`w-[200px] h-[350px] max-sm:w-[195px] max-sm:h-[332px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative  0   ${
                               item.id === 'pro' ? 'outline-red' : ''
                             }`}
