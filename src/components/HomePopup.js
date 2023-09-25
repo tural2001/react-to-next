@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import Popup from 'reactjs-popup';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -8,10 +8,10 @@ import axios from 'axios';
 import { config } from '../utils/axiosconfig';
 
 export const HomePopup = ({ ...pageProps }) => {
-  console.log(pageProps);
+  const popup = pageProps?.PopupData?.data;
 
   const [isOpen, setIsOpen] = useState(false);
-  console.log(PopupData);
+
   const router = useRouter();
 
   const handleRouteChange = () => {
@@ -73,7 +73,7 @@ export const HomePopup = ({ ...pageProps }) => {
       >
         {(close) => (
           <>
-            {PopupData?.data?.map((item) => {
+            {popup?.map((item) => {
               return (
                 <>
                   <div className="popup-content-2"></div>
@@ -88,22 +88,22 @@ export const HomePopup = ({ ...pageProps }) => {
                       setIsOpen(false);
                     }}
                   />
-                  {/* <Image
-                  src={item.image}
-                  width={100}
-                  height={100}
-                  layout="responsive"
-                  className="w-full"
-                  alt=""
-                /> */}
-                  <div className="absolute top-32 bg-black w-[439px]  left-10">
+                  <Image
+                    src={item.image}
+                    width={100}
+                    height={100}
+                    layout="responsive"
+                    className="w-full"
+                    alt=""
+                  />
+                  <div className="absolute top-32  w-[439px]  left-10">
                     {' '}
                     <p className="text-black text-[28px] mb-5 font-light">
                       {item.content}
                     </p>
                     <Link
                       href="registration"
-                      className="w-[254px] h-[45px] border-[1px] py-2.5 px-10 border-white text-[20px] text-white rounded-full   focus:0"
+                      className="w-[254px] h-[45px] border-[1px] py-2.5 px-10 border-white text-[20px] text-black rounded-full   focus:0"
                     >
                       Onlayn qeydiyyat
                     </Link>

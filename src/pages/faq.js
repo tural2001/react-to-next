@@ -250,7 +250,7 @@ const faq = ({ FaqsData, SettingData }) => {
           src="/assets/home1.png"
           width={500}
           height={300}
-          className=" h-[535px]  top-32 w-full  max-sm:h-[200px] max-md:h-[300px] max-xl:h-[300px] max-xl:top-14"
+          className=" h-[535px]  top-32 w-full  max-sm:h-[200px] max-md:h-[300px] max-xl:h-[300px] max-xxl:h-[300px] max-xl:top-14"
           alt=""
         />
       </div>
@@ -266,16 +266,16 @@ const faq = ({ FaqsData, SettingData }) => {
               src="/assets/faq.png"
               width={454}
               height={355}
-              className="w-[454px] h-[355px]  mr-24 mt-10 max-lg:mr-5  max-xl:w-[192px] max-xl:h-[152px] max-xxl:w-[252px] max-xxl:h-[252px]"
+              className="w-[454px] h-[355px]  mr-24 mt-10 max-lg:mr-5  max-xl:w-[192px] max-xl:h-[152px] max-xxl:w-[282px] max-xxl:h-[252px]"
               alt=""
             />
           </div>
         </div>
 
-        <div className=" w-[826px] max-xl:w-full max-xl:mx-5 mx-auto flex flex-col gap-10 justify-center items-center mt-40 max-md:mt-20 max-xl:mt-10 ">
+        <div className=" w-[826px] max-xl:w-full max-xl:mx-5 mx-auto flex flex-col gap-10 justify-center items-center mt-0 max-xxl:mt-40  py-20 max-xl:py-10">
           <div className=" max-xl:z-[-1]">
             {' '}
-            <h3 className="text-[40px] max-md:text-[20px] max-xl:text-[30px] w-3/4 max-xl:w-full mx-auto overflow-hidden  text-[#5B2D90] font-bold text-center ">
+            <h3 className="text-[40px] max-md:text-[20px] max-xxl:text-[30px] w-3/4 max-xl:w-full mx-auto overflow-hidden  text-[#5B2D90] font-bold text-center ">
               Daha öncədən cavablandırılan suallar{' '}
             </h3>
           </div>
@@ -377,7 +377,7 @@ const faq = ({ FaqsData, SettingData }) => {
                   formik.touched.phone && formik.errors.phone
                     ? 'border-[#ED1C24]'
                     : 'border-[#5B2D90]'
-                }   bg-white rounded-lg w-[464px] h-[58px] max-xl:w-11/12 p-2 focus:ring-0`}
+                }   bg-white rounded-lg w-[464px] h-[58px] max-xl:w-full p-2 focus:ring-0`}
                 placeholder="+994 _ _  _ _ _  _ _  _ _"
                 name="phone"
                 onChange={handlePhoneChange}

@@ -173,8 +173,8 @@ const Campaigns = ({ CampaignsData, SettingData }) => {
               className="bg-[#F7F6FB] py-5 mt-20 max-xl:mt-0 max-sm:py-0 max-xl:px-5"
               key={index}
             >
-              <div className="grid grid-cols-3 gap-5   mx-auto max-xl:grid-cols-1 w-[1100px] ">
-                <div className="w-[347px] h-[485px] max-xl:w-[291px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-[#5B2D90] mt-20">
+              <div className="grid grid-cols-5 gap-5   mx-auto max-xl:grid-cols-1  ">
+                {/* <div className="w-[347px] h-[485px] max-xl:w-[291px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-[#5B2D90] mt-20">
                   <Image
                     className="campaign_img left-[0px]   max-sm:left-0 max-sm:top-20 "
                     src="/assets/campaigns/mikrafon.png"
@@ -182,13 +182,24 @@ const Campaigns = ({ CampaignsData, SettingData }) => {
                     height={455}
                     alt=""
                   />
+                </div> */}
+                <div class="relative col-span-2 w-[400px]  h-[485px]    max-xl:w-[251px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-[#F7F6FB] flex justify-center white mt-10 ">
+                  <Image
+                    className="absolute w-full h-full object-cover mr-20 max-xl:w-3/4 "
+                    src="/assets/campaigns/mikrafon.png"
+                    alt=""
+                    width={900}
+                    height={500}
+                  />
+                  <div class="w-[347px] max-xl:w-11/12 h-full  bg-[#5B2D90] rounded-2xl"></div>
                 </div>
-                <div className="col-span-2 max-xl:col-span-1 flex flex-col justify-center gap-5">
-                  <h3 className="text-purple-900 text-[40px] font-bold leading-10 uppercase max-sm:text-[20px]">
+                <div className="col-span-3 max-xl:col-span-1 flex flex-col justify-center gap-5">
+                  <h3 className="text-purple-900 text-[40px] font-bold leading-10 uppercase max-xl:text-[30px] max-lg:text-[20px]">
                     3+1 ADSL
                   </h3>
+                  .
                   <span
-                    className="text-[16px] text-[#757575]"
+                    className="text-[16px]  break-words text-[#757575]"
                     dangerouslySetInnerHTML={{ __html: campaign.description }}
                   ></span>
                 </div>
@@ -198,37 +209,35 @@ const Campaigns = ({ CampaignsData, SettingData }) => {
         } else {
           return (
             <div className="bg-white py-5 max-xl:px-5" key={index}>
-              <div className=" overflow-auto  grid grid-cols-3 gap-5  max-w-6xl mx-auto max-xl:grid-cols-1">
-                <div className="w-[347px] h-[485px] max-xl:w-[291px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-[#5B2D90] mt-20">
+              <div className=" overflow-auto  grid grid-cols-5  gap-5  max-w-6xl mx-auto max-xl:grid-cols-1">
+                {/* <div className=" relative col-span-2  bg-[#5B2D90] ">
                   <Image
-                    className="absolute right-[-50px] mt-14 max-sm:left-0 max-sm:top-20 "
+                    className="w-full h-full object-fill"
                     src="/assets/campaigns/adsl.png"
+                    alt=""
                     width={900}
                     height={500}
-                    alt=""
                   />
+                </div> */}
+                <div class="relative col-span-2 w-[400px]  h-[485px]    max-xl:w-[251px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-white flex justify-center white mt-10 ">
+                  <Image
+                    className="absolute w-full h-full object-cover mr-20 max-xl:w-3/4 "
+                    src="/assets/campaigns/mikrafon.png"
+                    alt=""
+                    width={900}
+                    height={500}
+                  />
+                  <div class="w-[347px] max-xl:w-11/12 h-full  bg-[#5B2D90] rounded-2xl"></div>
                 </div>
-                <div className="col-span-2 flex flex-col justify-center gap-5 order-first max-xl:order-last">
-                  <h3 className="text-purple-900 text-[40px] font-bold leading-10 uppercase max-sm:text-[20px]">
+
+                <div className="col-span-3 flex flex-col justify-center gap-5 order-first max-xl:order-last">
+                  <h3 className="text-purple-900 text-[40px] font-bold leading-10 uppercase max-xl:text-[30px] max-lg:text-[20px]] ">
                     3+1 ADSL
-                  </h3>
+                  </h3>{' '}
                   <span
-                    className="text-[16px] text-[#757575]"
+                    className="text-[16px]  break-words text-[#757575]"
                     dangerouslySetInnerHTML={{ __html: campaign.description }}
                   ></span>
-                  <span>
-                    {' '}
-                    Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit.dwwdwdw Quas blanditiis atque minus dicta veniam
-                    laudantium assumenda quae? Repellendus eligendi, illo
-                    expedita earum, est quo esse itaque porro odit, adipisci
-                    minus? Quas blanditiis atque minus dicta veniam laudantium
-                    assumenda quae? Repellendus eligendi, illo expedita earum,
-                    est quo esse itaque porro odit, adipisci minus? Quas
-                    blanditiis atque minus dicta veniam laudantium assumenda
-                    quae? Repellendus eligendi, illo expedita earum, est quo
-                    esse itaque porro odit, adipisci minus?
-                  </span>
                 </div>
               </div>
             </div>
