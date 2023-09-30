@@ -122,6 +122,14 @@ const home = ({
     .filter((item) => item.key === 'home_page_career_description')
     ?.map((item) => item.value);
 
+  const map_title = SettingData?.data
+    .filter((item) => item.key === 'home_page_map_title')
+    ?.map((item) => item.value);
+
+  const map_description = SettingData?.data
+    .filter((item) => item.key === 'home_page_map_description')
+    ?.map((item) => item.value);
+
   const handleButtonClick = () => {
     if (selectedValue) {
       setSvgValue(selectedValue);
@@ -276,13 +284,11 @@ const home = ({
           {' '}
           <div className="flex flex-col justify-center items-center gap-3">
             <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-xxl:text-[30px]">
-              Əhatə dairəmiz
+              {map_title}
             </h3>{' '}
             Bölgəni seçin
             <p className="text-center text-[#94A2B3] w-3/4 max-sm:text-[10px] max-sm:w-[307px] max-sm:mx-auto ">
-              “Bölgəni seçin” başlığından öz ünvanınızı seçməklə və ya xəritə
-              vizualının üzərində sizə lazım olan əraziyə klikləməklə həmin
-              ərazinin xidmət sahəmizə aid olub-olmadığını öyrənə bilərsiniz.
+              {map_description}
             </p>
           </div>
           <div className="grid grid-cols-3  mt-14 max-xxl:justify-items-center">
@@ -391,12 +397,10 @@ const home = ({
           {' '}
           <div className="flex flex-col justify-center items-center gap-3">
             <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-xxl:text-[30px]">
-              Əhatə dairəmiz
+              {map_title}
             </h3>
             <p className="text-center text-[#94A2B3] w-3/4 max-sm:text-[10px] max-sm:w-[307px] max-sm:mx-auto ">
-              “Bölgəni seçin” başlığından öz ünvanınızı seçməklə və ya xəritə
-              vizualının üzərində sizə lazım olan əraziyə klikləməklə həmin
-              ərazinin xidmət sahəmizə aid olub-olmadığını öyrənə bilərsiniz.
+              {map_description}
             </p>
           </div>
           <div className="grid grid-cols-3  mt-14 max-xxl:justify-items-center">

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import '../../styles/globals.css';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+// import 'slick-carousel/slick/slick.css';
+// import 'slick-carousel/slick/slick-theme.css';
 import 'reactjs-popup/dist/index.css';
 import 'swiper/css';
 import 'swiper/css/pagination';

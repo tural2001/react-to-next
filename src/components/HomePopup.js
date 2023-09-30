@@ -9,7 +9,7 @@ import { config } from '../utils/axiosconfig';
 
 export const HomePopup = ({ ...pageProps }) => {
   const popup = pageProps?.PopupData?.data;
-
+  console.log(popup);
   const [isOpen, setIsOpen] = useState(false);
 
   const router = useRouter();
@@ -25,7 +25,7 @@ export const HomePopup = ({ ...pageProps }) => {
         const timeout = setTimeout(() => {
           setIsOpen(true);
           localStorage.setItem('hasSeenPopup', 'true');
-        }, 5000);
+        }, 30000);
 
         return () => {
           clearTimeout(timeout);
@@ -98,12 +98,12 @@ export const HomePopup = ({ ...pageProps }) => {
                   />
                   <div className="absolute top-32  w-[439px]  left-10">
                     {' '}
-                    <p className="text-black text-[28px] mb-5 font-light">
+                    <p className="text-white text-[28px] mb-5 font-light">
                       {item.content}
                     </p>
                     <Link
                       href="registration"
-                      className="w-[254px] h-[45px] border-[1px] py-2.5 px-10 border-white text-[20px] text-black rounded-full   focus:0"
+                      className="w-[254px] h-[45px] border-[1px] py-2.5 px-10 border-white text-[20px] text-white rounded-full   focus:0"
                     >
                       Onlayn qeydiyyat
                     </Link>
