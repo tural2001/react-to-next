@@ -396,7 +396,7 @@ const simsiz = ({ TariffData }) => {
               </div>
             )}
             {selectedItem === 'biznes' && (
-              <div className="flex flex-cols  justify-center items-center gap-10  mt-10 max-xl:hidden">
+              <div className="grid grid-cols-5  justify-items-center items-center gap-10  mt-10 max-xl:hidden">
                 {TariffData?.data
                   ?.filter((item) => item.type == 2)
                   .map((tariff) => (
@@ -557,6 +557,29 @@ const simsiz = ({ TariffData }) => {
                 </Swiper>
               </div>
             )}
+          </div>
+          <div className="pb-10">
+            <h3 className="text-center text-purple-900 text-[40px] font-bold leading-10 uppercase py-5 overflow-hidden max-md:text-[20px] max-xl:text-[30px]">
+              Tərəfdaşlarımız
+            </h3>{' '}
+            <div className="mt-5 max-xl:mx-10">
+              <Image
+                src="/assets/services/terefdaslarimiz.png"
+                width={500}
+                height={300}
+                layout="responsive"
+                className="max-xl:hidden"
+                alt=""
+              />
+              <Image
+                src="/assets/services/smterefdaslarimiz.png"
+                width={100}
+                height={100}
+                layout="responsive"
+                className="hidden max-xl:block"
+                alt=""
+              />
+            </div>
           </div>
         </div>
       </ServiceLayout>

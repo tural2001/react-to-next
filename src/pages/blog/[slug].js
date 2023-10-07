@@ -12,6 +12,7 @@ import { base_url } from '../../utils/base_url';
 import { config } from '../../utils/axiosconfig';
 import axios from 'axios';
 import { LoadingOverlay } from '../../components/LoadingOverlay';
+import { useTranslation } from '../../components/TranslationContext';
 
 export async function getServerSideProps({ query }) {
   try {
@@ -85,6 +86,7 @@ const blog = ({ BlogData, slug }) => {
 
   const pageTitle = paginatedBlogs.map((item) => item.meta_title);
   const pageDescription = paginatedBlogs.map((item) => item.meta_description);
+  const { translate, Language } = useTranslation();
 
   return (
     <>
@@ -186,7 +188,7 @@ const blog = ({ BlogData, slug }) => {
               <div className="flex flex-col justify-center items-center gap-10">
                 {' '}
                 <h3 className="h3  text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xxl:text-[30px] max-xxl:text-white ">
-                  Bloq
+                  {translate('Blog', Language)}
                 </h3>
                 <div className="absolute  z-[1] max-xxl:z-[-1] h3 max-sm:mt-10 max-md:mt-14  max-xl:mt-20">
                   {' '}
@@ -226,13 +228,14 @@ const blog = ({ BlogData, slug }) => {
           className="flex text-[20px] text-[#5B2D90] w-[292px] h-[68px] max-sm:w-[124px] max-sm:h-[40px] max-sm:text-[12px] items-center justify-center bg-[#F9F9F9] gap-2 rounded-full"
         >
           <BsArrowLeft />
-          Əvvəlki
+          {translate('Previous', Language)}
         </button>
         <button
           onClick={goToNextPage}
           className="flex text-[20px] text-white w-[292px] h-[68px] max-sm:w-[124px] max-sm:h-[40px] max-sm:text-[12px] items-center justify-center bg-[#5B2D90] gap-2 rounded-full"
         >
-          Növbəti
+          {translate('Next', Language)}
+
           <BsArrowRight />
         </button>
       </div>

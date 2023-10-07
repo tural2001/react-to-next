@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useBlogData } from './BlogData';
 import { useRouter } from 'next/router';
+import { useTranslation } from './TranslationContext';
 
 const Footer = ({ ...pageProps }) => {
   console.log(pageProps);
@@ -41,7 +42,7 @@ const Footer = ({ ...pageProps }) => {
       });
     }
   }, []);
-
+  const { translate, Language } = useTranslation();
   return (
     <div className="relative  w-full bg-[#5B2D90]">
       <div className="container max-w-5xl max-sm:w-full mx-auto py-14 max-sm:py-10 grid grid-cols-4 max-sm:grid-cols-2 max-sm:gap-5 ma max-lg:grid-cols-2 max-lg:gap-5 max-lg:px-10 ">
@@ -59,49 +60,49 @@ const Footer = ({ ...pageProps }) => {
         </div>
         <div className="text-white flex flex-col gap-5  justify-start items-start ml-10">
           <h3 className="text-[20px] font-semibold tracking-[0.5px] max-sm:text-[16px]">
-            Haqqımızda
+            {translate('About_us', Language)}
           </h3>
           <ul className="text-[14px] font-regular flex flex-col gap-3">
             <li className="">
               <Link href="services" onClick={handleScrollUp}>
-                Xidmətlərimiz
+                {translate('Services', Language)}
               </Link>
             </li>
             <li className="">
               <Link href="campaigns" onClick={handleScrollUp}>
-                Kampaniyalar
+                {translate('Campaigns', Language)}
               </Link>
             </li>
             <li className="" onClick={scrollToUstunluklerimiz}>
-              <Link href="/">Üstünlüklərimiz</Link>
+              <Link href="/"> {translate('Our_advantages', Language)}</Link>
             </li>
           </ul>
         </div>
         <div className="text-white flex flex-col gap-5 ml-10">
           <h3 className="text-[20px] font-semibold tracking-[0.5px] max-sm:text-[16px]">
-            FAQ
+            {translate('FAQ', Language)}
           </h3>
           <ul className="text-sm font-light flex flex-col gap-3">
             <li className="">
               <Link href="/career" onClick={handleScrollUp}>
-                Karyera
+                {translate('Career', Language)}
               </Link>
             </li>
             <li className="">
               <Link href={`/blog/${slug[0]}`} onClick={handleScrollUp}>
-                Bloq
+                {translate('Blog', Language)}
               </Link>
             </li>
             <li className="">
               <Link href="/payment" onClick={handleScrollUp}>
-                Ödəniş
+                {translate('Payment', Language)}
               </Link>
             </li>
           </ul>
         </div>
         <div className="text-white flex flex-col    justify-start items-start ml-10  gap-3 max-sm:col-span-2 max-lg:col-span-2">
           <h3 className="text-[20px] font-semibold  tracking-[0.5px] max-sm:text-[16px]  ">
-            Bizimlə əlaqə:
+            {translate('Contact_us', Language)}
           </h3>
           <ul className="text-sm font-light grid grid-cols-5 gap-2 justify-center items-center w-[200px] max-sm:w-[200px]  max-sm:flex max-lg:w-[200px]  max-lg:flex    ">
             <Link
@@ -174,10 +175,10 @@ const Footer = ({ ...pageProps }) => {
       <div className=" border-b-[1px] border-white mx-8 border-opacity-30" />
       <div className="container max-w-[1000px] max-xxl:w-full mx-auto  py-2 flex flex-row justify-between items-center max-sm:justify-between   text-white  font-medium text-[12px] max-sm:px-10">
         <Link href="/privacypolicy" onClick={handleScrollUp}>
-          <p>Məxfilik siyasəti</p>
+          <p> {translate('Privacy_policy', Language)}</p>
         </Link>
         <Link href="/">
-          <p>&copy; Bütün hüquqlar qorunur</p>
+          <p>&copy; {translate('All_rights_reserved', Language)}</p>
         </Link>
         <Link href="/">
           <p className="max-sm:hidden max-xl:hidden">

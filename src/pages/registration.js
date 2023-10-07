@@ -11,15 +11,22 @@ import * as yup from 'yup';
 import Dropzone from 'react-dropzone';
 import { LoadingOverlay } from '../components/LoadingOverlay';
 import Head from 'next/head';
+import { useTranslation } from '../components/TranslationContext';
+import Service from '../components/Service';
 export async function getServerSideProps() {
   try {
     const Formresponse = await axios.get(`${base_url}/api/form-fields`, config);
     const Settingresponse = await axios.get(`${base_url}/api/settings`, config);
+    const ServiceCategoryresponse = await axios.get(
+      `${base_url}/api/service-categories`,
+      config
+    );
 
     return {
       props: {
         FormsData: Formresponse.data,
         SettingData: Settingresponse.data,
+        ServiceCategoryData: ServiceCategoryresponse.data,
       },
     };
   } catch (error) {
@@ -37,7 +44,7 @@ export async function getServerSideProps() {
 //   type: yup.string().required('Question is Required'),
 //   name: yup.string().required('Question is Required'),
 // });
-const registration = ({ FormsData, SettingData }) => {
+const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
   const [isFileDetected, setIsFileDetected] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
@@ -207,6 +214,7 @@ const registration = ({ FormsData, SettingData }) => {
   const pageDescription = SettingData?.data
     ?.filter((item) => item.key === 'register_page_meta_description')
     .map((item) => item.value);
+  const { translate, Language } = useTranslation();
 
   return (
     <>
@@ -215,88 +223,13 @@ const registration = ({ FormsData, SettingData }) => {
         <meta name="description" content={pageDescription} />
       </Head>
       {isLoading ? <LoadingOverlay /> : null}
-      {visible && (
-        <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
-          <div className="grid grid-cols-3 justify-items-center">
-            <Link href="/services/fiberoptik">
-              <div className="">
-                <div className="bg-[#DCC5F6] w-[102px] h-[102px] rounded-3xl flex items-center mx-auto">
-                  <Image
-                    src="/assets/world.png"
-                    width={500}
-                    height={300}
-                    className="w-[56px] h-[56px] mx-auto"
-                    alt=""
-                  />
-                </div>
-                <div className="">
-                  <div className="flex justify-center">
-                    {' '}
-                    <h3 className=" font-medium text-[28px] py-4  tracking-[0.5px]">
-                      Internet
-                    </h3>
-                  </div>
-
-                  <ul className="flex flex-col justify-center items-center gap-2 text-[#909090]  font-normal ">
-                    <li>Fiber optik</li>
-                    <li>Simsiz</li>
-                    <li>Ayrılmış internet xətti</li>
-                    <li>ADSL</li>
-                  </ul>
-                </div>
-              </div>
-            </Link>
-            <Link href="/services/fiberoptik">
-              <div className="">
-                <div className="bg-[#BFFFCD] w-32 h-32 rounded-3xl flex items-center mx-auto">
-                  <Image
-                    src="/assets/tvstroke.png"
-                    width={500}
-                    height={300}
-                    className="w-[56px] h-[56px] mx-auto"
-                    alt=""
-                  />
-                </div>
-                <div className="flex justify-center">
-                  <h3 className=" font-medium text-[28px] py-4  tracking-[0.5px]">
-                    TV
-                  </h3>
-                </div>
-                <ul className="flex flex-col justify-center items-center gap-2 text-[#909090]  font-normal text-[]">
-                  <li>iP TV</li>
-                </ul>
-              </div>
-            </Link>
-            <Link href="/services/fiberoptik">
-              <div className="">
-                <div className="bg-[#D1E3FF] w-32 h-32 rounded-3xl flex items-center mx-auto">
-                  <Image
-                    src="/assets/phonestroke.png"
-                    width={500}
-                    height={300}
-                    className="w-[56px] h-[56px] mx-auto"
-                    alt="Telefon Çizgisi"
-                  />
-                </div>
-                <div className="flex justify-center">
-                  <h3 className="font-medium text-[28px] py-4 tracking-[0.5px]">
-                    Telefon
-                  </h3>
-                </div>
-                <ul className="flex flex-col justify-center items-center gap-2 text-[#909090] font-normal text-[]">
-                  <li>SiP telefoniya</li>
-                </ul>
-              </div>
-            </Link>
-          </div>
-        </div>
-      )}
+      {visible ? <Service ServiceCategoryData={ServiceCategoryData} /> : null}
       <div className="container max-w-[937px] mx-auto  py-10 register">
         <h3 className="text-[40px] text-center text-[#5B2D90] font-semibold tracking-[0.3px] inter max-md:text-[20px]">
-          Azəronline-a xoş gəlmisiniz !
+          {translate('Welcome_to_Azeronline', Language)}
         </h3>
         <p className="text-[16px] text-[#94A2B3] text-center mb-5 mt-2">
-          Qeydiyyat formu
+          {translate('Registration_form', Language)}
         </p>
         <form
           onSubmit={(e) => {
@@ -545,14 +478,11 @@ const registration = ({ FormsData, SettingData }) => {
                             <div className="flex flex-col items-center justify-center pt-5 pb-6">
                               {isFileDetected ? (
                                 <p className="mb-2 text-sm text-yellow-600 dark:text-yellow-400">
-                                  File detected
+                                  {translate('File_Detected', Language)}
                                 </p>
                               ) : (
                                 <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                  <span className="font-semibold">
-                                    Click to upload
-                                  </span>{' '}
-                                  or drag and drop
+                                  {translate('Image_Drop', Language)}
                                 </p>
                               )}
 
@@ -571,12 +501,6 @@ const registration = ({ FormsData, SettingData }) => {
                                   d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                                 ></path>
                               </svg>
-                              <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                <span className="font-semibold">
-                                  Click to upload
-                                </span>{' '}
-                                or drag and drop
-                              </p>
                               <p className="text-xs text-gray-500 dark:text-gray-400">
                                 SVG, PNG, JPG or GIF (MAX. 800x400px)
                               </p>
@@ -635,7 +559,7 @@ const registration = ({ FormsData, SettingData }) => {
             type="submit"
             className="col-span-2 w-[240px] h-[56px] max-sm:w-[160px] max-sm:h-[44px] max-sm:text-[12px] bg-[#5B2D90] text-white rounded-full"
           >
-            Qeydiyyatı tamamla
+            {translate('Complete_registration', Language)}
           </button>
         </form>
 
@@ -644,8 +568,11 @@ const registration = ({ FormsData, SettingData }) => {
             className="p-4 mb-4 text-sm text-white rounded-lg bg-[#5B2D90] flex justify-center items-center  "
             role="alert"
           >
-            <span className="font-medium"></span> Müraciətiniz göndərildi
-            tezliklə sizə geri dönüş ediləcək
+            <span className="font-medium"></span>{' '}
+            {translate(
+              'Your_request_has_been_sent_and_we_will_get_back_to_you_soon',
+              Language
+            )}
           </div>
         )}
       </div>

@@ -16,19 +16,27 @@ import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { LoadingOverlay } from '../components/LoadingOverlay';
+import { useTranslation } from '../components/TranslationContext';
+import Popup from 'reactjs-popup';
+import { HiOutlineArrowLongRight } from 'react-icons/hi2';
+import Service from '../components/Service';
 
 export async function getServerSideProps() {
   try {
     const Vacanciesresponse = await axios.get(
-      `${base_url}/api/vacancies`,
+      `${base_url}/api/careers`,
       config
     );
     const Settingresponse = await axios.get(`${base_url}/api/settings`, config);
-
+    const ServiceCategoryresponse = await axios.get(
+      `${base_url}/api/service-categories`,
+      config
+    );
     return {
       props: {
         VacanciesData: Vacanciesresponse.data,
         SettingData: Settingresponse.data,
+        ServiceCategoryData: Settingresponse.data,
       },
     };
   } catch (error) {
@@ -42,15 +50,15 @@ export async function getServerSideProps() {
 }
 
 let schema = yup.object({
-  name: yup.string().required('*'),
-  email: yup.string().required('*'),
-  phone: yup.string().required('*'),
-  notes: yup.string().required('*'),
+  name: yup.string(),
+  email: yup.string(),
+  phone: yup.string(),
+  notes: yup.string(),
   vacancy_name: yup.string().required('*'),
   cv: yup.mixed().required('*'),
 });
 
-const career = ({ VacanciesData, SettingData }) => {
+const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
   const [isFileDetected, setIsFileDetected] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showNameError, setShowNameError] = useState(true);
@@ -59,6 +67,8 @@ const career = ({ VacanciesData, SettingData }) => {
   const [showVacancy_nameError, setShowVacancy_nameError] = useState(true);
   const [showNotesError, setShowNotesError] = useState(true);
   const [showCvError, setShowCvError] = useState(true);
+  const [vname, setvname] = useState('');
+  const [cv, setcv] = useState(null);
 
   const { visible, setVisible } = useVisibleContext();
   const router = useRouter();
@@ -80,6 +90,7 @@ const career = ({ VacanciesData, SettingData }) => {
 
   const onDrop = useCallback((acceptedFiles) => {
     formik.setFieldValue('cv', acceptedFiles);
+    setcv(acceptedFiles);
     setIsFileDetected(true);
 
     const formData = new FormData();
@@ -126,6 +137,8 @@ const career = ({ VacanciesData, SettingData }) => {
       } catch (error) {}
     },
   });
+
+  console.log(vname);
 
   const handleNameChange = (e) => {
     const inputValue = e.target.value;
@@ -176,6 +189,37 @@ const career = ({ VacanciesData, SettingData }) => {
   const pageDescription = SettingData?.data
     ?.filter((item) => item.key === 'career_page_meta_description')
     .map((item) => item.value);
+  const { translate, Language } = useTranslation();
+
+  const handleClick = (e) => {
+    setvname(e);
+    handleSubmit();
+  };
+
+  const handleSubmit = () => {
+    if (cv?.length > 0) {
+      const formData = new FormData();
+      formData.append('cv', cv[0], cv[0]?.name);
+      formData.append('vacancy_name', vname);
+      formData.append('name', '');
+      formData.append('phone', '');
+      formData.append('email', '');
+      formData.append('notes', '');
+
+      axios
+        .post(`${base_url}/api/career-forms`, formData, config)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {});
+    }
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleTriggerClick = () => {
+    setIsOpen(true);
+  };
 
   return (
     <>
@@ -184,82 +228,7 @@ const career = ({ VacanciesData, SettingData }) => {
         <meta name="description" content={pageDescription} />
       </Head>
       {isLoading ? <LoadingOverlay /> : null}
-      {visible && (
-        <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
-          <div className="grid grid-cols-3 justify-items-center">
-            <Link href="/services/fiberoptik">
-              <div className="">
-                <div className="bg-[#DCC5F6] w-[102px] h-[102px] rounded-3xl flex items-center mx-auto">
-                  <Image
-                    src="/assets/world.png"
-                    width={500}
-                    height={300}
-                    className="w-[56px] h-[56px] mx-auto"
-                    alt=""
-                  />
-                </div>
-                <div className="">
-                  <div className="flex justify-center">
-                    {' '}
-                    <h3 className=" font-medium text-[28px] py-4  tracking-[0.5px]">
-                      Internet
-                    </h3>
-                  </div>
-
-                  <ul className="flex flex-col justify-center items-center gap-2 text-[#909090]  font-normal ">
-                    <li>Fiber optik</li>
-                    <li>Simsiz</li>
-                    <li>Ayrılmış internet xətti</li>
-                    <li>ADSL</li>
-                  </ul>
-                </div>
-              </div>
-            </Link>
-            <Link href="/services/fiberoptik">
-              <div className="">
-                <div className="bg-[#BFFFCD] w-32 h-32 rounded-3xl flex items-center mx-auto">
-                  <Image
-                    src="/assets/tvstroke.png"
-                    width={500}
-                    height={300}
-                    className="w-[56px] h-[56px] mx-auto"
-                    alt=""
-                  />
-                </div>
-                <div className="flex justify-center">
-                  <h3 className=" font-medium text-[28px] py-4  tracking-[0.5px]">
-                    TV
-                  </h3>
-                </div>
-                <ul className="flex flex-col justify-center items-center gap-2 text-[#909090]  font-normal text-[]">
-                  <li>iP TV</li>
-                </ul>
-              </div>
-            </Link>
-            <Link href="/services/fiberoptik">
-              <div className="">
-                <div className="bg-[#D1E3FF] w-32 h-32 rounded-3xl flex items-center mx-auto">
-                  <Image
-                    src="/assets/phonestroke.png"
-                    width={500}
-                    height={300}
-                    className="w-[56px] h-[56px] mx-auto"
-                    alt="Telefon Çizgisi"
-                  />
-                </div>
-                <div className="flex justify-center">
-                  <h3 className="font-medium text-[28px] py-4 tracking-[0.5px]">
-                    Telefon
-                  </h3>
-                </div>
-                <ul className="flex flex-col justify-center items-center gap-2 text-[#909090] font-normal text-[]">
-                  <li>SiP telefoniya</li>
-                </ul>
-              </div>
-            </Link>
-          </div>
-        </div>
-      )}
+      {visible ? <Service ServiceCategoryData={ServiceCategoryData} /> : null}
       <div className="max-xl:relative absolute max-xl:z-[-1] w-full  bg-[#F7F6FB] ">
         {' '}
         <Image
@@ -274,7 +243,7 @@ const career = ({ VacanciesData, SettingData }) => {
         <div className="h-[450px] max-xxl:h-auto  ">
           {' '}
           <h3 className="h3  text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xl:text-[30px] max-xxl:text-white ">
-            Karyera
+            {translate('Career', Language)}
           </h3>
           <div className="absolute  z-[1] max-xl:z-[-1]  right-48 max-xxl:right-5 max-sm:top-20 max-xxl:top-40">
             {' '}
@@ -292,31 +261,212 @@ const career = ({ VacanciesData, SettingData }) => {
             <div className=" ">
               {' '}
               <h3 className="text-[40px] max-md:text-[20px] max-xl:text-[30px]  mx-auto overflow-hidden  text-[#5B2D90] font-bold text-center">
-                Mövcud vakansiyalar
+                {translate('Available_vacancies', Language)}
               </h3>
             </div>
             <div className="grid grid-cols-2 max-md:grid-cols-1 max-xl:w-11/12 gap-7">
-              {VacanciesData.data.map((item, index) => {
+              {VacanciesData?.data.map((item, index) => {
                 return (
                   <div
                     className="border-l-[14px] border-[#5B2D90] w-[540px] h-[202px] max-xl:w-full max-xl:h-[135px] bg-white flex flex-col justify-center px-5 gap-7 rounded-xl"
                     key={index}
                   >
                     <h4 className="text-[24px] max-xl:text-[16px]">
-                      {item.title}
+                      {item.name}
+                      <input
+                        key={index}
+                        type="text"
+                        name="vacancy_name"
+                        onChange={() => setvname(item.name)}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.vacancy_name || item.name}
+                      />
                     </h4>
                     <p className="text-[12px] flex items-center gap-1 text-[#939393]">
-                      <CiLocationOn /> {item.location}
+                      <CiLocationOn /> {item.address}
                     </p>
                     <div className="flex justify-between">
                       {' '}
-                      <CvPopup />
-                      <div className="max-xl:hidden">
-                        <EtrafliPopup />
+                      <Popup
+                        trigger={
+                          <button className="w-[154px] h-[33px]  max-xl:w-[100px] max-xl:h-[24px] bg-[#5B2D90] rounded-full text-white text-[12px] max-xl:text-[8px]">
+                            {translate('Apply', Language)}
+                          </button>
+                        }
+                        modal
+                        nested
+                        contentStyle={{
+                          padding: '0px',
+                          borderRadius: '50px',
+                          borderColor: 'white',
+                          width: '759px',
+                          height: '392px',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        {(close) => (
+                          <>
+                            <Image
+                              src="/assets/popup/x.png"
+                              width={40}
+                              height={42}
+                              className="absolute right-5 top-5 w-[40px] h-[42px]"
+                              alt=""
+                              onClick={close}
+                            />
+                            <div className="flex flex-col justify-center  mt-20 gap-5">
+                              <div className="w-[470px] mx-auto   flex flex-col justify-center  gap-2">
+                                <label
+                                  htmlFor=""
+                                  className="text-black font-medium  text-[16px]"
+                                >
+                                  {translate('CV', Language)}
+                                  <span className="text-[#ED1C24]">*</span>
+                                </label>
+                                <Dropzone onDrop={onDrop}>
+                                  {({ getRootProps, getInputProps }) => (
+                                    <section>
+                                      <div {...getRootProps()}>
+                                        <input {...getInputProps()} />
+
+                                        <div
+                                          className={`border  ${
+                                            formik.touched.cv &&
+                                            formik.errors.cv
+                                              ? 'border-[#ED1C24]'
+                                              : 'border-[#DBDBDB]'
+                                          }  w-[445px] h-[189px] max-xl:w-11/12    bg-[#F4F4F4] rounded-lg flex justify-center items-center`}
+                                        >
+                                          <label
+                                            htmlFor="dropzone-file"
+                                            className={`flex flex-col items-center justify-center w-full h-48    rounded-lg cursor-pointer  ${
+                                              isFileDetected
+                                                ? 'bg-green-200'
+                                                : ' hover:bg-gray-100'
+                                            } `}
+                                          >
+                                            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                              {isFileDetected ? (
+                                                <p className="mb-2 text-sm text-yellow-600 dark:text-yellow-400">
+                                                  {translate(
+                                                    'File_Detected',
+                                                    Language
+                                                  )}
+                                                </p>
+                                              ) : (
+                                                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                                  {translate(
+                                                    'Image_Drop',
+                                                    Language
+                                                  )}
+                                                </p>
+                                              )}
+
+                                              <svg
+                                                aria-hidden="true"
+                                                className="w-10 h-10 mb-3 text-gray-400"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                              >
+                                                <path
+                                                  strokeLinecap="round"
+                                                  strokeLinejoin="round"
+                                                  strokeWidth="2"
+                                                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                                                ></path>
+                                              </svg>
+                                              <p className="text-xs text-gray-500 dark:text-gray-400">
+                                                SVG, PNG, JPG or GIF (MAX.
+                                                800x400px)
+                                              </p>
+                                            </div>
+                                            <input
+                                              id="dropzone-file"
+                                              type="file"
+                                              className="hidden"
+                                            />
+                                          </label>
+                                        </div>
+                                      </div>
+                                    </section>
+                                  )}
+                                </Dropzone>
+                                <button
+                                  type="submit"
+                                  onClick={() => handleClick(item.name)}
+                                  className="w-[197px] h-[38px] bg-[#5B2D90] rounded-full text-white text-[16px] mt-3"
+                                >
+                                  {translate('Apply', Language)}
+                                </button>
+                              </div>
+                            </div>
+                          </>
+                        )}
+                      </Popup>
+                      <div className="">
+                        <Popup
+                          trigger={
+                            <button
+                              suppressHydrationWarning={true}
+                              className="w-[142px] h-[33px] max-xl:w-[100px] max-xl:h-[24px] bg-[#F9F9F9] rounded-full  text-[#5B2D90] text-[12px] max-xl:text-[8px] flex justify-center items-center gap-2"
+                            >
+                              {translate('More', Language)}
+                              <HiOutlineArrowLongRight className="text-lg" />
+                            </button>
+                          }
+                          modal
+                          nested
+                          contentStyle={{
+                            padding: '0px',
+                            borderRadius: '50px',
+                            borderColor: 'white',
+                            width: '852px',
+                            height: '607px',
+
+                            overflow: 'scroll',
+                          }}
+                        >
+                          {(close) => (
+                            <>
+                              <div
+                                className="popup-content-2"
+                                key={index}
+                              ></div>
+                              <Image
+                                src="/assets/popup/x.png"
+                                className="absolute right-5 top-5 w-[40px] h-[42px]"
+                                alt=""
+                                width={40}
+                                height={42}
+                                onClick={() => {
+                                  close();
+                                  setIsOpen(false);
+                                }}
+                              />
+                              <div className="absolute  w-10/12  left-10 top-10">
+                                <p className="text-[16px] flex items-center gap-1 text-[#939393]">
+                                  <CiLocationOn /> {item.address}
+                                </p>
+                                <h3 className="mt-10 text-[24px] font-bold ">
+                                  {item.name}
+                                </h3>
+
+                                <p className="text-white text-[28px] mb-5 font-light">
+                                  {item.description}
+                                </p>
+                                <button className="w-[154px] h-[33px] absolute bottom-0 max-xl:w-[100px] max-xl:h-[24px] bg-[#5B2D90] rounded-full text-white text-[12px] max-xl:text-[8px]">
+                                  {translate('Apply', Language)}
+                                </button>
+                              </div>
+                            </>
+                          )}
+                        </Popup>
                       </div>
-                      <div className="hidden max-xl:block">
+                      {/* <div className="hidden max-xl:block">
                         <EtrafliPopupsm />
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 );
@@ -329,20 +479,13 @@ const career = ({ VacanciesData, SettingData }) => {
             <div className=" ">
               {' '}
               <h3 className="text-[40px] max-md:text-[20px] max-xl:text-[30px]  mx-auto overflow-hidden  text-[#5B2D90] font-bold text-center">
-                Müraciət forması
+                {translate('Application_form', Language)}
               </h3>
             </div>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                const requiredFields = [
-                  'name',
-                  'phone',
-                  'cv',
-                  'email',
-                  'notes',
-                  'vacancy_name',
-                ];
+                const requiredFields = ['cv', 'vacancy_name'];
                 const errors = {};
                 requiredFields.forEach((fieldName) => {
                   if (formik.touched[fieldName] && !formik.values[fieldName]) {
@@ -363,7 +506,7 @@ const career = ({ VacanciesData, SettingData }) => {
                   htmlFor=""
                   className="text-black flex gap-2 items-center  text-[16px] font-medium"
                 >
-                  Ad Soyad{' '}
+                  {translate('Name', Language)}
                   {showNameError && <span className="text-[#ED1C24]">*</span>}
                   <div className="error text-white">
                     {formik.touched.name && formik.errors.name}
@@ -387,7 +530,7 @@ const career = ({ VacanciesData, SettingData }) => {
                   htmlFor=""
                   className="text-black flex gap-2 items-center  text-[16px] font-medium"
                 >
-                  Əlaqə nömrəsi{' '}
+                  {translate('Phone', Language)}
                   {showPhoneError && <span className="text-[#ED1C24]">*</span>}
                   <div className="error text-white">
                     {formik.touched.phone && formik.errors.phone}
@@ -413,7 +556,7 @@ const career = ({ VacanciesData, SettingData }) => {
                   htmlFor=""
                   className="text-black flex gap-2 items-center  text-[16px] font-medium"
                 >
-                  Müraciət etdiyiniz vakansiyanın adı{' '}
+                  {translate('Vacancy_Form', Language)}
                   {showVacancy_nameError && (
                     <span className="text-[#ED1C24]">*</span>
                   )}
@@ -440,7 +583,7 @@ const career = ({ VacanciesData, SettingData }) => {
                   htmlFor=""
                   className="text-black flex gap-2 items-center  text-[16px] font-medium"
                 >
-                  E-poçt ünvanı{' '}
+                  {translate('Email', Language)}
                   {showEmailError && <span className="text-[#ED1C24]">*</span>}
                   <div className="error text-white">
                     {formik.touched.email && formik.errors.email}
@@ -464,7 +607,7 @@ const career = ({ VacanciesData, SettingData }) => {
                   htmlFor=""
                   className="text-black flex gap-2 items-center  text-[16px] font-medium"
                 >
-                  Qeydiniz{' '}
+                  {translate('Note', Language)}{' '}
                   {showNotesError && <span className="text-[#ED1C24]">*</span>}
                   <div className="error text-white">
                     {formik.touched.notes && formik.errors.notes}
@@ -489,7 +632,7 @@ const career = ({ VacanciesData, SettingData }) => {
                   htmlFor=""
                   className="text-black flex gap-2 items-center  text-[16px] font-medium"
                 >
-                  CV faylını yükləyin{' '}
+                  {translate('Cv', Language)}
                   {showCvError && <span className="text-[#ED1C24]">*</span>}
                   <div className="error text-white">
                     {formik.touched.cv && formik.errors.cv}
@@ -519,14 +662,11 @@ const career = ({ VacanciesData, SettingData }) => {
                             <div className="flex flex-col items-center justify-center pt-5 pb-6">
                               {isFileDetected ? (
                                 <p className="mb-2 text-sm text-yellow-600 dark:text-yellow-400">
-                                  File detected
+                                  {translate('File_Detected', Language)}
                                 </p>
                               ) : (
                                 <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                  <span className="font-semibold">
-                                    Click to upload
-                                  </span>{' '}
-                                  or drag and drop
+                                  {translate('Image_Drop', Language)}
                                 </p>
                               )}
 
@@ -545,12 +685,6 @@ const career = ({ VacanciesData, SettingData }) => {
                                   d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                                 ></path>
                               </svg>
-                              <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                <span className="font-semibold">
-                                  Click to upload
-                                </span>{' '}
-                                or drag and drop
-                              </p>
                               <p className="text-xs text-gray-500 dark:text-gray-400">
                                 SVG, PNG, JPG or GIF (MAX. 800x400px)
                               </p>
@@ -571,7 +705,7 @@ const career = ({ VacanciesData, SettingData }) => {
                 type="submit"
                 className="col-span-2 w-[349px] h-[66px] max-xl:w-full  max-xl:h-[35px] text-[16px] bg-[#5B2D90] text-white rounded-full mt-5"
               >
-                Göndər
+                {translate('Send', Language)}
               </button>
             </form>
             {showSuccessAlert && (
@@ -579,8 +713,11 @@ const career = ({ VacanciesData, SettingData }) => {
                 class="p-4 mb-4 text-sm text-white rounded-lg w-full bg-[#5B2D90] flex justify-center items-center  "
                 role="alert"
               >
-                <span class="font-medium"></span> Müraciətiniz göndərildi
-                tezliklə sizə geri dönüş ediləcək
+                <span class="font-medium"></span>{' '}
+                {translate(
+                  'Your_request_has_been_sent_and_we_will_get_back_to_you_soon',
+                  Language
+                )}
               </div>
             )}
           </div>

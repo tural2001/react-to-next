@@ -61,7 +61,7 @@ const iptv = ({ TariffData }) => {
       {isLoading ? <LoadingOverlay /> : null}
       <ServiceLayout>
         <div className="services-wrapper-3 bg-[#F7F6FB] max-lg:mt-10" id="iptv">
-          <div className="max-w-[1010px] mx-auto py-10" id="">
+          <div className="max-w-[1080px] mx-auto py-10" id="">
             <div className="flex flex-col gap-5 justify-center items-center py-10">
               {' '}
               <h3 className="text-purple-900 text-[40px] font-bold leading-10 uppercase overflow-hidden">
@@ -207,7 +207,7 @@ const iptv = ({ TariffData }) => {
             </div>
             {selectedItem === 'ferdi' && (
               <>
-                <div className="flex  justify-center items-center gap-5 mt-10 max-xl:hidden">
+                <div className="grid grid-cols-5  justify-items-center  gap-5 mt-10 max-xl:hidden">
                   {TariffData?.data
                     ?.filter((item) => item.type == 1)
                     .map((tariff) => (
@@ -372,7 +372,7 @@ const iptv = ({ TariffData }) => {
             )}
             {selectedItem === 'biznes' && (
               <>
-                <div className="flex  justify-center items-center gap-5 mt-10 max-xl:hidden">
+                <div className="grid grid-cols-5  justify-items-center  gap-5 mt-10 max-xl:hidden">
                   {TariffData?.data
                     ?.filter((item) => item.type == 2)
                     .map((tariff) => (

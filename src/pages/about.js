@@ -8,6 +8,8 @@ import { base_url } from '../utils/base_url';
 import { config } from '../utils/axiosconfig';
 import axios from 'axios';
 import { LoadingOverlay } from '../components/LoadingOverlay';
+import { useTranslation } from '../components/TranslationContext';
+import Service from '../components/Service';
 
 export async function getServerSideProps() {
   try {
@@ -21,13 +23,17 @@ export async function getServerSideProps() {
     );
     const Settingresponse = await axios.get(`${base_url}/api/settings`, config);
     const Pageresponse = await axios.get(`${base_url}/api/pages`, config);
-
+    const ServiceCategoryresponse = await axios.get(
+      `${base_url}/api/service-categories`,
+      config
+    );
     return {
       props: {
         ValuesData: Valuesresponse.data,
         PageData: Pageresponse.data,
         StructureData: Structureresponse.data,
         SettingData: Settingresponse.data,
+        ServiceCategoryData: ServiceCategoryresponse.data,
       },
     };
   } catch (error) {
@@ -40,7 +46,13 @@ export async function getServerSideProps() {
   }
 }
 
-const about = ({ ValuesData, StructureData, PageData, SettingData }) => {
+const about = ({
+  ValuesData,
+  StructureData,
+  PageData,
+  SettingData,
+  ServiceCategoryData,
+}) => {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -70,6 +82,7 @@ const about = ({ ValuesData, StructureData, PageData, SettingData }) => {
   const mission_description = SettingData?.data
     .filter((item) => item.key === 'about_page_mission_description')
     ?.map((item) => item.value);
+  const { translate, Language } = useTranslation();
 
   return (
     <>
@@ -78,82 +91,8 @@ const about = ({ ValuesData, StructureData, PageData, SettingData }) => {
         <meta name="description" content={pageDescription} />
       </Head>
       {isLoading ? <LoadingOverlay /> : null}
-      {visible && (
-        <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
-          <div className="grid grid-cols-3 justify-items-center">
-            <Link href="/services/fiberoptik">
-              <div className="">
-                <div className="bg-[#DCC5F6] w-[102px] h-[102px] rounded-3xl flex items-center mx-auto">
-                  <Image
-                    src="/assets/world.png"
-                    width={500}
-                    height={300}
-                    className="w-[56px] h-[56px] mx-auto"
-                    alt=""
-                  />
-                </div>
-                <div className="">
-                  <div className="flex justify-center">
-                    {' '}
-                    <h3 className=" font-medium text-[28px] py-4  tracking-[0.5px]">
-                      Internet
-                    </h3>
-                  </div>
+      {visible ? <Service ServiceCategoryData={ServiceCategoryData} /> : null}
 
-                  <ul className="flex flex-col justify-center items-center gap-2 text-[#909090]  font-normal ">
-                    <li>Fiber optik</li>
-                    <li>Simsiz</li>
-                    <li>Ayrılmış internet xətti</li>
-                    <li>ADSL</li>
-                  </ul>
-                </div>
-              </div>
-            </Link>
-            <Link href="/services/fiberoptik">
-              <div className="">
-                <div className="bg-[#BFFFCD] w-32 h-32 rounded-3xl flex items-center mx-auto">
-                  <Image
-                    src="/assets/tvstroke.png"
-                    width={500}
-                    height={300}
-                    className="w-[56px] h-[56px] mx-auto"
-                    alt=""
-                  />
-                </div>
-                <div className="flex justify-center">
-                  <h3 className=" font-medium text-[28px] py-4  tracking-[0.5px]">
-                    TV
-                  </h3>
-                </div>
-                <ul className="flex flex-col justify-center items-center gap-2 text-[#909090]  font-normal text-[]">
-                  <li>iP TV</li>
-                </ul>
-              </div>
-            </Link>
-            <Link href="/services/fiberoptik">
-              <div className="">
-                <div className="bg-[#D1E3FF] w-32 h-32 rounded-3xl flex items-center mx-auto">
-                  <Image
-                    src="/assets/phonestroke.png"
-                    width={500}
-                    height={300}
-                    className="w-[56px] h-[56px] mx-auto"
-                    alt="Telefon Çizgisi"
-                  />
-                </div>
-                <div className="flex justify-center">
-                  <h3 className="font-medium text-[28px] py-4 tracking-[0.5px]">
-                    Telefon
-                  </h3>
-                </div>
-                <ul className="flex flex-col justify-center items-center gap-2 text-[#909090] font-normal text-[]">
-                  <li>SiP telefoniya</li>
-                </ul>
-              </div>
-            </Link>
-          </div>
-        </div>
-      )}
       <div className="max-xl:relative hidden max-xl:block max-xl:z-[-1] w-full ">
         {' '}
         <Image
@@ -226,7 +165,7 @@ const about = ({ ValuesData, StructureData, PageData, SettingData }) => {
           </div>
           <div className="col-span-2 max-sm:flex max-sm:flex-col max-sm:mx-10 max-lg:mx-10 max-xl:mx-10">
             <h3 className="text-purple-900 text-[40px] font-bold leading-10 overflow-hidden max-sm:text-[20px] max-lg:text-[30px] max-xl:text-[30px]">
-              DƏYƏRLƏRİMİZ
+              {translate('Our_values', Language)}
             </h3>
             <div className="grid grid-cols-3 gap-10 mx-auto mt-10 max-sm:flex max-sm:flex-col max-sm:mx-5 max-sm:justify-center max-sm:items-center max-lg:grid-cols-2  max-lg:gap-5 max-xl:gap-2 ">
               {ValuesData?.data?.slice(0, 6).map((item) => {
@@ -261,7 +200,7 @@ const about = ({ ValuesData, StructureData, PageData, SettingData }) => {
       </div>
       <div className="about-wrapper-2 bg-white py-10 relative max-w-[1100px] mx-auto max-sm:mx-10 max-lg:mx-10 max-xl:mx-10">
         <h3 className="text-purple-900 text-[40px] font-bold leading-10 overflow-hidden max-sm:text-[20px] max-lg:text-[30px] max-xl:text-[30px]">
-          Sturuktur
+          {translate('Structure', Language)}
         </h3>
         <div className="grid grid-cols-4 max-sm:grid-cols-2 max-lg:grid-cols-3 max-xl:grid-cols-3 max-lg:mt-10 mt-20 max-sm:mt-5 max-xl:mt-5  max-xl:gap-5">
           {StructureData?.data?.map((item) => {

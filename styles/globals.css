@@ -138,47 +138,6 @@ option {
   filter: brightness(200%);
 }
 
-nav .animation {
-  position: absolute;
-  height: 5%;
-  bottom: 0;
-  z-index: 0;
-  background: #5b2d90;
-  border-radius: 8px;
-  transition: all 0.5s ease 0s;
-}
-
-nav .start-fiberoptik,
-a.active[href='/services/fiberoptik'] ~ .animation {
-  width: 230px;
-  left: 0px;
-}
-
-nav .start-iptv,
-a.active[href='/services/iptv'] ~ .animation {
-  width: 180px;
-  left: 215px;
-}
-/* Önceki konum için stil tanımı */
-
-nav .start-simsiz,
-a.active[href='/services/simsiz'] ~ .animation {
-  width: 200px;
-  left: 360px;
-}
-
-nav .start-aix,
-a.active[href='/services/aix'] ~ .animation {
-  width: 350px;
-  left: 555px;
-}
-
-nav .start-adsl,
-a.active[href='/services/adsl'] ~ .animation {
-  width: 130px;
-  left: 925px;
-}
-
 nav .animation2 {
   position: absolute;
   height: 5%;
@@ -192,12 +151,12 @@ nav .animation2 {
 nav .start-ferdi,
 a:nth-child(1).active ~ .animation2 {
   width: 230px;
-  left: 210px;
+  left: 190px;
 }
 nav .start-biznes,
 a:nth-child(2).active ~ .animation2 {
   width: 230px;
-  left: 580px;
+  left: 625px;
 }
 
 .swiper-slide {
@@ -2062,4 +2021,27 @@ p img {
   position: absolute;
   left: 20%;
   transform: translateX(-50%);
+}
+nav {
+  position: relative;
+  display: flex;
+}
+
+nav a {
+  position: relative;
+  margin: 0 20px;
+  font-size: 2em;
+  color: #000;
+  text-decoration: none;
+}
+
+nav #marker {
+  position: absolute;
+  height: 4px;
+  left: 0;
+  width: 0%;
+  background: #5b2d90;
+  bottom: -3px;
+  transition: 0.5s;
+  border-radius: 4px;
 }

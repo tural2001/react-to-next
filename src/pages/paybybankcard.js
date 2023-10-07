@@ -1,23 +1,18 @@
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import { useVisibleContext } from '../components/VisibleContext';
 import Image from 'next/image';
 import Link from 'next/link';
 import { LoadingOverlay } from '../components/LoadingOverlay';
+import Service from '../components/Service';
 
-const PaybyBankCard = () => {
+const PaybyBankCard = ({}) => {
   const { visible, setVisible } = useVisibleContext();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
+    setIsLoading(false);
   }, []);
   useEffect(() => {
     setVisible(router.pathname === '/a');
@@ -26,82 +21,7 @@ const PaybyBankCard = () => {
     <>
       {' '}
       {isLoading ? <LoadingOverlay /> : null}
-      {visible && (
-        <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
-          <div className="grid grid-cols-3 justify-items-center">
-            <Link href="/services/fiberoptik">
-              <div className="">
-                <div className="bg-[#DCC5F6] w-[102px] h-[102px] rounded-3xl flex items-center mx-auto">
-                  <Image
-                    src="/assets/world.png"
-                    width={500}
-                    height={300}
-                    className="w-[56px] h-[56px] mx-auto"
-                    alt=""
-                  />
-                </div>
-                <div className="">
-                  <div className="flex justify-center">
-                    {' '}
-                    <h3 className=" font-medium text-[28px] py-4  tracking-[0.5px]">
-                      Internet
-                    </h3>
-                  </div>
-
-                  <ul className="flex flex-col justify-center items-center gap-2 text-[#909090]  font-normal ">
-                    <li>Fiber optik</li>
-                    <li>Simsiz</li>
-                    <li>Ayrılmış internet xətti</li>
-                    <li>ADSL</li>
-                  </ul>
-                </div>
-              </div>
-            </Link>
-            <Link href="/services/fiberoptik">
-              <div className="">
-                <div className="bg-[#BFFFCD] w-32 h-32 rounded-3xl flex items-center mx-auto">
-                  <Image
-                    src="/assets/tvstroke.png"
-                    width={500}
-                    height={300}
-                    className="w-[56px] h-[56px] mx-auto"
-                    alt=""
-                  />
-                </div>
-                <div className="flex justify-center">
-                  <h3 className=" font-medium text-[28px] py-4  tracking-[0.5px]">
-                    TV
-                  </h3>
-                </div>
-                <ul className="flex flex-col justify-center items-center gap-2 text-[#909090]  font-normal text-[]">
-                  <li>iP TV</li>
-                </ul>
-              </div>
-            </Link>
-            <Link href="/services/fiberoptik">
-              <div className="">
-                <div className="bg-[#D1E3FF] w-32 h-32 rounded-3xl flex items-center mx-auto">
-                  <Image
-                    src="/assets/phonestroke.png"
-                    width={500}
-                    height={300}
-                    className="w-[56px] h-[56px] mx-auto"
-                    alt="Telefon Çizgisi"
-                  />
-                </div>
-                <div className="flex justify-center">
-                  <h3 className="font-medium text-[28px] py-4 tracking-[0.5px]">
-                    Telefon
-                  </h3>
-                </div>
-                <ul className="flex flex-col justify-center items-center gap-2 text-[#909090] font-normal text-[]">
-                  <li>SiP telefoniya</li>
-                </ul>
-              </div>
-            </Link>
-          </div>
-        </div>
-      )}
+      {visible ? <Service ServiceCategoryData={ServiceCategoryData} /> : null}
       <div className="container max-w-[1010px] mx-auto  py-10 register">
         <h3 className="text-[40px] max-md:text-[20px] max-xl:text-[30px] text-center text-[#5B2D90] font-semibold tracking-[0.3px] inter">
           Bank kartı ilə ödəniş

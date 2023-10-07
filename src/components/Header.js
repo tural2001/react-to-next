@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useVisibleContext } from './VisibleContext';
 import { useBlogData } from './BlogData';
+import { useTranslation } from './TranslationContext';
 
 const Header = ({ ...pageProps }) => {
   console.log(pageProps);
@@ -47,6 +48,14 @@ const Header = ({ ...pageProps }) => {
     }
   }, []);
 
+  const { translate, changeLanguage, currentLanguage, Language } =
+    useTranslation();
+
+  const handleLanguageChange = (e) => {
+    const newLanguage = e.target.value;
+    changeLanguage(newLanguage);
+  };
+
   return (
     <>
       <div className="">
@@ -62,16 +71,19 @@ const Header = ({ ...pageProps }) => {
         <div className="container max-w-[1100px]  mx-auto  py-2 flex justify-between items-start border-b-[1px] border-black border-opacity-30 max-sm:items-center max-lg:items-center">
           <ul className="navbar-items  max-xl:hidden flex  gap-5 text-white text-[15px] tracking-[0.5px]  font-medium ">
             <li className="">
-              <Link href="/faq">FAQ</Link>
+              <Link href="/faq"> {translate('FAQ', Language)}</Link>
             </li>
             <li className="">
-              <Link href="/payment">Ödəniş</Link>
+              <Link href="/payment"> {translate('Payment', Language)}</Link>
             </li>
             <li className="">
-              <Link href="/career">Karyera</Link>
+              <Link href="/career"> {translate('Career', Language)}</Link>
             </li>
             <li className="">
-              <Link href={`/blog/${slug[0]}`}>Bloq</Link>
+              <Link href={`/blog/${slug[0]}`}>
+                {' '}
+                {translate('Blog', Language)}
+              </Link>
             </li>
           </ul>
           <ul className="flex justify-center items-center">
@@ -124,11 +136,13 @@ const Header = ({ ...pageProps }) => {
                 <select
                   id="countries"
                   className="text-white bg-inherit border-none text-[15px] max-sm:text-[12px]  font-medium rounded-lg block w-full p-0 focus:ring-0 select"
+                  onChange={handleLanguageChange}
+                  value={currentLanguage}
                 >
-                  <option className="text-black" value="AZE">
+                  <option className="text-black" value="az">
                     AZE
                   </option>
-                  <option className="text-black" value="US">
+                  <option className="text-black" value="en">
                     ENG
                   </option>
                 </select>
@@ -148,20 +162,29 @@ const Header = ({ ...pageProps }) => {
                       className="border border-[#5B2D90] text-[#5B2D90] p-2 rounded-3xl w-[170px] h-[40px] text-center overflow-hidden"
                       onClick={toggleMenu}
                     >
-                      Şəxsi kabinet
+                      {translate('Private_cabinet', Language)}
                     </li>
                     <li
                       className="border  rounded-3xl bg-[#5B2D90] text-white w-[170px] h-[40px] flex justify-center items-center"
                       onClick={toggleMenu}
                     >
-                      <Link href="/registration">Onlayn qeydiyyat </Link>
+                      <Link href="/registration">
+                        {' '}
+                        {translate('Online_registration', Language)}
+                      </Link>
                     </li>
 
                     <li className="" onClick={toggleMenu}>
-                      <Link href="/about">Haqqımızda</Link>
+                      <Link href="/about">
+                        {' '}
+                        {translate('About_us', Language)}
+                      </Link>
                     </li>
                     <li className="" onClick={toggleMenu}>
-                      <Link href="/services">Xidmətlər</Link>
+                      <Link href="/services">
+                        {' '}
+                        {translate('Services', Language)}
+                      </Link>
                     </li>
                     <li
                       className=""
@@ -170,26 +193,40 @@ const Header = ({ ...pageProps }) => {
                         scrollToUstunluklerimiz();
                       }}
                     >
-                      <Link href="/">Üstünlüklərimiz</Link>
+                      <Link href="/">
+                        {' '}
+                        {translate('Our_advantages', Language)}
+                      </Link>
                     </li>
                     <li className="" onClick={toggleMenu}>
-                      <Link href="/campaigns">Kampaniyalar</Link>
+                      <Link href="/campaigns">
+                        {' '}
+                        {translate('Campaigns', Language)}
+                      </Link>
                     </li>
                     <li className="" onClick={toggleMenu}>
-                      <Link href="/speedtest">Speedtest</Link>
+                      <Link href="/speedtest">
+                        {' '}
+                        {translate('Speedtest', Language)}
+                      </Link>
                     </li>
                     <div className="w-3/4 border-b-[1px] border-[#464646] " />
                     <li className="" onClick={toggleMenu}>
-                      <Link href="/faq">FAQ</Link>
+                      <Link href="/faq"> {translate('FAQ', Language)}</Link>
                     </li>
                     <li className="" onClick={toggleMenu}>
-                      <Link href="/payment">Ödəniş</Link>
+                      <Link href="/payment">
+                        {translate('Payment', Language)}
+                      </Link>
                     </li>
                     <li className="" onClick={toggleMenu}>
-                      <Link href="/career">Karyera</Link>
+                      <Link href="/career">
+                        {' '}
+                        {translate('Career', Language)}
+                      </Link>
                     </li>
                     <li className="" onClick={toggleMenu}>
-                      <Link href="/blog">Bloq</Link>
+                      <Link href="/blog"> {translate('Blog', Language)}</Link>
                     </li>
                   </ul>
                 </div>
@@ -211,13 +248,16 @@ const Header = ({ ...pageProps }) => {
           <div className="">
             <ul className="navbar-items  max-sm:hidden flex items-center  gap-5 text-white text-[12px]  font-medium tracking-[0.5px]">
               <li className="">
-                <Link href="/about">Haqqımızda</Link>
+                <Link href="/about"> {translate('About_us', Language)}</Link>
               </li>
               <li className="cursor-pointer" onClick={scrollToUstunluklerimiz}>
-                Üstünlüklərimiz
+                {translate('Our_advantages', Language)}
               </li>
               <li className="">
-                <button onClick={handleClick}>Xidmətlər</button>
+                <button onClick={handleClick}>
+                  {' '}
+                  {translate('Services', Language)}
+                </button>
                 {visible &&
                   location.pathname !== '/services/fiberoptik' &&
                   location.pathname !== '/services/iptv' &&
@@ -228,16 +268,25 @@ const Header = ({ ...pageProps }) => {
                   )}
               </li>
               <li className="">
-                <Link href="/campaigns">Kampaniyalar</Link>
+                <Link href="/campaigns">
+                  {' '}
+                  {translate('Campaigns', Language)}
+                </Link>
               </li>
               <li className="">
-                <Link href="/speedtest">Speedtest</Link>
+                <Link href="/speedtest">
+                  {' '}
+                  {translate('Speedtest', Language)}
+                </Link>
               </li>
               <li className="border p-2 rounded-3xl w-[130px] h-[40px] flex justify-center items-center">
-                Şəxsi kabinet
+                {translate('Private_cabinet', Language)}
               </li>
               <li className="border p-2 rounded-3xl bg-white text-[#5B2D90] w-[175px] h-[40px] flex justify-center items-center">
-                <Link href="/registration">Onlayn qeydiyyat</Link>
+                <Link href="/registration">
+                  {' '}
+                  {translate('Online_registration', Language)}
+                </Link>
               </li>
             </ul>
           </div>

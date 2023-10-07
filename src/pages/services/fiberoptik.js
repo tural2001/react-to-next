@@ -398,7 +398,7 @@ const fiberoptik = ({ TariffData }) => {
           )}
           {selectedItem === 'biznes' && (
             <>
-              <div className="flex  gap-5  justify-center  mt-10 max-xl:hidden">
+              <div className="grid grid-cols-5  justify-items-center  gap-5    mt-10 max-xl:hidden">
                 {TariffData?.data
                   ?.filter((item) => item.type == 2)
                   .map((tariff) => (

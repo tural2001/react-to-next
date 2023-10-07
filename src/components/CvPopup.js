@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Popup from 'reactjs-popup';
 import Dropzone from 'react-dropzone';
 import Image from 'next/image';
 
 export const CvPopup = (props) => {
+  const handleApply = () => {
+    // Implement your logic for handling the apply button click here.
+    // You can access the selected CV file here.
+    // Example: send the file to the server or perform validation.
+    // Remember to close the modal afterward.
+    console.log('1');
+
+    closeModal();
+  };
   return (
     <Popup
       trigger={
@@ -63,7 +72,10 @@ export const CvPopup = (props) => {
                   </section>
                 )}
               </Dropzone>
-              <button className="w-[197px] h-[38px] bg-[#5B2D90] rounded-full text-white text-[16px] mt-3">
+              <button
+                onClick={handleApply}
+                className="w-[197px] h-[38px] bg-[#5B2D90] rounded-full text-white text-[16px] mt-3"
+              >
                 Müraciət göndər
               </button>
             </div>

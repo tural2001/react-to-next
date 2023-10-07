@@ -16,6 +16,8 @@ import axios from 'axios';
 import { LoadingOverlay } from '../components/LoadingOverlay';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
+import { useTranslation } from '../components/TranslationContext';
+import Service from '../components/Service';
 
 export async function getServerSideProps() {
   try {
@@ -36,6 +38,10 @@ export async function getServerSideProps() {
       config
     );
     const Settingresponse = await axios.get(`${base_url}/api/settings`, config);
+    const ServiceCategoryresponse = await axios.get(
+      `${base_url}/api/service-categories`,
+      config
+    );
     const Slideresponse = await axios.get(`${base_url}/api/slides`, config);
 
     return {
@@ -47,6 +53,7 @@ export async function getServerSideProps() {
         AdvantageData: Advantageresponse.data,
         ColorData: Colorresponse.data,
         SettingData: Settingresponse.data,
+        ServiceCategoryData: ServiceCategoryresponse.data,
         SlideData: Slideresponse.data,
         PopupData: Popupresponse.data,
       },
@@ -68,10 +75,11 @@ const home = ({
   AdvantageData,
   ColorData,
   SettingData,
+  ServiceCategoryData,
   SlideData,
   error,
 }) => {
-  console.log(SlideData);
+  console.log(ServiceCategoryData);
 
   const [selectedValue, setSelectedValue] = useState('');
   const [svgValue, setSvgValue] = useState('');
@@ -81,13 +89,7 @@ const home = ({
   const { isOpen, toggleMenu } = useVisibleContext();
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
+    setIsLoading(false);
   }, []);
   const { visible, setVisible } = useVisibleContext();
 
@@ -144,86 +146,15 @@ const home = ({
       setSelectedItem(item);
     }
   };
+  const { translate, Language } = useTranslation();
+
   return (
     <>
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
       </Head>
-      {visible && (
-        <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
-          <div className="grid grid-cols-3 justify-items-center">
-            <Link href="/services/fiberoptik">
-              <div className="">
-                <div className="bg-[#DCC5F6] w-[102px] h-[102px] rounded-3xl flex items-center mx-auto">
-                  <Image
-                    src="/assets/world.png"
-                    width={500}
-                    height={300}
-                    className="w-[56px] h-[56px] mx-auto"
-                    alt=""
-                  />
-                </div>
-                <div className="">
-                  <div className="flex justify-center">
-                    <h3 className=" font-medium text-[28px] py-4  tracking-[0.5px]">
-                      Internet
-                    </h3>
-                  </div>
-                  <ul className="flex flex-col justify-center items-center gap-2 text-[#909090]  font-normal ">
-                    <li>Fiber optik</li>
-                    <li>Simsiz</li>
-                    <li>Ayrılmış internet xətti</li>
-                    <li>ADSL</li>
-                  </ul>
-                </div>
-              </div>
-            </Link>
-            <Link href="/services/fiberoptik">
-              <div className="">
-                <div className="bg-[#BFFFCD] w-32 h-32 rounded-3xl flex items-center mx-auto">
-                  <Image
-                    src="/assets/tvstroke.png"
-                    width={500}
-                    height={300}
-                    className="w-[56px] h-[56px] mx-auto"
-                    alt=""
-                  />
-                </div>
-                <div className="flex justify-center">
-                  <h3 className=" font-medium text-[28px] py-4  tracking-[0.5px]">
-                    TV
-                  </h3>
-                </div>
-                <ul className="flex flex-col justify-center items-center gap-2 text-[#909090]  font-normal text-[]">
-                  <li>iP TV</li>
-                </ul>
-              </div>
-            </Link>
-            <Link href="/services/fiberoptik">
-              <div className="">
-                <div className="bg-[#D1E3FF] w-32 h-32 rounded-3xl flex items-center mx-auto">
-                  <Image
-                    src="/assets/phonestroke.png"
-                    width={500}
-                    height={300}
-                    className="w-[56px] h-[56px] mx-auto"
-                    alt="Telefon Çizgisi"
-                  />
-                </div>
-                <div className="flex justify-center">
-                  <h3 className="font-medium text-[28px] py-4 tracking-[0.5px]">
-                    Telefon
-                  </h3>
-                </div>
-                <ul className="flex flex-col justify-center items-center gap-2 text-[#909090] font-normal text-[]">
-                  <li>SiP telefoniya</li>
-                </ul>
-              </div>
-            </Link>
-          </div>
-        </div>
-      )}
+      {visible ? <Service ServiceCategoryData={ServiceCategoryData} /> : null}
       {isLoading ? <LoadingOverlay /> : null}
       <div className="max-xl:relative absolute max-xl:z-[-1] w-full  bg-[#F7F6FB] ">
         {' '}
@@ -235,8 +166,12 @@ const home = ({
           alt=""
         />
       </div>
-      <div className="home-wrapper-2   bg-[#F7F6FB] pb-10  hidden max-xl:block  ">
-        <div className="absolute  w-11/12   top-1/4 max-sm:top-[120px] max-xl:top-[200px]  left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
+      <div className="home-wrapper-2   bg-[#F7F6FB] pb-10  hidden max-xl:block ">
+        <div
+          className={`absolute ${
+            isOpen ? 'z-[-1]' : 'z-1'
+          }   w-11/12   top-1/4 max-sm:top-[120px] max-xl:top-[200px]  left-1/2 transform -translate-x-1/2 -translate-y-1/2 `}
+        >
           <Carousel
             infiniteLoop={true}
             autoPlay={false}
@@ -247,7 +182,7 @@ const home = ({
             renderArrowNext={() => null}
           >
             {SlideData?.data?.map((slide) => (
-              <div key={slide.id} className=" flex justify-between">
+              <div key={slide.id} className={` flex justify-between `}>
                 <div className="flex justify-start flex-col">
                   {' '}
                   <p className="text-[20px] flex justify-start text-white font-light max-sm:text-[13px] max-md:text-[20px] max-xl:text-[30px]">
@@ -263,12 +198,16 @@ const home = ({
                     {slide.button_text}
                   </Link>
                 </div>
-                <div className="max-sm:w-[150px]   max-md:w-[250px] max-lg:w-[300px] max-xl:w-[300px]">
-                  {' '}
+                <div
+                  className={`max-sm:w-[150px] ${
+                    isOpen ? 'z-[-1]' : 'z-1'
+                  }   max-md:w-[250px] max-lg:w-[300px] max-xl:w-[300px] `}
+                >
                   <Image
                     src={slide.image}
                     width={500}
                     height={300}
+                    className={`${isOpen ? 'z-[-1]' : 'z-1'} `}
                     layout="responsive"
                     alt=""
                   />
@@ -286,7 +225,7 @@ const home = ({
             <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-xxl:text-[30px]">
               {map_title}
             </h3>{' '}
-            Bölgəni seçin
+            {translate('Select_the_region', Language)}
             <p className="text-center text-[#94A2B3] w-3/4 max-sm:text-[10px] max-sm:w-[307px] max-sm:mx-auto ">
               {map_description}
             </p>
@@ -301,7 +240,7 @@ const home = ({
                   id=""
                   onChange={(e) => setSelectedValue(e.target.value)}
                 >
-                  <option value="">Seçiniz</option>
+                  <option value=""> {translate('Select', Language)}</option>
                   {RegionData?.data?.map((region) => (
                     <option key={region.id} value={region.handle}>
                       {region.handle}
@@ -310,7 +249,7 @@ const home = ({
                 </select>
               </div>
               <button className="w-[178px] h-[40px]  bg-[#5B2D90] rounded-3xl text-[16px] text-white font-medium mt-5 max-sm:w-[132px] max-sm:h-[28px] max-sm:text-[12px] overflow-hidden ">
-                Bax
+                {translate('Look', Language)}
               </button>
             </div>{' '}
             <div className="col-span-2 flex justify-end items-center max-xxl:hidden">
@@ -382,6 +321,7 @@ const home = ({
                     height={300}
                     layout="responsive"
                     alt=""
+                    className={`${isOpen ? 'z-[-1]' : 'z-0'}`}
                   />
                 </div>
               </div>
@@ -406,7 +346,7 @@ const home = ({
           <div className="grid grid-cols-3  mt-14 max-xxl:justify-items-center">
             <div className="max-xxl:col-span-3 max-xxl:flex max-xxl:flex-col max-xxl:justify-center max-xxl:items-center">
               <h3 className="text-[40px] text-[#5B2D90] font-bold tracking-[0.5px] max-sm:text-[20px] max-sm:text-center">
-                Bölgəni seçin
+                {translate('Select_the_region', Language)}
               </h3>
 
               <div className="border border-[#637381] rounded-3xl w-3/4 max-sm:w-[204px] max-sm:h-[40px] overflow-hidden max-sm:mt-3">
@@ -416,7 +356,7 @@ const home = ({
                   id=""
                   onChange={(e) => setSelectedValue(e.target.value)}
                 >
-                  <option value="">Seçiniz</option>
+                  <option value=""> {translate('Select', Language)}</option>
                   {RegionData?.data?.map((region) => (
                     <option key={region.id} value={region.handle}>
                       {region.handle}
@@ -428,7 +368,7 @@ const home = ({
                 onClick={handleButtonClick}
                 className="w-[178px] h-[40px]  bg-[#5B2D90] rounded-3xl text-[16px] text-white font-medium mt-5 max-sm:w-[132px] max-sm:h-[28px] max-sm:text-[12px] overflow-hidden "
               >
-                Bax
+                {translate('Look', Language)}
               </button>
             </div>{' '}
             <div className="col-span-2 flex justify-end items-center max-xxl:hidden">
@@ -471,7 +411,7 @@ const home = ({
       >
         <div className="container max-w-[1087px] mx-auto">
           <h3 className="text-[40px] text-[#5B2D90] font-bold text-center max-sm:text-[20px] max-xxl:text-[30px]">
-            Üstünlüklərimiz
+            {translate('Our_advantages', Language)}
           </h3>
           <div className="grid grid-cols-3 justify-items-center gap-5 mt-10 max-lg:grid-cols-1 max-xxl:grid-cols-2">
             {AdvantageData?.data?.slice(0, 6).map((item) => (
@@ -512,7 +452,7 @@ const home = ({
         />
         <div className="container max-w-[1100px] mx-auto pt-12 ">
           <h3 className="text-[40px] text-white relative  mt-40 max-xl:mt-14 font-bold text-center max-lg:text-[20px]  max-xxl:text-[25px] max-sm:mt-14 ">
-            Fiber optik
+            {translate('Fiber_optic', Language)}{' '}
           </h3>
           <div className="relative text-[20px] max-lg:text-[16px] max-xl:text-[18px] font-medium text-[#94A2B3] flex gap-5 justify-center items-center mt-3 overflow-hidden">
             <button
@@ -525,7 +465,7 @@ const home = ({
                   : 'border-[#94A2B3] '
               }  overflow-hidden flex justify-center items-center`}
             >
-              Fərdi
+              {translate('Individual', Language)}
             </button>
             <button
               onClick={() => {
@@ -537,7 +477,7 @@ const home = ({
                   : 'border-[#94A2B3] '
               }  px-12 py-3 rounded-3xl  overflow-hidden flex justify-center items-center`}
             >
-              Biznes
+              {translate('Business', Language)}
             </button>
           </div>
           <div className="grid grid-cols-5  max-w-[1099px]  justify-items-center gap-5 mt-10 max-xl:hidden">
@@ -545,6 +485,7 @@ const home = ({
               <>
                 {TariffData?.data
                   ?.filter((item) => item.type == 1)
+                  .slice(-5)
                   .map((item) => (
                     <div className="h-[500px] w-[210px]  p-0 op" key={item.id}>
                       <div
@@ -599,7 +540,7 @@ const home = ({
                           />
                         </p>
                         <button className="w-[100px] h-[30px] text-[8px] font-medium text-white bg-[#AB31D6] rounded-full">
-                          Ətraflı məlumat
+                          {translate('Detailed_information', Language)}
                         </button>
                       </div>
                       <div className="flex justify-center">
@@ -608,7 +549,7 @@ const home = ({
                             item.most_wanted === 1 ? 'flag-home' : 'hidden'
                           }   mt-0 text-[8px] text-center font-medium justify-center`}
                         >
-                          Üstünlük verilən
+                          {translate('Preferred', Language)}
                         </div>
                       </div>
                     </div>
@@ -619,6 +560,8 @@ const home = ({
               <>
                 {TariffData?.data
                   ?.filter((item) => item.type == 2)
+                  .slice(-5)
+
                   .map((item) => (
                     <div className="h-[500px] w-[210px]  p-0 op" key={item.id}>
                       <div
@@ -673,7 +616,7 @@ const home = ({
                           />
                         </p>
                         <button className="w-[100px] h-[30px] text-[8px] font-medium text-white bg-[#AB31D6] rounded-full">
-                          Ətraflı məlumat
+                          {translate('Detailed_information', Language)}
                         </button>
                       </div>
                       <div className="flex justify-center">
@@ -682,7 +625,7 @@ const home = ({
                             item.most_wanted === 1 ? 'flag-home' : 'hidden'
                           }   mt-0 text-[8px] text-center font-medium justify-center`}
                         >
-                          Üstünlük verilən
+                          {translate('Preferred', Language)}
                         </div>
                       </div>
                     </div>
@@ -705,6 +648,7 @@ const home = ({
                 >
                   {TariffData?.data
                     ?.filter((item) => item.type == 1)
+                    .slice(-5)
                     .map((item) => (
                       <SwiperSlide key={item.id}>
                         {' '}
@@ -761,7 +705,7 @@ const home = ({
                               />
                             </p>
                             <button className="w-[100px] h-[30px] text-[8px] font-medium text-white bg-[#AB31D6] rounded-full">
-                              Ətraflı məlumat
+                              {translate('Detailed_information', Language)}
                             </button>
                           </div>
                           <div className="flex justify-center">
@@ -770,7 +714,7 @@ const home = ({
                                 item.most_wanted === 1 ? 'flag-home' : 'hidden'
                               }   mt-0 text-[8px] text-center font-medium justify-center`}
                             >
-                              Üstünlük verilən
+                              {translate('Preferred', Language)}
                             </div>
                           </div>
                         </div>
@@ -795,6 +739,7 @@ const home = ({
                 >
                   {TariffData?.data
                     ?.filter((item) => item.type == 1)
+                    .slice(-5)
                     .map((item) => (
                       <SwiperSlide key={item.id}>
                         {' '}
@@ -851,7 +796,7 @@ const home = ({
                               />
                             </p>
                             <button className="w-[100px] h-[30px] text-[8px] font-medium text-white bg-[#AB31D6] rounded-full">
-                              Ətraflı məlumat
+                              {translate('Detailed_information', Language)}
                             </button>
                           </div>
                           <div className="flex justify-center">
@@ -860,7 +805,7 @@ const home = ({
                                 item.most_wanted === 1 ? 'flag-home' : 'hidden'
                               }   mt-0 text-[8px] text-center font-medium justify-center`}
                             >
-                              Üstünlük verilən
+                              {translate('Preferred', Language)}
                             </div>
                           </div>
                         </div>
@@ -872,7 +817,7 @@ const home = ({
           )}
           <div className="relative   text-[20px] max-xl:text-[16px] font-medium text-white flex gap-5 justify-center items-center ">
             <button className="border  w-[244px] h-[60px] max-xl:w-[196px] max-xl:h-[36px]  border-white  flex justify-center items-center max-sm:p-0 rounded-3xl ">
-              Digər tariflər
+              {translate('Other_tariffs', Language)}
             </button>
           </div>{' '}
         </div>
@@ -886,10 +831,10 @@ const home = ({
         }  max-xxl:hidden`}
         alt=""
       />
-      <div className="home-wrapper-6 w-full mt-40 mx-auto py-20 relative overflow-hidden">
+      <div className="home-wrapper-5 w-full mt-40 mx-auto py-20 relative overflow-hidden">
         <div className="container max-w-7xl   mx-auto  flex flex-col gap-10 justify-center items-center">
           <h3 className="text-[40px] text-[#5B2D90] font-bold text-center max-md:text-[20px]  max-xl:text-[30px]">
-            Müştəri rəyləri
+            {translate('Customer_reviews', Language)}
           </h3>
           <div className="w-full flex   ">
             <div className="swiper">
@@ -908,7 +853,7 @@ const home = ({
                       {' '}
                       <div className="flex overflow-hidden" key={item.id}>
                         <div className="w-[600px] h-[400px] border flex flex-col justify-center p-10 gap-8 rounded-2xl mt-10 border-[#C4C4C4]">
-                          <p className="text-[14px] text-[#5F7285] leading-6 font-medium italic">
+                          <p className="text-[14px] text-[#5F7285] leading-5 font-medium italic">
                             {item.comment}
                           </p>
                           <div className="flex items-center gap-1">
@@ -950,7 +895,7 @@ const home = ({
                         {' '}
                         <div className="flex overflow-hidden" key={item.id}>
                           <div className="w-[600px] h-[400px] mx-2 border flex flex-col justify-center p-10 gap-8 rounded-2xl mt-10 border-[#C4C4C4]">
-                            <p className="text-[14px] text-[#5F7285] leading-6 font-medium italic">
+                            <p className="text-[14px] text-[#5F7285] leading-5 font-medium italic">
                               {item.quote}
                             </p>
                             <div className="flex items-center gap-1">
@@ -977,7 +922,7 @@ const home = ({
       </div>
       <div className="home-wrapper-7 w-full mt-10 pb-20 mx-auto relative max-xxl:flex max-xxl:flex-col max-xxl:justify-center max-xxl:items-center  bg-[#F7F6FB]  overflow-hidden">
         <h3 className="text-[40px] max-md:text-[20px] max-xxl:text-[30px] text-[#5B2D90] relative  my-10 font-bold text-center">
-          Bloq
+          {translate('Blog', Language)}
         </h3>
         <div className="container max-w-[966px]  mx-auto  grid grid-cols-3 justify-items-center max-md:grid-cols-1 max-xl:grid-cols-2  max-xxl:mx-10  gap-12">
           {BlogData?.data?.map((item) => {
@@ -1020,7 +965,7 @@ const home = ({
         alt=""
       />
       <div className="home-wrapper-8 w-full  pb-20 mx-auto relative  py-20  overflow-hidden">
-        <div className=" max-w-6xl mx-auto flex justify-center">
+        <div className=" max-w-5xl mx-auto flex justify-center">
           <div className="w-[752px] h-[337px] max-sm:w-[280px] max-sm:h-[280px] max-md:w-[450px] max-md:h-[300px] bg-[#5B2D90] p-10 max-md:px-2 max-md:py-5 rounded-3xl flex flex-col gap-10 max-sm:gap-3 max-md:gap-10  justify-center items-center">
             <h2 className="text-white text-[24px] font-bold max-md:text-[20px] max-md:text-center">
               {career_title}
@@ -1030,7 +975,7 @@ const home = ({
             </p>
             <Link href="/career" onClick={handleScrollUp}>
               <button className="w-[172px] h-[52px] max-md:w-[190px] max-md:h-[41px] bg-white text-[#5B2D90] rounded-full text-[16px] font-medium">
-                Müraciət et
+                {translate('Apply', Language)}
               </button>
             </Link>
           </div>
