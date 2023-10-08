@@ -19,7 +19,7 @@ import { Carousel } from 'react-responsive-carousel';
 import { useTranslation } from '../components/TranslationContext';
 import Service from '../components/Service';
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   try {
     const Popupresponse = await axios.get(`${base_url}/api/popups`, config);
     const Tariffresponse = await axios.get(`${base_url}/api/tariffs`, config);
@@ -88,9 +88,6 @@ const home = ({
 
   const { isOpen, toggleMenu } = useVisibleContext();
 
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
   const { visible, setVisible } = useVisibleContext();
 
   const handleScrollUp = () => {
@@ -146,6 +143,14 @@ const home = ({
       setSelectedItem(item);
     }
   };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      console.log(typeof window !== 'undefined');
+      setIsLoading(false);
+    }
+  }, []);
+
   const { translate, Language } = useTranslation();
 
   return (

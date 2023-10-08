@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { CiLocationOn } from 'react-icons/ci';
 import Dropzone from 'react-dropzone';
 import { CvPopup } from '../components/CvPopup';
@@ -75,20 +75,15 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
 
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
+    setIsLoading(false);
   }, []);
-
   useEffect(() => {
     setVisible(router.pathname === '/a');
   }, [router, setVisible]);
 
-  const onDrop = useCallback((acceptedFiles) => {
+  const onDrop = (acceptedFiles, itemName) => {
+    console.log(itemName);
+    setvname(itemName);
     formik.setFieldValue('cv', acceptedFiles);
     setcv(acceptedFiles);
     setIsFileDetected(true);
@@ -105,7 +100,7 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
       })
       .then((response) => {})
       .catch((error) => {});
-  }, []);
+  };
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -192,11 +187,17 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
   const { translate, Language } = useTranslation();
 
   const handleClick = (e) => {
-    setvname(e);
-    handleSubmit();
+    if (vname) {
+      handleSubmit(e);
+    }
   };
 
-  const handleSubmit = () => {
+  useEffect(() => {}, []);
+  const [success, setSuccess] = useState(false);
+  const firstPopupRef = useRef();
+  const secondPopupRef = useRef();
+
+  const handleSubmit = (e) => {
     if (cv?.length > 0) {
       const formData = new FormData();
       formData.append('cv', cv[0], cv[0]?.name);
@@ -210,16 +211,20 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
         .post(`${base_url}/api/career-forms`, formData, config)
         .then((response) => {
           console.log(response);
+          setSuccess(true);
+          firstPopupRef.current.close();
+          secondPopupRef.current.close();
+          setcv(null);
+          setvname('');
+          setIsFileDetected(false);
+          setTimeout(() => {
+            setSuccess(false);
+          }, 5000);
         })
         .catch((error) => {});
     }
   };
-
   const [isOpen, setIsOpen] = useState(false);
-
-  const handleTriggerClick = () => {
-    setIsOpen(true);
-  };
 
   return (
     <>
@@ -288,6 +293,7 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                     <div className="flex justify-between">
                       {' '}
                       <Popup
+                        ref={firstPopupRef}
                         trigger={
                           <button className="w-[154px] h-[33px]  max-xl:w-[100px] max-xl:h-[24px] bg-[#5B2D90] rounded-full text-white text-[12px] max-xl:text-[8px]">
                             {translate('Apply', Language)}
@@ -295,6 +301,7 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                         }
                         modal
                         nested
+                        closeOnDocumentClick={false}
                         contentStyle={{
                           padding: '0px',
                           borderRadius: '50px',
@@ -323,7 +330,11 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                                   {translate('CV', Language)}
                                   <span className="text-[#ED1C24]">*</span>
                                 </label>
-                                <Dropzone onDrop={onDrop}>
+                                <Dropzone
+                                  onDrop={(acceptedFiles) =>
+                                    onDrop(acceptedFiles, item.name)
+                                  }
+                                >
                                   {({ getRootProps, getInputProps }) => (
                                     <section>
                                       <div {...getRootProps()}>
@@ -393,6 +404,7 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                                     </section>
                                   )}
                                 </Dropzone>
+
                                 <button
                                   type="submit"
                                   onClick={() => handleClick(item.name)}
@@ -407,17 +419,16 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                       </Popup>
                       <div className="">
                         <Popup
+                          ref={secondPopupRef}
                           trigger={
-                            <button
-                              suppressHydrationWarning={true}
-                              className="w-[142px] h-[33px] max-xl:w-[100px] max-xl:h-[24px] bg-[#F9F9F9] rounded-full  text-[#5B2D90] text-[12px] max-xl:text-[8px] flex justify-center items-center gap-2"
-                            >
+                            <button className="w-[142px] h-[33px] max-xl:w-[100px] max-xl:h-[24px] bg-[#F9F9F9] rounded-full  text-[#5B2D90] text-[12px] max-xl:text-[8px] flex justify-center items-center gap-2">
                               {translate('More', Language)}
                               <HiOutlineArrowLongRight className="text-lg" />
                             </button>
                           }
                           modal
                           nested
+                          closeOnDocumentClick={false}
                           contentStyle={{
                             padding: '0px',
                             borderRadius: '50px',
@@ -456,9 +467,30 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                                 <p className="text-white text-[28px] mb-5 font-light">
                                   {item.description}
                                 </p>
-                                <button className="w-[154px] h-[33px] absolute bottom-0 max-xl:w-[100px] max-xl:h-[24px] bg-[#5B2D90] rounded-full text-white text-[12px] max-xl:text-[8px]">
+
+                                <button
+                                  onClick={() => {
+                                    firstPopupRef.current.open();
+                                    handleClick(item.name);
+                                  }}
+                                  className="w-[154px] h-[33px]  max-xl:w-[100px] max-xl:h-[24px] bg-[#5B2D90] rounded-full text-white text-[12px] max-xl:text-[8px]"
+                                >
                                   {translate('Apply', Language)}
                                 </button>
+                                <div className="mt-10">
+                                  {success && (
+                                    <div
+                                      class="p-4 mb-4 text-sm text-white rounded-lg bg-[#5B2D90] flex justify-center items-center  "
+                                      role="alert"
+                                    >
+                                      <span class="font-medium"></span>{' '}
+                                      {translate(
+                                        'Your_request_has_been_sent_and_we_will_get_back_to_you_soon',
+                                        Language
+                                      )}
+                                    </div>
+                                  )}
+                                </div>
                               </div>
                             </>
                           )}

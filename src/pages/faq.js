@@ -49,36 +49,6 @@ let schema = yup.object({
 });
 
 const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
-  const data = [
-    {
-      h4: 'İnternet xidmətinə qoşulmaq üçün nə etməliyəm?',
-      p: 'Sağ üst küncdə yerləşən “Onlayn qeydiyyat” düyməsinə klikləməklə  qeydiyyat formasına keçid edə bilərsiniz. Tələb edilənməlumatların hamısını qeyd etdikdən sonra qoşulma üçünəməkdaşlarımız tərəfindən sizinlə əlaqə saxlanılacaqdır.',
-    },
-    {
-      h4: 'Xidmət sahəsində olub olmadığımı necə yoxlaya bilərəm?',
-      p: ' Əsas səhifədə yerləşən “Bölgəni seçin” düyməsindən öz ünvanınızı seçməklə və ya xəritə vizualının üzərində sizə lazım olan əraziyə klikləməklə həmin ərazinin xidmət sahəmizə aid olub-olmadığını öyrənə bilərsiniz.',
-    },
-    {
-      h4: 'Şəxsi kabinetimə necə daxil ola bilərəm?',
-      p: '  Şəxsi kabinetə daxil olmaq üçün sağ üst hissədə yerləşən “Şəxsi kabinet” düyməsinə klik edirsiniz. Müqavilənizdə sizə təqdim edilən müştəri kodunuzu, “Şifrə” bölümünə isə şifrənizi qeyd edirsiniz.',
-    },
-    {
-      h4: 'Müştəri kodumu itirmişəm.',
-      p: ' Müştəri xidmətlərimiz və ya bizə onlayn müraciət etməklə qeydiyyatdan keçdiyiniz mobil nömrəni təqdim edərək müştəri məlumatlarınızı əldə edə bilərsiniz.',
-    },
-    {
-      h4: 'İnternet balansım nə vaxt bitir?',
-      p: ' Şəxsi kabinetinizdə “Tarixçə” bölməsinə daxil olaraq ödənişinizin tarixçəsini izləyə bilərsiniz. ',
-    },
-    {
-      h4: 'Wifi şifrəsini necə dəyişə bilərəm?',
-      p: ' Google-a daxil olduqda 192.168.100.1 qeyd edib, USERNAME bölümünə “root”, PASSWORD bölümünə “admin” (admin uyğun gəlmədikdə: Azol123!) daxil edirsiniz. Düzəlişlər WLAN bölümündən olunur. ',
-    },
-    {
-      h4: 'Əlavə sualım var.',
-      p: ' Bizimlə (012) 450 2020 və 8220 əlaqə nömrələrimiz və onlayn çat xidməti vasitəsi ilə əlaqə saxlaya və ya aşağıdakı bölmədə sualınızı qeyd edə bilərsiniz.',
-    },
-  ];
   const [faqItems, setFaqItems] = useState(data.map(() => false));
 
   const toggleContent = (index) => {
@@ -92,13 +62,7 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {

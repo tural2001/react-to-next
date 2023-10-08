@@ -46,13 +46,7 @@ const payment = ({ PaymentData, SettingData, ServiceCategoryData }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
+    setIsLoading(false);
   }, []);
   useEffect(() => {
     setVisible(router.pathname === '/a');

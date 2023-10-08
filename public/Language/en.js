@@ -26,7 +26,9 @@ export const Structure = 'Structure';
 export const Ip = 'GO TO AZERONLINE IPTV SECTION FOR MORE INFORMATION';
 export const Ip_channel = 'Local and foreign TV channels at your service';
 export const Channel_country = 'Channels across countries';
-
+export const Country = 'Country';
+export const TV_number = 'Number of TVs';
+export const Channels = 'Channels';
 //Faq
 export const Frequently_asked_questions = 'Frequently asked questions';
 export const Previously_answered_questions = 'Previously answered questions';

@@ -42,6 +42,9 @@ export const Ip =
   'DAHA ƏTRAFLI MƏLUMAT ÜÇÜN AZERONLINE IPTV BÖLÜMÜNƏ KEÇİD EDİN';
 export const Ip_channel = 'Yerli və əcnəbi telekanallar xidmətinizdə';
 export const Channel_country = 'Kanallar Olkeler uzre';
+export const Country = 'Ölkə';
+export const TV_number = 'Tv sayı';
+export const Channels = 'Kanallar';
 
 //
 export const Welcome_to_Azeronline = 'Azəronline-a xoş gəlmisiniz !';

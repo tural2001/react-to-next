@@ -6,7 +6,7 @@ const Service = ({ ServiceCategoryData }) => {
   return (
     <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
       <div className="grid grid-cols-3 justify-items-center">
-        {ServiceCategoryData?.data?.slice(-3).map((item, index) => {
+        {ServiceCategoryData?.data?.map((item, index) => {
           console.log(item);
           return (
             <div className="">

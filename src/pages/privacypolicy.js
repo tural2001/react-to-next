@@ -10,7 +10,7 @@ import { config } from '../utils/axiosconfig';
 import { LoadingOverlay } from '../components/LoadingOverlay';
 import Service from '../components/Service';
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   try {
     const Pageresponse = await axios.get(`${base_url}/api/pages`, config);
 
@@ -35,20 +35,14 @@ const privacypolicy = ({ PageData }) => {
 
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
+    setIsLoading(false);
   }, []);
 
-  const filteredData = PageData.data.filter(
+  const filteredData = PageData?.data?.filter(
     (item) => item.slug === 'mexfilik-siyaseti'
   );
-  const pageTitle = filteredData.map((item) => item.meta_title);
-  const pageDescription = filteredData.map((item) => item.meta_description);
+  const pageTitle = filteredData?.map((item) => item.meta_title);
+  const pageDescription = filteredData?.map((item) => item.meta_description);
   console.log(pageTitle);
   useEffect(() => {
     setVisible(router.pathname === '/a');

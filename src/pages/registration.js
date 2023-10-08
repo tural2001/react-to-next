@@ -53,13 +53,7 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
 
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
+    setIsLoading(false);
   }, []);
 
   const onDrop = useCallback(async (acceptedFiles, fieldName) => {
