@@ -66,10 +66,6 @@ const service = ({
   CountryData,
   id,
 }) => {
-  const filteredData = TariffData?.data?.filter(
-    (item) => item.channel === true && item.channels.length > 0
-  );
-
   const CombineData = ServiceData?.data?.filter((item) => item.id == [id])[0]
     ?.tariffs;
   const CountryyData = CombineData?.map((item) => ({
@@ -77,14 +73,13 @@ const service = ({
     countries: item.countries,
   }));
 
-  // Öncelikle aynı 'countries' ID'ye sahip olan elemanları gruplayın.
   const groupedData = {};
-  CountryyData.forEach((item) => {
-    const countryID = item?.countries[0]?.id; // İlk 'countries' elemanının ID'sini alın.
+  CountryyData?.forEach((item) => {
+    const countryID = item?.countries[0]?.id;
     if (!groupedData[countryID]) {
       groupedData[countryID] = {
         channels: [],
-        countries: [], // 'countries' elemanlarını gruplanmış veriye ekleyin.
+        countries: [],
       };
     }
     groupedData[countryID].channels = groupedData[countryID].channels.concat(
@@ -93,7 +88,6 @@ const service = ({
     groupedData[countryID].countries.push(item.countries[0]);
   });
 
-  // Sonuçları bir diziye çıkartın.
   const mergedData = Object.values(groupedData);
 
   console.log(mergedData);
@@ -103,7 +97,7 @@ const service = ({
   const countryChannelsMap = {};
 
   CountryyData.forEach((item) => {
-    const countryName = item.countries[0]?.name; // Assuming there's only one country per item
+    const countryName = item.countries[0]?.name;
 
     if (countryName !== undefined) {
       if (!countryChannelsMap[countryName]) {
@@ -186,12 +180,13 @@ const service = ({
   const handleLinkClick = (e) => {
     indicator(e);
   };
+  console.log(ServiceData);
   return (
     <>
       {visible && (
         <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
           <div className="grid grid-cols-3 justify-items-center">
-            {ServiceCategoryData?.data?.slice(-3).map((item, index) => {
+            {ServiceCategoryData?.data?.map((item, index) => {
               console.log(item);
               return (
                 <div className="">
@@ -1020,7 +1015,7 @@ const service = ({
                 ''
               )}
 
-              {service?.tariffs[0]?.channel === true ? (
+              {service?.tariffs?.channel ? (
                 <>
                   <div className="">
                     <h3 className="text-center py-3 text-[#757575] text-[16px] max-xl:text-[12px] overflow-hidden">

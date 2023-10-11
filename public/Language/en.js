@@ -10,7 +10,7 @@ export const Services = 'Services';
 export const Campaigns = 'Campaigns';
 export const Speedtest = 'Speedtest';
 export const Private_cabinet = 'Private cabinet';
-export const Online_registration = 'Online registration';
+export const Registration = 'Registration';
 export const Select_the_region = 'Select the region';
 export const Select = 'Select';
 export const Look = 'Look';
@@ -29,6 +29,17 @@ export const Channel_country = 'Channels across countries';
 export const Country = 'Country';
 export const TV_number = 'Number of TVs';
 export const Channels = 'Channels';
+export const Installment = 'Pay installments';
+export const What_installment = 'What is installment payment?';
+export const Existing_subscriber = 'Existing subscriber';
+export const Continue = 'Continue';
+export const New_registration = 'New registration';
+export const Payment_information = 'Payment information';
+export const Proceed_to_payment = 'Proceed to payment';
+export const Subscriber_code = 'Subscriber code';
+export const Enter_your_customer_code = 'Enter your customer code';
+export const Select_the_payment_type = 'Select the payment type';
+
 //Faq
 export const Frequently_asked_questions = 'Frequently asked questions';
 export const Previously_answered_questions = 'Previously answered questions';

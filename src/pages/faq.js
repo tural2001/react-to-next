@@ -49,7 +49,7 @@ let schema = yup.object({
 });
 
 const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
-  const [faqItems, setFaqItems] = useState(data.map(() => false));
+  const [faqItems, setFaqItems] = useState(FaqsData?.data?.map(() => false));
 
   const toggleContent = (index) => {
     const updatedFaqItems = faqItems.map((item, i) =>
@@ -148,7 +148,7 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
           src="/assets/home1.png"
           width={500}
           height={300}
-          className=" h-[535px]  top-32 w-full  max-sm:h-[200px] max-md:h-[300px] max-xl:h-[300px] max-xxl:h-[300px] max-xl:top-14"
+          className=" h-[535px]  top-32 w-full  max-sm:h-[180px] max-md:h-[300px] max-xl:h-[300px] max-xxl:h-[300px] max-xl:top-14"
           alt=""
         />
       </div>
@@ -164,13 +164,13 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
               src="/assets/faq.png"
               width={454}
               height={355}
-              className="w-[454px] h-[355px]  mr-24 mt-10 max-lg:mr-5  max-xl:w-[192px] max-xl:h-[152px] max-xxl:w-[282px] max-xxl:h-[252px]"
+              className="w-[454px] h-[355px]  mr-24 mt-10 max-lg:mr-5  max-xl:w-[192px]  max-xl:h-[152px] max-xxl:w-[282px] max-xxl:h-[252px]"
               alt=""
             />
           </div>
         </div>
 
-        <div className=" w-[826px] max-xl:w-full max-xl:mx-5 mx-auto flex flex-col gap-10 justify-center items-center mt-0 max-xxl:mt-40  py-20 max-xl:py-10">
+        <div className=" w-[826px] max-xl:w-full max-xl:mx-5 mx-auto flex flex-col gap-10 justify-center items-center mt-0 max-xxl:mt-40  max-sm:mt-5 max-md:mt-0 max-xl:mt-0  py-20 max-xl:py-10">
           <div className=" max-xl:z-[-1]">
             {' '}
             <h3 className="text-[40px] max-md:text-[20px] max-xxl:text-[30px] w-3/4 max-xl:w-full mx-auto overflow-hidden  text-[#5B2D90] font-bold text-center ">
@@ -180,7 +180,7 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
 
           <ul className="flex flex-col gap-10 w-[826px] max-xl:w-full  mx-auto pb-10 ">
             {FaqsData?.data?.map((item, index) => {
-              const isLastItem = index === data?.length - 1;
+              const isLastItem = index === FaqsData?.data?.length - 1;
               return (
                 <li
                   className="flex flex-col gap-5 w-[826px] max-xl:w-full  mx-auto "

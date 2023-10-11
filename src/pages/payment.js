@@ -142,7 +142,7 @@ const payment = ({ PaymentData, SettingData, ServiceCategoryData }) => {
                 .map((item) => {
                   return (
                     <div
-                      className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px]  bg-white flex justify-center items-center max-xl:hidden"
+                      className="border-[2px] border-[#D7D7D7] rounded-3xl w-[344px] h-[208px]  bg-white flex justify-center items-center max-xl:hidden"
                       key={item.id}
                     >
                       <Popup

@@ -8,6 +8,7 @@ const BlogDataContext = createContext();
 
 export function BlogDataProvider({ children }) {
   const [blogData, setBlogData] = useState([]);
+  const [serviceData, setServiceData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -17,7 +18,12 @@ export function BlogDataProvider({ children }) {
           `${base_url}/api/posts?published=true`,
           config
         );
+        const Serviceresponse = await axios.get(
+          `${base_url}/api/services?channels=true`,
+          config
+        );
         setBlogData(Blogresponse.data);
+        setServiceData(Serviceresponse.data);
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -28,7 +34,7 @@ export function BlogDataProvider({ children }) {
   }, []);
 
   return (
-    <BlogDataContext.Provider value={{ blogData, loading }}>
+    <BlogDataContext.Provider value={{ blogData, serviceData, loading }}>
       {children}
     </BlogDataContext.Provider>
   );

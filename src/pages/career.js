@@ -240,7 +240,7 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
           src="/assets/home1.png"
           width={500}
           height={300}
-          className=" h-[535px]  top-32 w-full  max-sm:h-[200px] max-md:h-[300px] max-xl:h-[300px] max-xl:top-14"
+          className=" h-[535px]  top-32 w-full  max-sm:h-[200px]  max-md:h-[300px] max-xl:h-[300px] max-xl:top-14"
           alt=""
         />
       </div>
@@ -250,13 +250,13 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
           <h3 className="h3  text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xl:text-[30px] max-xxl:text-white ">
             {translate('Career', Language)}
           </h3>
-          <div className="absolute  z-[1] max-xl:z-[-1]  right-48 max-xxl:right-5 max-sm:top-20 max-xxl:top-40">
+          <div className="absolute  z-[1] max-xl:z-[-1]  right-48 max-xxl:right-5 max-sm:top-[90px] max-xxl:top-40">
             {' '}
             <Image
               src="/assets/career.png"
               width={448}
               height={448}
-              className="w-[448px] h-[448px] max-xl:w-[155px] max-xl:h-[155px]  mr-16 max-xl:mr-5  "
+              className="w-[448px] h-[448px] max-xl:w-[155px] max-xl:h-[155px]  mr-16 max-xl:mr-0  "
               alt=""
             />
           </div>

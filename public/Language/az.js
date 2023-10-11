@@ -10,7 +10,7 @@ export const Services = 'Xidmətlər';
 export const Campaigns = 'Kampaniyalar';
 export const Speedtest = 'Speedtest';
 export const Private_cabinet = 'Şəxsi kabinet';
-export const Online_registration = 'Onlayn qeydiyyat';
+export const Registration = 'Qeydiyyat';
 export const Select_the_region = 'Bölgəni seçin';
 export const Select = 'Seçiniz';
 export const Look = 'Bax';
@@ -23,6 +23,17 @@ export const Privacy_policy = 'Məxfilik siyasəti';
 export const All_rights_reserved = 'Bütün hüquqlar qorunur';
 export const Our_values = 'Dəyərlərimiz';
 export const Structure = 'Struktur';
+export const Installment = 'Taksitlə ödəmə';
+export const What_installment = 'Taksitli ödəmə nədir?';
+export const Existing_subscriber = 'Mövcud abunəçi';
+export const Continue = 'Davam etmək';
+export const New_registration = 'Yeni qeydiyyat';
+export const Payment_information = 'Ödəniş məlumatları';
+export const Proceed_to_payment = 'Ödənişə keç';
+export const Subscriber_code = 'Abonent kodu';
+export const Enter_your_customer_code = 'Müştəri kodunuzu daxil edin';
+export const Select_the_payment_type = 'Ödəniş növünü seçin';
+
 //Faq
 export const Frequently_asked_questions = 'Tez-tez verilən suallar';
 export const Previously_answered_questions =

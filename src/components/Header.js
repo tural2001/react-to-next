@@ -8,9 +8,10 @@ import { useVisibleContext } from './VisibleContext';
 import { useBlogData } from './BlogData';
 import { useTranslation } from './TranslationContext';
 
-const Header = ({ ...pageProps }) => {
-  console.log(pageProps);
+const Header = () => {
   const { blogData } = useBlogData();
+  const { serviceData } = useBlogData();
+  console.log(serviceData);
   const slug =
     blogData?.data?.filter((item) => item.slug)?.map((item) => item.slug) || [];
 
@@ -69,7 +70,19 @@ const Header = ({ ...pageProps }) => {
       </div>
       <div className="w-full  bg-[#5B2D90] drop-shadow-lg ">
         <div className="container max-w-[1100px]  mx-auto  py-2 flex justify-between items-start border-b-[1px] border-black border-opacity-30 max-sm:items-center max-lg:items-center">
-          <ul className="navbar-items  max-xl:hidden flex  gap-5 text-white text-[15px] tracking-[0.5px]  font-medium ">
+          <ul className="flex justify-center items-center gap-5 text-white max-xl:hidden">
+            <li className="">
+              <Link href="/" className="">
+                <Image
+                  src="/assets/logo2.png"
+                  width={182}
+                  height={180}
+                  style={{ width: '182px', height: '33px' }}
+                  className="w-[182px]"
+                  alt=""
+                />
+              </Link>
+            </li>
             <li className="">
               <Link href="/faq"> {translate('FAQ', Language)}</Link>
             </li>
@@ -159,18 +172,29 @@ const Header = ({ ...pageProps }) => {
                 <div className="absolute  overflow-auto  bg-white right-0 top-[43px] border-t-[2px] rounded-t-[5px] border-[#5B2D90] max-sm:w-[300px] max-md:w-[300px] max-lg:w-[300px] max-xl:w-[300px] flex justify-center items-center gap-10 pt-10 pb-5 pl-10 max-sm:pr-0 max-xl:pr-7 rounded-b-3xl nav-menu">
                   <ul className="flex flex-col gap-4 justify-center items-end ">
                     <li
-                      className="border border-[#5B2D90] text-[#5B2D90] p-2 rounded-3xl w-[170px] h-[40px] text-center overflow-hidden"
+                      className="border  rounded-3xl bg-[#5B2D90] text-white w-[170px] h-[40px] flex justify-center items-center"
                       onClick={toggleMenu}
                     >
-                      {translate('Private_cabinet', Language)}
+                      <Link href="/installment">
+                        {' '}
+                        {translate('Installment', Language)}
+                      </Link>
                     </li>
+
                     <li
                       className="border  rounded-3xl bg-[#5B2D90] text-white w-[170px] h-[40px] flex justify-center items-center"
                       onClick={toggleMenu}
                     >
+                      {translate('Private_cabinet', Language)}
+                    </li>
+
+                    <li
+                      className="border border-[#5B2D90] text-[#5B2D90] p-2 rounded-3xl w-[170px] h-[40px] text-center overflow-hidden"
+                      onClick={toggleMenu}
+                    >
                       <Link href="/registration">
                         {' '}
-                        {translate('Online_registration', Language)}
+                        {translate('Registration', Language)}
                       </Link>
                     </li>
 
@@ -181,7 +205,7 @@ const Header = ({ ...pageProps }) => {
                       </Link>
                     </li>
                     <li className="" onClick={toggleMenu}>
-                      <Link href="/services">
+                      <Link href={`/services/${serviceData?.data[0]?.id}`}>
                         {' '}
                         {translate('Services', Language)}
                       </Link>
@@ -234,19 +258,9 @@ const Header = ({ ...pageProps }) => {
             </li>
           </ul>
         </div>
-        <div className="container max-w-[1087px] py-4  mx-auto flex justify-between items-center max-xl:hidden ">
-          <Link href="/" className="">
-            <Image
-              src="/assets/logo2.png"
-              width={182}
-              height={180}
-              style={{ width: '182px', height: '33px' }}
-              className="w-[182px]"
-              alt=""
-            />
-          </Link>
-          <div className="">
-            <ul className="navbar-items  max-sm:hidden flex items-center  gap-5 text-white text-[12px]  font-medium tracking-[0.5px]">
+        <div className="container max-w-[1087px] py-4  mx-auto  max-xl:hidden ">
+          <div className="flex  justify-between ">
+            <ul className="navbar-items  max-sm:hidden flex items-center  gap-5 text-white text-[13px]  font-medium tracking-[0.5px]">
               <li className="">
                 <Link href="/about"> {translate('About_us', Language)}</Link>
               </li>
@@ -279,14 +293,22 @@ const Header = ({ ...pageProps }) => {
                   {translate('Speedtest', Language)}
                 </Link>
               </li>
-              <li className="border p-2 rounded-3xl w-[130px] h-[40px] flex justify-center items-center">
-                {translate('Private_cabinet', Language)}
+            </ul>
+            <ul className="navbar-items  max-sm:hidden flex items-center  gap-5 text-white text-[12px]  font-medium tracking-[0.5px]">
+              <li className="border p-2 rounded-3xl bg-white text-[#5B2D90] w-[139px] h-[35px] flex justify-center items-center">
+                <Link href="/installment">
+                  {' '}
+                  {translate('Installment', Language)}
+                </Link>
               </li>
-              <li className="border p-2 rounded-3xl bg-white text-[#5B2D90] w-[175px] h-[40px] flex justify-center items-center">
+              <li className="border p-2 rounded-3xl bg-white text-[#5B2D90] w-[104px] h-[35px] flex justify-center items-center">
                 <Link href="/registration">
                   {' '}
-                  {translate('Online_registration', Language)}
+                  {translate('Registration', Language)}
                 </Link>
+              </li>
+              <li className="border p-2 rounded-3xl w-[130px] h-[40px] flex justify-center items-center">
+                {translate('Private_cabinet', Language)}
               </li>
             </ul>
           </div>

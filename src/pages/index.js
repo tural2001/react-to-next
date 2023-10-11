@@ -406,16 +406,24 @@ const home = ({
         width={300}
         height={300}
         className={`absolute right-32 ${
-          visible ? 'top-[108rem]' : 'top-[84em]'
-        } max-sm:top-[39rem] max-sm:right-0 z-10 w-[300px] h-[300px] max-sm:w-[126px] max-xxl:hidden`}
+          visible
+            ? 'top-[108rem] max-sm:top-[80rem] '
+            : 'top-[85em] max-sm:top-[28rem]'
+        } max-sm:top-[39rem] max-sm:right-0 z-10 w-[300px] h-[300px] max-sm:w-[126px] max-sm:h-[126px] md:hidden xl:hidden lg:hidden xxl:hidden `}
         alt=""
       />
       <div
-        className="home-wrapper-4 w-full  pt-20 mx-auto relative overflow-hidden"
+        className={`${
+          isOpen ? 'z-[-1]' : 'z-0'
+        } home-wrapper-4 w-full  pt-20 mx-auto relative overflow-hidden`}
         id="ustunluklerimiz"
       >
         <div className="container max-w-[1087px] mx-auto">
-          <h3 className="text-[40px] text-[#5B2D90] font-bold text-center max-sm:text-[20px] max-xxl:text-[30px]">
+          <h3
+            className={`${
+              isOpen ? 'z-[-1]' : 'z-0'
+            } text-[40px] text-[#5B2D90] font-bold text-center max-sm:text-[20px] max-xxl:text-[30px]`}
+          >
             {translate('Our_advantages', Language)}
           </h3>
           <div className="grid grid-cols-3 justify-items-center gap-5 mt-10 max-lg:grid-cols-1 max-xxl:grid-cols-2">
@@ -832,7 +840,7 @@ const home = ({
         width={300}
         height={300}
         className={`absolute left-32    ${
-          visible ? 'top-[218rem]' : 'top-[190rem]'
+          visible ? 'top-[218rem] ' : 'top-[170rem] '
         }  max-xxl:hidden`}
         alt=""
       />
@@ -965,8 +973,10 @@ const home = ({
         width={300}
         height={300}
         className={`absolute right-[13rem]  ${
-          visible ? 'top-[325rem]' : 'top-[311rem]'
-        } max-sm:right-0 max-sm:top-[356rem] max-md:top-[400rem]  z-10 max-md:w-[130px] max-xxl:hidden`}
+          visible
+            ? 'top-[350rem] max-xxl:top-[438rem] max-xxl:right-10'
+            : 'top-[322rem] max-xxl:top-[452rem] max-xxl:right-10'
+        }   z-10 max-md:w-[130px] `}
         alt=""
       />
       <div className="home-wrapper-8 w-full  pb-20 mx-auto relative  py-20  overflow-hidden">
