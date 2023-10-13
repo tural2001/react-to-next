@@ -1,5 +1,5 @@
 import { HiOutlineArrowSmallDown } from 'react-icons/hi2';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -88,6 +88,10 @@ const home = ({
 
   const { isOpen, toggleMenu } = useVisibleContext();
 
+  const handleScrollToFiber = () => {
+    router.push('#fiber');
+  };
+
   const { visible, setVisible } = useVisibleContext();
 
   const handleScrollUp = () => {
@@ -120,6 +124,13 @@ const home = ({
   const career_description = SettingData?.data
     .filter((item) => item.key === 'home_page_career_description')
     ?.map((item) => item.value);
+  const home_page_other_tariffs_button_link = SettingData?.data
+    .filter((item) => item.key === 'home_page_other_tariffs_button_link')
+    ?.map((item) => item.value);
+
+  const home_page_slide_down_button = SettingData?.data
+    .filter((item) => item.key === 'home_page_slide_down_button')
+    ?.map((item) => item.value);
 
   const map_title = SettingData?.data
     .filter((item) => item.key === 'home_page_map_title')
@@ -146,7 +157,6 @@ const home = ({
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      console.log(typeof window !== 'undefined');
       setIsLoading(false);
     }
   }, []);
@@ -222,7 +232,9 @@ const home = ({
           </Carousel>
         </div>
         <div className="absolute top-[30rem] left-72 bg-white w-16 h-16 max-xxl:hidden rounded-full flex justify-center items-center">
-          <HiOutlineArrowSmallDown className="text-[#5B2D90] text-[30px] stroke-2" />
+          <Link href={home_page_slide_down_button}>
+            <HiOutlineArrowSmallDown className="text-[#5B2D90] text-[30px] stroke-2" />
+          </Link>
         </div>
         <div className="container max-w-[1087px] mx-auto mt-0 ">
           {' '}
@@ -333,11 +345,11 @@ const home = ({
             ))}
           </Carousel>
         </div>
-        <Link href="#/">
-          <div className="absolute b-a top-[30rem] left-72 bg-white w-16 h-16 max-xxl:hidden rounded-full flex justify-center items-center">
+        <div className="absolute b-a top-[30rem] left-72 bg-white w-16 h-16 max-xxl:hidden rounded-full flex justify-center items-center">
+          <Link href={home_page_slide_down_button}>
             <HiOutlineArrowSmallDown className="text-[#5B2D90] text-[30px] stroke-2" />
-          </div>
-        </Link>
+          </Link>
+        </div>
         <div className="container max-w-[1087px] mx-auto mt-20 max-sm:mt-10 ">
           {' '}
           <div className="flex flex-col justify-center items-center gap-3">
@@ -464,7 +476,10 @@ const home = ({
           alt=""
         />
         <div className="container max-w-[1100px] mx-auto pt-12 ">
-          <h3 className="text-[40px] text-white relative  mt-40 max-xl:mt-14 font-bold text-center max-lg:text-[20px]  max-xxl:text-[25px] max-sm:mt-14 ">
+          <h3
+            className="text-[40px] text-white relative  mt-40 max-xl:mt-14 font-bold text-center max-lg:text-[20px]  max-xxl:text-[25px] max-sm:mt-14 "
+            id="fiber"
+          >
             {translate('Fiber_optic', Language)}{' '}
           </h3>
           <div className="relative text-[20px] max-lg:text-[16px] max-xl:text-[18px] font-medium text-[#94A2B3] flex gap-5 justify-center items-center mt-3 overflow-hidden">
@@ -493,7 +508,10 @@ const home = ({
               {translate('Business', Language)}
             </button>
           </div>
-          <div className="grid grid-cols-5  max-w-[1099px]  justify-items-center gap-5 mt-10 max-xl:hidden">
+          <div
+            className="grid grid-cols-5  max-w-[1099px]  justify-items-center gap-5 mt-10 max-xl:hidden"
+            id="fiber"
+          >
             {selectedItem === 'ferdi' && (
               <>
                 {TariffData?.data
@@ -830,7 +848,9 @@ const home = ({
           )}
           <div className="relative   text-[20px] max-xl:text-[16px] font-medium text-white flex gap-5 justify-center items-center ">
             <button className="border  w-[244px] h-[60px] max-xl:w-[196px] max-xl:h-[36px]  border-white  flex justify-center items-center max-sm:p-0 rounded-3xl ">
-              {translate('Other_tariffs', Language)}
+              <Link href={home_page_other_tariffs_button_link}>
+                {translate('Other_tariffs', Language)}
+              </Link>
             </button>
           </div>{' '}
         </div>

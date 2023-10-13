@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { BiMinus, BiPlus } from 'react-icons/bi';
 import { BsChevronDown } from 'react-icons/bs';
 import { useVisibleContext } from '../components/VisibleContext';
@@ -15,10 +15,14 @@ import * as yup from 'yup';
 import { LoadingOverlay } from '../components/LoadingOverlay';
 import { useTranslation } from '../components/TranslationContext';
 import Service from '../components/Service';
+import Dropzone from 'react-dropzone';
 
 export async function getServerSideProps() {
   try {
-    const Faqsresponse = await axios.get(`${base_url}/api/faqs`, config);
+    const Formresponse = await axios.get(
+      `${base_url}/api/installment-payment-form-fields`,
+      config
+    );
     const Settingresponse = await axios.get(`${base_url}/api/settings`, config);
     const ServiceCategoryresponse = await axios.get(
       `${base_url}/api/service-categories`,
@@ -27,7 +31,7 @@ export async function getServerSideProps() {
 
     return {
       props: {
-        FaqsData: Faqsresponse.data,
+        FormsData: Formresponse.data,
         SettingData: Settingresponse.data,
         ServiceCategoryData: ServiceCategoryresponse.data,
       },
@@ -42,23 +46,10 @@ export async function getServerSideProps() {
   }
 }
 
-let schema = yup.object({
-  name: yup.string().required('*'),
-  phone: yup.string().required('*'),
-  question: yup.string().required('*'),
-});
-
-const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
-  const [faqItems, setFaqItems] = useState(FaqsData?.data?.map(() => false));
-
-  const toggleContent = (index) => {
-    const updatedFaqItems = faqItems.map((item, i) =>
-      i === index ? !item : false
-    );
-    setFaqItems(updatedFaqItems);
-  };
-
+const faq = ({ SettingData, FormsData }) => {
   const { visible, setVisible } = useVisibleContext();
+  const [isFileDetected, setIsFileDetected] = useState(false);
+
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -70,61 +61,154 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
   }, [router, setVisible]);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
+  const onDrop = useCallback(async (acceptedFiles, fieldName) => {
+    try {
+      const formData = new FormData();
+      formData.append('file', acceptedFiles[0]);
+
+      const response = await axios.post(
+        `${base_url}/api/upload-media`,
+        formData,
+        {
+          headers: {
+            ...config.headers,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+
+      const url = response.data.url;
+      formik.setFieldValue(fieldName, url);
+      setIsFileDetected(true);
+    } catch (error) {
+      console.error('Hata:', error);
+    }
+  }, []);
+
+  const initialValues = {};
+
+  FormsData?.data?.forEach((item) => {
+    initialValues[item.name] = '';
+  });
+  console.log(initialValues);
+
+  // let schema = yup.object({
+  //   name: yup.string().required('*'),
+  //   phone: yup.string().required('*'),
+  //   question: yup.string().required('*'),
+  //  });
+
   const formik = useFormik({
-    enableReinitialize: true,
-    initialValues: {
-      name: '',
-      phone: '',
-      question: '',
-    },
-    validationSchema: schema,
+    initialValues,
+    // validationSchema: schema,
     onSubmit: async (values) => {
-      if (values.phone.length < 13) {
-        formik.setFieldError('phone', 'Nömrəni doğru daxil edin');
+      const errors = {};
+
+      FormsData.data.forEach((item) => {
+        if (item.name && item.required && !values[item.name]) {
+          errors[item.name] = `${item.label} is required`;
+        }
+      });
+      if (Object.keys(errors).length > 0) {
+        formik.setErrors(errors);
         return;
       }
+      console.log(errors);
+
+      const dataString = JSON.stringify(values);
 
       try {
-        await axios.post(`${base_url}/api/faq-forms`, values, config);
+        const response = await axios.post(
+          `${base_url}/api/installment-payment-form-data`,
+          {
+            data: dataString,
+          },
+          config
+        );
+        console.log(response);
         setTimeout(() => {
           setIsFileDetected(false);
         }, 100);
+
         setShowSuccessAlert(true);
+
         setTimeout(() => {
           setShowSuccessAlert(false);
         }, 10000);
+
         formik.resetForm();
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
 
-  const [showNameError, setShowNameError] = useState(true);
-  const [showPhoneError, setShowPhoneError] = useState(true);
-  const [showQuestionError, setShowQuestionError] = useState(true);
-  const { isOpen, toggleMenu } = useVisibleContext();
+  const handlePhoneChange = (e, itemName) => {
+    const inputValue = e.target.value;
 
-  const handleNameChange = (e) => {
-    const inputValue = e.target.value;
-    formik.handleChange(e);
-    setShowNameError(inputValue.trim() === '');
-  };
-  const handlePhoneChange = (e) => {
-    const inputValue = e.target.value;
     const cleanedInput = inputValue.replace(/\D/g, '');
     const formattedPhone = cleanedInput.startsWith('994')
       ? `+994${cleanedInput.substring(3)}`
       : `+994${cleanedInput}`;
     if (formattedPhone.length <= 13) {
-      formik.setFieldValue('phone', formattedPhone);
+      formik.setFieldValue(itemName, formattedPhone);
+      setShowTextErrors((prevErrors) => ({
+        ...prevErrors,
+        [itemName]: inputValue.trim() === '',
+      }));
     }
-
-    setShowPhoneError(formattedPhone.trim() === '');
   };
-  const handleQuestionChange = (e) => {
+
+  const initialShowTextErrors = {};
+  FormsData?.data?.forEach((item) => {
+    initialShowTextErrors[item.name] = true;
+  });
+
+  const [showTextErrors, setShowTextErrors] = useState(initialShowTextErrors);
+
+  const handleTextChange = (e, itemName) => {
     const inputValue = e.target.value;
     formik.handleChange(e);
-    setShowQuestionError(inputValue.trim() === '');
+    setShowTextErrors((prevErrors) => ({
+      ...prevErrors,
+      [itemName]: inputValue.trim() === '',
+    }));
   };
+
+  const handleRadioChange = (e, itemName) => {
+    const inputValue = e.target.value;
+    formik.handleChange(e);
+    setShowTextErrors((prevErrors) => ({
+      ...prevErrors,
+      [itemName]: inputValue.trim() === '',
+    }));
+  };
+
+  const handleCheckboxChange = (e, itemName, value) => {
+    const inputValue = e.target.value;
+    formik.setFieldValue(itemName, value);
+    setShowTextErrors((prevErrors) => ({
+      ...prevErrors,
+      [itemName]: inputValue.trim() === '',
+    }));
+  };
+
+  const handleTextareaChange = (e, itemName) => {
+    const inputValue = e.target.value;
+    formik.handleChange(e);
+    setShowTextErrors((prevErrors) => ({
+      ...prevErrors,
+      [itemName]: inputValue.trim() === '',
+    }));
+  };
+  const [errorFields, setErrorFields] = useState([]);
+
+  useEffect(() => {
+    const newErrorFields = Object.keys(formik.errors);
+    setErrorFields(newErrorFields);
+  }, [formik.errors]);
+
+  const { isOpen, toggleMenu } = useVisibleContext();
 
   const pageTitle = SettingData?.data
     .filter((item) => item.key === 'faq_page_meta_title')
@@ -159,7 +243,7 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
           <h3 className="h3  text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xl:text-[30px] max-xxl:text-white ">
             {translate('Installment', Language)}
           </h3>
-          <div className="absolute  z-[1] max-xl:z-[-1]  right-0 top-20  max-sm:top-10 max-xxl:top-20">
+          <div className="absolute  z-[1] max-xl:z-[-1]  right-0 top-24  max-sm:top-10 max-xxl:top-20">
             {' '}
             <Image
               src="/assets/taksit.png"
@@ -213,110 +297,346 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              const requiredFields = ['name', 'phone', 'question'];
               const errors = {};
-              requiredFields.forEach((fieldName) => {
-                if (formik.touched[fieldName] && !formik.values[fieldName]) {
-                  errors[fieldName] = 'This field is Required';
+              FormsData?.data?.forEach((item) => {
+                if (item.name && item.required && !formik.values[item.name]) {
+                  errors[item.name] = `${item.label} is required`;
                 }
               });
-              if (Object.keys(errors).length > 0) {
-                toast.error('Please fill in the required fields.');
-                return;
+
+              formik.setErrors(errors);
+              console.log(errors);
+              if (Object.keys(errors).length === 0) {
+                formik.handleSubmit(e);
               }
-              formik.handleSubmit(e);
             }}
-            className="grid grid-cols-2 max-xl:grid-cols-1 gap-5  justify-items-between py-10 max-xl:mx-5"
+            className="grid grid-cols-2  gap-5 py-10 max-lg:flex max-lg:flex-col max-lg:justify-center max-lg:items-center max-sm:gap-7 max-md:mx-10"
           >
-            <div className="w-full flex flex-col  justify-center gap-2">
-              <label
-                htmlFor=""
-                className="text-black flex gap-2 items-center  text-[16px] font-medium"
-              >
-                {translate('Name', Language)}
-                {showNameError && <span className="text-[#ED1C24]">*</span>}
-                <div className="error text-white">
-                  {formik.touched.name && formik.errors.name}
+            {/* Type 1 */}
+            {FormsData?.data
+              ?.filter((item) => item.type == 1)
+              .map((item) => {
+                console.log(item);
+                return (
+                  <div
+                    className={`w-[442px]  max-sm:w-full 
+             justify-center gap-2`}
+                    key={item.id}
+                  >
+                    <label htmlFor="" className="text-[#637381] text-[20px]">
+                      {item.label}
+                      {item.required == true && showTextErrors[item.name] && (
+                        <span className="text-[#ED1C24]">*</span>
+                      )}
+                      <div className="error text-red-500"></div>
+                    </label>
+                    <input
+                      type="text"
+                      name={item.name}
+                      className={`${
+                        formik.errors[item.name]
+                          ? 'border-red-500'
+                          : 'border-black'
+                      }  border p-2  rounded-xl w-[442px] max-sm:w-full h-[50px] focus:ring-0`}
+                      onChange={(e) => handleTextChange(e, item.name)}
+                      onBlur={formik.handleBlur}
+                      value={formik.values[item.name]}
+                    />
+                  </div>
+                );
+              })}
+
+            {/* Type 2 */}
+            {FormsData?.data
+              ?.filter((item) => item.type == 2)
+              .map((item) => (
+                <div
+                  className={`w-[442px]  max-sm:w-full 
+             justify-center gap-2`}
+                  key={item.id}
+                >
+                  <label htmlFor="" className="text-[#637381] text-[20px]">
+                    {item.label}
+                    {item.required && showTextErrors[item.name] && (
+                      <span className="text-[#ED1C24]">*</span>
+                    )}
+                    <div className="error text-red-500"></div>
+                  </label>
+                  <input
+                    type="tel"
+                    className="border-none p-2 bg-[#F4F4F4] rounded-xl w-[442px] max-sm:w-full h-[50px] focus:ring-0"
+                    placeholder="+994 _ _  _ _ _  _ _  _ _"
+                    name={item.label}
+                    onChange={(event) => handlePhoneChange(event, item.name)}
+                    onBlur={formik.handleBlur}
+                    value={formik.values[item.name]}
+                  />
                 </div>
-              </label>
-              <input
-                type="text"
-                className={`border ${
-                  formik.touched.name && formik.errors.name
-                    ? 'border-[#ED1C24]'
-                    : 'border-[#5B2D90]'
-                } bg-white p-2 rounded-md w-[460px] h-[58px] max-xl:w-full focus:ring-0`}
-                name="name"
-                onChange={handleNameChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.name}
-              />
-            </div>
-            <div className="w-full flex flex-col justify-center gap-2">
-              {' '}
-              <label
-                htmlFor=""
-                className="text-black flex gap-2 items-center  text-[16px] font-medium"
-              >
-                {translate('Phone', Language)}{' '}
-                {showPhoneError && <span className="text-[#ED1C24]">*</span>}
-                <div className="error text-white">
-                  {formik.touched.phone && formik.errors.phone}
+              ))}
+
+            {/* Type 6 */}
+            {FormsData?.data
+              ?.filter((item) => item.type == 6)
+              .map((item) => (
+                <div
+                  className={`w-[442px]  max-sm:w-full 
+             justify-center gap-2`}
+                  key={item.id}
+                >
+                  <label htmlFor="" className="text-[#637381] text-[20px]">
+                    {item.label}
+                    {item.required && showTextErrors[item.name] && (
+                      <span className="text-[#ED1C24]">*</span>
+                    )}
+                    <div className="error text-red-500"></div>
+                  </label>
+                  <select
+                    name={item.name}
+                    onChange={(event) => handleTextChange(event, item.name)}
+                    onBlur={formik.handleBlur}
+                    value={formik.values[item.name]}
+                    className={`flex flex-row border ${
+                      formik.errors[item.name] ? 'border-red-500' : ''
+                    }  justify-space p-2 bg-[#F4F4F4] rounded-xl w-full h-[50px] gap-5  `}
+                  >
+                    <option value="">Select</option>
+
+                    {item.data
+                      .toString()
+                      .split('|')
+                      .map((value, index) => (
+                        <option value={value} key={index}>
+                          {value}
+                        </option>
+                      ))}
+                  </select>
                 </div>
-              </label>
-              <input
-                type="tel"
-                className={`border  ${
-                  formik.touched.phone && formik.errors.phone
-                    ? 'border-[#ED1C24]'
-                    : 'border-[#5B2D90]'
-                }   bg-white rounded-lg w-[464px] h-[58px] max-xl:w-full p-2 focus:ring-0`}
-                placeholder="+994 _ _  _ _ _  _ _  _ _"
-                name="phone"
-                onChange={handlePhoneChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.phone}
-              />
-            </div>
-            <div className="w-full flex flex-col col-span-2 max-xl:col-span-1 justify-center gap-2">
-              <label
-                htmlFor=""
-                className="text-black flex gap-2 items-center  text-[16px] font-medium"
-              >
-                {translate('Question', Language)}
-                {showQuestionError && <span className="text-[#ED1C24]">*</span>}
-                <div className="error text-white">
-                  {formik.touched.question && formik.errors.question}
+              ))}
+
+            {FormsData?.data
+              ?.filter((item) => item.type == 3)
+              .map((item) => (
+                <div
+                  className={`w-[442px]  max-sm:w-full 
+             justify-center gap-2`}
+                  key={item.id}
+                >
+                  <label htmlFor="" className="text-[#637381] text-[20px]">
+                    {item.label}
+                    {item.required && showTextErrors[item.name] && (
+                      <span className="text-[#ED1C24]">*</span>
+                    )}
+                    <div className="error text-red-500"></div>
+                  </label>
+                  <div
+                    className={`flex flex-row border ${
+                      formik.errors[item.name] ? 'border-red-500' : ''
+                    }  justify-space p-2 bg-[#F4F4F4] rounded-xl h-[50px] gap-5  `}
+                  >
+                    {item.data
+                      .toString()
+                      .split('|')
+                      .map((value, index) => (
+                        <div className="flex gap-2 items-center" key={index}>
+                          <label htmlFor={value}>{value}</label>
+                          <input
+                            type="radio"
+                            name={item.name}
+                            className={`p-2 border-2  bg-[#F4F4F4] rounded-xl w-4 max-sm:w-full h-4 focus:ring-0`}
+                            onChange={(event) =>
+                              handleRadioChange(event, item.name)
+                            }
+                            onBlur={formik.handleBlur}
+                            value={value}
+                            checked={formik.values[item.name] === value}
+                            key={index}
+                          />
+                          <div className="error text-white">
+                            {formik.touched[item.name] &&
+                              formik.errors[item.name]}
+                          </div>
+                        </div>
+                      ))}
+                  </div>
                 </div>
-              </label>
-              <textarea
-                className={`border ${
-                  formik.touched.question && formik.errors.question
-                    ? 'border-[#ED1C24]'
-                    : 'border-[#5B2D90]'
-                } w-[980px] p-3 max-xl:w-full  bg-white rounded-xl`}
-                cols="30"
-                rows="8"
-                name="question"
-                onChange={handleQuestionChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.question}
-              ></textarea>
-            </div>
+              ))}
+
+            {/* Type 4 */}
+            {FormsData?.data
+              ?.filter((item) => item.type == 4)
+              .map((item) => (
+                <div
+                  className={`w-[442px]  max-sm:w-full 
+             justify-center gap-2`}
+                  key={item.id}
+                >
+                  <label htmlFor="" className="text-[#637381] text-[20px]">
+                    {item.label}
+                    {item.required && showTextErrors[item.name] && (
+                      <span className="text-[#ED1C24]">*</span>
+                    )}
+                    <div className="error text-red-500"></div>
+                  </label>
+                  <div
+                    className={`flex flex-row border ${
+                      formik.errors[item.name] ? 'border-red-500' : ''
+                    }   justify-space p-2 bg-[#F4F4F4] rounded-xl h-[50px] gap-5  `}
+                  >
+                    {item.data
+                      .toString()
+                      .split('|')
+                      .map((value, index) => (
+                        <div className="flex gap-2 items-center" key={index}>
+                          <>
+                            <label htmlFor={value}>{value}</label>
+                            <input
+                              type="checkbox"
+                              name={item.name}
+                              className=" p-10 bg-[#F4F4F4] rounded-xl w-4 max-sm:w-full h-4 focus:ring-4"
+                              onChange={(event) =>
+                                handleCheckboxChange(event, item.name, value)
+                              }
+                              onBlur={formik.handleBlur}
+                              value={value}
+                              checked={formik.values[item.name] === value}
+                              key={index}
+                            />
+                          </>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              ))}
+
+            {/* Type 5 */}
+            {FormsData?.data
+              ?.filter((item) => item.type == 5)
+              .map((item) => (
+                <div
+                  className={`w-[442px]  max-sm:w-full 
+             justify-center gap-2`}
+                  key={item.id}
+                >
+                  <label htmlFor="" className="text-[#637381] text-[20px]">
+                    {item.label}
+                    {item.required && showTextErrors[item.name] && (
+                      <span className="text-[#ED1C24]">*</span>
+                    )}
+                    <div className="error text-red-500"></div>
+                  </label>
+                  <Dropzone
+                    onDrop={(acceptedFiles) => onDrop(acceptedFiles, item.name)}
+                  >
+                    {({ getRootProps, getInputProps }) => (
+                      <section>
+                        <div {...getRootProps()}>
+                          <input {...getInputProps()} />
+
+                          <div
+                            className={`w-[442px] h-[189px] max-xl:w-11/12 ${
+                              formik.errors[item.name] ? 'border-red-500' : ''
+                            }  border   bg-[#F4F4F4] rounded-lg py-2 flex justify-center items-center`}
+                          >
+                            <label
+                              htmlFor="dropzone-file"
+                              className={`flex flex-col items-center justify-center w-full h-48    rounded-lg cursor-pointer  ${
+                                isFileDetected ? 'bg-green-200' : ''
+                              } `}
+                            >
+                              <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                {isFileDetected ? (
+                                  <p className="mb-2 text-sm text-yellow-600 dark:text-yellow-400">
+                                    {translate('File_Detected', Language)}
+                                  </p>
+                                ) : (
+                                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                    {translate('Image_Drop', Language)}
+                                  </p>
+                                )}
+
+                                <svg
+                                  aria-hidden="true"
+                                  className="w-10 h-10 mb-3 text-gray-400"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                                  ></path>
+                                </svg>
+                                <p className="text-xs text-gray-500 dark:text-gray-400">
+                                  SVG, PNG, JPG or GIF (MAX. 800x400px)
+                                </p>
+                              </div>
+                              <input
+                                id="dropzone-file"
+                                type="file"
+                                className="hidden"
+                              />
+                            </label>
+                          </div>
+                        </div>
+                      </section>
+                    )}
+                  </Dropzone>
+                </div>
+              ))}
+
+            {/* Type 7 */}
+            {FormsData?.data
+              ?.filter((item) => item.type == 7)
+              .map((item) => (
+                <div
+                  className={`w-[442px]  col-span-2 max-sm:w-full 
+             justify-center gap-2`}
+                  key={item.id}
+                >
+                  <label htmlFor="" className="text-[#637381] text-[20px]">
+                    {item.label}
+                    {item.required && showTextErrors[item.name] && (
+                      <span className="text-[#ED1C24]">*</span>
+                    )}
+                    <div className="error text-red-500"></div>
+                  </label>
+                  <textarea
+                    className={`w-[920px] p-3 max-xl:w-full  ${
+                      formik.errors[item.name] ? 'border-red-500' : ''
+                    }  bg-[#F4F4F4] rounded-xl`}
+                    name={item.name}
+                    cols="10"
+                    rows="8"
+                    onChange={(event) => handleTextareaChange(event, item.name)}
+                    onBlur={formik.handleBlur}
+                    value={formik.values[item.name]}
+                  ></textarea>
+                  <div className="flex justify-start   items-center gap-2 mt-8">
+                    <input type="checkbox" className="rounded" name="" id="" />
+                    <p className="text-[12px] text-[#5E5E5E]">
+                      Şərtlərlə tanış oldum
+                    </p>
+                  </div>
+                </div>
+              ))}
 
             <button
               type="submit"
-              className="w-[250px] h-[58px] bg-[#5B2D90] text-white rounded-full text-[16px]"
+              className="col-span-2 w-[240px] h-[56px] max-sm:w-[160px] max-sm:h-[44px] max-sm:text-[12px] bg-[#5B2D90] text-white rounded-full"
             >
               {translate('Complete_registration', Language)}
             </button>
           </form>
+
           {showSuccessAlert && (
             <div
-              class="p-4 mb-4 text-sm text-white rounded-lg bg-[#5B2D90] flex justify-center items-center  "
+              className="p-4 mb-4 text-sm text-white rounded-lg bg-[#5B2D90] flex justify-center items-center  "
               role="alert"
             >
-              <span class="font-medium"></span>{' '}
+              <span className="font-medium"></span>{' '}
               {translate(
                 'Your_request_has_been_sent_and_we_will_get_back_to_you_soon',
                 Language

@@ -10,7 +10,7 @@ export const TranslationProvider = ({ children }) => {
   useEffect(() => {
     let currentLanguage;
 
-    currentLanguage = localStorage.getItem('currentLanguage') || '';
+    currentLanguage = localStorage.getItem('currentLanguage') || 'az';
     setCurrentLanguage(currentLanguage);
   }, []);
   const [currentLanguage, setCurrentLanguage] = useState('az');

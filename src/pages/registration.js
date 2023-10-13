@@ -15,7 +15,10 @@ import { useTranslation } from '../components/TranslationContext';
 import Service from '../components/Service';
 export async function getServerSideProps() {
   try {
-    const Formresponse = await axios.get(`${base_url}/api/form-fields`, config);
+    const Formresponse = await axios.get(
+      `${base_url}/api/register-form-fields`,
+      config
+    );
     const Settingresponse = await axios.get(`${base_url}/api/settings`, config);
     const ServiceCategoryresponse = await axios.get(
       `${base_url}/api/service-categories`,
@@ -97,7 +100,6 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
     onSubmit: async (values) => {
       const errors = {};
 
-      // Iterate through the form fields and check for required fields
       FormsData.data.forEach((item) => {
         if (item.name && item.required && !values[item.name]) {
           errors[item.name] = `${item.label} is required`;
@@ -113,7 +115,7 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
 
       try {
         const response = await axios.post(
-          `${base_url}/api/form-data`,
+          `${base_url}/api/register-form-data`,
           {
             data: dataString,
           },
@@ -254,7 +256,7 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
               >
                 <label htmlFor="" className="text-[#637381] text-[20px]">
                   {item.label}
-                  {item.required && showTextErrors[item.name] && (
+                  {item.required == true && showTextErrors[item.name] && (
                     <span className="text-[#ED1C24]">*</span>
                   )}
                   <div className="error text-red-500"></div>
@@ -262,7 +264,9 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
                 <input
                   type="text"
                   name={item.name}
-                  className="border p-2 bg-[#F4F4F4] rounded-xl w-[442px] max-sm:w-full h-[50px] focus:ring-0"
+                  className={`border ${
+                    formik.errors[item.name] ? 'border-red-500' : ''
+                  } p-2 bg-[#F4F4F4] rounded-xl w-[442px] max-sm:w-full h-[50px] focus:ring-0`}
                   onChange={(e) => handleTextChange(e, item.name)}
                   onBlur={formik.handleBlur}
                   value={formik.values[item.name]}
@@ -281,14 +285,16 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
               >
                 <label htmlFor="" className="text-[#637381] text-[20px]">
                   {item.label}
-                  {item.required && showTextErrors[item.name] && (
+                  {item.required == true && showTextErrors[item.name] && (
                     <span className="text-[#ED1C24]">*</span>
                   )}
                   <div className="error text-red-500"></div>
                 </label>
                 <input
                   type="tel"
-                  className="border-none p-2 bg-[#F4F4F4] rounded-xl w-[442px] max-sm:w-full h-[50px] focus:ring-0"
+                  className={` ${
+                    formik.errors[item.name] ? 'border-red-500' : ''
+                  } border p-2 bg-[#F4F4F4] rounded-xl w-[442px] max-sm:w-full h-[50px] focus:ring-0`}
                   placeholder="+994 _ _  _ _ _  _ _  _ _"
                   name={item.label}
                   onChange={(event) => handlePhoneChange(event, item.name)}
@@ -309,7 +315,7 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
               >
                 <label htmlFor="" className="text-[#637381] text-[20px]">
                   {item.label}
-                  {item.required && showTextErrors[item.name] && (
+                  {item.required == true && showTextErrors[item.name] && (
                     <span className="text-[#ED1C24]">*</span>
                   )}
                   <div className="error text-red-500"></div>
@@ -321,7 +327,7 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
                   value={formik.values[item.name]}
                   className={`flex flex-row border ${
                     formik.errors[item.name] ? 'border-red-500' : ''
-                  }  justify-space p-2 bg-[#F4F4F4] rounded-xl w-full h-[50px] gap-5  `}
+                  }   justify-space p-2 bg-[#F4F4F4] rounded-xl w-full h-[50px] gap-5  `}
                 >
                   <option value="">Select</option>
 
@@ -347,7 +353,7 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
               >
                 <label htmlFor="" className="text-[#637381] text-[20px]">
                   {item.label}
-                  {item.required && showTextErrors[item.name] && (
+                  {item.required == true && showTextErrors[item.name] && (
                     <span className="text-[#ED1C24]">*</span>
                   )}
                   <div className="error text-red-500"></div>
@@ -396,7 +402,7 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
               >
                 <label htmlFor="" className="text-[#637381] text-[20px]">
                   {item.label}
-                  {item.required && showTextErrors[item.name] && (
+                  {item.required === true && showTextErrors[item.name] && (
                     <span className="text-[#ED1C24]">*</span>
                   )}
                   <div className="error text-red-500"></div>
@@ -404,7 +410,7 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
                 <div
                   className={`flex flex-row border ${
                     formik.errors[item.name] ? 'border-red-500' : ''
-                  }   justify-space p-2 bg-[#F4F4F4] rounded-xl h-[50px] gap-5  `}
+                  } border  justify-space p-2 bg-[#F4F4F4] rounded-xl h-[50px] gap-5  `}
                 >
                   {item.data
                     .toString()
@@ -443,7 +449,7 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
               >
                 <label htmlFor="" className="text-[#637381] text-[20px]">
                   {item.label}
-                  {item.required && showTextErrors[item.name] && (
+                  {item.required == true && showTextErrors[item.name] && (
                     <span className="text-[#ED1C24]">*</span>
                   )}
                   <div className="error text-red-500"></div>
@@ -459,7 +465,7 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
                         <div
                           className={`w-[442px] h-[189px] max-xl:w-11/12 ${
                             formik.errors[item.name] ? 'border-red-500' : ''
-                          }     bg-[#F4F4F4] rounded-lg flex justify-center items-center`}
+                          }   border  bg-[#F4F4F4] rounded-lg flex justify-center items-center`}
                         >
                           <label
                             htmlFor="dropzone-file"
@@ -524,7 +530,7 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
               >
                 <label htmlFor="" className="text-[#637381] text-[20px]">
                   {item.label}
-                  {item.required && showTextErrors[item.name] && (
+                  {item.required == true && showTextErrors[item.name] && (
                     <span className="text-[#ED1C24]">*</span>
                   )}
                   <div className="error text-red-500"></div>
@@ -532,7 +538,7 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
                 <textarea
                   className={`w-[920px] p-3 max-xl:w-full  ${
                     formik.errors[item.name] ? 'border-red-500' : ''
-                  }  bg-[#F4F4F4] rounded-xl`}
+                  } border bg-[#F4F4F4] rounded-xl`}
                   name={item.name}
                   cols="10"
                   rows="8"

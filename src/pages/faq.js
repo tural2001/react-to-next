@@ -142,13 +142,13 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
       </Head>
       {isLoading ? <LoadingOverlay /> : null}
       {visible ? <Service ServiceCategoryData={ServiceCategoryData} /> : null}
-      <div className="max-xl:relative absolute max-xl:z-[-1] w-full  ">
+      <div className="max-xl:relative absolute max-xl:z-[-1] w-full  pb-10 ">
         {' '}
         <Image
           src="/assets/home1.png"
           width={500}
           height={300}
-          className=" h-[535px]  top-32 w-full  max-sm:h-[180px] max-md:h-[300px] max-xl:h-[300px] max-xxl:h-[300px] max-xl:top-14"
+          className=" h-[535px]  top-32 w-full  max-sm:h-[150px] max-md:h-[300px] max-xl:h-[300px] max-xxl:h-[300px] max-xl:top-14"
           alt=""
         />
       </div>

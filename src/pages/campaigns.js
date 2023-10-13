@@ -42,6 +42,7 @@ const Campaigns = ({ CampaignsData, SettingData, ServiceCategoryData }) => {
   console.log(CampaignsData);
   const { visible, setVisible } = useVisibleContext();
   const router = useRouter();
+  const { isOpen, toggleMenu } = useVisibleContext();
 
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -69,13 +70,13 @@ const Campaigns = ({ CampaignsData, SettingData, ServiceCategoryData }) => {
       {isLoading ? <LoadingOverlay /> : null}
       {visible ? <Service ServiceCategoryData={ServiceCategoryData} /> : null}
 
-      <div className="max-xl:relative absolute max-xl:z-[-1] w-full  bg-[#F7F6FB] ">
+      <div className="max-xl:relative absolute max-xl:z-[-1] w-full  bg-[#F7F6FB] pb-10">
         {' '}
         <Image
           src="/assets/home1.png"
           width={500}
           height={300}
-          className="h-[535px]  top-32 w-full  max-sm:h-[200px] max-md:h-[300px] max-xl:h-[300px] max-xl:top-14"
+          className="h-[535px]  top-32 w-full  max-sm:h-[150px] max-md:h-[300px] max-xl:h-[300px] max-xl:top-14"
           alt=""
         />
       </div>
@@ -97,23 +98,36 @@ const Campaigns = ({ CampaignsData, SettingData, ServiceCategoryData }) => {
       {CampaignsData?.data.map((campaign, index) => {
         if (index % 2 === 0) {
           return (
-            <div className="w-full bg-[#F7F6FB]" key={index}>
-              <div
-                className="bg-[#F7F6FB] py-5 mt-20 max-xl:mt-0 max-sm:py-0 max-xl:px-5 max-w-6xl  mx-auto"
-                key={index}
-              >
-                <div className="grid grid-cols-5 gap-5 max-xl:grid-cols-1  ">
-                  <div class="relative col-span-2 w-[400px]  h-[485px]    max-xl:w-[251px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-[#F7F6FB] flex justify-center white mt-10  ">
+            <div className="w-full z-[-1]  bg-[#F7F6FB]" key={index}>
+              <div className="bg-[#F7F6FB] py-5 mt-20 max-xl:mt-0 max-sm:py-0 max-xl:px-5 max-w-6xl  mx-auto">
+                <div className="z-[-1] grid grid-cols-5  gap-5 max-xl:grid-cols-1  ">
+                  <div
+                    class={`relative max-xl:hidden col-span-2 w-[400px]  h-[485px]    max-xl:w-[251px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-[#F7F6FB] flex justify-center white mt-10  `}
+                  >
                     <Image
-                      className="absolute w-full h-full object-cover mr-10 max-xl:w-3/4 "
+                      className="absolute w-full h-full max-xl:hidden   object-cover mr-10 max-xl:w-3/4 "
                       src="/assets/campaigns/mikrafon.png"
                       alt=""
                       width={900}
                       height={500}
                     />
-                    <div class="w-[347px] max-xl:w-11/12 h-full  bg-[#5B2D90] rounded-2xl"></div>
+                    <div class="w-[347px] max-xl:w-11/12 h-full max-xl:hidden bg-[#5B2D90] rounded-2xl"></div>
                   </div>
-                  <div className="col-span-3 max-xl:col-span-1 flex flex-col  justify-center max-xl:items-center max-xl:pb-10   gap-5">
+                  <div
+                    class={`hidden   col-span-2 w-[400px]  h-[485px]    max-xl:w-[251px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-[#F7F6FB] max-xl:flex  justify-center white mt-10  `}
+                  >
+                    <div class="w-[347px] max-xl:w-11/12 h-full hidden max-xl:block  bg-[#5B2D90] rounded-2xl">
+                      {' '}
+                      <Image
+                        className="max-xl:block w-full h-full hidden   object-cover mr-10 max-xl:w-3/4 "
+                        src="/assets/campaigns/mikrafon.png"
+                        alt=""
+                        width={900}
+                        height={500}
+                      />
+                    </div>
+                  </div>
+                  <div className=" col-span-3 max-xl:col-span-1 flex flex-col  justify-center max-xl:items-center max-xl:pb-10   gap-5">
                     <h3 className="text-purple-900 text-[40px] font-bold leading-10 uppercase max-xl:text-center max-xl:text-[30px] max-lg:text-[20px]">
                       3+1 ADSL
                     </h3>
@@ -130,26 +144,34 @@ const Campaigns = ({ CampaignsData, SettingData, ServiceCategoryData }) => {
         } else {
           return (
             <div className="w-full bg-white" key={index}>
-              <div className="bg-white py-5 max-xl:px-5" key={index}>
-                <div className=" overflow-hidden  grid grid-cols-5  gap-5  max-w-6xl mx-auto max-xl:grid-cols-1">
-                  {/* <div className=" relative col-span-2  bg-[#5B2D90] ">
-                  <Image
-                    className="w-full h-full object-fill"
-                    src="/assets/campaigns/adsl.png"
-                    alt=""
-                    width={900}
-                    height={500}
-                  />
-                </div> */}
-                  <div class="relative col-span-2 w-[400px]  h-[485px]    max-xl:w-[251px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-white flex justify-center white mt-10 ">
+              <div className="bg-white py-5 max-xl:px-5">
+                <div className="grid grid-cols-5  gap-5  max-w-6xl mx-auto max-xl:grid-cols-1">
+                  <div
+                    class={`relative max-xl:hidden  col-span-2 w-[400px]  h-[485px]    max-xl:w-[251px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-white flex justify-center white mt-10 `}
+                  >
                     <Image
-                      className="absolute w-full h-full object-cover mr-20 max-xl:w-3/4 "
+                      className={`absolute w-full h-full max-xl:hidden  object-cover mr-20 max-xl:w-3/4  `}
                       src="/assets/campaigns/mikrafon.png"
                       alt=""
                       width={900}
                       height={500}
                     />
-                    <div class="w-[347px] max-xl:w-11/12 h-full  bg-[#5B2D90] rounded-2xl"></div>
+                    <div class="w-[347px] max-xl:w-11/12 h-full max-xl:hidden bg-[#5B2D90] rounded-2xl"></div>
+                  </div>
+
+                  <div
+                    class={` hidden   col-span-2 w-[400px]  h-[485px]    max-xl:w-[251px] max-xl:h-[160px] max-xl:mx-auto rounded-xl bg-white max-xl:flex justify-center white mt-10 `}
+                  >
+                    <div class="w-[347px] max-xl:w-11/12 h-full hidden max-xl:block bg-[#5B2D90] rounded-2xl">
+                      {' '}
+                      <Image
+                        className={`hidden max-xl:block w-full h-full   object-cover mr-20 max-xl:w-3/4  `}
+                        src="/assets/campaigns/mikrafon.png"
+                        alt=""
+                        width={900}
+                        height={500}
+                      />
+                    </div>
                   </div>
 
                   <div className="col-span-3 flex flex-col justify-center gap-5  max-xl:items-center order-first max-xl:pb-10 max-xl:order-last">
