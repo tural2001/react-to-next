@@ -84,6 +84,9 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
   const onDrop = (acceptedFiles, itemName) => {
     console.log(itemName);
     setvname(itemName);
+    if (acceptedFiles.length > 0) {
+      setShowCvError(false);
+    }
     formik.setFieldValue('cv', acceptedFiles);
     setcv(acceptedFiles);
     setIsFileDetected(true);
@@ -114,7 +117,8 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
     },
     validationSchema: schema,
     onSubmit: async (values) => {
-      if (values.phone.length < 13) {
+      if (values.phone.length >= 5 && values.phone.length < 13) {
+        setShowPhoneError(true);
         formik.setFieldError('phone', 'Nömrəni doğru daxil edin');
         return;
       }
@@ -125,6 +129,12 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
           setIsFileDetected(false);
         }, 100);
         setShowSuccessAlert(true);
+        setShowNameError(true);
+        setShowEmailError(true);
+        setShowPhoneError(true);
+        setShowVacancy_nameError(true);
+        setShowNotesError(true);
+        setShowCvError(true);
         setTimeout(() => {
           setShowSuccessAlert(false);
         }, 10000);
@@ -173,11 +183,6 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
     setShowNotesError(inputValue.trim() === '');
   };
 
-  const handleCvChange = (e) => {
-    const inputValue = e.target.value;
-    formik.handleChange(e);
-    se(inputValue.trim() === '');
-  };
   const pageTitle = SettingData?.data
     .filter((item) => item.key === 'career_page_meta_title')
     ?.map((item) => item.value);
@@ -480,10 +485,10 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                                 <div className="mt-10">
                                   {success && (
                                     <div
-                                      class="p-4 mb-4 text-sm text-white rounded-lg bg-[#5B2D90] flex justify-center items-center  "
+                                      className="p-4 mb-4 text-sm text-white rounded-lg bg-[#5B2D90] flex justify-center items-center  "
                                       role="alert"
                                     >
-                                      <span class="font-medium"></span>{' '}
+                                      <span className="font-medium"></span>{' '}
                                       {translate(
                                         'Your_request_has_been_sent_and_we_will_get_back_to_you_soon',
                                         Language
@@ -539,18 +544,16 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                   className="text-black flex gap-2 items-center  text-[16px] font-medium"
                 >
                   {translate('Name', Language)}
-                  {showNameError && <span className="text-[#ED1C24]">*</span>}
-                  <div className="error text-white">
-                    {formik.touched.name && formik.errors.name}
-                  </div>
                 </label>
                 <input
                   type="text"
                   className={`border  ${
-                    formik.touched.name && formik.errors.name
+                    !showNameError
+                      ? 'border-[#3cb255]'
+                      : formik.touched.name && formik.errors.name
                       ? 'border-[#ED1C24]'
                       : 'border-[#DBDBDB]'
-                  }   bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12 p-2 focus:ring-0`}
+                  }  bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12 p-2 focus:ring-0`}
                   name="name"
                   onChange={handleNameChange}
                   onBlur={formik.handleBlur}
@@ -563,15 +566,16 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                   className="text-black flex gap-2 items-center  text-[16px] font-medium"
                 >
                   {translate('Phone', Language)}
-                  {showPhoneError && <span className="text-[#ED1C24]">*</span>}
-                  <div className="error text-white">
+                  <div className="error text-red-500">
                     {formik.touched.phone && formik.errors.phone}
                   </div>
                 </label>
                 <input
                   type="tel"
-                  className={`border  ${
-                    formik.touched.phone && formik.errors.phone
+                  className={`border   ${
+                    !showPhoneError
+                      ? 'border-[#3cb255]'
+                      : formik.touched.phone && formik.errors.phone
                       ? 'border-[#ED1C24]'
                       : 'border-[#DBDBDB]'
                   }   bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12 p-2 focus:ring-0`}
@@ -599,7 +603,10 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                 <input
                   type="text"
                   className={`border  ${
-                    formik.touched.vacancy_name && formik.errors.vacancy_name
+                    !showVacancy_nameError
+                      ? 'border-[#3cb255]'
+                      : formik.touched.vacancy_name &&
+                        formik.errors.vacancy_name
                       ? 'border-[#ED1C24]'
                       : 'border-[#DBDBDB]'
                   }   bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12 p-2 focus:ring-0`}
@@ -616,15 +623,13 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                   className="text-black flex gap-2 items-center  text-[16px] font-medium"
                 >
                   {translate('Email', Language)}
-                  {showEmailError && <span className="text-[#ED1C24]">*</span>}
-                  <div className="error text-white">
-                    {formik.touched.email && formik.errors.email}
-                  </div>
                 </label>
                 <input
                   type="email"
-                  className={`border  ${
-                    formik.touched.email && formik.errors.email
+                  className={`border ${
+                    !showEmailError
+                      ? 'border-[#3cb255]'
+                      : formik.touched.email && formik.errors.email
                       ? 'border-[#ED1C24]'
                       : 'border-[#DBDBDB]'
                   }   bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12 p-2 focus:ring-0`}
@@ -640,14 +645,12 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                   className="text-black flex gap-2 items-center  text-[16px] font-medium"
                 >
                   {translate('Note', Language)}{' '}
-                  {showNotesError && <span className="text-[#ED1C24]">*</span>}
-                  <div className="error text-white">
-                    {formik.touched.notes && formik.errors.notes}
-                  </div>
                 </label>
                 <textarea
-                  className={`border  ${
-                    formik.touched.notes && formik.errors.notes
+                  className={`border   ${
+                    !showNotesError
+                      ? 'border-[#3cb255]'
+                      : formik.touched.notes && formik.errors.notes
                       ? 'border-[#ED1C24]'
                       : 'border-[#DBDBDB]'
                   }  w-[445px] h-[189px] max-xl:w-11/12  p-3  bg-[#F4F4F4] rounded-lg`}
@@ -678,10 +681,12 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
 
                         <div
                           className={`border  ${
-                            formik.touched.cv && formik.errors.cv
+                            !showCvError
+                              ? 'border-[#3cb255]'
+                              : formik.touched.cv && formik.errors.cv
                               ? 'border-[#ED1C24]'
                               : 'border-[#DBDBDB]'
-                          }  w-[445px] h-[189px] max-xl:w-11/12    bg-[#F4F4F4] rounded-lg flex justify-center items-center`}
+                          } w-[445px] h-[189px] max-xl:w-11/12    bg-[#F4F4F4] rounded-lg flex justify-center items-center`}
                         >
                           <label
                             htmlFor="dropzone-file"
@@ -742,10 +747,10 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
             </form>
             {showSuccessAlert && (
               <div
-                class="p-4 mb-4 text-sm text-white rounded-lg w-full bg-[#5B2D90] flex justify-center items-center  "
+                className="p-4 mb-4 text-sm text-white rounded-lg w-full bg-[#5B2D90] flex justify-center items-center  "
                 role="alert"
               >
-                <span class="font-medium"></span>{' '}
+                <span className="font-medium"></span>{' '}
                 {translate(
                   'Your_request_has_been_sent_and_we_will_get_back_to_you_soon',
                   Language

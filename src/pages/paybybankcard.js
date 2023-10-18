@@ -40,7 +40,7 @@ const PaybyBankCard = ({}) => {
             <div className="relative">
               <input
                 type="text"
-                className="border-none text-[20px] max-xl:text-[12px] bg-[#F4F4F4] rounded-xl w-[1010px] max-xl:w-full  h-[67px] max-xl:h-[47px] focus:ring-0 "
+                className="border-none text-[20px] p-2 max-xl:text-[12px] bg-[#F4F4F4] rounded-xl w-[1010px] max-xl:w-full  h-[67px] max-xl:h-[47px] focus:ring-0 "
                 placeholder="Lorem ipsum"
               />
               <BsSearch className="absolute right-[20px] text-2xl max-xl:text-xl top-[22px] max-xl:top-[14px]   text-gray-400" />
@@ -56,7 +56,7 @@ const PaybyBankCard = ({}) => {
               {' '}
               <input
                 type="text"
-                className="border-none text-[20px] max-xl:text-[12px]  bg-[#F4F4F4] rounded-xl w-[403px] h-[67px] max-xl:h-[47px] max-xl:w-full focus:ring-0"
+                className="border-none p-2 text-[20px] max-xl:text-[12px]  bg-[#F4F4F4] rounded-xl w-[403px] h-[67px] max-xl:h-[47px] max-xl:w-full focus:ring-0"
                 placeholder="Ad Soyad"
               />
             </div>
@@ -68,7 +68,6 @@ const PaybyBankCard = ({}) => {
                   placeholder="Ödəməli olduğunuz məbləğ"
                   readOnly
                 />
-
                 <p className="absolute right-[20px] text-[28px] max-xl:text-[20px] top-[15px] max-xl:top-[10px] text-[#637381] italic ">
                   50 m
                 </p>

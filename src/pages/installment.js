@@ -24,6 +24,7 @@ export async function getServerSideProps() {
       config
     );
     const Settingresponse = await axios.get(`${base_url}/api/settings`, config);
+    const Pageresponse = await axios.get(`${base_url}/api/pages`, config);
     const ServiceCategoryresponse = await axios.get(
       `${base_url}/api/service-categories`,
       config
@@ -34,6 +35,7 @@ export async function getServerSideProps() {
         FormsData: Formresponse.data,
         SettingData: Settingresponse.data,
         ServiceCategoryData: ServiceCategoryresponse.data,
+        PageData: Pageresponse.data,
       },
     };
   } catch (error) {
@@ -46,7 +48,7 @@ export async function getServerSideProps() {
   }
 }
 
-const faq = ({ SettingData, FormsData }) => {
+const faq = ({ SettingData, FormsData, PageData }) => {
   const { visible, setVisible } = useVisibleContext();
   const [isFileDetected, setIsFileDetected] = useState(false);
 
@@ -91,12 +93,6 @@ const faq = ({ SettingData, FormsData }) => {
     initialValues[item.name] = '';
   });
   console.log(initialValues);
-
-  // let schema = yup.object({
-  //   name: yup.string().required('*'),
-  //   phone: yup.string().required('*'),
-  //   question: yup.string().required('*'),
-  //  });
 
   const formik = useFormik({
     initialValues,
@@ -219,6 +215,12 @@ const faq = ({ SettingData, FormsData }) => {
 
   const { translate, Language } = useTranslation();
 
+  const filteredData = PageData?.data?.filter(
+    (item) => item.slug === 'takistle-ödeme'
+  );
+  const Installment_title = filteredData?.map((item) => item?.title);
+  const Installment_content = filteredData?.map((item) => item?.content);
+
   return (
     <>
       <Head>
@@ -233,14 +235,14 @@ const faq = ({ SettingData, FormsData }) => {
           src="/assets/home1.png"
           width={500}
           height={300}
-          className=" h-[535px]  top-32 w-full  max-sm:h-[200px] max-md:h-[300px] max-xl:h-[300px] max-xxl:h-[300px] max-xl:top-14"
+          className=" h-[535px]  top-32 w-full  max-sm:h-[150px] max-md:h-[300px] max-xl:h-[300px] max-xxl:h-[300px] max-xl:top-14"
           alt=""
         />
       </div>
       <div className=" max-w-[1100px] max-xl:w-3/4  mx-auto">
         <div className="h-[450px] max-xxl:h-auto  ">
           {' '}
-          <h3 className="h3  text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xl:text-[30px] max-xxl:text-white ">
+          <h3 className="h3  text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xl:text-[30px]  ">
             {translate('Installment', Language)}
           </h3>
           <div className="absolute  z-[1] max-xl:z-[-1]  right-0 top-24  max-sm:top-10 max-xxl:top-20">
@@ -249,42 +251,32 @@ const faq = ({ SettingData, FormsData }) => {
               src="/assets/taksit.png"
               width={454}
               height={355}
-              className="w-[600px] h-[600px]  mr-24 mt-10 max-lg:mr-5  max-xl:w-[192px] max-xl:h-[152px] max-xxl:w-[282px] max-xxl:h-[252px]"
+              className="w-[600px] h-[600px]  mr-24 mt-10 max-lg:mr-5 max-sm:w-[158px]  max-xl:w-[192px] max-xl:h-[152px] max-xxl:w-[282px] max-xxl:h-[252px]"
               alt=""
             />
           </div>
         </div>
-
-        <div className="w-[988px] max-xl:w-full max-xl:mx-5 mx-auto flex flex-col gap-10 justify-center items-center mt-0 max-xxl:mt-40  py-20 max-xl:py-10">
+        <div className="w-[988px] max-xl:w-full max-xl:mx-5 mx-auto flex flex-col gap-10 justify-center items-center mt-0 max-xl:mt-0 max-xxl:mt-40  py-20  max-xl:py-10">
           <div
             className={`${
               isOpen ? 'z-[-1]' : 'z-0'
-            } flex flex-col max-xl:justify-center max-xl:items-center`}
+            } flex flex-col w-full max-xl:justify-center max-xl:items-center`}
           >
-            {' '}
             <h3 className="text-[40px] max-md:text-[20px] max-xxl:text-[30px] w-full max-xl:w-full mx-auto overflow-hidden  text-[#5B2D90] font-bold text-center ">
-              {translate('What_installment', Language)}
+              {Installment_title ? Installment_title : ''}
             </h3>
-            <p className="text-[20px] font-light mt-32  text-[#6A7583] border-b-[1px] pb-20 border-b-[#D0D5DD]">
-              Abunəçilərimiz üçün internet ödənişlərini 12 aya hissə-hissə ödəmə
-              imkanı verən əlverişli taksit planını təklif edirik.Bu xidmətdən
-              istifadə etməklə siz, pulsuz qoşulma, hədiyyə modem və internetdən
-              1 ay ödənişsiz istifadə imkanı əldə edəcəksiniz.Hissəli ödənişlər
-              Birkart, Ukart və Albalı kartları vasitəsilə edilə bilər.Elə indi
-              qoşulun, güzəştli şərtlərlə sürətli internet istifadəçisinə
-              çevrilin.
+            <p className="text-[20px] font-light mt-32  text-[#6A7583]  ">
+              {Installment_content ? Installment_content : ''}
             </p>
+            <div className="border-b-[1px] w-full pb-20 border-b-[#D0D5DD]" />
             <h3 className=" max-xl:text-center mt-20 mb-7 text-[36px] max-md:text-[16px] max-xxl:text-[26px] w-full max-xl:w-full mx-auto   text-[#5B2D90] font-bold  ">
               {translate('Existing_subscriber', Language)}
             </h3>
             <button
               type="submit"
-              className="w-[250px]  h-[58px] bg-[#5B2D90] text-white rounded-full text-[16px]"
+              className="w-[250px]  h-[58px] max-xl:w-[160px] max-xl:h-[44px] bg-[#5B2D90] text-white rounded-full text-[16px] max-xl:text-[12px]"
             >
-              <Link href="/continuepay">
-                {' '}
-                {translate('Continue', Language)}
-              </Link>
+              <Link href="/continuepay">{translate('Continue', Language)}</Link>
             </button>
           </div>
         </div>
@@ -334,10 +326,14 @@ const faq = ({ SettingData, FormsData }) => {
                       type="text"
                       name={item.name}
                       className={`${
-                        formik.errors[item.name]
+                        !formik.errors[item.name] &&
+                        formik.touched[item.name] &&
+                        formik.values[item.name].length > 0
+                          ? 'border-green-500'
+                          : formik.errors[item.name]
                           ? 'border-red-500'
-                          : 'border-black'
-                      }  border p-2  rounded-xl w-[442px] max-sm:w-full h-[50px] focus:ring-0`}
+                          : ''
+                      } border p-2 bg-[#F4F4F4]  rounded-xl w-[442px] max-sm:w-full h-[50px] focus:ring-0`}
                       onChange={(e) => handleTextChange(e, item.name)}
                       onBlur={formik.handleBlur}
                       value={formik.values[item.name]}
@@ -364,7 +360,15 @@ const faq = ({ SettingData, FormsData }) => {
                   </label>
                   <input
                     type="tel"
-                    className="border-none p-2 bg-[#F4F4F4] rounded-xl w-[442px] max-sm:w-full h-[50px] focus:ring-0"
+                    className={`${
+                      !formik.errors[item.name] &&
+                      formik.touched[item.name] &&
+                      formik.values[item.name].length > 0
+                        ? 'border-green-500'
+                        : formik.errors[item.name]
+                        ? 'border-red-500'
+                        : ''
+                    } border p-2 bg-[#F4F4F4]  rounded-xl w-[442px] max-sm:w-full h-[50px] focus:ring-0`}
                     placeholder="+994 _ _  _ _ _  _ _  _ _"
                     name={item.label}
                     onChange={(event) => handlePhoneChange(event, item.name)}
@@ -396,8 +400,14 @@ const faq = ({ SettingData, FormsData }) => {
                     onBlur={formik.handleBlur}
                     value={formik.values[item.name]}
                     className={`flex flex-row border ${
-                      formik.errors[item.name] ? 'border-red-500' : ''
-                    }  justify-space p-2 bg-[#F4F4F4] rounded-xl w-full h-[50px] gap-5  `}
+                      !formik.errors[item.name] &&
+                      formik.touched[item.name] &&
+                      formik.values[item.name].length > 0
+                        ? 'border-green-500'
+                        : formik.errors[item.name]
+                        ? 'border-red-500'
+                        : ''
+                    } border  justify-space p-2 bg-[#F4F4F4] rounded-xl w-full h-[50px] gap-5  `}
                   >
                     <option value="">Select</option>
 
@@ -442,7 +452,15 @@ const faq = ({ SettingData, FormsData }) => {
                           <input
                             type="radio"
                             name={item.name}
-                            className={`p-2 border-2  bg-[#F4F4F4] rounded-xl w-4 max-sm:w-full h-4 focus:ring-0`}
+                            className={`${
+                              !formik.errors[item.name] &&
+                              formik.touched[item.name] &&
+                              formik.values[item.name].length > 0
+                                ? 'border-green-500'
+                                : formik.errors[item.name]
+                                ? 'border-red-500'
+                                : ''
+                            }   p-2 border  bg-[#F4F4F4] rounded-xl w-4 max-sm:w-full h-4 focus:ring-0`}
                             onChange={(event) =>
                               handleRadioChange(event, item.name)
                             }
@@ -479,7 +497,13 @@ const faq = ({ SettingData, FormsData }) => {
                   </label>
                   <div
                     className={`flex flex-row border ${
-                      formik.errors[item.name] ? 'border-red-500' : ''
+                      !formik.errors[item.name] &&
+                      formik.touched[item.name] &&
+                      formik.values[item.name].length > 0
+                        ? 'border-green-500'
+                        : formik.errors[item.name]
+                        ? 'border-red-500'
+                        : ''
                     }   justify-space p-2 bg-[#F4F4F4] rounded-xl h-[50px] gap-5  `}
                   >
                     {item.data
@@ -519,9 +543,14 @@ const faq = ({ SettingData, FormsData }) => {
                 >
                   <label htmlFor="" className="text-[#637381] text-[20px]">
                     {item.label}
-                    {item.required && showTextErrors[item.name] && (
+                    {item.required === true &&
+                    showTextErrors[item.name] &&
+                    !isFileDetected ? (
                       <span className="text-[#ED1C24]">*</span>
+                    ) : (
+                      ''
                     )}
+
                     <div className="error text-red-500"></div>
                   </label>
                   <Dropzone
@@ -533,8 +562,14 @@ const faq = ({ SettingData, FormsData }) => {
                           <input {...getInputProps()} />
 
                           <div
-                            className={`w-[442px] h-[189px] max-xl:w-11/12 ${
-                              formik.errors[item.name] ? 'border-red-500' : ''
+                            className={`w-[442px] h-[189px] max-xl:w-11/12  ${
+                              !formik.errors[item.name] &&
+                              formik.touched[item.name] &&
+                              formik.values[item.name].length > 0
+                                ? 'border-green-500'
+                                : formik.errors[item.name]
+                                ? 'border-red-500'
+                                : ''
                             }  border   bg-[#F4F4F4] rounded-lg py-2 flex justify-center items-center`}
                           >
                             <label
@@ -604,9 +639,15 @@ const faq = ({ SettingData, FormsData }) => {
                     <div className="error text-red-500"></div>
                   </label>
                   <textarea
-                    className={`w-[920px] p-3 max-xl:w-full  ${
-                      formik.errors[item.name] ? 'border-red-500' : ''
-                    }  bg-[#F4F4F4] rounded-xl`}
+                    className={`w-[920px] p-3 max-xl:w-full ${
+                      !formik.errors[item.name] &&
+                      formik.touched[item.name] &&
+                      formik.values[item.name].length > 0
+                        ? 'border-green-500'
+                        : formik.errors[item.name]
+                        ? 'border-red-500'
+                        : ''
+                    } border bg-[#F4F4F4] rounded-xl`}
                     name={item.name}
                     cols="10"
                     rows="8"

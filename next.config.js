@@ -1,12 +1,13 @@
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   async headers() {
     return [
       {
-        source: '/api/fasttest', // İsteğin gönderildiği yol
+        source: '/api/fasttest',
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: '*', // Tüm kaynaklardan erişime izin vermek için "*" kullanılabilir, ancak güvenlik açısından daha iyi bir ayar yapılması önerilir.
+            value: '*',
           },
         ],
       },
@@ -22,3 +23,5 @@ module.exports = {
     return config;
   },
 };
+
+module.exports = nextConfig;

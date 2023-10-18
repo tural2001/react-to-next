@@ -203,12 +203,11 @@ const blog = ({ BlogData, slug }) => {
               </div>
               <div className="flex flex-col mt-10 max-sm:w-3/4 max-xl:w-11/12 relative   max-xl:mx-auto max-xl:mt-20">
                 <div className="flex justify-between mb-5">
-                  {' '}
                   <h3 className="text-[36px] font-semibold max-sm:text-[20px]">
                     {item.title}
                   </h3>
                   <p className="text-[24px] text-[#B7B7B7] max-sm:text-[16px]">
-                    {item.published_at.slice(0, 10)}
+                    {item.published_at ? item.published_at.slice(0, 10) : ''}
                   </p>
                 </div>
                 <div className="text-[16px] text-[#637381] leading-[25px] max-xl:text-justify">

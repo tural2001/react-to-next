@@ -232,7 +232,6 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
     }
     return 0;
   };
-  console.log(download);
   useEffect(() => {
     const newRotation = findRotationForSpeed(download);
 
@@ -276,7 +275,9 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
               </div>
               <div className="w-[82px] h-[35px] text-white  ">
                 {ipAddress}
-                <p className="text-[8px] font-normal text-white"> IP Address</p>
+                <p className="text-[8px] font-normal text-white">
+                  {translate('Ip_Address', Language)}
+                </p>
               </div>
             </div>
             <div className="flex justify-center items-center gap-5">
@@ -291,7 +292,9 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
               </div>
               <div className="w-[82px] h-[35px]">
                 <p className="text-[16px] font-bold text-white">Azeronline</p>
-                <p className="text-[8px] font-normal text-white">Server()</p>
+                <p className="text-[8px] font-normal text-white">
+                  {translate('Server', Language)}
+                </p>
               </div>
             </div>
             <div className="flex justify-center items-center gap-5">
@@ -305,8 +308,13 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
                 />
               </div>
               <div className="w-[82px] h-[35px]">
-                <p className="text-[16px] font-bold text-white">Connections</p>
-                <p className="text-[8px] font-normal text-white">Multi</p>
+                <p className="text-[16px] font-bold text-white">
+                  {translate('Connections', Language)}
+                </p>
+                <p className="text-[8px] font-normal text-white">
+                  {' '}
+                  {translate('Multi', Language)}
+                </p>
               </div>
             </div>
           </div>
@@ -997,7 +1005,7 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
                   className="w-[17px] h-[13px]"
                   alt=""
                 />
-                Download
+                {translate('Download', Language)}
               </h3>
               <p className="relative flex flex-col justify-center items-center text-white text-[28px] font-bold">
                 {Math.floor(download)}
@@ -1020,7 +1028,7 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
                   className="w-[17px] h-[13px]"
                   alt=""
                 />
-                Upload
+                {translate('Upload', Language)}
               </h3>
               <p className="relative flex flex-col justify-center items-center text-white text-[28px] font-bold">
                 {Math.floor(upload)}
@@ -1043,7 +1051,7 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
                   className="w-[17px] h-[13px]"
                   alt=""
                 />
-                Ping
+                {translate('Ping', Language)}
               </h3>
               <p className="relative flex flex-col justify-center items-center text-white text-[28px] font-bold">
                 {Math.floor(latency / 6)}
@@ -1058,11 +1066,11 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
           <div className="flex flex-col justify-center items-center gap-10 ">
             <div className="flex bg-image flex-col justify-center items-center">
               <svg
-                width="536"
-                height="535"
+                width="264"
+                height="245"
                 viewBox="0 0 536 535"
                 fill="none"
-                className={active ? 'active' : ''}
+                className={`${active ? 'active' : ''} mt-10`}
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <g filter="url(#filter0_d_140_97)">
@@ -1588,7 +1596,7 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <p className="text-[64px]  text-white font-bold leading-[78px] flex flex-col justify-center items-center ">
                       {download ? download.toFixed(2) : ''} <br />
-                      <span className="text-[#FFA35B] text-[16px] leading-[20px]">
+                      <span className="text-[#FFA35B] text-[16px]  leading-[20px]">
                         mb/s
                       </span>
                     </p>
@@ -1708,7 +1716,7 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
                 </defs>
               </svg>
               <button
-                className="ti  bg-[#5B328C] hover:bg-[#3f2361] font-bold text-[#FFC75B] w-[173px] leading-[24px] h-[46px] text-[12px] rounded-[30px]"
+                className="ti mt-5 bg-[#5B328C] hover:bg-[#3f2361] font-bold text-[#FFC75B] w-[173px] leading-[24px] h-[46px] text-[12px] rounded-[30px]"
                 onClick={() => {
                   onSubmit(), toggleAnimation(), startSpeedTest();
                 }}
@@ -1725,7 +1733,7 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
                   : `${translate('Speed_test', Language)}`}
               </button>
             </div>
-            <div className="w-[207px] h-[138px] flex flex-col justify-center items-center speed_item">
+            <div className="w-[207px] h-[109px] flex flex-col justify-center items-center rounded-[20px]  border-[1px] border-black">
               <Image
                 src="/assets/speedtest/bar.png"
                 width={22}
@@ -1741,14 +1749,14 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
                   className="w-[17px] h-[13px]"
                   alt=""
                 />
-                Download
+                {translate('Download', Language)}
               </h3>
-              <p className="relative flex flex-col justify-center items-center text-white text-[28px] font-bold">
-                {download}
+              <p className="relative flex flex-col justify-center items-center text-white text-[20px] font-bold">
+                {Math.floor(download)}
                 <span className="text-white text-[8px] font-bold">mb/s</span>
               </p>
             </div>
-            <div className="w-[207px] h-[138px] flex flex-col justify-center items-center speed_item">
+            <div className="w-[207px] h-[109px] flex flex-col justify-center items-center rounded-[20px]  border-[1px] border-black">
               <Image
                 src="/assets/speedtest/bar.png"
                 width={22}
@@ -1764,14 +1772,14 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
                   className="w-[17px] h-[13px]"
                   alt=""
                 />
-                Upload
+                {translate('Upload', Language)}
               </h3>
-              <p className="relative flex flex-col justify-center items-center text-white text-[28px] font-bold">
-                {upload}
+              <p className="relative flex flex-col justify-center items-center text-white text-[20px] font-bold">
+                {Math.floor(upload)}
                 <span className="text-white text-[8px] font-bold">mb/s</span>
               </p>
             </div>
-            <div className="w-[207px] h-[138px] flex flex-col justify-center items-center speed_item">
+            <div className="w-[207px] h-[109px] flex flex-col justify-center items-center rounded-[20px]  border-[1px] border-black">
               <Image
                 src="/assets/speedtest/bar.png"
                 width={22}
@@ -1787,16 +1795,16 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
                   className="w-[17px] h-[13px]"
                   alt=""
                 />
-                Ping
+                {translate('Ping', Language)}
               </h3>
-              <p className="relative flex flex-col justify-center items-center text-white text-[28px] font-bold">
-                {latency}
+              <p className="relative flex flex-col justify-center items-center text-white text-[20px] font-bold">
+                {Math.floor(latency / 6)}
                 <span className="text-white text-[8px] font-bold">ms</span>
               </p>
             </div>
           </div>
-          <div className="flex flex-col gap-10 relative mb-10">
-            <div className="flex justify-center items-center gap-5">
+          <div className="flex flex-col gap-10 w-[140px] mx-auto relative mb-10">
+            <div className="flex justify-start items-center gap-5">
               <div className="">
                 <Image
                   src="/assets/speedtest/ipaddress.png"
@@ -1807,11 +1815,13 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
                 />
               </div>
               <div className="w-[82px] h-[35px]">
-                <p className="text-[16px] font-bold text-white">{ipAddress} </p>
-                <p className="text-[8px] font-normal text-white"> IP Address</p>
+                <p className="text-[16px] font-bold text-white">{ipAddress}</p>
+                <p className="text-[8px] font-normal text-white">
+                  {translate('Ip_Address', Language)}
+                </p>
               </div>
             </div>
-            <div className="flex justify-center items-center gap-5">
+            <div className="flex justify-start items-center gap-5">
               <div className="">
                 <Image
                   src="/assets/speedtest/azeronline.png"
@@ -1823,10 +1833,12 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
               </div>
               <div className="w-[82px] h-[35px]">
                 <p className="text-[16px] font-bold text-white">Azeronline</p>
-                <p className="text-[8px] font-normal text-white">Server(s)</p>
+                <p className="text-[8px] font-normal text-white">
+                  {translate('Server', Language)}
+                </p>
               </div>
             </div>
-            <div className="flex justify-center items-center gap-5">
+            <div className="flex justify-start items-center gap-5">
               <div className="">
                 <Image
                   src="/assets/speedtest/connections.png"
@@ -1837,8 +1849,12 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
                 />
               </div>
               <div className="w-[82px] h-[35px]">
-                <p className="text-[16px] font-bold text-white">Connections</p>
-                <p className="text-[8px] font-normal text-white">Multi</p>
+                <p className="text-[16px] font-bold text-white">
+                  {translate('Connections', Language)}
+                </p>
+                <p className="text-[8px] font-normal text-white">
+                  {translate('Multi', Language)}
+                </p>
               </div>
             </div>
           </div>

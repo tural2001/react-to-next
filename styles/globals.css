@@ -750,10 +750,12 @@ polygon .st0 {
 .h3 {
   position: relative;
 }
-
-@media screen and (max-width: 1000px) {
+.my-filter {
+  filter: invert(42%) sepia(13%) saturate(7446%) hue-rotate(246deg)
+    brightness(36%) contrast(99%);
+}
+@media screen and (max-width: 1080px) {
   .h3 {
-    position: absolute;
     top: 60px;
     left: 50%;
     transform: translateX(-50%);

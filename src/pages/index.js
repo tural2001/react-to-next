@@ -19,30 +19,35 @@ import { Carousel } from 'react-responsive-carousel';
 import { useTranslation } from '../components/TranslationContext';
 import Service from '../components/Service';
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   try {
-    const Popupresponse = await axios.get(`${base_url}/api/popups`, config);
-    const Tariffresponse = await axios.get(`${base_url}/api/tariffs`, config);
-    const Reviewresponse = await axios.get(`${base_url}/api/reviews`, config);
-    const Colorresponse = await axios.get(`${base_url}/api/colors`, config);
-    const Advantageresponse = await axios.get(
-      `${base_url}/api/advantages`,
-      config
-    );
-    const Blogresponse = await axios.get(
-      `${base_url}/api/posts?published=true`,
-      config
-    );
-    const Regionresponse = await axios.get(
-      `${base_url}/api/regions?perPage=74`,
-      config
-    );
-    const Settingresponse = await axios.get(`${base_url}/api/settings`, config);
-    const ServiceCategoryresponse = await axios.get(
-      `${base_url}/api/service-categories`,
-      config
-    );
-    const Slideresponse = await axios.get(`${base_url}/api/slides`, config);
+    const request = [
+      axios.get(`${base_url}/api/popups`, config),
+      axios.get(`${base_url}/api/tariffs`, config),
+      axios.get(`${base_url}/api/reviews`, config),
+      axios.get(`${base_url}/api/colors`, config),
+      axios.get(`${base_url}/api/advantages`, config),
+      axios.get(`${base_url}/api/posts?published=true`, config),
+      axios.get(`${base_url}/api/regions`, config),
+      axios.get(`${base_url}/api/settings`, config),
+      axios.get(`${base_url}/api/service-categories`, config),
+      axios.get(`${base_url}/api/slides`, config),
+    ];
+
+    const [
+      Popupresponse,
+      Tariffresponse,
+      Reviewresponse,
+      Colorresponse,
+      Advantageresponse,
+      Blogresponse,
+      Regionresponse,
+      Settingresponse,
+      ServiceCategoryresponse,
+      Slideresponse,
+    ] = await Promise.all(request);
+
+    // await new Promise((resolve) => setTimeout(resolve, 1000));
 
     return {
       props: {
@@ -67,6 +72,7 @@ export async function getStaticProps() {
     };
   }
 }
+
 const home = ({
   TariffData,
   ReviewData,
@@ -77,14 +83,12 @@ const home = ({
   SettingData,
   ServiceCategoryData,
   SlideData,
-  error,
 }) => {
   console.log(ServiceCategoryData);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [selectedValue, setSelectedValue] = useState('');
   const [svgValue, setSvgValue] = useState('');
-
-  const [isLoading, setIsLoading] = useState(true);
 
   const { isOpen, toggleMenu } = useVisibleContext();
 
@@ -156,7 +160,9 @@ const home = ({
   };
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window === 'undefined') {
+      setIsLoading(true);
+    } else {
       setIsLoading(false);
     }
   }, []);
@@ -172,7 +178,6 @@ const home = ({
       {visible ? <Service ServiceCategoryData={ServiceCategoryData} /> : null}
       {isLoading ? <LoadingOverlay /> : null}
       <div className="max-xl:relative absolute max-xl:z-[-1] w-full  bg-[#F7F6FB] ">
-        {' '}
         <Image
           src="/assets/home1.png"
           width={500}
@@ -207,7 +212,7 @@ const home = ({
                     {slide.description}
                   </p>
                   <Link
-                    href={slide.button_link}
+                    href={slide.button_link ? slide.button_link : '#/'}
                     className="border p-2 rounded-3xl text-white text-[15px] w-[170px] h-[40px] max-sm:w-[120px] max-sm:h-[32px] max-sm:text-[11px] text-center mt-5 max-sm:mt-2 flex justify-center items-center overflow-hidden"
                   >
                     {slide.button_text}
@@ -232,7 +237,11 @@ const home = ({
           </Carousel>
         </div>
         <div className="absolute top-[30rem] left-72 bg-white w-16 h-16 max-xxl:hidden rounded-full flex justify-center items-center">
-          <Link href={home_page_slide_down_button}>
+          <Link
+            href={
+              home_page_slide_down_button ? home_page_slide_down_button : '#/'
+            }
+          >
             <HiOutlineArrowSmallDown className="text-[#5B2D90] text-[30px] stroke-2" />
           </Link>
         </div>
@@ -325,7 +334,7 @@ const home = ({
                     {slide.description}
                   </p>
                   <Link
-                    href={slide.button_link}
+                    href={slide.button_link ? slide.button_link : '#/'}
                     className="border p-2 rounded-3xl text-white text-[15px] w-[170px] h-[40px] max-sm:w-[120px] max-sm:h-[32px] max-sm:text-[11px] text-center mt-5 max-sm:mt-2 flex justify-center items-center overflow-hidden"
                   >
                     {slide.button_text}
@@ -346,7 +355,11 @@ const home = ({
           </Carousel>
         </div>
         <div className="absolute b-a top-[30rem] left-72 bg-white w-16 h-16 max-xxl:hidden rounded-full flex justify-center items-center">
-          <Link href={home_page_slide_down_button}>
+          <Link
+            href={
+              home_page_slide_down_button ? home_page_slide_down_button : '#/'
+            }
+          >
             <HiOutlineArrowSmallDown className="text-[#5B2D90] text-[30px] stroke-2" />
           </Link>
         </div>
@@ -848,7 +861,13 @@ const home = ({
           )}
           <div className="relative   text-[20px] max-xl:text-[16px] font-medium text-white flex gap-5 justify-center items-center ">
             <button className="border  w-[244px] h-[60px] max-xl:w-[196px] max-xl:h-[36px]  border-white  flex justify-center items-center max-sm:p-0 rounded-3xl ">
-              <Link href={home_page_other_tariffs_button_link}>
+              <Link
+                href={
+                  home_page_other_tariffs_button_link
+                    ? home_page_other_tariffs_button_link
+                    : '#/'
+                }
+              >
                 {translate('Other_tariffs', Language)}
               </Link>
             </button>

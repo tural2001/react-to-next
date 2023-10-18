@@ -70,7 +70,7 @@ const Campaigns = ({ CampaignsData, SettingData, ServiceCategoryData }) => {
       {isLoading ? <LoadingOverlay /> : null}
       {visible ? <Service ServiceCategoryData={ServiceCategoryData} /> : null}
 
-      <div className="max-xl:relative absolute max-xl:z-[-1] w-full  bg-[#F7F6FB] pb-10">
+      <div className="max-xl:relative  absolute max-xl:z-[-1] w-full  bg-[#F7F6FB] pb-10">
         {' '}
         <Image
           src="/assets/home1.png"
@@ -80,7 +80,7 @@ const Campaigns = ({ CampaignsData, SettingData, ServiceCategoryData }) => {
           alt=""
         />
       </div>
-      <div className="bg-[#F7F6FB] h-[450px] max-xl:h-0">
+      <div className="bg-[#F7F6FB]  h-[450px] max-xl:h-0">
         <h3 className="h3 text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xl:text-[30px] max-xxl:text-white ">
           {translate('Campaigns', Language)}
         </h3>
@@ -94,11 +94,13 @@ const Campaigns = ({ CampaignsData, SettingData, ServiceCategoryData }) => {
           />
         </div>
       </div>
-
+      {CampaignsData?.data?.length == 0 && (
+        <div className=" min-h-[450px]"></div>
+      )}
       {CampaignsData?.data.map((campaign, index) => {
         if (index % 2 === 0) {
           return (
-            <div className="w-full z-[-1]  bg-[#F7F6FB]" key={index}>
+            <div className="w-full z-[-1]   bg-[#F7F6FB]" key={index}>
               <div className="bg-[#F7F6FB] py-5 mt-20 max-xl:mt-0 max-sm:py-0 max-xl:px-5 max-w-6xl  mx-auto">
                 <div className="z-[-1] grid grid-cols-5  gap-5 max-xl:grid-cols-1  ">
                   <div

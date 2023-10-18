@@ -45,7 +45,7 @@ const PaybyBankCard = ({}) => {
             <div className="relative">
               <input
                 type="text"
-                className="border-none text-[20px] max-xl:text-[12px] bg-[#F4F4F4] rounded-xl w-[1010px] max-xl:w-full  h-[67px] max-xl:h-[47px] focus:ring-0 "
+                className="border-none text-[20px] max-xl:text-[12px] bg-[#F4F4F4] rounded-xl w-[1010px] max-xl:w-full  h-[67px] max-xl:h-[47px]  p-2  focus:ring-0 "
                 placeholder="Lorem ipsum"
               />
               <BsSearch className="absolute right-[20px] text-2xl max-xl:text-xl top-[22px] max-xl:top-[14px]   text-gray-400" />

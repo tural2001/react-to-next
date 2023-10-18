@@ -93,7 +93,7 @@ const about = ({
           src="/assets/home1.png"
           width={500}
           height={300}
-          className=" h-[535px]  top-32 w-full  max-sm:h-[220px] max-md:h-[300px] max-xl:h-[300px] max-xl:top-14"
+          className=" h-[535px]  top-32 w-ful max-sm:pb-20  max-sm:h-[220px] max-md:h-[300px] max-xl:h-[300px] max-xl:top-14"
           alt=""
         />
       </div>
@@ -170,14 +170,7 @@ const about = ({
                   >
                     <div className="w-[225px] h-[270.25px] flex flex-col gap-3">
                       {' '}
-                      {/* <Image
-                        src={item.icon}
-                        width={68}
-                        height={44}
-                        layout="responsive"
-                        className="w-[68px] max-sm:w-[44px]"
-                        alt=""
-                      /> */}
+                      <Image src={item.icon} width={68} height={44} alt="" />
                       <h4 className=" text-black text-[24px] font-semibold max-sm:text-[20px]">
                         {item.title}
                       </h4>

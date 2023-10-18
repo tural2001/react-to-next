@@ -58,6 +58,7 @@ const payment = ({ PaymentData, SettingData, ServiceCategoryData }) => {
   const pageDescription = SettingData?.data
     ?.filter((item) => item.key === 'payment_page_meta_description')
     .map((item) => item.value);
+  const { isOpen, toggleMenu } = useVisibleContext();
 
   const { translate, Language } = useTranslation();
 
@@ -75,7 +76,7 @@ const payment = ({ PaymentData, SettingData, ServiceCategoryData }) => {
           src="/assets/home1.png"
           width={500}
           height={300}
-          className=" h-[535px]  top-32 w-full  max-sm:h-[200px] max-md:h-[300px] max-xl:h-[300px] max-xl:top-14"
+          className=" h-[535px]  top-32 w-full  max-sm:pb-14 max-sm:h-[200px] max-md:h-[300px] max-xl:h-[300px] max-xl:top-14"
           alt=""
         />
       </div>
@@ -96,7 +97,7 @@ const payment = ({ PaymentData, SettingData, ServiceCategoryData }) => {
             />
           </div>
         </div>
-        <div className="bg-[#F7F6FB] w-full mt-0 max-xl:mt-0 max-xxl:mt-96">
+        <div className="bg-[#F7F6FB] w-full mt-0 max-xl:mt-0 max-xxl:mt-96 ">
           <div className=" w-[1110px] max-xxl:w-full mx-auto flex flex-col gap-10 justify-center items-center mt-20 max-xl:mt-0 ">
             <div className=" ">
               {' '}
@@ -132,7 +133,9 @@ const payment = ({ PaymentData, SettingData, ServiceCategoryData }) => {
           <div className="relative w-[1110px] max-xxl:w-full mx-auto flex flex-col gap-10 justify-center items-center mt-10 ">
             <div className=" ">
               {' '}
-              <h3 className="text-[40px] max-md:text-[20px] max-xl:text-[30px]  mx-auto overflow-hidden pt-10 text-[#5B2D90] font-bold text-center">
+              <h3
+                className={` text-[40px] max-md:text-[20px] max-xl:text-[30px]  mx-auto  pt-10 text-[#5B2D90] font-bold text-center`}
+              >
                 {translate('All_payment_methods', Language)}
               </h3>
             </div>
@@ -148,8 +151,6 @@ const payment = ({ PaymentData, SettingData, ServiceCategoryData }) => {
                       <Popup
                         trigger={
                           <Image
-                            // aria-describedby={props.description}
-                            suppressHydrationWarning={true}
                             width={292}
                             height={191}
                             layout="responsive"

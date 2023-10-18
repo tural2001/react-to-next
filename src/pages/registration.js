@@ -42,11 +42,6 @@ export async function getServerSideProps() {
   }
 }
 
-// let schema = yup.object({
-//   label: yup.string().required('Name is Required'),
-//   type: yup.string().required('Question is Required'),
-//   name: yup.string().required('Question is Required'),
-// });
 const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
   const [isFileDetected, setIsFileDetected] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
@@ -96,7 +91,6 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
 
   const formik = useFormik({
     initialValues,
-    // validationSchema: schema,
     onSubmit: async (values) => {
       const errors = {};
 
@@ -110,7 +104,6 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
         formik.setErrors(errors);
         return;
       }
-
       const dataString = JSON.stringify(values);
 
       try {
@@ -138,7 +131,6 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
       }
     },
   });
-
   const handlePhoneChange = (e, itemName) => {
     const inputValue = e.target.value;
 
@@ -220,7 +212,7 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
       </Head>
       {isLoading ? <LoadingOverlay /> : null}
       {visible ? <Service ServiceCategoryData={ServiceCategoryData} /> : null}
-      <div className="container max-w-[937px] mx-auto  py-10 register">
+      <div className="container max-w-[937px] mx-auto  py-10 min-h-screen register">
         <h3 className="text-[40px] text-center text-[#5B2D90] font-semibold tracking-[0.3px] inter max-md:text-[20px]">
           {translate('Welcome_to_Azeronline', Language)}
         </h3>
@@ -265,8 +257,14 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
                   type="text"
                   name={item.name}
                   className={`border ${
-                    formik.errors[item.name] ? 'border-red-500' : ''
-                  } p-2 bg-[#F4F4F4] rounded-xl w-[442px] max-sm:w-full h-[50px] focus:ring-0`}
+                    !formik.errors[item.name] &&
+                    formik.touched[item.name] &&
+                    formik.values[item.name].length > 0
+                      ? 'border-green-500'
+                      : formik.errors[item.name]
+                      ? 'border-red-500'
+                      : ''
+                  }  p-2 bg-[#F4F4F4] rounded-xl w-[442px] max-sm:w-full h-[50px] focus:ring-0`}
                   onChange={(e) => handleTextChange(e, item.name)}
                   onBlur={formik.handleBlur}
                   value={formik.values[item.name]}
@@ -293,8 +291,14 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
                 <input
                   type="tel"
                   className={` ${
-                    formik.errors[item.name] ? 'border-red-500' : ''
-                  } border p-2 bg-[#F4F4F4] rounded-xl w-[442px] max-sm:w-full h-[50px] focus:ring-0`}
+                    !formik.errors[item.name] &&
+                    formik.touched[item.name] &&
+                    formik.values[item.name].length > 0
+                      ? 'border-green-500'
+                      : formik.errors[item.name]
+                      ? 'border-red-500'
+                      : ''
+                  }  border p-2 bg-[#F4F4F4] rounded-xl w-[442px] max-sm:w-full h-[50px] focus:ring-0`}
                   placeholder="+994 _ _  _ _ _  _ _  _ _"
                   name={item.label}
                   onChange={(event) => handlePhoneChange(event, item.name)}
@@ -326,7 +330,13 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
                   onBlur={formik.handleBlur}
                   value={formik.values[item.name]}
                   className={`flex flex-row border ${
-                    formik.errors[item.name] ? 'border-red-500' : ''
+                    !formik.errors[item.name] &&
+                    formik.touched[item.name] &&
+                    formik.values[item.name].length > 0
+                      ? 'border-green-500'
+                      : formik.errors[item.name]
+                      ? 'border-red-500'
+                      : ''
                   }   justify-space p-2 bg-[#F4F4F4] rounded-xl w-full h-[50px] gap-5  `}
                 >
                   <option value="">Select</option>
@@ -360,7 +370,13 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
                 </label>
                 <div
                   className={`flex flex-row border ${
-                    formik.errors[item.name] ? 'border-red-500' : ''
+                    !formik.errors[item.name] &&
+                    formik.touched[item.name] &&
+                    formik.values[item.name].length > 0
+                      ? 'border-green-500'
+                      : formik.errors[item.name]
+                      ? 'border-red-500'
+                      : ''
                   }  justify-space p-2 bg-[#F4F4F4] rounded-xl h-[50px] gap-5  `}
                 >
                   {item.data
@@ -409,8 +425,14 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
                 </label>
                 <div
                   className={`flex flex-row border ${
-                    formik.errors[item.name] ? 'border-red-500' : ''
-                  } border  justify-space p-2 bg-[#F4F4F4] rounded-xl h-[50px] gap-5  `}
+                    !formik.errors[item.name] &&
+                    formik.touched[item.name] &&
+                    formik.values[item.name].length > 0
+                      ? 'border-green-500'
+                      : formik.errors[item.name]
+                      ? 'border-red-500'
+                      : ''
+                  }  border  justify-space p-2 bg-[#F4F4F4] rounded-xl h-[50px] gap-5  `}
                 >
                   {item.data
                     .toString()
@@ -464,7 +486,13 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
 
                         <div
                           className={`w-[442px] h-[189px] max-xl:w-11/12 ${
-                            formik.errors[item.name] ? 'border-red-500' : ''
+                            !formik.errors[item.name] &&
+                            formik.touched[item.name] &&
+                            formik.values[item.name].length > 0
+                              ? 'border-green-500'
+                              : formik.errors[item.name]
+                              ? 'border-red-500'
+                              : ''
                           }   border  bg-[#F4F4F4] rounded-lg flex justify-center items-center`}
                         >
                           <label
@@ -537,8 +565,14 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
                 </label>
                 <textarea
                   className={`w-[920px] p-3 max-xl:w-full  ${
-                    formik.errors[item.name] ? 'border-red-500' : ''
-                  } border bg-[#F4F4F4] rounded-xl`}
+                    !formik.errors[item.name] &&
+                    formik.touched[item.name] &&
+                    formik.values[item.name].length > 0
+                      ? 'border-green-500'
+                      : formik.errors[item.name]
+                      ? 'border-red-500'
+                      : ''
+                  }  border bg-[#F4F4F4] rounded-xl`}
                   name={item.name}
                   cols="10"
                   rows="8"

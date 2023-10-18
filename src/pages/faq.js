@@ -16,32 +16,6 @@ import { LoadingOverlay } from '../components/LoadingOverlay';
 import { useTranslation } from '../components/TranslationContext';
 import Service from '../components/Service';
 
-export async function getServerSideProps() {
-  try {
-    const Faqsresponse = await axios.get(`${base_url}/api/faqs`, config);
-    const Settingresponse = await axios.get(`${base_url}/api/settings`, config);
-    const ServiceCategoryresponse = await axios.get(
-      `${base_url}/api/service-categories`,
-      config
-    );
-
-    return {
-      props: {
-        FaqsData: Faqsresponse.data,
-        SettingData: Settingresponse.data,
-        ServiceCategoryData: ServiceCategoryresponse.data,
-      },
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      props: {
-        error: 'An error occurred while fetching data',
-      },
-    };
-  }
-}
-
 let schema = yup.object({
   name: yup.string().required('*'),
   phone: yup.string().required('*'),
@@ -49,7 +23,12 @@ let schema = yup.object({
 });
 
 const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
+  const [showNameError, setShowNameError] = useState(true);
+  const [showPhoneError, setShowPhoneError] = useState(true);
+  const [showQuestionError, setShowQuestionError] = useState(true);
+
   const [faqItems, setFaqItems] = useState(FaqsData?.data?.map(() => false));
+  const { translate, Language } = useTranslation();
 
   const toggleContent = (index) => {
     const updatedFaqItems = faqItems.map((item, i) =>
@@ -61,15 +40,11 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
   const { visible, setVisible } = useVisibleContext();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
 
   useEffect(() => {
     setVisible(router.pathname === '/a');
   }, [router, setVisible]);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -80,10 +55,13 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
     validationSchema: schema,
     onSubmit: async (values) => {
       if (values.phone.length < 13) {
-        formik.setFieldError('phone', 'Nömrəni doğru daxil edin');
+        setShowPhoneError(true);
+        formik.setFieldError(
+          'phone',
+          `${translate('Number_validate', Language)}`
+        );
         return;
       }
-
       try {
         await axios.post(`${base_url}/api/faq-forms`, values, config);
         setTimeout(() => {
@@ -97,10 +75,6 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
       } catch (error) {}
     },
   });
-
-  const [showNameError, setShowNameError] = useState(true);
-  const [showPhoneError, setShowPhoneError] = useState(true);
-  const [showQuestionError, setShowQuestionError] = useState(true);
 
   const handleNameChange = (e) => {
     const inputValue = e.target.value;
@@ -132,7 +106,9 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
     ?.filter((item) => item.key === 'faq_page_meta_description')
     .map((item) => item.value);
 
-  const { translate, Language } = useTranslation();
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
 
   return (
     <>
@@ -169,15 +145,12 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
             />
           </div>
         </div>
-
         <div className=" w-[826px] max-xl:w-full max-xl:mx-5 mx-auto flex flex-col gap-10 justify-center items-center mt-0 max-xxl:mt-40  max-sm:mt-5 max-md:mt-0 max-xl:mt-0  py-20 max-xl:py-10">
           <div className=" max-xl:z-[-1]">
-            {' '}
             <h3 className="text-[40px] max-md:text-[20px] max-xxl:text-[30px] w-3/4 max-xl:w-full mx-auto overflow-hidden  text-[#5B2D90] font-bold text-center ">
               {translate('Previously_answered_questions', Language)}
             </h3>
           </div>
-
           <ul className="flex flex-col gap-10 w-[826px] max-xl:w-full  mx-auto pb-10 ">
             {FaqsData?.data?.map((item, index) => {
               const isLastItem = index === FaqsData?.data?.length - 1;
@@ -245,11 +218,13 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
               </label>
               <input
                 type="text"
-                className={`border ${
-                  formik.touched.name && formik.errors.name
+                className={`border  ${
+                  formik.touched.name && !showNameError
+                    ? 'border-[#3cb255]'
+                    : formik.touched.name && formik.errors.name
                     ? 'border-[#ED1C24]'
                     : 'border-[#5B2D90]'
-                } bg-white p-2 rounded-md w-[460px] h-[58px] max-xl:w-full focus:ring-0`}
+                }  bg-white p-2 rounded-md w-[460px] h-[58px] max-xl:w-full focus:ring-0`}
                 name="name"
                 onChange={handleNameChange}
                 onBlur={formik.handleBlur}
@@ -257,21 +232,22 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
               />
             </div>
             <div className="w-full flex flex-col justify-center gap-2">
-              {' '}
               <label
                 htmlFor=""
                 className="text-black flex gap-2 items-center  text-[16px] font-medium"
               >
                 {translate('Phone', Language)}{' '}
                 {showPhoneError && <span className="text-[#ED1C24]">*</span>}
-                <div className="error text-white">
+                <div className="error text-red">
                   {formik.touched.phone && formik.errors.phone}
                 </div>
               </label>
               <input
                 type="tel"
-                className={`border  ${
-                  formik.touched.phone && formik.errors.phone
+                className={`border ${
+                  !showPhoneError
+                    ? 'border-[#3cb255]'
+                    : formik.touched.phone && formik.errors.phone
                     ? 'border-[#ED1C24]'
                     : 'border-[#5B2D90]'
                 }   bg-white rounded-lg w-[464px] h-[58px] max-xl:w-full p-2 focus:ring-0`}
@@ -294,8 +270,10 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
                 </div>
               </label>
               <textarea
-                className={`border ${
-                  formik.touched.question && formik.errors.question
+                className={`border  ${
+                  formik.touched.question && !showQuestionError
+                    ? 'border-[#3cb255]'
+                    : formik.touched.question && formik.errors.question
                     ? 'border-[#ED1C24]'
                     : 'border-[#5B2D90]'
                 } w-[980px] p-3 max-xl:w-full  bg-white rounded-xl`}
@@ -332,5 +310,37 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
     </>
   );
 };
+
+export async function getStaticProps() {
+  try {
+    const requests = [
+      axios.get(`${base_url}/api/faqs`, config),
+      axios.get(`${base_url}/api/settings`, config),
+      axios.get(`${base_url}/api/service-categories`, config),
+    ];
+
+    const [Faqsresponse, Settingresponse, ServiceCategoryresponse] =
+      await Promise.all(requests);
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    return {
+      props: {
+        FaqsData: Faqsresponse.data,
+        SettingData: Settingresponse.data,
+        ServiceCategoryData: ServiceCategoryresponse.data,
+      },
+      revalidate: 5,
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {
+        error: 'Veri alınırken bir hata oluştu',
+      },
+      revalidate: 5,
+    };
+  }
+}
 
 export default faq;

@@ -39,6 +39,14 @@ export const Proceed_to_payment = 'Proceed to payment';
 export const Subscriber_code = 'Subscriber code';
 export const Enter_your_customer_code = 'Enter your customer code';
 export const Select_the_payment_type = 'Select the payment type';
+export const Number_validate = 'Enter the number correctly';
+export const Connections = 'Connections';
+export const Ip_Address = 'Ip_Address';
+export const Download = 'Download';
+export const Upload = 'Upload';
+export const Ping = 'Ping';
+export const Multi = 'Multi';
+export const Server = 'Server';
 
 //Faq
 export const Frequently_asked_questions = 'Frequently asked questions';

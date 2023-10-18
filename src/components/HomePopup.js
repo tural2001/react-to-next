@@ -73,10 +73,9 @@ export const HomePopup = ({ ...pageProps }) => {
       >
         {(close) => (
           <>
-            {popup?.map((item) => {
+            {popup?.map((item, index) => {
               return (
-                <>
-                  <div className="popup-content-2"></div>
+                <div className="popup-content-2" key={index}>
                   <Image
                     src="/assets/popup/x.png"
                     className="absolute right-5 top-5 w-[40px] h-[42px]"
@@ -108,7 +107,7 @@ export const HomePopup = ({ ...pageProps }) => {
                       Onlayn qeydiyyat
                     </Link>
                   </div>
-                </>
+                </div>
               );
             })}
           </>

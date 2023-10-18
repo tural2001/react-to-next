@@ -4,16 +4,13 @@ import { TariffsPopup } from '../../components/TariffsPopup';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import axios from 'axios';
-
 import { base_url } from '../../utils/base_url';
-
 import { config } from '../../utils/axiosconfig';
 import { useTranslation } from '../../components/TranslationContext';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useVisibleContext } from '../../components/VisibleContext';
 import Popup from 'reactjs-popup';
-import { HiOutlineArrowLongRight } from 'react-icons/hi2';
 
 export async function getServerSideProps({ query }) {
   try {
@@ -66,49 +63,41 @@ const service = ({
   CountryData,
   id,
 }) => {
-  const CombineData = ServiceData?.data?.filter((item) => item.id == [id])[0]
-    ?.tariffs;
-  const CountryyData = CombineData?.map((item) => ({
-    channels: item.channels,
-    countries: item.countries,
-  }));
-
-  const groupedData = {};
-  CountryyData?.forEach((item) => {
-    const countryID = item?.countries[0]?.id;
-    if (!groupedData[countryID]) {
-      groupedData[countryID] = {
-        channels: [],
-        countries: [],
-      };
-    }
-    groupedData[countryID].channels = groupedData[countryID].channels.concat(
-      item.channels
-    );
-    groupedData[countryID].countries.push(item.countries[0]);
-  });
-
-  const mergedData = Object.values(groupedData);
-
-  console.log(mergedData);
-
+  const CombineData = ServiceData?.data?.filter((item) => item.id == [id]);
   console.log(CombineData);
+  const CountryyData = CombineData?.reduce((result, item) => {
+    const channels = item.channels;
+    const countries = item.countries;
 
-  const countryChannelsMap = {};
+    channels?.forEach((channel) => {
+      const channelCountryId = channel.country_id;
 
-  CountryyData.forEach((item) => {
-    const countryName = item.countries[0]?.name;
+      const existingGroup = result.find(
+        (group) => group[0]?.channel?.country.id === channelCountryId
+      );
 
-    if (countryName !== undefined) {
-      if (!countryChannelsMap[countryName]) {
-        countryChannelsMap[countryName] = [];
+      if (existingGroup) {
+        existingGroup.push({
+          channel,
+          country: countries.find((country) => country.id === channelCountryId),
+        });
+      } else {
+        result.push([
+          {
+            channel,
+            country: countries.find(
+              (country) => country.id === channelCountryId
+            ),
+          },
+        ]);
       }
+    });
 
-      countryChannelsMap[countryName].push(...item.channels);
-    }
-  });
+    return result;
+  }, []);
 
-  console.log(countryChannelsMap);
+  console.log(CountryyData);
+
   const [selectedItem1, setSelectedItem1] = useState(`/services/${id}`);
   const { visible, setVisible } = useVisibleContext();
 
@@ -160,6 +149,7 @@ const service = ({
   const { isOpen, toggleMenu } = useVisibleContext();
 
   const [markerStyle, setMarkerStyle] = useState({});
+
   useEffect(() => {
     const initialHref = `/services/${id}`;
     const initialLink = document.querySelector(`nav a[href="${initialHref}"]`);
@@ -305,18 +295,18 @@ const service = ({
                         >
                           {selectedItem1 === `/services/${service.id}` ? (
                             <Image
-                              src="/assets/services/speed.png"
+                              src={service.icon}
                               width={20}
                               height={15}
-                              className="h-[15px] "
+                              className="h-[15px] my-filter"
                               alt=""
                             />
                           ) : (
                             <Image
-                              src="/assets/services/speed.png"
+                              src={service.icon}
                               width={20}
                               height={15}
-                              className="h-[15px] "
+                              className="h-[15px]"
                               alt=""
                             />
                           )}{' '}
@@ -339,7 +329,7 @@ const service = ({
           return itemId === queryId && router.pathname.includes('/services/');
         })
         .map((service) => {
-          console.log(service);
+          console.log(service?.channels);
           return (
             <>
               {}
@@ -349,26 +339,17 @@ const service = ({
                   id="fiber"
                 >
                   {service.icon !== '' ? (
-                    <div className="col-span-1 max-xl:col-span-2 max-xl:flex max-xl:justify-center">
-                      <div className="w-[347px] h-[427px] max-xl:hidden">
+                    <div className="col-span-1 max-xl:col-span-3 max-xl:flex max-xl:justify-center max-xl:items-center">
+                      <div className="w-[347px] h-[427px] ">
                         <Image
                           src={service.icon}
                           width={500}
                           height={300}
                           layout="responsive"
-                          className="max-xl:hidden"
+                          className=""
                           alt=""
                         />
                       </div>
-
-                      <Image
-                        src="/assets/services/smfiberoptik.png"
-                        width={100}
-                        height={100}
-                        layout="responsive"
-                        className="hidden max-xl:block max-xl:mx-5"
-                        alt=""
-                      />
                     </div>
                   ) : null}
 
@@ -461,7 +442,9 @@ const service = ({
                     <nav className=" flex  justify-center mx-2">
                       <a
                         href="#/"
-                        className={`text-[12px] uppercase relative leading-[50px] w-full flex gap-1 justify-center items-center border border-[#5B2D90]  h-[33px] rounded-lg ${
+                        className={`text-[12px] uppercase  ${
+                          isOpen ? 'z-[-1]' : 'z-0'
+                        } relative leading-[50px] w-full flex gap-1 justify-center items-center border border-[#5B2D90]  h-[33px] rounded-lg ${
                           selectedItem === 'ferdi'
                             ? 'border-[#5B2D90]'
                             : 'border-[#C6D0DD]'
@@ -491,7 +474,9 @@ const service = ({
                       </a>
                       <a
                         href="#/"
-                        className={`text-[12px] uppercase relative    leading-[50px] w-full flex gap-1 justify-center items-center border border-[#5B2D90]  h-[33px] rounded-lg ${
+                        className={`text-[12px] uppercase relative  ${
+                          isOpen ? 'z-[-1]' : 'z-0'
+                        }  leading-[50px] w-full flex gap-1 justify-center items-center border border-[#5B2D90]  h-[33px] rounded-lg ${
                           selectedItem === 'biznes'
                             ? 'border-[#5B2D90]'
                             : 'border-[#C6D0DD]'
@@ -540,22 +525,22 @@ const service = ({
                                 console.log(tariff);
                                 return (
                                   <div
-                                    className="h-[500px] w-[210px] p-0 op"
+                                    className={`h-[500px] w-[210px] p-0 op `}
                                     key={tariff.id}
                                   >
                                     <div
                                       key={tariff.id}
-                                      className={`w-[200px] h-[350px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative  0  mt-5  ml-1 ${
+                                      className={`w-[200px]   h-[350px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative  py-5  mt-5  ml-1 ${
                                         tariff.id === 'key' ? 'outline-red' : ''
                                       }`}
                                     >
                                       <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
-                                        {/* <Image
-                      src={item.image}
-                      width={item.width}
-                      height={item.height}
-                      alt=""
-                    /> */}
+                                        <Image
+                                          src={tariff.image}
+                                          width={60}
+                                          height={60}
+                                          alt=""
+                                        />
                                       </div>
                                       <p className="text-[20px] font-bold text-white">
                                         {tariff.name}
@@ -647,7 +632,7 @@ const service = ({
                               })
                           )}
                       </div>
-                      <div className="swiper">
+                      <div className={` ${isOpen ? 'swiper open' : 'swiper'} `}>
                         <Swiper
                           slidesPerView={2}
                           centeredSlides={true}
@@ -678,19 +663,19 @@ const service = ({
                                       <div className="h-[450px] w-[210px] flex flex-col justify-center items-center p-0 op">
                                         <div
                                           key={tariff.id}
-                                          className={`w-[200px] h-[350px] max-sm:w-[195px] max-sm:h-[332px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative  0   ${
+                                          className={`w-[200px]  h-[350px] max-sm:w-[195px] max-sm:h-[332px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative  py-5   ${
                                             tariff.id === 'key'
                                               ? 'outline-red'
                                               : ''
                                           }`}
                                         >
                                           <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
-                                            {/* <Image
-                                      src={item.image}
-                                      width={item.width}
-                                      height={item.height}
-                                      alt=""
-                                    /> */}
+                                            <Image
+                                              src={tariff.image}
+                                              width={60}
+                                              height={60}
+                                              alt=""
+                                            />
                                           </div>
                                           <p className="text-[20px] font-bold text-white">
                                             {tariff.name}
@@ -752,9 +737,163 @@ const service = ({
                             )}
                         </Swiper>
                       </div>
+                      {service?.ip_tv === true &&
+                      service?.channels?.length > 0 ? (
+                        <>
+                          <div className="">
+                            <h3 className="text-center py-3 text-[#757575] text-[16px] max-xl:text-[12px] overflow-hidden">
+                              {translate('Channel_country', Language)}
+                            </h3>
+
+                            <div className="relative w-3/6  mx-auto border-[2px] border-[#C4C4C4] overflow-hidden shadow-md  sm:rounded-lg">
+                              <table className="w-full text-sm text-center text-gray-500 ">
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
+                                  <tr>
+                                    <th
+                                      scope="col"
+                                      className="px-6 py-4 max-sm:px-3 max-sm:py-0"
+                                    >
+                                      {translate('Country', Language)}
+                                    </th>
+                                    <th
+                                      scope="col"
+                                      className="px-6 py-4 max-sm:px-3 max-sm:py-0"
+                                    >
+                                      {translate('TV_number', Language)}
+                                    </th>
+                                    <th
+                                      scope="col"
+                                      className="px-6 py-4 max-sm:px-3 max-sm:py-0"
+                                    >
+                                      {translate('Channels', Language)}
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {Object.keys(CountryyData).map(
+                                    (countryName, index) => {
+                                      console.log(
+                                        CountryyData[countryName][0]?.country
+                                          ?.name
+                                      );
+                                      return (
+                                        <tr
+                                          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                                          key={index}
+                                        >
+                                          <th
+                                            scope="row"
+                                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                          >
+                                            {
+                                              CountryyData[countryName][0]
+                                                ?.country?.name
+                                            }
+                                          </th>
+                                          <td className="px-6 py-4">
+                                            {' '}
+                                            {CountryyData[countryName]?.length}
+                                          </td>
+                                          <td className="px-6 py-4">
+                                            {' '}
+                                            <Popup
+                                              trigger={
+                                                <button className="">
+                                                  {' '}
+                                                  {translate('Look', Language)}
+                                                </button>
+                                              }
+                                              modal
+                                              nested
+                                              contentStyle={{
+                                                padding: '0px',
+                                                borderRadius: '50px',
+                                                borderColor: 'white',
+                                                width: '700px',
+                                                height: '300px',
+
+                                                overflow: 'scroll',
+                                              }}
+                                            >
+                                              {(close) => (
+                                                <>
+                                                  <Image
+                                                    src="/assets/popup/x.png"
+                                                    width={40}
+                                                    height={42}
+                                                    className="absolute right-5 top-5 w-[40px] h-[42px]"
+                                                    alt=""
+                                                    onClick={close}
+                                                  />
+
+                                                  <div className="mt-10 w-10/12 mx-auto  flex flex-wrap justify-center items-center ">
+                                                    {CountryyData[
+                                                      countryName
+                                                    ].map((item) => {
+                                                      console.log(item);
+                                                      return (
+                                                        <div
+                                                          className=""
+                                                          key={item}
+                                                        >
+                                                          <Image
+                                                            src="/assets/aztv.png"
+                                                            width={100}
+                                                            height={100}
+                                                            layout=""
+                                                            className=""
+                                                            alt=""
+                                                          />
+                                                        </div>
+                                                      );
+                                                    })}
+                                                  </div>
+                                                </>
+                                              )}
+                                            </Popup>
+                                          </td>
+                                        </tr>
+                                      );
+                                    }
+                                  )}
+                                </tbody>
+                              </table>
+                            </div>
+                            <p className="text-[16px] mt-10 text-[#757575] max-xl:text-[12px] font-medium text-center py-3">
+                              {translate('Ip', Language)}
+                            </p>
+                          </div>
+                          <div className="w-6xl">
+                            <h3 className="text-center  text-[24px] font-bold leading-10 uppercase py-5 overflow-hidden  max-xl:text-[16px]">
+                              {translate('Ip_channel', Language)}
+                            </h3>{' '}
+                            <div className="mt-5 w-10/12 mx-auto max-xl:grid max-xl:grid-cols-3 flex flex-wrap justify-center ">
+                              {PartnerData.data?.map((item) => {
+                                console.log(item);
+                                return (
+                                  <>
+                                    <div className="">
+                                      <Image
+                                        src={item.icon}
+                                        width={200}
+                                        height={200}
+                                        layout="responsive"
+                                        className=""
+                                        alt=""
+                                      />
+                                    </div>
+                                  </>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        ''
+                      )}
                     </>
                   )}
-                  {selectedItem === 'biznes' && (
+                  {selectedItem === 'biznes' && service?.ip_tv !== true && (
                     <>
                       <div className="grid grid-cols-5  justify-items-center  gap-5    mt-10 max-xl:hidden">
                         {ServiceData?.data
@@ -778,17 +917,17 @@ const service = ({
                                   >
                                     <div
                                       key={tariff.id}
-                                      className={`w-[200px] h-[350px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative  0  mt-5  ml-1 ${
+                                      className={`w-[200px] h-[350px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative  py-5  mt-5  ml-1 ${
                                         tariff.id === 'key' ? 'outline-red' : ''
                                       }`}
                                     >
                                       <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
-                                        {/* <Image
-                      src={item.image}
-                      width={item.width}
-                      height={item.height}
-                      alt=""
-                    /> */}
+                                        <Image
+                                          src={tariff.image}
+                                          width={60}
+                                          height={60}
+                                          alt=""
+                                        />
                                       </div>
                                       <p className="text-[20px] font-bold text-white">
                                         {tariff.name}
@@ -875,7 +1014,7 @@ const service = ({
                                             : 'hidden'
                                         }   mt-0 text-[8px] text-center font-medium justify-center`}
                                       >
-                                        Üstünlük verilən
+                                        {translate('Preferred', Language)}
                                       </div>
                                     </div>
                                   </div>
@@ -902,15 +1041,214 @@ const service = ({
                                 <div className="h-[450px] w-[210px] flex flex-col justify-center items-center p-0 op">
                                   <div
                                     key={item.id}
-                                    className={`w-[200px] h-[350px] max-sm:w-[195px] max-sm:h-[332px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative  0   ${
+                                    className={`w-[200px] h-[350px] max-sm:w-[195px] max-sm:h-[332px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative  py-5   ${
                                       item.id === 'key' ? 'outline-red' : ''
                                     }`}
                                   >
                                     <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
                                       <Image
                                         src={item.image}
-                                        width={item.width}
-                                        height={item.height}
+                                        width={60}
+                                        height={60}
+                                        alt=""
+                                      />
+                                    </div>
+                                    <p className="text-[20px] font-bold text-white">
+                                      {item.name}
+                                    </p>
+                                    <div className="border-[1px] w-32 border-[#f1f1f1] opacity-20" />
+                                    <p className="text-white text-[24px] font-bold">
+                                      {item.speed} Mb/s
+                                    </p>
+                                    <div className="bg-[#FFA35B] w-full h-10 hover:flex justify-center items-center gap-2 hidden fiber">
+                                      <Image
+                                        src="/assets/packets/tv2.png"
+                                        width={10}
+                                        height={10}
+                                        alt=""
+                                      />{' '}
+                                      <p className="text-[10px] font-bold text-[#5B2D90]">
+                                        IP TV
+                                      </p>
+                                    </div>
+                                    <p className="text-white text-[10px] font-bold flex gap-1">
+                                      <Image
+                                        src="/assets/packets/pq2.png"
+                                        width={11}
+                                        height={15}
+                                        alt=""
+                                      />
+                                      {item.description}
+                                    </p>
+                                    <div className="border-[1px] w-32 border-[#f1f1f1] opacity-20" />
+                                    <p className="text-[20px] font-bold text-[#FFA35B] flex justify-center items-center gap-1 overflow-hidden">
+                                      {item.price}
+                                      <Image
+                                        src="/assets/packets/azn.png"
+                                        width={20}
+                                        height={20}
+                                        className="h-5"
+                                        alt=""
+                                      />
+                                    </p>
+                                    <button className="w-[100px] h-[30px] text-[8px] font-medium text-white bg-[#AB31D6] rounded-full">
+                                      {translate('More', Language)}
+                                    </button>
+                                  </div>
+                                  <div className="flex justify-center">
+                                    <div
+                                      className={`${
+                                        item.id === 'pro'
+                                          ? 'flag-services'
+                                          : 'hidden'
+                                      }   mt-0 text-[8px] text-center font-medium justify-center`}
+                                    >
+                                      {translate('Preferred', Language)}
+                                    </div>
+                                  </div>
+                                </div>
+                              </SwiperSlide>
+                            ))}
+                        </Swiper>
+                      </div>
+                    </>
+                  )}
+                  {selectedItem === 'biznes' && service?.ip_tv === true && (
+                    <>
+                      <div className="grid grid-cols-5  justify-items-center  gap-5    mt-10 max-xl:hidden">
+                        {ServiceData?.data
+                          ?.filter((item) => {
+                            const itemId = item.id;
+                            const queryId = parseInt(router.query.id);
+                            return (
+                              itemId === queryId &&
+                              router.pathname.includes('/services/')
+                            );
+                          })
+                          .map((filtered) =>
+                            filtered?.tariffs
+                              ?.filter((item) => item.type == 2)
+                              .map((tariff) => {
+                                return (
+                                  <div
+                                    className="h-[500px] w-[210px] p-0 op"
+                                    key={tariff.id}
+                                  >
+                                    <div
+                                      key={tariff.id}
+                                      className={`w-[200px] h-[350px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-between items-center gap-3  relative py-5 mt-5  ml-1 ${
+                                        tariff.id === 'key' ? 'outline-red' : ''
+                                      }`}
+                                    >
+                                      <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
+                                        <Image
+                                          src={tariff.image}
+                                          width={60}
+                                          height={60}
+                                          alt=""
+                                        />
+                                      </div>
+                                      <div className="border-[1px] w-32 border-[#f1f1f1] opacity-20" />
+                                      <div className="flex justify-center items-center mx-1">
+                                        {' '}
+                                        <p className="text-white  text-[24px]  font-bold flex text-center gap-1">
+                                          {tariff.name}
+                                        </p>
+                                      </div>
+                                      <div className="border-[1px] w-32 border-[#f1f1f1] opacity-20" />
+                                      <p className="text-[20px] font-bold text-[#FFA35B] flex justify-center items-center gap-1 overflow-hidden">
+                                        {tariff.price}
+                                        <Image
+                                          src="/assets/packets/azn.png"
+                                          width={20}
+                                          height={20}
+                                          className="h-5"
+                                          alt=""
+                                        />
+                                      </p>
+                                      <Popup
+                                        trigger={
+                                          <button className="w-[100px] h-[30px] text-[8px] font-medium text-white bg-[#AB31D6] rounded-full">
+                                            {translate('More', Language)}
+                                          </button>
+                                        }
+                                        modal
+                                        nested
+                                        contentStyle={{
+                                          padding: '0px',
+                                          borderRadius: '50px',
+                                          borderColor: 'white',
+                                          width: '759px',
+                                          height: '392px',
+                                          overflow: 'hidden',
+                                        }}
+                                      >
+                                        {(close) => (
+                                          <>
+                                            <Image
+                                              src="/assets/popup/x.png"
+                                              width={40}
+                                              height={42}
+                                              className="absolute right-5 top-5 w-[40px] h-[42px]"
+                                              alt=""
+                                              onClick={close}
+                                            />
+                                            <div className="w-[657px] mx-auto flex justify-center mt-20 gap-5">
+                                              <p className="text-16px leading-6">
+                                                {translate(
+                                                  'Tariff_pop',
+                                                  Language
+                                                )}
+                                              </p>
+                                            </div>
+                                          </>
+                                        )}
+                                      </Popup>
+                                    </div>
+                                    <div className="flex justify-center">
+                                      <div
+                                        className={`${
+                                          tariff.id === 'pro'
+                                            ? 'flag-services'
+                                            : 'hidden'
+                                        }   mt-0 text-[8px] text-center font-medium justify-center`}
+                                      >
+                                        {translate('Preferred', Language)}
+                                      </div>
+                                    </div>
+                                  </div>
+                                );
+                              })
+                          )}
+                      </div>
+                      <div className="swiper">
+                        <Swiper
+                          slidesPerView={2}
+                          centeredSlides={true}
+                          spaceBetween={230}
+                          pagination={{
+                            clickable: true,
+                          }}
+                          modules={[Pagination]}
+                          className="mySwiper2"
+                        >
+                          {TariffData?.data
+                            ?.filter((item) => item.type == 2)
+                            .map((item) => (
+                              <SwiperSlide key={item.id}>
+                                {' '}
+                                <div className="h-[450px] w-[210px] flex flex-col justify-center items-center p-0 op">
+                                  <div
+                                    key={item.id}
+                                    className={`w-[200px] h-[350px] max-sm:w-[195px] max-sm:h-[332px] rounded-t-[100px]  rounded-b-[20px] bg-gradient-to-r from-[#653E98] to-[#3E2164] flex flex-col justify-start items-center gap-3  relative  py-5  ${
+                                      item.id === 'key' ? 'outline-red' : ''
+                                    }`}
+                                  >
+                                    <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
+                                      <Image
+                                        src={item.image}
+                                        width={60}
+                                        height={60}
                                         alt=""
                                       />
                                     </div>
@@ -1009,12 +1347,12 @@ const service = ({
                                     }`}
                                   >
                                     <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
-                                      {/* <Image
-src={item.image}
-width={item.width}
-height={item.height}
-alt=""
-/> */}
+                                      <Image
+                                        src={tariff.image}
+                                        width={60}
+                                        height={60}
+                                        alt=""
+                                      />
                                     </div>
                                     <p className="text-[20px] font-bold text-white">
                                       {tariff.name}
@@ -1144,12 +1482,12 @@ alt=""
                                         }`}
                                       >
                                         <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
-                                          {/* <Image
-          src={item.image}
-          width={item.width}
-          height={item.height}
-          alt=""
-        /> */}
+                                          <Image
+                                            src={tariff.image}
+                                            width={60}
+                                            height={60}
+                                            alt=""
+                                          />
                                         </div>
                                         <p className="text-[20px] font-bold text-white">
                                           {tariff.name}
@@ -1227,7 +1565,7 @@ alt=""
                         <>
                           <div className="">
                             <Image
-                              src="/assets/show.png"
+                              src={item.logo}
                               width={200}
                               height={200}
                               layout="responsive"
@@ -1235,7 +1573,7 @@ alt=""
                               alt=""
                             />
                             <Image
-                              src="/assets/aztv.png"
+                              src={item.logo}
                               width={200}
                               height={200}
                               layout="responsive"
@@ -1248,150 +1586,6 @@ alt=""
                     })}
                   </div>
                 </div>
-              ) : (
-                ''
-              )}
-
-              {service?.tariffs?.channel ? (
-                <>
-                  <div className="">
-                    <h3 className="text-center py-3 text-[#757575] text-[16px] max-xl:text-[12px] overflow-hidden">
-                      {translate('Channel_country', Language)}
-                    </h3>
-
-                    <div className="relative w-3/6  mx-auto border-[2px] border-[#C4C4C4] overflow-x-auto shadow-md  sm:rounded-lg">
-                      <table className="w-full text-sm text-center text-gray-500 ">
-                        <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
-                          <tr>
-                            <th
-                              scope="col"
-                              className="px-6 py-4 max-sm:px-3 max-sm:py-0"
-                            >
-                              {translate('Country', Language)}
-                            </th>
-                            <th
-                              scope="col"
-                              className="px-6 py-4 max-sm:px-3 max-sm:py-0"
-                            >
-                              {translate('TV_number', Language)}
-                            </th>
-                            <th
-                              scope="col"
-                              className="px-6 py-4 max-sm:px-3 max-sm:py-0"
-                            >
-                              {translate('Channels', Language)}
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {Object.keys(countryChannelsMap).map(
-                            (countryName, index) => {
-                              return (
-                                <tr
-                                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                                  key={index}
-                                >
-                                  <th
-                                    scope="row"
-                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                                  >
-                                    {countryName}
-                                  </th>
-                                  <td className="px-6 py-4">
-                                    {' '}
-                                    {countryChannelsMap[countryName]?.length}
-                                  </td>
-                                  <td className="px-6 py-4">
-                                    {' '}
-                                    <Popup
-                                      trigger={
-                                        <button className="">
-                                          {' '}
-                                          {translate('Look', Language)}
-                                        </button>
-                                      }
-                                      modal
-                                      nested
-                                      contentStyle={{
-                                        padding: '0px',
-                                        borderRadius: '50px',
-                                        borderColor: 'white',
-                                        width: '700px',
-                                        height: '300px',
-
-                                        overflow: 'scroll',
-                                      }}
-                                    >
-                                      {(close) => (
-                                        <>
-                                          <Image
-                                            src="/assets/popup/x.png"
-                                            width={40}
-                                            height={42}
-                                            className="absolute right-5 top-5 w-[40px] h-[42px]"
-                                            alt=""
-                                            onClick={close}
-                                          />
-
-                                          <div className="mt-10 w-10/12 mx-auto  flex flex-wrap justify-center items-center ">
-                                            {countryChannelsMap[
-                                              countryName
-                                            ].map((item) => {
-                                              console.log(item);
-                                              return (
-                                                <div className="" key={item}>
-                                                  <Image
-                                                    src="/assets/aztv.png"
-                                                    width={100}
-                                                    height={100}
-                                                    layout=""
-                                                    className=""
-                                                    alt=""
-                                                  />
-                                                </div>
-                                              );
-                                            })}
-                                          </div>
-                                        </>
-                                      )}
-                                    </Popup>
-                                  </td>
-                                </tr>
-                              );
-                            }
-                          )}
-                        </tbody>
-                      </table>
-                    </div>
-                    <p className="text-[16px] mt-10 text-[#757575] max-xl:text-[12px] font-medium text-center py-3">
-                      {translate('Ip', Language)}
-                    </p>
-                  </div>
-                  <div className="w-6xl">
-                    <h3 className="text-center  text-[24px] font-bold leading-10 uppercase py-5 overflow-hidden  max-xl:text-[16px]">
-                      {translate('Ip_channel', Language)}
-                    </h3>{' '}
-                    <div className="mt-5 w-10/12 mx-auto max-xl:grid max-xl:grid-cols-3 flex flex-wrap justify-center ">
-                      {PartnerData.data?.map((item) => {
-                        console.log(item);
-                        return (
-                          <>
-                            <div className="">
-                              <Image
-                                src={item.icon}
-                                width={200}
-                                height={200}
-                                layout="responsive"
-                                className=""
-                                alt=""
-                              />
-                            </div>
-                          </>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </>
               ) : (
                 ''
               )}

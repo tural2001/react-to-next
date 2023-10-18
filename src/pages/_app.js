@@ -30,6 +30,7 @@ function MyApp({ Component, pageProps, pageTitle }) {
           <Head>
             <title>{pageTitle}</title>
             <meta name="description" content="Your page description." />
+            <link rel="icon" href="/assets/fav.png" />
           </Head>
           <Header {...pageProps} />
           <Component {...pageProps} />

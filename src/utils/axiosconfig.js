@@ -1,4 +1,4 @@
-const token = '4|GQrJsX3bz5iDvq4tRLmce6TltOc2NVEgGDoBh14k';
+const token = '2|3e8TCjO33miKjHgQXWrhzOB5PW9vmj9iPcRDRIXI';
 
 export const config = {
   headers: {

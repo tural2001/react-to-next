@@ -33,6 +33,14 @@ export const Proceed_to_payment = 'Ödənişə keç';
 export const Subscriber_code = 'Abonent kodu';
 export const Enter_your_customer_code = 'Müştəri kodunuzu daxil edin';
 export const Select_the_payment_type = 'Ödəniş növünü seçin';
+export const Number_validate = 'Nömrəni doğru daxil edin';
+export const Connections = 'Connections';
+export const Ip_Address = 'Ip_Address';
+export const Download = 'Download';
+export const Upload = 'Upload';
+export const Ping = 'Ping';
+export const Multi = 'Multi';
+export const Server = 'Server';
 
 //Faq
 export const Frequently_asked_questions = 'Tez-tez verilən suallar';

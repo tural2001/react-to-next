@@ -52,13 +52,13 @@ const Footer = ({ ...pageProps }) => {
               src="/assets/logo2.png"
               width={182}
               height={180}
-              style={{ width: '182px', height: '33px' }}
-              className="w-[182px]"
+              // style={{ width: '182px', height: '33px' }}
+              className="w-[182px] max-sm:w-[141px]"
               alt=""
             />
           </Link>
         </div>
-        <div className="text-white flex flex-col gap-5  justify-start items-start ml-10">
+        <div className="text-white flex flex-col gap-5  justify-start items-start ">
           <h3 className="text-[20px] font-semibold tracking-[0.5px] max-sm:text-[16px]">
             {translate('About_us', Language)}
           </h3>
@@ -100,14 +100,14 @@ const Footer = ({ ...pageProps }) => {
             </li>
           </ul>
         </div>
-        <div className="text-white flex flex-col    justify-start items-start ml-10  gap-3 max-sm:col-span-2 max-lg:col-span-2">
+        <div className="text-white flex flex-col    justify-start items-start   gap-3 max-sm:col-span-2 max-lg:col-span-2">
           <h3 className="text-[20px] font-semibold  tracking-[0.5px] max-sm:text-[16px]  ">
             {translate('Contact_us', Language)}
           </h3>
           <ul className="text-sm font-light grid grid-cols-5 gap-2 justify-center items-center w-[200px] max-sm:w-[200px]  max-sm:flex max-lg:w-[200px]  max-lg:flex    ">
             <Link
               href="/"
-              className="  mx-0 w-7 h-7 rounded-full  flex justify-center items-center "
+              className=" mx-0 w-7 h-7 rounded-full  flex justify-center items-center "
             >
               <Image
                 src="/assets/fb.png"
