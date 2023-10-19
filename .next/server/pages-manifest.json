@@ -1,8 +1,8 @@
 {
   "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/privacypolicy": "pages/privacypolicy.js",
-  "/about": "pages/about.js",
-  "/speedtest": "pages/speedtest.js"
+  "/_error": "pages/_error.js",
+  "/payment": "pages/payment.js",
+  "/faq": "pages/faq.js",
+  "/installment": "pages/installment.js"
 }

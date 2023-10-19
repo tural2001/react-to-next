@@ -124,9 +124,11 @@ const faq = ({ SettingData, FormsData, PageData }) => {
           },
           config
         );
-        console.log(response);
+
         setTimeout(() => {
           setIsFileDetected(false);
+          setErrorCheck(false);
+          setCheck(false);
         }, 100);
 
         setShowSuccessAlert(true);
@@ -206,9 +208,8 @@ const faq = ({ SettingData, FormsData, PageData }) => {
 
   const [errorCheck, setErrorCheck] = useState(false);
 
-  const HandleChecked = (e) => {
-    e.preventDefault();
-    setCheck(true);
+  const HandleChecked = () => {
+    setCheck(!check);
   };
 
   useEffect(() => {
@@ -253,17 +254,15 @@ const faq = ({ SettingData, FormsData, PageData }) => {
       </div>
       <div className=" max-w-[1100px] max-xl:w-3/4  mx-auto">
         <div className="h-[450px] max-xxl:h-auto  ">
-          {' '}
           <h3 className="h3  text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xl:text-[30px]  ">
             {translate('Installment', Language)}
           </h3>
-          <div className="absolute  z-[1] max-xl:z-[-1]  right-0 top-24  max-sm:top-10 max-xxl:top-20">
-            {' '}
+          <div className="absolute  z-[1] max-xl:z-[-1]  right-0 top-24  max-sm:top-10 max-xl:top-10 max-xxl:top-20 max-md:top-20 ">
             <Image
               src="/assets/taksit.png"
               width={454}
               height={355}
-              className="w-[600px] h-[600px]  mr-24 mt-10 max-lg:mr-5 max-sm:w-[158px]  max-xl:w-[192px] max-xl:h-[152px] max-xxl:w-[282px] max-xxl:h-[252px]"
+              className="w-[600px] h-[600px]  max-sm:mr-2 mt-10 max-lg:mr-0 max-sm:w-[158px] max-sm:h-[158px]    max-md:w-[250px] max-md:h-[250px]  max-xxl:w-[400px] max-xxl:h-[400px]"
               alt=""
             />
           </div>
@@ -529,12 +528,38 @@ const faq = ({ SettingData, FormsData, PageData }) => {
                               type="checkbox"
                               name={item.name}
                               className=" p-10 bg-[#F4F4F4] rounded-xl w-4 max-sm:w-full h-4 focus:ring-4"
-                              onChange={(event) =>
-                                handleCheckboxChange(event, item.name, value)
-                              }
+                              onChange={(event) => {
+                                const isChecked = event.target.checked;
+                                let updatedValueString =
+                                  formik.values[item.name] || '';
+
+                                if (isChecked) {
+                                  updatedValueString =
+                                    updatedValueString +
+                                    (updatedValueString ? ',' : '') +
+                                    value;
+                                } else {
+                                  updatedValueString = updatedValueString
+                                    .split(',')
+                                    .filter((v) => v !== value)
+                                    .join(',');
+                                }
+
+                                formik.setFieldValue(
+                                  item.name,
+                                  updatedValueString
+                                );
+
+                                setShowTextErrors((prevErrors) => ({
+                                  ...prevErrors,
+                                  [item.name]: updatedValueString.trim() === '',
+                                }));
+                              }}
                               onBlur={formik.handleBlur}
                               value={value}
-                              checked={formik.values[item.name] === value}
+                              checked={(formik.values[item.name] || '')
+                                .split(',')
+                                .includes(value)}
                               key={index}
                             />
                           </>
@@ -669,19 +694,20 @@ const faq = ({ SettingData, FormsData, PageData }) => {
                   ></textarea>
                 </div>
               ))}
-            {FormsData?.data.length !== 0 ? (
+            {FormsData?.data?.length !== 0 ? (
               <div className="flex justify-start   items-center gap-2 mt-8">
                 <input
                   type="checkbox"
-                  onClick={(e) => HandleChecked(e)}
+                  onChange={HandleChecked}
                   className="rounded"
+                  checked={check}
                   name=""
                   id=""
                 />
                 <p className="text-[12px] text-[#5E5E5E]">
                   <Link href="/check"> Şərtlərlə tanış oldum</Link>
                 </p>
-                {errorCheck ? (
+                {errorCheck && !check ? (
                   <div className="text-red-500 text-[10px]">
                     Şərtlərlə tanış olun
                   </div>

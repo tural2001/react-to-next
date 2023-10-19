@@ -122,6 +122,8 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
         console.log(response);
         setTimeout(() => {
           setIsFileDetected(false);
+          setErrorCheck(false);
+          setCheck(false);
         }, 100);
 
         setShowSuccessAlert(true);
@@ -177,15 +179,6 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
     }));
   };
 
-  const handleCheckboxChange = (e, itemName, value) => {
-    const inputValue = e.target.value;
-    formik.setFieldValue(itemName, value);
-    setShowTextErrors((prevErrors) => ({
-      ...prevErrors,
-      [itemName]: inputValue.trim() === '',
-    }));
-  };
-
   const handleTextareaChange = (e, itemName) => {
     const inputValue = e.target.value;
     formik.handleChange(e);
@@ -211,9 +204,8 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
     .map((item) => item.value);
   const { translate, Language } = useTranslation();
 
-  const HandleChecked = (e) => {
-    e.preventDefault();
-    setCheck(true);
+  const HandleChecked = () => {
+    setCheck(!check);
   };
 
   return (
@@ -351,8 +343,7 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
                       : ''
                   }   justify-space p-2 bg-[#F4F4F4] rounded-xl w-full h-[50px] gap-5  `}
                 >
-                  <option value="">Select</option>
-
+                  <option value=""> {translate('Select', Language)}</option>
                   {item.data
                     .toString()
                     .split('|')
@@ -449,25 +440,53 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
                   {item.data
                     .toString()
                     .split('|')
-                    .map((value, index) => (
-                      <div className="flex gap-2 items-center" key={index}>
-                        <>
-                          <label htmlFor={value}>{value}</label>
-                          <input
-                            type="checkbox"
-                            name={item.name}
-                            className=" p-10 bg-[#F4F4F4] rounded-xl w-4 max-sm:w-full h-4 focus:ring-4"
-                            onChange={(event) =>
-                              handleCheckboxChange(event, item.name, value)
-                            }
-                            onBlur={formik.handleBlur}
-                            value={value}
-                            checked={formik.values[item.name] === value}
-                            key={index}
-                          />
-                        </>
-                      </div>
-                    ))}
+                    .map((value, index) => {
+                      return (
+                        <div className="flex gap-2 items-center" key={index}>
+                          <>
+                            <label htmlFor={value}>{value}</label>
+                            <input
+                              type="checkbox"
+                              name={item.name}
+                              className=" p-10 bg-[#F4F4F4] rounded-xl w-4 max-sm:w-full h-4 focus:ring-4"
+                              onChange={(event) => {
+                                const isChecked = event.target.checked;
+                                let updatedValueString =
+                                  formik.values[item.name] || '';
+
+                                if (isChecked) {
+                                  updatedValueString =
+                                    updatedValueString +
+                                    (updatedValueString ? ',' : '') +
+                                    value;
+                                } else {
+                                  updatedValueString = updatedValueString
+                                    .split(',')
+                                    .filter((v) => v !== value)
+                                    .join(',');
+                                }
+
+                                formik.setFieldValue(
+                                  item.name,
+                                  updatedValueString
+                                );
+
+                                setShowTextErrors((prevErrors) => ({
+                                  ...prevErrors,
+                                  [item.name]: updatedValueString.trim() === '',
+                                }));
+                              }}
+                              onBlur={formik.handleBlur}
+                              value={value}
+                              checked={(formik.values[item.name] || '')
+                                .split(',')
+                                .includes(value)}
+                              key={index}
+                            />
+                          </>
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
             ))}
@@ -594,19 +613,20 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
                 ></textarea>
               </div>
             ))}
-          {FormsData?.data.length !== 0 ? (
+          {FormsData?.data?.length !== 0 ? (
             <div className="flex justify-start   items-center gap-2 mt-8">
               <input
                 type="checkbox"
-                onClick={(e) => HandleChecked(e)}
+                onChange={HandleChecked}
                 className="rounded"
+                checked={check}
                 name=""
                 id=""
               />
               <p className="text-[12px] text-[#5E5E5E]">
                 <Link href="/check"> Şərtlərlə tanış oldum</Link>
               </p>
-              {errorCheck ? (
+              {errorCheck && !check ? (
                 <div className="text-red-500 text-[10px]">
                   Şərtlərlə tanış olun
                 </div>
