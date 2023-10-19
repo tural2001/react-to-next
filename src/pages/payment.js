@@ -75,7 +75,7 @@ const payment = ({ PaymentData, SettingData, ServiceCategoryData }) => {
           src="/assets/home1.png"
           width={500}
           height={300}
-          className=" h-[535px]  top-32 w-full  max-sm:pb-14  max-sm:h-[200px] max-md:h-[250px] max-xl:h-[300px] max-xl:top-14"
+          className=" h-[535px]  top-32 w-full  max-sm:pb-14  max-sm:h-[200px] max-md:h-[250px] max-xxl:h-[300px] max-xl:top-14"
           alt=""
         />
       </div>
@@ -84,12 +84,12 @@ const payment = ({ PaymentData, SettingData, ServiceCategoryData }) => {
           <h3 className="h3  text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xl:text-[30px] max-xxl:text-white ">
             {translate('Payment', Language)}
           </h3>
-          <div className="absolute z-[1] max-xl:z-[-1]  right-48 max-xxl:right-5 max-sm:top-20 max-xxl:top-20">
+          <div className="absolute z-[1] max-xl:z-[-1] top-[280px]  right-48  max-xxl:right-40 max-sm:top-20 max-xxl:top-20">
             <Image
               src="/assets/payment/payment.png"
               width={402}
               height={402}
-              className="w-[402px] h-[402px]    max-lg:mr-5  max-sm:w-[152px]   max-sm:h-[152px] max-md:w-[200px]   max-md:h-[200px] max-xl:w-[252px] max-xl:h-[252px] max-xxl:w-[350px] max-xxl:h-[350px] max-xl:mt-0 max-xxl:mt-32"
+              className="w-[402px] h-[402px]     max-lg:mr-5  max-sm:w-[152px]    max-sm:h-[152px] max-md:w-[200px]   max-md:h-[200px] max-xl:w-[252px] max-xl:h-[252px] max-xxl:w-[350px] max-xxl:h-[350px] max-xl:mt-0 max-xxl:mt-32"
               alt=""
             />
           </div>
