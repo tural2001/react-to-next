@@ -61,7 +61,7 @@ const privacypolicy = ({ PageData }) => {
         .filter((item) => item.slug === 'mexfilik-siyaseti')
         .map((item) => {
           return (
-            <div className="container max-w-[1060px] max-xxl:w-full py-10 mx-auto ">
+            <div className="container max-w-[1060px] min-h-screen max-xxl:w-full py-10 mx-auto ">
               <h3 className="text-[40px] text-[#5B2D90] font-bold text-center max-md:text-[20px] max-xl:text-[30px]">
                 {item.title}
               </h3>

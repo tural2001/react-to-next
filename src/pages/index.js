@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { Pagination } from 'swiper/modules';
 import { SwiperNavButtons } from '../components/SwiperNavButtons';
 import { SVG } from '../components/SVG';
-import { HomePopup } from '../components/HomePopup';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useVisibleContext } from '../components/VisibleContext';
@@ -583,9 +582,16 @@ const home = ({
                             alt=""
                           />
                         </p>
-                        <button className="w-[100px] h-[30px] text-[8px] font-medium text-white bg-[#AB31D6] rounded-full">
+                        <Link
+                          href={
+                            home_page_other_tariffs_button_link
+                              ? home_page_other_tariffs_button_link
+                              : '#/'
+                          }
+                          className="w-[100px] h-[30px] text-[8px] flex justify-center items-center font-medium text-white bg-[#AB31D6] rounded-full"
+                        >
                           {translate('Detailed_information', Language)}
-                        </button>
+                        </Link>
                       </div>
                       <div className="flex justify-center">
                         <div
@@ -659,9 +665,16 @@ const home = ({
                             alt=""
                           />
                         </p>
-                        <button className="w-[100px] h-[30px] text-[8px] font-medium text-white bg-[#AB31D6] rounded-full">
+                        <Link
+                          href={
+                            home_page_other_tariffs_button_link
+                              ? home_page_other_tariffs_button_link
+                              : '#/'
+                          }
+                          className="w-[100px] h-[30px] text-[8px] flex justify-center items-center font-medium text-white bg-[#AB31D6] rounded-full"
+                        >
                           {translate('Detailed_information', Language)}
-                        </button>
+                        </Link>
                       </div>
                       <div className="flex justify-center">
                         <div
@@ -748,9 +761,16 @@ const home = ({
                                 alt=""
                               />
                             </p>
-                            <button className="w-[100px] h-[30px] text-[8px] font-medium text-white bg-[#AB31D6] rounded-full">
+                            <Link
+                              href={
+                                home_page_other_tariffs_button_link
+                                  ? home_page_other_tariffs_button_link
+                                  : '#/'
+                              }
+                              className="w-[100px] h-[30px] text-[8px] flex justify-center items-center font-medium text-white bg-[#AB31D6] rounded-full"
+                            >
                               {translate('Detailed_information', Language)}
-                            </button>
+                            </Link>
                           </div>
                           <div className="flex justify-center">
                             <div
@@ -839,9 +859,16 @@ const home = ({
                                 alt=""
                               />
                             </p>
-                            <button className="w-[100px] h-[30px] text-[8px] font-medium text-white bg-[#AB31D6] rounded-full">
+                            <Link
+                              href={
+                                home_page_other_tariffs_button_link
+                                  ? home_page_other_tariffs_button_link
+                                  : '#/'
+                              }
+                              className="w-[100px] h-[30px] text-[8px] flex justify-center items-center font-medium text-white bg-[#AB31D6] rounded-full"
+                            >
                               {translate('Detailed_information', Language)}
-                            </button>
+                            </Link>
                           </div>
                           <div className="flex justify-center">
                             <div

@@ -71,37 +71,33 @@ const payment = ({ PaymentData, SettingData, ServiceCategoryData }) => {
       {isLoading ? <LoadingOverlay /> : null}
       {visible ? <Service ServiceCategoryData={ServiceCategoryData} /> : null}
       <div className="max-xl:relative absolute max-xl:z-[-1] w-full  bg-[#F7F6FB] ">
-        {' '}
         <Image
           src="/assets/home1.png"
           width={500}
           height={300}
-          className=" h-[535px]  top-32 w-full  max-sm:pb-14 max-sm:h-[200px] max-md:h-[300px] max-xl:h-[300px] max-xl:top-14"
+          className=" h-[535px]  top-32 w-full  max-sm:pb-14  max-sm:h-[200px] max-md:h-[250px] max-xl:h-[300px] max-xl:top-14"
           alt=""
         />
       </div>
       <div className="bg-[#F7F6FB]  w-full   mx-auto ">
         <div className="bg-[#F7F6FB] h-[450px] max-xxl:h-auto  ">
-          {' '}
           <h3 className="h3  text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xl:text-[30px] max-xxl:text-white ">
             {translate('Payment', Language)}
           </h3>
-          <div className="absolute  z-[1] max-xl:z-[-1]  right-48 max-xxl:right-5 max-sm:top-20 max-xxl:top-40">
-            {' '}
+          <div className="absolute z-[1] max-xl:z-[-1]  right-48 max-xxl:right-5 max-sm:top-20 max-xxl:top-20">
             <Image
               src="/assets/payment/payment.png"
               width={402}
               height={402}
-              className="w-[402px] h-[402px]  mr-24 max-lg:mr-5  max-md:w-[152px]   max-md:h-[152px] max-xxl:w-[252px] max-xxl:h-[252px]"
+              className="w-[402px] h-[402px]    max-lg:mr-5  max-sm:w-[152px]   max-sm:h-[152px] max-md:w-[200px]   max-md:h-[200px] max-xl:w-[252px] max-xl:h-[252px] max-xxl:w-[350px] max-xxl:h-[350px] max-xl:mt-0 max-xxl:mt-32"
               alt=""
             />
           </div>
         </div>
         <div className="bg-[#F7F6FB] w-full mt-0 max-xl:mt-0 max-xxl:mt-96 ">
           <div className=" w-[1110px] max-xxl:w-full mx-auto flex flex-col gap-10 justify-center items-center mt-20 max-xl:mt-0 ">
-            <div className=" ">
-              {' '}
-              <h3 className="text-[40px] max-md:text-[20px] max-xl:text-[30px]  mx-auto overflow-hidden  text-[#5B2D90] font-bold text-center mt-20">
+            <div className="">
+              <h3 className="text-[40px] max-md:text-[20px] max-xl:text-[30px]  mx-auto overflow-hidden  text-[#5B2D90] font-bold text-center mt-20 max-xl:mt-10 max-sm:mt-4">
                 {translate('Pay', Language)}
               </h3>
             </div>
@@ -110,16 +106,17 @@ const payment = ({ PaymentData, SettingData, ServiceCategoryData }) => {
                 .filter((item) => item.redirect_link !== null)
                 .map((item) => {
                   return (
-                    <div
-                      className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white flex justify-center items-center"
-                      key={item.id}
-                    >
-                      <Link href={item.redirect_link}>
+                    <div key={item.id}>
+                      <Link
+                        href={item.redirect_link}
+                        className="border-[2px] ]border-[#D7D7D7] rounded-3xl w-[344px] h-[208px] max-xl:w-[138px] max-xl:h-[84px] bg-white flex justify-center items-center"
+                      >
                         <Image
-                          src="/assets/payment/hokumetodenisportali.png"
-                          width={259}
-                          height={107}
-                          className="w-[259px] h-[107px] max-xl:w-[104px] max-xl:h-[42px]"
+                          src={item.image}
+                          width={0}
+                          height={0}
+                          sizes="100vw"
+                          style={{ width: '70%', height: 'auto' }}
                           alt=""
                         />
                       </Link>
@@ -130,32 +127,32 @@ const payment = ({ PaymentData, SettingData, ServiceCategoryData }) => {
           </div>
         </div>
         <div className="bg-white w-full">
-          <div className="relative w-[1110px] max-xxl:w-full mx-auto flex flex-col gap-10 justify-center items-center mt-10 ">
-            <div className=" ">
-              {' '}
+          <div className=" w-[1110px] max-xxl:w-full mx-auto flex flex-col gap-10 justify-center items-center mt-10 ">
+            <div className="">
               <h3
                 className={` text-[40px] max-md:text-[20px] max-xl:text-[30px]  mx-auto  pt-10 text-[#5B2D90] font-bold text-center`}
               >
                 {translate('All_payment_methods', Language)}
               </h3>
             </div>
-            <div className="grid grid-cols-3 max-xl:grid-cols-2 gap-5 py-5">
+            <div className="grid grid-cols-3 max-xl:grid-cols-2 gap-5 py-10">
               {PaymentData?.data
                 .filter((item) => item.redirect_link === null)
                 .map((item) => {
+                  console.log(item);
                   return (
                     <div
-                      className="border-[2px] border-[#D7D7D7] rounded-3xl w-[344px] h-[208px]  bg-white flex justify-center items-center max-xl:hidden"
+                      className="border-[2px] border-[#D7D7D7] rounded-3xl w-[344px] h-[208px]  bg-white flex justify-center items-center max-xl:w-[138px] max-xl:h-[84px]"
                       key={item.id}
                     >
                       <Popup
                         trigger={
                           <Image
-                            width={292}
-                            height={191}
-                            layout="responsive"
-                            src="/assets/payment/azercell.png"
-                            className=" max-xl:w-[75px] max-xl:h-[24px]"
+                            width={0}
+                            height={0}
+                            sizes="100vw"
+                            style={{ width: '70%', height: 'auto' }}
+                            src={item.image}
                             alt=""
                             key={item.id}
                           />

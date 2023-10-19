@@ -261,7 +261,7 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
       {isLoading ? <LoadingOverlay /> : null}
       {visible ? <Service ServiceCategoryData={ServiceCategoryData} /> : null}
       <div className="w-full mx-0  bg-image ">
-        <div className="w-[1100px] h-[800px] mx-auto flex gap-10  justify-between items-center  max-xl:hidden">
+        <div className="w-[1050px] h-[800px] mx-auto flex gap-10  justify-between items-center  max-xl:hidden">
           <div className="flex flex-col gap-10">
             <div className="flex justify-center items-center gap-5">
               <div className="">

@@ -22,20 +22,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/campaigns": [
+    "/about": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/campaigns.js"
+      "static/chunks/pages/about.js"
     ],
-    "/career": [
+    "/privacypolicy": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/career.js"
-    ],
-    "/payment": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/payment.js"
+      "static/chunks/pages/privacypolicy.js"
     ]
   },
   "ampFirstPages": []

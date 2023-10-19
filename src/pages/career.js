@@ -197,7 +197,6 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
     }
   };
 
-  useEffect(() => {}, []);
   const [success, setSuccess] = useState(false);
   const firstPopupRef = useRef();
   const secondPopupRef = useRef();
@@ -240,41 +239,37 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
       {isLoading ? <LoadingOverlay /> : null}
       {visible ? <Service ServiceCategoryData={ServiceCategoryData} /> : null}
       <div className="max-xl:relative absolute max-xl:z-[-1] w-full  bg-[#F7F6FB] ">
-        {' '}
         <Image
           src="/assets/home1.png"
           width={500}
           height={300}
-          className=" h-[535px]  top-32 w-full  max-sm:h-[200px]  max-md:h-[300px] max-xl:h-[300px] max-xl:top-14"
+          className=" h-[535px]  top-32 w-full  max-sm:h-[200px] max-sm:pb-14  md:pb-20  max-md:h-[300px] max-xl:h-[350px] max-xl:top-14"
           alt=""
         />
       </div>
       <div className="bg-[#F7F6FB]  w-full   mx-auto">
         <div className="h-[450px] max-xxl:h-auto  ">
-          {' '}
           <h3 className="h3  text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xl:text-[30px] max-xxl:text-white ">
             {translate('Career', Language)}
           </h3>
-          <div className="absolute  z-[1] max-xl:z-[-1]  right-48 max-xxl:right-5 max-sm:top-[90px] max-xxl:top-40">
-            {' '}
+          <div className="absolute  z-[1] max-xl:z-[-1]  right-48 max-xxl:right-1 max-sm:top-[90px] max-xl:top-20 max-xxl:top-40">
             <Image
               src="/assets/career.png"
               width={448}
               height={448}
-              className="w-[448px] h-[448px] max-xl:w-[155px] max-xl:h-[155px]  mr-16 max-xl:mr-0  "
+              className="w-[448px] h-[448px] max-sm:w-[155px] max-sm:h-[155px] max-md:w-[250px] max-md:h-[250px] max-xl:w-[305px] max-xl:h-[305px]  "
               alt=""
             />
           </div>
         </div>
-        <div className="bg-[#F7F6FB]  w-full mt-10 max-xl:mt-0">
+        <div className="bg-[#F7F6FB]  w-full mt-10 max-xl:mt-0 max-xxl:mt-[480px]">
           <div className=" w-[1110px] max-xl:w-full mx-auto flex flex-col gap-10 justify-center items-center mt-40 max-xl:mt-0 ">
             <div className=" ">
-              {' '}
               <h3 className="text-[40px] max-md:text-[20px] max-xl:text-[30px]  mx-auto overflow-hidden  text-[#5B2D90] font-bold text-center">
                 {translate('Available_vacancies', Language)}
               </h3>
             </div>
-            <div className="grid grid-cols-2 max-md:grid-cols-1 max-xl:w-11/12 gap-7">
+            <div className="grid grid-cols-2 max-md:grid-cols-1   gap-7">
               {VacanciesData?.data.map((item, index) => {
                 return (
                   <div
@@ -283,14 +278,6 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                   >
                     <h4 className="text-[24px] max-xl:text-[16px]">
                       {item.name}
-                      <input
-                        key={index}
-                        type="text"
-                        name="vacancy_name"
-                        onChange={() => setvname(item.name)}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.vacancy_name || item.name}
-                      />
                     </h4>
                     <p className="text-[12px] flex items-center gap-1 text-[#939393]">
                       <CiLocationOn /> {item.address}
@@ -311,8 +298,7 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                           padding: '0px',
                           borderRadius: '50px',
                           borderColor: 'white',
-                          width: '759px',
-                          height: '392px',
+                          minWidth: '80%',
                           overflow: 'hidden',
                         }}
                       >
@@ -327,10 +313,10 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                               onClick={close}
                             />
                             <div className="flex flex-col justify-center  mt-20 gap-5">
-                              <div className="w-[470px] mx-auto   flex flex-col justify-center  gap-2">
+                              <div className="w-full mx-auto   flex flex-col justify-center  gap-2">
                                 <label
                                   htmlFor=""
-                                  className="text-black font-medium  text-[16px]"
+                                  className="text-black font-medium  text-[16px] max-xl:text-[10px] max-xl:text-center"
                                 >
                                   {translate('CV', Language)}
                                   <span className="text-[#ED1C24]">*</span>
@@ -344,14 +330,13 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                                     <section>
                                       <div {...getRootProps()}>
                                         <input {...getInputProps()} />
-
                                         <div
                                           className={`border  ${
                                             formik.touched.cv &&
                                             formik.errors.cv
                                               ? 'border-[#ED1C24]'
                                               : 'border-[#DBDBDB]'
-                                          }  w-[445px] h-[189px] max-xl:w-11/12    bg-[#F4F4F4] rounded-lg flex justify-center items-center`}
+                                          }  w-[445px] h-[189px] max-xl:w-3/4 max-xl:mx-auto    bg-[#F4F4F4] rounded-lg flex justify-center items-center`}
                                         >
                                           <label
                                             htmlFor="dropzone-file"
@@ -363,14 +348,14 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                                           >
                                             <div className="flex flex-col items-center justify-center pt-5 pb-6">
                                               {isFileDetected ? (
-                                                <p className="mb-2 text-sm text-yellow-600 dark:text-yellow-400">
+                                                <p className="mb-2 text-sm max-xl:text-[10px] text-yellow-600 dark:text-yellow-400">
                                                   {translate(
                                                     'File_Detected',
                                                     Language
                                                   )}
                                                 </p>
                                               ) : (
-                                                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                                <p className="mb-2 text-sm max-xl:text-[10px] text-gray-500 dark:text-gray-400">
                                                   {translate(
                                                     'Image_Drop',
                                                     Language
@@ -393,7 +378,7 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                                                   d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                                                 ></path>
                                               </svg>
-                                              <p className="text-xs text-gray-500 dark:text-gray-400">
+                                              <p className="text-xs max-xl:text-[10px] max-xl:text-center text-gray-500 dark:text-gray-400">
                                                 SVG, PNG, JPG or GIF (MAX.
                                                 800x400px)
                                               </p>
@@ -413,10 +398,25 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                                 <button
                                   type="submit"
                                   onClick={() => handleClick(item.name)}
-                                  className="w-[197px] h-[38px] bg-[#5B2D90] rounded-full text-white text-[16px] mt-3"
+                                  className="w-[197px] h-[38px] max-xl:h-[30px] max-xl:text-[10px] max-xl:w-full bg-[#5B2D90] rounded-full text-white text-[16px] mt-3"
                                 >
                                   {translate('Apply', Language)}
                                 </button>
+                                <div className="mt-10">
+                                  {success && (
+                                    <div
+                                      className="p-4 mb-4 text-sm max-xl:text-[10px] text-white rounded-lg bg-[#5B2D90] flex justify-center items-center  "
+                                      role="alert"
+                                    >
+                                      <span className="font-medium max-xl:text-[10px]">
+                                        {translate(
+                                          'Your_request_has_been_sent_and_we_will_get_back_to_you_soon',
+                                          Language
+                                        )}
+                                      </span>
+                                    </div>
+                                  )}
+                                </div>
                               </div>
                             </div>
                           </>
@@ -438,9 +438,8 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                             padding: '0px',
                             borderRadius: '50px',
                             borderColor: 'white',
-                            width: '852px',
-                            height: '607px',
-
+                            minWidth: '80%',
+                            minHeight: '80%',
                             overflow: 'scroll',
                           }}
                         >
@@ -465,11 +464,11 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                                 <p className="text-[16px] flex items-center gap-1 text-[#939393]">
                                   <CiLocationOn /> {item.address}
                                 </p>
-                                <h3 className="mt-10 text-[24px] font-bold ">
+                                <h3 className="mt-10 text-[24px] max-xl:text-[16px] font-bold ">
                                   {item.name}
                                 </h3>
 
-                                <p className="text-white text-[28px] mb-5 font-light">
+                                <p className="text-white text-[28px] max-xl:text-[18px] mb-5 font-light">
                                   {item.description}
                                 </p>
 
@@ -501,9 +500,6 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                           )}
                         </Popup>
                       </div>
-                      {/* <div className="hidden max-xl:block">
-                        <EtrafliPopupsm />
-                      </div> */}
                     </div>
                   </div>
                 );
@@ -511,14 +507,12 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
             </div>
           </div>
         </div>
-        <div className="bg-white w-full">
-          <div className="relative w-[920px] max-xl:w-full mx-auto flex flex-col gap-10 justify-center items-center mt-10 ">
-            <div className=" ">
-              {' '}
-              <h3 className="text-[40px] max-md:text-[20px] max-xl:text-[30px]  mx-auto overflow-hidden  text-[#5B2D90] font-bold text-center">
-                {translate('Application_form', Language)}
-              </h3>
-            </div>
+        <div className="bg-white mt-10 ">
+          <div className="container w-[920px] max-xl:w-full mx-auto py-5">
+            <h3 className="text-[40px] max-md:text-[20px] max-xl:text-[30px]  mx-auto overflow-hidden  text-[#5B2D90] font-bold text-center">
+              {translate('Application_form', Language)}
+            </h3>
+
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -535,13 +529,13 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                 }
                 formik.handleSubmit(e);
               }}
-              className="grid grid-cols-2 max-xl:flex max-xl:flex-col max-xl:w-full max-xl:justify-center max-xl:items-center gap-7 py-10 "
+              className="grid grid-cols-2  gap-5  justify-items-between pt-10 pb-5 max-xl:mx-[30px]"
             >
-              <div className="w-full flex flex-col justify-center max-xl:items-center gap-2 ">
+              <div className="w-full flex max-xl:col-span-2 flex-col  justify-center gap-2">
                 {' '}
                 <label
                   htmlFor=""
-                  className="text-black flex gap-2 items-center  text-[16px] font-medium"
+                  className="text-black flex gap-2 items-center  text-[16px] max-md:text-[12px] font-medium"
                 >
                   {translate('Name', Language)}
                 </label>
@@ -553,17 +547,17 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                       : formik.touched.name && formik.errors.name
                       ? 'border-[#ED1C24]'
                       : 'border-[#DBDBDB]'
-                  }  bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12 p-2 focus:ring-0`}
+                  }  bg-[#F4F4F4] p-2 rounded-md w-[442px] h-[50px]  max-xl:h-[44px]  max-xl:w-full focus:ring-0`}
                   name="name"
                   onChange={handleNameChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.name}
                 />
               </div>
-              <div className="w-full flex flex-col justify-center  gap-2 max-xl:items-center">
+              <div className="w-full flex flex-col max-xl:col-span-2  justify-center gap-2">
                 <label
                   htmlFor=""
-                  className="text-black flex gap-2 items-center  text-[16px] font-medium"
+                  className="text-black flex gap-2 items-center  text-[16px] max-md:text-[12px] font-medium"
                 >
                   {translate('Phone', Language)}
                   <div className="error text-red-500">
@@ -578,7 +572,7 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                       : formik.touched.phone && formik.errors.phone
                       ? 'border-[#ED1C24]'
                       : 'border-[#DBDBDB]'
-                  }   bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12 p-2 focus:ring-0`}
+                  }  bg-[#F4F4F4] p-2 rounded-md w-[442px] h-[50px]  max-xl:h-[44px]  max-xl:w-full focus:ring-0`}
                   placeholder="+994 _ _  _ _ _  _ _  _ _"
                   name="phone"
                   onChange={handlePhoneChange}
@@ -586,11 +580,11 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                   value={formik.values.phone}
                 />
               </div>
-              <div className="w-full flex flex-col justify-center gap-2 max-xl:items-center">
+              <div className="w-full flex flex-col max-xl:col-span-2  justify-center gap-2">
                 {' '}
                 <label
                   htmlFor=""
-                  className="text-black flex gap-2 items-center  text-[16px] font-medium"
+                  className="text-black flex gap-2 items-center  text-[16px] max-md:text-[12px] font-medium"
                 >
                   {translate('Vacancy_Form', Language)}
                   {showVacancy_nameError && (
@@ -609,18 +603,18 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                         formik.errors.vacancy_name
                       ? 'border-[#ED1C24]'
                       : 'border-[#DBDBDB]'
-                  }   bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12 p-2 focus:ring-0`}
+                  }  bg-[#F4F4F4] p-2 rounded-md w-[442px] h-[50px]  max-xl:h-[44px]  max-xl:w-full focus:ring-0`}
                   name="vacancy_name"
                   onChange={handleVacancyChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.vacancy_name}
                 />
               </div>
-              <div className="w-full   flex flex-col justify-center gap-2 max-xl:items-center">
+              <div className="w-full flex flex-col max-xl:col-span-2  justify-center gap-2">
                 {' '}
                 <label
                   htmlFor=""
-                  className="text-black flex gap-2 items-center  text-[16px] font-medium"
+                  className="text-black flex gap-2 items-center  text-[16px] max-md:text-[12px] font-medium"
                 >
                   {translate('Email', Language)}
                 </label>
@@ -632,17 +626,17 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                       : formik.touched.email && formik.errors.email
                       ? 'border-[#ED1C24]'
                       : 'border-[#DBDBDB]'
-                  }   bg-[#F4F4F4] rounded-lg w-[442px] h-[50px] max-xl:w-11/12 p-2 focus:ring-0`}
+                  }  bg-[#F4F4F4] p-2 rounded-md w-[442px] h-[50px]  max-xl:h-[44px]  max-xl:w-full focus:ring-0`}
                   name="email"
                   onChange={handleEmailChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.email}
                 />
               </div>
-              <div className="w-full flex flex-col justify-center gap-2 max-xl:items-center">
+              <div className="w-full flex flex-col max-xl:col-span-2  justify-center gap-2">
                 <label
                   htmlFor=""
-                  className="text-black flex gap-2 items-center  text-[16px] font-medium"
+                  className="text-black flex gap-2 items-center  text-[16px] max-md:text-[12px] font-medium"
                 >
                   {translate('Note', Language)}{' '}
                 </label>
@@ -653,7 +647,7 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                       : formik.touched.notes && formik.errors.notes
                       ? 'border-[#ED1C24]'
                       : 'border-[#DBDBDB]'
-                  }  w-[445px] h-[189px] max-xl:w-11/12  p-3  bg-[#F4F4F4] rounded-lg`}
+                  }  w-[445px] h-[189px] max-xl:w-full   p-3  bg-[#F4F4F4] rounded-md`}
                   cols="10"
                   rows="8"
                   name="notes"
@@ -662,10 +656,10 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                   value={formik.values.notes}
                 ></textarea>
               </div>
-              <div className="w-full   flex flex-col justify-center gap-2 max-xl:items-center">
+              <div className="w-full flex flex-col max-xl:col-span-2  justify-center gap-2">
                 <label
                   htmlFor=""
-                  className="text-black flex gap-2 items-center  text-[16px] font-medium"
+                  className="text-black flex gap-2 items-center  text-[16px] max-md:text-[12px] font-medium"
                 >
                   {translate('Cv', Language)}
                   {showCvError && <span className="text-[#ED1C24]">*</span>}
@@ -698,11 +692,11 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                           >
                             <div className="flex flex-col items-center justify-center pt-5 pb-6">
                               {isFileDetected ? (
-                                <p className="mb-2 text-sm text-yellow-600 dark:text-yellow-400">
+                                <p className="mb-2 text-sm max-xl:text-[10px] text-yellow-600 dark:text-yellow-400">
                                   {translate('File_Detected', Language)}
                                 </p>
                               ) : (
-                                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                <p className="mb-2 text-sm max-xl:text-[10px] text-gray-500 dark:text-gray-400">
                                   {translate('Image_Drop', Language)}
                                 </p>
                               )}
@@ -722,7 +716,7 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                                   d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                                 ></path>
                               </svg>
-                              <p className="text-xs text-gray-500 dark:text-gray-400">
+                              <p className="text-xs max-xl:text-[10px] text-gray-500 dark:text-gray-400">
                                 SVG, PNG, JPG or GIF (MAX. 800x400px)
                               </p>
                             </div>

@@ -92,6 +92,11 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
   const formik = useFormik({
     initialValues,
     onSubmit: async (values) => {
+      if (check == false) {
+        setErrorCheck(true);
+        return;
+      }
+
       const errors = {};
 
       FormsData.data.forEach((item) => {
@@ -190,6 +195,8 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
     }));
   };
   const [errorFields, setErrorFields] = useState([]);
+  const [check, setCheck] = useState(false);
+  const [errorCheck, setErrorCheck] = useState(false);
 
   useEffect(() => {
     const newErrorFields = Object.keys(formik.errors);
@@ -203,6 +210,11 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
     ?.filter((item) => item.key === 'register_page_meta_description')
     .map((item) => item.value);
   const { translate, Language } = useTranslation();
+
+  const HandleChecked = (e) => {
+    e.preventDefault();
+    setCheck(true);
+  };
 
   return (
     <>
@@ -580,14 +592,31 @@ const registration = ({ FormsData, SettingData, ServiceCategoryData }) => {
                   onBlur={formik.handleBlur}
                   value={formik.values[item.name]}
                 ></textarea>
-                <div className="flex justify-start   items-center gap-2 mt-8">
-                  <input type="checkbox" className="rounded" name="" id="" />
-                  <p className="text-[12px] text-[#5E5E5E]">
-                    Şərtlərlə tanış oldum
-                  </p>
-                </div>
               </div>
             ))}
+          {FormsData?.data.length !== 0 ? (
+            <div className="flex justify-start   items-center gap-2 mt-8">
+              <input
+                type="checkbox"
+                onClick={(e) => HandleChecked(e)}
+                className="rounded"
+                name=""
+                id=""
+              />
+              <p className="text-[12px] text-[#5E5E5E]">
+                <Link href="/check"> Şərtlərlə tanış oldum</Link>
+              </p>
+              {errorCheck ? (
+                <div className="text-red-500 text-[10px]">
+                  Şərtlərlə tanış olun
+                </div>
+              ) : (
+                ''
+              )}
+            </div>
+          ) : (
+            ''
+          )}
 
           <button
             type="submit"

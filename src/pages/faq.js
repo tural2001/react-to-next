@@ -130,24 +130,22 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
       </div>
       <div className=" max-w-[1100px] max-xl:w-3/4  mx-auto">
         <div className="h-[450px] max-xxl:h-auto  ">
-          {' '}
-          <h3 className="h3  text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xl:text-[30px] max-xxl:text-white ">
+          <h3 className="h3 z-[-1] text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xl:text-[30px] max-xxl:text-white ">
             {translate('Frequently_asked_questions', Language)}
           </h3>
-          <div className="absolute  z-[1] max-xl:z-[-1]  right-48 max-xxl:right-5 max-sm:top-20 max-xxl:top-40">
-            {' '}
+          <div className="absolute  z-[1] max-xl:z-[-1]  right-48 max-xxl:right-5 max-sm:top-14 max-xxl:top-40">
             <Image
               src="/assets/faq.png"
               width={454}
               height={355}
-              className="w-[454px] h-[355px]  mr-24 mt-10 max-lg:mr-5  max-xl:w-[192px]  max-xl:h-[152px] max-xxl:w-[282px] max-xxl:h-[252px]"
+              className="w-[454px] h-[355px]  mr-24 mt-10 max-sm:mr-1 max-lg:mr-5  max-sm:w-[152px]  max-sm:h-[119px] max-xl:w-[192px]  max-xl:h-[152px] max-xxl:w-[300px] max-xxl:h-[252px]"
               alt=""
             />
           </div>
         </div>
-        <div className=" w-[826px] max-xl:w-full max-xl:mx-5 mx-auto flex flex-col gap-10 justify-center items-center mt-0 max-xxl:mt-40  max-sm:mt-5 max-md:mt-0 max-xl:mt-0  py-20 max-xl:py-10">
+        <div className=" w-[826px] max-xl:w-full max-xl:mx-5 mx-auto flex flex-col gap-10 justify-center items-center mt-0 max-xxl:mt-[180px]  max-sm:mt-0 max-md:mt-0 max-xl:mt-0   py-20 max-sm:py-5 max-xl:py-10">
           <div className=" max-xl:z-[-1]">
-            <h3 className="text-[40px] max-md:text-[20px] max-xxl:text-[30px] w-3/4 max-xl:w-full mx-auto overflow-hidden  text-[#5B2D90] font-bold text-center ">
+            <h3 className="text-[40px] max-md:text-[20px] max-xxl:text-[30px] w-full max-xl:w-full mx-auto overflow-hidden  text-[#5B2D90] font-bold text-center ">
               {translate('Previously_answered_questions', Language)}
             </h3>
           </div>
@@ -171,7 +169,7 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
                     </span>
                   </div>
                   {faqItems[index] && (
-                    <p className="text-[16px] text-[#6A7583] font-light leading-6 tracking-wide w-[680px] max-xl:w-3/4 mx-auto ease-in duration-300 z-[-1]">
+                    <p className="text-[16px] text-[#6A7583] font-light leading-6 tracking-wide w-[660px] max-xl:w-full mx-auto ease-in duration-300 z-[-1]">
                       {item.answer}
                     </p>
                   )}
@@ -203,12 +201,12 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
               }
               formik.handleSubmit(e);
             }}
-            className="grid grid-cols-2 max-xl:grid-cols-1 gap-5  justify-items-between py-10 max-xl:mx-5"
+            className="grid grid-cols-2 max-xl:grid-cols-1 gap-5  justify-items-between pt-10 pb-5 max-xl:mx-[30px]"
           >
             <div className="w-full flex flex-col  justify-center gap-2">
               <label
                 htmlFor=""
-                className="text-black flex gap-2 items-center  text-[16px] font-medium"
+                className="text-black flex gap-2 items-center  text-[16px] max-md:text-[12px] font-medium"
               >
                 {translate('Name', Language)}
                 {showNameError && <span className="text-[#ED1C24]">*</span>}
@@ -224,7 +222,7 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
                     : formik.touched.name && formik.errors.name
                     ? 'border-[#ED1C24]'
                     : 'border-[#5B2D90]'
-                }  bg-white p-2 rounded-md w-[460px] h-[58px] max-xl:w-full focus:ring-0`}
+                }  bg-white p-2 rounded-md w-[460px] h-[58px]  max-xl:h-[44px]  max-xl:w-full focus:ring-0`}
                 name="name"
                 onChange={handleNameChange}
                 onBlur={formik.handleBlur}
@@ -234,7 +232,7 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
             <div className="w-full flex flex-col justify-center gap-2">
               <label
                 htmlFor=""
-                className="text-black flex gap-2 items-center  text-[16px] font-medium"
+                className="text-black flex gap-2 items-center  text-[16px] max-md:text-[12px] font-medium"
               >
                 {translate('Phone', Language)}{' '}
                 {showPhoneError && <span className="text-[#ED1C24]">*</span>}
@@ -250,7 +248,7 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
                     : formik.touched.phone && formik.errors.phone
                     ? 'border-[#ED1C24]'
                     : 'border-[#5B2D90]'
-                }   bg-white rounded-lg w-[464px] h-[58px] max-xl:w-full p-2 focus:ring-0`}
+                }   bg-white rounded-lg w-[464px] h-[58px] max-xl:h-[44px] max-xl:w-full p-2 focus:ring-0`}
                 placeholder="+994 _ _  _ _ _  _ _  _ _"
                 name="phone"
                 onChange={handlePhoneChange}
@@ -261,7 +259,7 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
             <div className="w-full flex flex-col col-span-2 max-xl:col-span-1 justify-center gap-2">
               <label
                 htmlFor=""
-                className="text-black flex gap-2 items-center  text-[16px] font-medium"
+                className="text-black flex gap-2 items-center  text-[16px] max-md:text-[12px] font-medium"
               >
                 {translate('Question', Language)}
                 {showQuestionError && <span className="text-[#ED1C24]">*</span>}
@@ -288,7 +286,7 @@ const faq = ({ FaqsData, SettingData, ServiceCategoryData }) => {
 
             <button
               type="submit"
-              className="w-[250px] h-[58px] bg-[#5B2D90] text-white rounded-full text-[16px]"
+              className="w-[250px] h-[58px] max-md:h-[40px] bg-[#5B2D90] text-white rounded-full text-[16px] max-md:text-[12px]"
             >
               {translate('Send', Language)}
             </button>

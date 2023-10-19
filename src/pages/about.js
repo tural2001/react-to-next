@@ -14,11 +14,11 @@ import Service from '../components/Service';
 export async function getServerSideProps() {
   try {
     const Valuesresponse = await axios.get(
-      `${base_url}/api/our-values`,
+      `${base_url}/api/our-values?inactive=true`,
       config
     );
     const Structureresponse = await axios.get(
-      `${base_url}/api/structures`,
+      `${base_url}/api/structures?inactive=true`,
       config
     );
     const Settingresponse = await axios.get(`${base_url}/api/settings`, config);
@@ -53,6 +53,7 @@ const about = ({
   SettingData,
   ServiceCategoryData,
 }) => {
+  console.log(ValuesData);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setIsLoading(false);
@@ -93,7 +94,7 @@ const about = ({
           src="/assets/home1.png"
           width={500}
           height={300}
-          className=" h-[535px]  top-32 w-ful max-sm:pb-20  max-sm:h-[220px] max-md:h-[300px] max-xl:h-[300px] max-xl:top-14"
+          className=" h-[535px]  top-32 w-full max-sm:pb-20  max-sm:h-[220px] max-md:h-[300px] max-xl:h-[300px] max-xl:top-14"
           alt=""
         />
       </div>
@@ -113,7 +114,7 @@ const about = ({
                   <h3 className="h3 text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xl:text-[30px] max-xxl:text-white ">
                     {item.title}
                   </h3>
-                  <div className="hidden max-xl:block absolute  z-[1] max-xl:z-[-1] top-[130px] right-48 max-xxl:right-0  max-xxl:top-20 ">
+                  <div className="hidden max-xl:block absolute  z-[1] max-xl:z-[-1] top-[130px] right-48 max-xxl:right-0   max-sm:top-20 max-lg:top-32 max-xl:top-40 ">
                     <Image
                       src="/assets/about/about.png"
                       width={210}
