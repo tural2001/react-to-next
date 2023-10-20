@@ -548,7 +548,9 @@ const home = ({
                           {item.speed} Mb/s
                         </p>
                         <div
-                          className={`bg-[#FFA35B] w-full h-[28px]  flex  justify-center items-center gap-2  `}
+                          className={`${
+                            item.most_wanted === 1 ? 'block' : 'hidden'
+                          } bg-[#FFA35B] w-full h-[28px]  flex  justify-center items-center gap-2  `}
                         >
                           <Image
                             src="/assets/packets/tv2.png"
@@ -619,7 +621,7 @@ const home = ({
                       >
                         <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
                           <Image
-                            src={'/assets/packets/basic.png'}
+                            src={item.icon}
                             width={26}
                             height={29}
                             alt=""
@@ -639,9 +641,21 @@ const home = ({
                             height={15}
                             alt=""
                           />
-                          <p className="text-[10px] font-bold text-[#5B2D90]">
-                            IP TV
-                          </p>
+                          <div
+                            className={`${
+                              item.most_wanted === 1 ? 'block' : 'hidden'
+                            } bg-[#FFA35B] w-full h-[28px]  flex  justify-center items-center gap-2  `}
+                          >
+                            <Image
+                              src="/assets/packets/tv2.png"
+                              width={11}
+                              height={15}
+                              alt=""
+                            />
+                            <p className="text-[10px] font-bold text-[#5B2D90]">
+                              {translate('IP_TV', Language)}
+                            </p>
+                          </div>
                         </div>
                         <p className="text-white text-[10px] font-bold flex gap-1">
                           <Image
@@ -715,7 +729,7 @@ const home = ({
                           >
                             <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
                               <Image
-                                src={'/assets/packets/basic.png'}
+                                src={item.icon}
                                 width={20}
                                 height={20}
                                 alt=""
@@ -728,15 +742,19 @@ const home = ({
                             <p className="text-white text-[24px] font-bold">
                               {item.speed} Mb/s
                             </p>
-                            <div className="bg-[#FFA35B] w-full h-10 hover:flex justify-center items-center gap-2 hidden fiber">
+                            <div
+                              className={`${
+                                item.most_wanted === 1 ? 'block' : 'hidden'
+                              } bg-[#FFA35B] w-full h-[28px]  flex  justify-center items-center gap-2  `}
+                            >
                               <Image
                                 src="/assets/packets/tv2.png"
-                                width={500}
-                                height={300}
+                                width={11}
+                                height={15}
                                 alt=""
                               />
                               <p className="text-[10px] font-bold text-[#5B2D90]">
-                                IP TV
+                                {translate('IP_TV', Language)}
                               </p>
                             </div>
                             <p className="text-white text-[10px] font-bold flex gap-1">
@@ -813,7 +831,7 @@ const home = ({
                           >
                             <div className="flex justify-center items-center w-[65px] h-[65px] bg-[#AB31D6] rounded-full mt-3">
                               <Image
-                                src={'/assets/packets/basic.png'}
+                                src={item.icon}
                                 width={20}
                                 height={20}
                                 alt=""
@@ -826,15 +844,19 @@ const home = ({
                             <p className="text-white text-[24px] font-bold">
                               {item.speed} Mb/s
                             </p>
-                            <div className="bg-[#FFA35B] w-full h-10 hover:flex justify-center items-center gap-2 hidden fiber">
+                            <div
+                              className={`${
+                                item.most_wanted === 1 ? 'block' : 'hidden'
+                              } bg-[#FFA35B] w-full h-[28px]  flex  justify-center items-center gap-2  `}
+                            >
                               <Image
                                 src="/assets/packets/tv2.png"
-                                width={500}
-                                height={300}
+                                width={11}
+                                height={15}
                                 alt=""
                               />
                               <p className="text-[10px] font-bold text-[#5B2D90]">
-                                IP TV
+                                {translate('IP_TV', Language)}
                               </p>
                             </div>
                             <p className="text-white text-[10px] font-bold flex gap-1">
