@@ -1,6 +1,6 @@
 // components/LoadingOverlay.js
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 
 export const LoadingOverlay = () => {
@@ -8,8 +8,16 @@ export const LoadingOverlay = () => {
 
   if (isLoading) {
     return (
-      <div className="loading-overlay">
-        <Image src="/assets/loading.gif" fill priority alt="Loading" />
+      <div className="loading-overlay ">
+        <Image
+          src="/assets/loading.gif"
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ width: '100%', height: 'auto' }}
+          priority
+          alt="Loading"
+        />
       </div>
     );
   }

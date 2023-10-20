@@ -32,7 +32,7 @@ const Service = ({ ServiceCategoryData }) => {
                     {item.services?.map((service, serviceIndex) => {
                       return (
                         <li key={serviceIndex}>
-                          <Link href={`services/${service.id}`}>
+                          <Link href={`/services/${service.id}`}>
                             {service.title}
                           </Link>
                         </li>

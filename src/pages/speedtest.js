@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useVisibleContext } from '../components/VisibleContext';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
-import rotationMap from '../components/rotationMap';
 import { publicIpv4 } from 'public-ip';
 import { LoadingOverlay } from '../components/LoadingOverlay';
 import { useTranslation } from '../components/TranslationContext';
@@ -109,7 +107,109 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
     transform: `rotate(${rotation}deg)`,
     transition: 'transform 3s ease',
   });
-  <rotationMap />;
+  const rotationMap = [
+    { downloadSpeed: 0, rotate: -155 },
+    { downloadSpeed: 0.3, rotate: -145 },
+    { downloadSpeed: 0.5, rotate: -140 },
+    { downloadSpeed: 0.8, rotate: -135 },
+    { downloadSpeed: 1, rotate: -125 },
+    { downloadSpeed: 1.5, rotate: -115 },
+    { downloadSpeed: 2.5, rotate: -100 },
+    { downloadSpeed: 5, rotate: -80 },
+    { downloadSpeed: 6, rotate: -70 },
+    { downloadSpeed: 7, rotate: -60 },
+    { downloadSpeed: 8, rotate: -50 },
+    { downloadSpeed: 9, rotate: -40 },
+    { downloadSpeed: 10, rotate: -35 },
+    { downloadSpeed: 11, rotate: -30 },
+    { downloadSpeed: 12, rotate: -25 },
+    { downloadSpeed: 15, rotate: -10 },
+    { downloadSpeed: 16, rotate: -5 },
+    { downloadSpeed: 17, rotate: 0 },
+    { downloadSpeed: 18, rotate: 3 },
+    { downloadSpeed: 19, rotate: 5 },
+    { downloadSpeed: 20, rotate: 10 },
+    { downloadSpeed: 21, rotate: 11 },
+    { downloadSpeed: 22, rotate: 12 },
+    { downloadSpeed: 23, rotate: 13 },
+    { downloadSpeed: 24, rotate: 14 },
+    { downloadSpeed: 25, rotate: 16 },
+    { downloadSpeed: 26, rotate: 18 },
+    { downloadSpeed: 27, rotate: 20 },
+    { downloadSpeed: 28, rotate: 22 },
+    { downloadSpeed: 29, rotate: 25 },
+    { downloadSpeed: 30, rotate: 30 },
+    { downloadSpeed: 31, rotate: 31 },
+    { downloadSpeed: 32, rotate: 32 },
+    { downloadSpeed: 33, rotate: 33 },
+    { downloadSpeed: 34, rotate: 34 },
+    { downloadSpeed: 35, rotate: 35 },
+    { downloadSpeed: 36, rotate: 36 },
+    { downloadSpeed: 37, rotate: 37 },
+    { downloadSpeed: 38, rotate: 38 },
+    { downloadSpeed: 39, rotate: 39 },
+    { downloadSpeed: 40, rotate: 40 },
+    { downloadSpeed: 41, rotate: 42 },
+    { downloadSpeed: 42, rotate: 43 },
+    { downloadSpeed: 43, rotate: 44 },
+    { downloadSpeed: 44, rotate: 45 },
+    { downloadSpeed: 45, rotate: 46 },
+    { downloadSpeed: 46, rotate: 48 },
+    { downloadSpeed: 47, rotate: 49 },
+    { downloadSpeed: 48, rotate: 50 },
+    { downloadSpeed: 49, rotate: 52 },
+    { downloadSpeed: 50, rotate: 55 },
+    { downloadSpeed: 51, rotate: 55 },
+    { downloadSpeed: 52, rotate: 57 },
+    { downloadSpeed: 53, rotate: 57 },
+    { downloadSpeed: 54, rotate: 57 },
+    { downloadSpeed: 55, rotate: 57 },
+    { downloadSpeed: 56, rotate: 57 },
+    { downloadSpeed: 57, rotate: 57 },
+    { downloadSpeed: 58, rotate: 57 },
+    { downloadSpeed: 59, rotate: 57 },
+    { downloadSpeed: 60, rotate: 60 },
+    { downloadSpeed: 61, rotate: 61 },
+    { downloadSpeed: 62, rotate: 62 },
+    { downloadSpeed: 63, rotate: 63 },
+    { downloadSpeed: 64, rotate: 64 },
+    { downloadSpeed: 65, rotate: 65 },
+    { downloadSpeed: 66, rotate: 66 },
+    { downloadSpeed: 67, rotate: 67 },
+    { downloadSpeed: 68, rotate: 68 },
+    { downloadSpeed: 69, rotate: 69 },
+    { downloadSpeed: 70, rotate: 70 },
+    { downloadSpeed: 71, rotate: 71 },
+    { downloadSpeed: 72, rotate: 72 },
+    { downloadSpeed: 73, rotate: 73 },
+    { downloadSpeed: 74, rotate: 74 },
+    { downloadSpeed: 75, rotate: 75 },
+    { downloadSpeed: 76, rotate: 76 },
+    { downloadSpeed: 77, rotate: 77 },
+    { downloadSpeed: 78, rotate: 78 },
+    { downloadSpeed: 79, rotate: 79 },
+    { downloadSpeed: 80, rotate: 81 },
+    { downloadSpeed: 81, rotate: 82 },
+    { downloadSpeed: 82, rotate: 82 },
+    { downloadSpeed: 83, rotate: 82 },
+    { downloadSpeed: 84, rotate: 83 },
+    { downloadSpeed: 85, rotate: 85 },
+    { downloadSpeed: 86, rotate: 85 },
+    { downloadSpeed: 87, rotate: 85 },
+    { downloadSpeed: 88, rotate: 85 },
+    { downloadSpeed: 89, rotate: 85 },
+    { downloadSpeed: 90, rotate: 86 },
+    { downloadSpeed: 91, rotate: 86 },
+    { downloadSpeed: 92, rotate: 86 },
+    { downloadSpeed: 93, rotate: 86 },
+    { downloadSpeed: 94, rotate: 87 },
+    { downloadSpeed: 95, rotate: 88 },
+    { downloadSpeed: 96, rotate: 88 },
+    { downloadSpeed: 97, rotate: 89 },
+    { downloadSpeed: 98, rotate: 89 },
+    { downloadSpeed: 99, rotate: 89 },
+    { downloadSpeed: 100, rotate: 90 },
+  ];
 
   function getStrokeDashOffset(downloadSpeed) {
     const StrokeMap = [
@@ -221,8 +321,8 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
       }
     }
   }
-
-  const strokeDashoffset = getStrokeDashOffset(Math.floor(download));
+  const metr = Math.floor(download);
+  const strokeDashoffset = getStrokeDashOffset(metr);
   const findRotationForSpeed = (speed) => {
     for (let i = 0; i < rotationMap.length; i++) {
       const entry = rotationMap[i];
@@ -232,6 +332,8 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
     }
     return 0;
   };
+  console.log(strokeDashoffset);
+
   useEffect(() => {
     const newRotation = findRotationForSpeed(download);
 
@@ -312,7 +414,6 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
                   {translate('Connections', Language)}
                 </p>
                 <p className="text-[8px] font-normal text-white">
-                  {' '}
                   {translate('Multi', Language)}
                 </p>
               </div>
@@ -320,7 +421,7 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
           </div>
           <div className="flex flex-col justify-center items-center pl-10 pb-10">
             <svg
-              width="536"
+              width="586"
               height="535"
               viewBox="0 0 536 535"
               fill="none"
@@ -806,7 +907,7 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
                 style={needleStyle}
                 cx="367.951"
                 cy="134.231"
-                r={download !== 0 && null ? '98.1868' : '0'}
+                r={download !== 0 && download !== null ? '98.1868' : '0'}
                 fill="url(#paint0_radial_140_97)"
                 fillOpacity="0.47"
                 className="svg-elem-67"
@@ -1552,7 +1653,7 @@ const Speedtes = ({ SettingData, ServiceCategoryData }) => {
                   style={needleStyle}
                   cx="367.951"
                   cy="134.231"
-                  r={download !== 0 && null ? '98.1868' : '0'}
+                  r={download !== 0 && download !== null ? '98.1868' : '0'}
                   fill="url(#paint0_radial_140_97)"
                   fillOpacity="0.47"
                   className="svg-elem-67"

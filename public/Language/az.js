@@ -35,12 +35,15 @@ export const Enter_your_customer_code = 'Müştəri kodunuzu daxil edin';
 export const Select_the_payment_type = 'Ödəniş növünü seçin';
 export const Number_validate = 'Nömrəni doğru daxil edin';
 export const Connections = 'Connections';
-export const Ip_Address = 'Ip_Address';
+export const Ip_Address = 'Ip Address';
 export const Download = 'Download';
 export const Upload = 'Upload';
 export const Ping = 'Ping';
 export const Multi = 'Multi';
 export const Server = 'Server';
+export const Condition = 'Şərtlərlə tanış oldum';
+export const Condition_error = 'Şərtlərlə tanış olun';
+export const ERROR = 'Məlumat əldə edilərkən xəta baş verdi';
 
 //Faq
 export const Frequently_asked_questions = 'Tez-tez verilən suallar';
@@ -64,6 +67,7 @@ export const Channel_country = 'Kanallar Olkeler uzre';
 export const Country = 'Ölkə';
 export const TV_number = 'Tv sayı';
 export const Channels = 'Kanallar';
+export const IP_TV = 'IP TV';
 
 //
 export const Welcome_to_Azeronline = 'Azəronline-a xoş gəlmisiniz !';

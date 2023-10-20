@@ -41,12 +41,16 @@ export const Enter_your_customer_code = 'Enter your customer code';
 export const Select_the_payment_type = 'Select the payment type';
 export const Number_validate = 'Enter the number correctly';
 export const Connections = 'Connections';
-export const Ip_Address = 'Ip_Address';
+export const Ip_Address = 'Ip Address';
 export const Download = 'Download';
 export const Upload = 'Upload';
 export const Ping = 'Ping';
 export const Multi = 'Multi';
 export const Server = 'Server';
+export const Condition = 'I have read the terms';
+export const Condition_error = 'Read the terms';
+export const IP_TV = 'IP TV';
+export const ERROR = 'An error occurred while fetching data';
 
 //Faq
 export const Frequently_asked_questions = 'Frequently asked questions';

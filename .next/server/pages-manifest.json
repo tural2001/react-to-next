@@ -1,8 +1,7 @@
 {
   "/_app": "pages/_app.js",
-  "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/installment": "pages/installment.js",
-  "/payment": "pages/payment.js",
-  "/faq": "pages/faq.js"
+  "/_document": "pages/_document.js",
+  "/blog/[slug]": "pages/blog/[slug].js",
+  "/career": "pages/career.js"
 }

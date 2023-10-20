@@ -705,11 +705,13 @@ const faq = ({ SettingData, FormsData, PageData }) => {
                   id=""
                 />
                 <p className="text-[12px] text-[#5E5E5E]">
-                  <Link href="/check"> Şərtlərlə tanış oldum</Link>
+                  <a target="_blank" href="/check" rel="noopener noreferrer">
+                    {translate('Condition', Language)}
+                  </a>{' '}
                 </p>
                 {errorCheck && !check ? (
                   <div className="text-red-500 text-[10px]">
-                    Şərtlərlə tanış olun
+                    {translate('Condition_error', Language)}
                   </div>
                 ) : (
                   ''

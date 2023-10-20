@@ -756,8 +756,117 @@ polygon .st0 {
 }
 @media screen and (max-width: 1080px) {
   .h3 {
+    position: absolute;
     top: 60px;
     left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.blog {
+  position: relative;
+}
+
+@media screen and (max-width: 1080px) {
+  .blog {
+    position: absolute;
+    top: 130px;
+    padding-bottom: 100px;
+  }
+}
+
+@media screen and (max-width: 1060px) {
+  .wifi_2 {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1060px) and (max-width: 2000px) {
+  .wifi_2 {
+    position: absolute;
+    bottom: -230px;
+    left: 15%;
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .wifi_3 {
+    position: absolute;
+    top: -90px;
+    right: -20%;
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (min-width: 780px) and (max-width: 1060px) {
+  .wifi_3 {
+    position: absolute;
+    top: -150px;
+    right: -14%;
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (min-width: 1060px) and (max-width: 2000px) {
+  .wifi_3 {
+    position: absolute;
+    top: -200px;
+    right: -40%;
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (min-width: 330px) and (max-width: 451px) {
+  .wifi {
+    position: absolute;
+    top: -140px;
+    right: -16%;
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .wifi {
+    position: absolute;
+    top: -140px;
+    right: -21%;
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (min-width: 451px) and (max-width: 780px) {
+  .wifi {
+    position: absolute;
+    top: -160px;
+    right: -8%;
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (min-width: 780px) and (max-width: 1060px) {
+  .wifi {
+    position: absolute;
+    top: -175px;
+    right: -8%;
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (min-width: 1060px) and (max-width: 1235px) {
+  .wifi {
+    position: absolute;
+    top: -175px;
+    right: -14%;
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (min-width: 1235px) and (max-width: 2000px) {
+  .wifi {
+    position: absolute;
+    top: -175px;
+    right: -20%;
     transform: translateX(-50%);
   }
 }
@@ -766,7 +875,7 @@ polygon .st0 {
   .p-a {
     position: absolute;
     top: 140px;
-    left: 32%;
+    right: 32%;
     transform: translateX(-50%);
   }
 }

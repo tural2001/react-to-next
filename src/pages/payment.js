@@ -172,7 +172,7 @@ const payment = ({ PaymentData, SettingData, ServiceCategoryData }) => {
                           <>
                             <Image
                               src="/assets/popup/x.png"
-                              className="absolute right-5 top-5 w-[40px] h-[42px]"
+                              className="absolute right-5 top-5 w-[40px] h-[42px] max-sm:w-[20px] max-sm:h-[21px]"
                               alt=""
                               width={40}
                               height={42}

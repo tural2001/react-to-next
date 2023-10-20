@@ -1,6 +1,5 @@
 import React, { use, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { TariffsPopup } from '../../components/TariffsPopup';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import axios from 'axios';
@@ -11,6 +10,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useVisibleContext } from '../../components/VisibleContext';
 import Popup from 'reactjs-popup';
+import Service from '../../components/Service';
 
 export async function getServerSideProps({ query }) {
   try {
@@ -59,8 +59,6 @@ const service = ({
   ServiceCategoryData,
   ServiceData,
   PartnerData,
-  ChannelData,
-  CountryData,
   id,
 }) => {
   const CombineData = ServiceData?.data?.filter((item) => item.id == [id]);
@@ -173,46 +171,8 @@ const service = ({
   console.log(ServiceData);
   return (
     <>
-      {visible && (
-        <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
-          <div className="grid grid-cols-3 justify-items-center">
-            {ServiceCategoryData?.data?.map((item, index) => {
-              console.log(item);
-              return (
-                <div className="">
-                  <div className="bg-[#DCC5F6] w-[102px] h-[102px] rounded-3xl flex items-center mx-auto">
-                    <Image
-                      src={item.icon}
-                      width={500}
-                      height={300}
-                      className="w-[56px] h-[56px] mx-auto"
-                      alt=""
-                    />
-                  </div>
-                  <div className="">
-                    <div className="flex justify-center">
-                      <h3 className=" font-medium text-[28px] py-4  tracking-[0.5px]">
-                        {item.name}
-                      </h3>
-                    </div>
-                    <ul className="flex flex-col justify-center items-center gap-2 text-[#909090]  font-normal ">
-                      {item.services?.map((service, serviceIndex) => {
-                        return (
-                          <li key={serviceIndex}>
-                            <Link href={`/services/${service.id}`}>
-                              {service.title}
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
+      {visible ? <Service ServiceCategoryData={ServiceCategoryData} /> : null}
+
       <div className="services-wrapper-1 max-w-[1100px] mx-auto pt-10 max-xl:pt-5">
         <h3 className="text-purple-900 text-[40px] text-center font-bold leading-10 pb-10 max-xl:pb-5 uppercase max-lg:text-[20px] max-xl:text-[30px]">
           {translate('Services', Language)}
@@ -333,7 +293,7 @@ const service = ({
           return (
             <>
               {}
-              <div className="services-wrapper-1 max-w-[1100px] mx-auto pt-20 max-xl:pt-10 ">
+              <div className="services-wrapper-1  max-w-[1100px] mx-auto pt-20 max-xl:pt-10 ">
                 <div
                   className="grid grid-cols-3 max-xl:grid-cols-2 py-20 max-xl:mx-5 gap-10"
                   id="fiber"
@@ -501,7 +461,7 @@ const service = ({
                             className="h-[15px]"
                             alt=""
                           />
-                        )}{' '}
+                        )}
                         {translate('Business', Language)}
                       </a>
                     </nav>
@@ -549,17 +509,6 @@ const service = ({
                                       <p className="text-white text-[24px] font-bold">
                                         {tariff.speed} Mb/s
                                       </p>
-                                      <div className="bg-[#FFA35B] w-full h-10 hover:flex justify-center items-center gap-2 hidden fiber">
-                                        <Image
-                                          src="/assets/packets/tv2.png"
-                                          width={10}
-                                          height={10}
-                                          alt=""
-                                        />
-                                        <p className="text-[10px] font-bold text-[#5B2D90]">
-                                          IP TV
-                                        </p>
-                                      </div>
                                       <p className="text-white text-[10px] font-bold flex gap-1">
                                         <Image
                                           src="/assets/packets/pq2.png"
@@ -603,7 +552,7 @@ const service = ({
                                               src="/assets/popup/x.png"
                                               width={40}
                                               height={42}
-                                              className="absolute right-5 top-5 w-[40px] h-[42px]"
+                                              className="absolute right-5 top-5 w-[40px] h-[42px] max-sm:w-[20px] max-sm:h-[21px]"
                                               alt=""
                                               onClick={close}
                                             />
@@ -684,17 +633,6 @@ const service = ({
                                           <p className="text-white text-[24px] font-bold">
                                             {tariff.speed} Mb/s
                                           </p>
-                                          <div className="bg-[#FFA35B] w-full h-10 hover:flex justify-center items-center gap-2 hidden fiber">
-                                            <Image
-                                              src="/assets/packets/tv2.png"
-                                              width={10}
-                                              height={10}
-                                              alt=""
-                                            />
-                                            <p className="text-[10px] font-bold text-[#5B2D90]">
-                                              IP TV
-                                            </p>
-                                          </div>
                                           <p className="text-white text-[10px] font-bold flex gap-1">
                                             <Image
                                               src="/assets/packets/pq2.png"
@@ -727,7 +665,7 @@ const service = ({
                                               padding: '0px',
                                               borderRadius: '20px',
                                               borderColor: 'white',
-                                              maxWidth: '80%',
+                                              maxWidth: '100%',
                                               overflow: 'hidden',
                                             }}
                                           >
@@ -737,11 +675,11 @@ const service = ({
                                                   src="/assets/popup/x.png"
                                                   width={40}
                                                   height={42}
-                                                  className="absolute right-2 top-2 w-[40px] h-[42px]"
+                                                  className="absolute right-2 top-2 w-[40px] h-[42px] max-sm:w-[20px] max-sm:h-[21px]"
                                                   alt=""
                                                   onClick={close}
                                                 />
-                                                <div className="w-[657px] mx-auto flex justify-center mt-20 gap-5">
+                                                <div className=" mx-auto flex justify-center items-center mt-4 gap-5">
                                                   <p className="text-16px leading-6">
                                                     {tariff.description}
                                                   </p>
@@ -775,11 +713,10 @@ const service = ({
                             <h3 className="text-center py-3 text-[#757575] text-[16px] max-xl:text-[12px] overflow-hidden">
                               {translate('Channel_country', Language)}
                             </h3>
-
-                            <div className="relative w-3/6  mx-auto border-[2px] border-[#C4C4C4] overflow-hidden shadow-md  sm:rounded-lg">
+                            <div className="relative max-sm:w-11/12  max-xl:w-4/6 w-3/6 p-2 mx-auto border-[1px] border-[#C4C4C4] overflow-x-auto shadow-md rounded-2xl">
                               <table className="w-full text-sm text-center text-gray-500 ">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
-                                  <tr>
+                                <thead className="text-xs  text-gray-700 borber border-b-[1px]  border-[#C4C4C4] uppercase ">
+                                  <tr className="">
                                     <th
                                       scope="col"
                                       className="px-6 py-4 max-sm:px-3 max-sm:py-0"
@@ -803,13 +740,9 @@ const service = ({
                                 <tbody>
                                   {Object.keys(CountryyData).map(
                                     (countryName, index) => {
-                                      console.log(
-                                        CountryyData[countryName][0]?.country
-                                          ?.name
-                                      );
                                       return (
                                         <tr
-                                          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                                          className="bg-white borber border-b-[1px]  border-[#C4C4C4] "
                                           key={index}
                                         >
                                           <th
@@ -822,15 +755,12 @@ const service = ({
                                             }
                                           </th>
                                           <td className="px-6 py-4">
-                                            {' '}
                                             {CountryyData[countryName]?.length}
                                           </td>
                                           <td className="px-6 py-4">
-                                            {' '}
                                             <Popup
                                               trigger={
                                                 <button className="">
-                                                  {' '}
                                                   {translate('Look', Language)}
                                                 </button>
                                               }
@@ -840,9 +770,7 @@ const service = ({
                                                 padding: '0px',
                                                 borderRadius: '50px',
                                                 borderColor: 'white',
-                                                width: '700px',
-                                                height: '300px',
-
+                                                minWidth: '80%',
                                                 overflow: 'scroll',
                                               }}
                                             >
@@ -852,7 +780,7 @@ const service = ({
                                                     src="/assets/popup/x.png"
                                                     width={40}
                                                     height={42}
-                                                    className="absolute right-5 top-5 w-[40px] h-[42px]"
+                                                    className="absolute right-5 top-5 w-[40px] h-[42px] max-sm:w-[20px] max-sm:h-[21px]"
                                                     alt=""
                                                     onClick={close}
                                                   />
@@ -861,17 +789,16 @@ const service = ({
                                                     {CountryyData[
                                                       countryName
                                                     ].map((item) => {
-                                                      console.log(item);
                                                       return (
                                                         <div
                                                           className=""
                                                           key={item}
                                                         >
                                                           <Image
-                                                            src="/assets/aztv.png"
+                                                            src={item.icon}
                                                             width={100}
                                                             height={100}
-                                                            layout=""
+                                                            layout="responsive"
                                                             className=""
                                                             alt=""
                                                           />
@@ -900,7 +827,6 @@ const service = ({
                             </h3>{' '}
                             <div className="mt-5 w-10/12 mx-auto max-xl:grid max-xl:grid-cols-3 flex flex-wrap justify-center ">
                               {PartnerData.data?.map((item) => {
-                                console.log(item);
                                 return (
                                   <>
                                     <div className="">
@@ -967,17 +893,6 @@ const service = ({
                                       <p className="text-white text-[24px] font-bold">
                                         {tariff.speed} Mb/s
                                       </p>
-                                      <div className="bg-[#FFA35B] w-full h-10 hover:flex justify-center items-center gap-2 hidden fiber">
-                                        <Image
-                                          src="/assets/packets/tv2.png"
-                                          width={10}
-                                          height={10}
-                                          alt=""
-                                        />
-                                        <p className="text-[10px] font-bold text-[#5B2D90]">
-                                          IP TV
-                                        </p>
-                                      </div>
                                       <p className="text-white text-[10px] font-bold flex gap-1">
                                         <Image
                                           src="/assets/packets/pq2.png"
@@ -1010,8 +925,7 @@ const service = ({
                                           padding: '0px',
                                           borderRadius: '50px',
                                           borderColor: 'white',
-                                          width: '759px',
-                                          height: '392px',
+                                          maxWidth: '100%',
                                           overflow: 'hidden',
                                         }}
                                       >
@@ -1021,16 +935,13 @@ const service = ({
                                               src="/assets/popup/x.png"
                                               width={40}
                                               height={42}
-                                              className="absolute right-5 top-5 w-[40px] h-[42px]"
+                                              className="absolute right-5 top-5 w-[40px] h-[42px] max-sm:w-[20px] max-sm:h-[21px]"
                                               alt=""
                                               onClick={close}
                                             />
-                                            <div className="w-[657px] mx-auto flex justify-center mt-20 gap-5">
+                                            <div className=" mx-auto flex justify-center items-center mt-4 gap-5">
                                               <p className="text-16px leading-6">
-                                                {translate(
-                                                  'Tariff_pop',
-                                                  Language
-                                                )}
+                                                {tariff.description}
                                               </p>
                                             </div>
                                           </>
@@ -1091,17 +1002,6 @@ const service = ({
                                     <p className="text-white text-[24px] font-bold">
                                       {item.speed} Mb/s
                                     </p>
-                                    <div className="bg-[#FFA35B] w-full h-10 hover:flex justify-center items-center gap-2 hidden fiber">
-                                      <Image
-                                        src="/assets/packets/tv2.png"
-                                        width={10}
-                                        height={10}
-                                        alt=""
-                                      />{' '}
-                                      <p className="text-[10px] font-bold text-[#5B2D90]">
-                                        IP TV
-                                      </p>
-                                    </div>
                                     <p className="text-white text-[10px] font-bold flex gap-1">
                                       <Image
                                         src="/assets/packets/pq2.png"
@@ -1144,7 +1044,7 @@ const service = ({
                                             src="/assets/popup/x.png"
                                             width={40}
                                             height={42}
-                                            className="absolute right-2 top-2 w-[40px] h-[42px]"
+                                            className="absolute right-2 top-2 w-[40px] h-[42px] max-sm:w-[20px] max-sm:h-[21px]"
                                             alt=""
                                             onClick={close}
                                           />
@@ -1212,7 +1112,6 @@ const service = ({
                                       </div>
                                       <div className="border-[1px] w-32 border-[#f1f1f1] opacity-20" />
                                       <div className="flex justify-center items-center mx-1">
-                                        {' '}
                                         <p className="text-white  text-[24px]  font-bold flex text-center gap-1">
                                           {tariff.name}
                                         </p>
@@ -1251,16 +1150,13 @@ const service = ({
                                               src="/assets/popup/x.png"
                                               width={40}
                                               height={42}
-                                              className="absolute right-5 top-5 w-[40px] h-[42px]"
+                                              className="absolute right-5 top-5 w-[40px] h-[42px] max-sm:w-[20px] max-sm:h-[21px]"
                                               alt=""
                                               onClick={close}
                                             />
                                             <div className="w-[657px] mx-auto flex justify-center mt-20 gap-5">
                                               <p className="text-16px leading-6">
-                                                {translate(
-                                                  'Tariff_pop',
-                                                  Language
-                                                )}
+                                                {tariff.description}
                                               </p>
                                             </div>
                                           </>
@@ -1321,17 +1217,6 @@ const service = ({
                                     <p className="text-white text-[24px] font-bold">
                                       {item.speed} Mb/s
                                     </p>
-                                    <div className="bg-[#FFA35B] w-full h-10 hover:flex justify-center items-center gap-2 hidden fiber">
-                                      <Image
-                                        src="/assets/packets/tv2.png"
-                                        width={10}
-                                        height={10}
-                                        alt=""
-                                      />{' '}
-                                      <p className="text-[10px] font-bold text-[#5B2D90]">
-                                        IP TV
-                                      </p>
-                                    </div>
                                     <p className="text-white text-[10px] font-bold flex gap-1">
                                       <Image
                                         src="/assets/packets/pq2.png"
@@ -1374,7 +1259,7 @@ const service = ({
                                             src="/assets/popup/x.png"
                                             width={40}
                                             height={42}
-                                            className="absolute right-2 top-2 w-[40px] h-[42px]"
+                                            className="absolute right-2 top-2 w-[40px] h-[42px] max-sm:w-[20px] max-sm:h-[21px]"
                                             alt=""
                                             onClick={close}
                                           />
@@ -1454,17 +1339,6 @@ const service = ({
                                     <p className="text-white text-[24px] font-bold">
                                       {tariff.speed} Mb/s
                                     </p>
-                                    <div className="bg-[#FFA35B] w-full h-10 hover:flex justify-center items-center gap-2 hidden fiber">
-                                      <Image
-                                        src="/assets/packets/tv2.png"
-                                        width={10}
-                                        height={10}
-                                        alt=""
-                                      />
-                                      <p className="text-[10px] font-bold text-[#5B2D90]">
-                                        IP TV
-                                      </p>
-                                    </div>
                                     <p className="text-white text-[10px] font-bold flex gap-1">
                                       <Image
                                         src="/assets/packets/pq2.png"
@@ -1508,7 +1382,7 @@ const service = ({
                                             src="/assets/popup/x.png"
                                             width={40}
                                             height={42}
-                                            className="absolute right-5 top-5 w-[40px] h-[42px]"
+                                            className="absolute right-5 top-5 w-[40px] h-[42px] max-sm:w-[20px] max-sm:h-[21px]"
                                             alt=""
                                             onClick={close}
                                           />
@@ -1653,7 +1527,6 @@ const service = ({
                   </h3>{' '}
                   <div className="mt-5 w-10/12 mx-auto max-xl:grid max-xl:grid-cols-3 flex flex-wrap justify-center ">
                     {PartnerData.data?.map((item) => {
-                      console.log(item);
                       return (
                         <>
                           <div className="">

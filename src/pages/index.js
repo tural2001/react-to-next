@@ -1,5 +1,5 @@
 import { HiOutlineArrowSmallDown } from 'react-icons/hi2';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -46,7 +46,7 @@ export async function getServerSideProps() {
       Slideresponse,
     ] = await Promise.all(request);
 
-    // await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     return {
       props: {
@@ -83,7 +83,6 @@ const home = ({
   ServiceCategoryData,
   SlideData,
 }) => {
-  console.log(ServiceCategoryData);
   const [isLoading, setIsLoading] = useState(true);
 
   const [selectedValue, setSelectedValue] = useState('');
@@ -425,24 +424,13 @@ const home = ({
           </div>
         </div>
       </div>
-      <Image
-        src="/assets/wifi.png"
-        width={300}
-        height={300}
-        className={`absolute right-32 ${
-          visible
-            ? 'top-[108rem] max-sm:top-[80rem] '
-            : 'top-[85em] max-sm:top-[28rem]'
-        } max-sm:top-[39rem] max-sm:right-0 z-10 w-[300px] h-[300px] max-sm:w-[126px] max-sm:h-[126px] md:hidden xl:hidden lg:hidden xxl:hidden `}
-        alt=""
-      />
       <div
         className={`${
           isOpen ? 'z-[-1]' : 'z-0'
-        } home-wrapper-4 w-full  pt-20 mx-auto relative overflow-hidden`}
+        } home-wrapper-4 w-full  pt-20 mx-auto relative `}
         id="ustunluklerimiz"
       >
-        <div className="container max-w-[1087px] mx-auto">
+        <div className="container relative max-w-[1087px] mx-auto">
           <h3
             className={`${
               isOpen ? 'z-[-1]' : 'z-0'
@@ -470,9 +458,17 @@ const home = ({
               </div>
             ))}
           </div>
+
+          <Image
+            src="/assets/wifi.png"
+            height={300}
+            width={300}
+            className="wifi max-md:w-[130px] max-xl:w-[200px] w-[300px]"
+            alt=""
+          />
         </div>
       </div>
-      <div className="home-wrapper-5 w-full   py-10 max-lg:py-0 overflow-hidden">
+      <div className="home-wrapper-5 w-full pb-20 relative   pt-10 max-lg:py-0 ">
         <Image
           src="/assets/home3.png"
           width={500}
@@ -551,7 +547,9 @@ const home = ({
                         <p className="text-white text-[24px] font-bold">
                           {item.speed} Mb/s
                         </p>
-                        <div className="bg-[#FFA35B] w-full h-10 hover:flex justify-center items-center gap-2 hidden fiber">
+                        <div
+                          className={`bg-[#FFA35B] w-full h-[28px]  flex  justify-center items-center gap-2  `}
+                        >
                           <Image
                             src="/assets/packets/tv2.png"
                             width={11}
@@ -559,7 +557,7 @@ const home = ({
                             alt=""
                           />
                           <p className="text-[10px] font-bold text-[#5B2D90]">
-                            IP TV
+                            {translate('IP_TV', Language)}
                           </p>
                         </div>
                         <p className="text-white text-[10px] font-bold flex gap-1">
@@ -899,18 +897,18 @@ const home = ({
               </Link>
             </button>
           </div>{' '}
+          <Image
+            src="/assets/packets/wifi2.png"
+            width={300}
+            height={300}
+            className="wifi_2 max-md:w-[130px] max-xl:w-[200px] w-[300px]"
+            alt=""
+          />
         </div>
       </div>{' '}
-      <Image
-        src="/assets/packets/wifi2.png"
-        width={300}
-        height={300}
-        className={`absolute left-32    ${
-          visible ? 'top-[218rem] ' : 'top-[170rem] '
-        }  max-xxl:hidden`}
-        alt=""
-      />
-      <div className="home-wrapper-5 w-full mt-40 mx-auto py-20 relative overflow-hidden">
+      <div
+        className={`  home-wrapper-5 w-full   mx-auto pt-20 pb-20 relative  `}
+      >
         <div className="container max-w-7xl   mx-auto  flex flex-col gap-10 justify-center items-center">
           <h3 className="text-[40px] text-[#5B2D90] font-bold text-center max-md:text-[20px]  max-xl:text-[30px]">
             {translate('Customer_reviews', Language)}
@@ -999,7 +997,7 @@ const home = ({
           </div>
         </div>
       </div>
-      <div className="home-wrapper-7 w-full mt-10 pb-20 mx-auto relative max-xxl:flex max-xxl:flex-col max-xxl:justify-center max-xxl:items-center  bg-[#F7F6FB]  overflow-hidden">
+      <div className="home-wrapper-7 w-full mt-10 pb-20 mx-auto relative max-xxl:flex max-xxl:flex-col max-xxl:justify-center max-xxl:items-center  bg-[#F7F6FB]  ">
         <h3 className="text-[40px] max-md:text-[20px] max-xxl:text-[30px] text-[#5B2D90] relative  my-10 font-bold text-center">
           {translate('Blog', Language)}
         </h3>
@@ -1034,20 +1032,16 @@ const home = ({
           })}
         </div>
       </div>
-      <Image
-        src="/assets/packets/wifi2.png"
-        width={300}
-        height={300}
-        className={`absolute right-[13rem]  ${
-          visible
-            ? 'top-[350rem] max-xxl:top-[438rem] max-xxl:right-10'
-            : 'top-[322rem] max-xxl:top-[452rem] max-xxl:right-10'
-        }   z-10 max-md:w-[130px] `}
-        alt=""
-      />
-      <div className="home-wrapper-8 w-full  pb-20 mx-auto relative  py-20  overflow-hidden">
+      <div className="home-wrapper-8 w-full  pb-20 mx-auto relative  py-20  ">
         <div className=" max-w-5xl mx-auto flex justify-center">
-          <div className="w-[752px] h-[337px] max-sm:w-[280px] max-sm:h-[280px] max-md:w-[450px] max-md:h-[300px] bg-[#5B2D90] p-10 max-md:px-2 max-md:py-5 rounded-3xl flex flex-col gap-10 max-sm:gap-3 max-md:gap-10  justify-center items-center">
+          <div className="relative w-[752px] h-[337px] max-sm:w-[280px] max-sm:h-[280px] max-md:w-[450px] max-md:h-[300px] bg-[#5B2D90] p-10 max-md:px-2 max-md:py-5 rounded-3xl flex flex-col gap-10 max-sm:gap-3 max-md:gap-10  justify-center items-center">
+            <Image
+              src="/assets/packets/wifi2.png"
+              width={300}
+              height={300}
+              className="wifi_3 max-md:w-[130px] max-xl:w-[200px] w-[300px]"
+              alt=""
+            />
             <h2 className="text-white text-[24px] font-bold max-md:text-[20px] max-md:text-center">
               {career_title}
             </h2>

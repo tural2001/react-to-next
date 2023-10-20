@@ -1,9 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsArrowLeft } from 'react-icons/bs';
 import { BsArrowRight } from 'react-icons/bs';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
-
 import Image from 'next/image';
 import Head from 'next/head';
 
@@ -13,6 +11,7 @@ import { config } from '../../utils/axiosconfig';
 import axios from 'axios';
 import { LoadingOverlay } from '../../components/LoadingOverlay';
 import { useTranslation } from '../../components/TranslationContext';
+import Service from '../../components/Service';
 
 export async function getServerSideProps({ query }) {
   try {
@@ -21,9 +20,15 @@ export async function getServerSideProps({ query }) {
       `${base_url}/api/posts?published=true`,
       config
     );
+    const ServiceCategoryresponse = await axios.get(
+      `${base_url}/api/service-categories`,
+      config
+    );
+
     return {
       props: {
         BlogData: Blogresponse.data,
+        ServiceCategoryData: ServiceCategoryresponse.data,
         slug: slug,
       },
     };
@@ -39,22 +44,15 @@ export async function getServerSideProps({ query }) {
 
 const blogsPerPage = 1;
 
-const blog = ({ BlogData, slug }) => {
-  console.log(BlogData);
+const blog = ({ BlogData, slug, ServiceCategoryData }) => {
+  const { isOpen, toggleMenu } = useVisibleContext();
+
   const { visible, setVisible } = useVisibleContext();
   const router = useRouter();
 
   const currentPage = BlogData.data.findIndex((item) => item.slug === slug) + 1;
   const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
 
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, []);
   useEffect(() => {
     setVisible(router.pathname === '/');
   }, [router.pathname]);
@@ -87,7 +85,15 @@ const blog = ({ BlogData, slug }) => {
   const pageTitle = paginatedBlogs.map((item) => item.meta_title);
   const pageDescription = paginatedBlogs.map((item) => item.meta_description);
   const { translate, Language } = useTranslation();
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
 
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
   return (
     <>
       <Head>
@@ -95,103 +101,35 @@ const blog = ({ BlogData, slug }) => {
         <meta name="description" content={pageDescription} />
       </Head>
       {isLoading ? <LoadingOverlay /> : null}
-      {visible && (
-        <div className="home-wrapper-1 container max-w-5xl max-sm:hidden py-10 mx-auto relative overflow-hidden max-xl:hidden">
-          <div className="grid grid-cols-3 justify-items-center">
-            <Link href="/services/fiberoptik">
-              <div className="">
-                <div className="bg-[#DCC5F6] w-[102px] h-[102px] rounded-3xl flex items-center mx-auto">
-                  <Image
-                    src="/assets/world.png"
-                    width={500}
-                    height={300}
-                    className="w-[56px] h-[56px] mx-auto"
-                    alt=""
-                  />
-                </div>
-                <div className="">
-                  <div className="flex justify-center">
-                    {' '}
-                    <h3 className=" font-medium text-[28px] py-4  tracking-[0.5px]">
-                      Internet
-                    </h3>
-                  </div>
+      {visible ? <Service ServiceCategoryData={ServiceCategoryData} /> : null}
 
-                  <ul className="flex flex-col justify-center items-center gap-2 text-[#909090]  font-normal ">
-                    <li>Fiber optik</li>
-                    <li>Simsiz</li>
-                    <li>Ayrılmış internet xətti</li>
-                    <li>ADSL</li>
-                  </ul>
-                </div>
-              </div>
-            </Link>
-            <Link href="/services/fiberoptik">
-              <div className="">
-                <div className="bg-[#BFFFCD] w-32 h-32 rounded-3xl flex items-center mx-auto">
-                  <Image
-                    src="/assets/tvstroke.png"
-                    width={500}
-                    height={300}
-                    className="w-[56px] h-[56px] mx-auto"
-                    alt=""
-                  />
-                </div>
-                <div className="flex justify-center">
-                  <h3 className=" font-medium text-[28px] py-4  tracking-[0.5px]">
-                    TV
-                  </h3>
-                </div>
-                <ul className="flex flex-col justify-center items-center gap-2 text-[#909090]  font-normal text-[]">
-                  <li>iP TV</li>
-                </ul>
-              </div>
-            </Link>
-            <Link href="/services/fiberoptik">
-              <div className="">
-                <div className="bg-[#D1E3FF] w-32 h-32 rounded-3xl flex items-center mx-auto">
-                  <Image
-                    src="/assets/phonestroke.png"
-                    width={500}
-                    height={300}
-                    className="w-[56px] h-[56px] mx-auto"
-                    alt="Telefon Çizgisi"
-                  />
-                </div>
-                <div className="flex justify-center">
-                  <h3 className="font-medium text-[28px] py-4 tracking-[0.5px]">
-                    Telefon
-                  </h3>
-                </div>
-                <ul className="flex flex-col justify-center items-center gap-2 text-[#909090] font-normal text-[]">
-                  <li>SiP telefoniya</li>
-                </ul>
-              </div>
-            </Link>
-          </div>
-        </div>
-      )}
       {paginatedBlogs.map((item) => (
         <>
           <div key={item.id}>
-            <div className="max-xl:relative absolute max-xxl:z-[-1] w-full ">
+            <div className="max-xl:hidden absolute max-xxl:z-[-1] w-full ">
               <Image
                 src="/assets/home1.png"
-                className=" h-[535px]  top-32 w-full  max-sm:h-[200px] max-md:h-[300px] max-xl:h-[350px] max-xl:top-14"
+                className=" h-[535px]  top-32 w-full  max-sm:h-[150px] max-md:h-[300px] max-xl:h-[350px] max-xl:top-14"
                 alt=""
                 priority
                 width={535}
                 height={200}
               />
             </div>
-            <div className="container max-w-[1050px] w-full  max-md:py-10  mx-auto">
+            <div className=" max-w-[1050px] w-full  max-xl:py-20  mx-auto">
+              <Image
+                src="/assets/home1.png"
+                className=" h-[535px] max-xl:block hidden absolute z-[-1] top-20 w-full  max-sm:h-[200px] max-md:h-[300px] max-xl:h-[350px] max-xl:top-0"
+                alt=""
+                priority
+                width={535}
+                height={200}
+              />
               <div className="flex flex-col justify-center items-center gap-10">
-                {' '}
                 <h3 className="h3  text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xxl:text-[30px] max-xxl:text-white ">
                   {translate('Blog', Language)}
                 </h3>
-                <div className="absolute  z-[1] max-xxl:z-[-1] h3 max-sm:mt-10 max-md:mt-14  max-xl:mt-20">
-                  {' '}
+                <div className=" max-w-[1050px] max-md:mx-5 max-xl:mx-10 z-[1] max-xxl:z-[-1]  ">
                   <Image
                     src="/assets/blog2.png"
                     className="w-full  h-full"
@@ -201,7 +139,11 @@ const blog = ({ BlogData, slug }) => {
                   />
                 </div>
               </div>
-              <div className="flex flex-col mt-10 max-sm:w-3/4 max-xl:w-11/12 relative   max-xl:mx-auto max-xl:mt-20">
+              <div
+                className={`${
+                  isOpen ? 'z-[-1]' : 'z-1'
+                }flex flex-col mt-10  max-w-[1050px] max-md:mx-5 max-xl:mx-10 relative    max-xl:mt-20`}
+              >
                 <div className="flex justify-between mb-5">
                   <h3 className="text-[36px] font-semibold max-sm:text-[20px]">
                     {item.title}
@@ -221,7 +163,7 @@ const blog = ({ BlogData, slug }) => {
           </div>
         </>
       ))}
-      <div className="flex justify-between max-w-[1050px] max-xl:mx-5 mx-auto items-center my-10">
+      <div className="flex justify-between max-w-[1050px] max-md:mx-5 max-xl:mx-10 mx-auto items-center my-10">
         <button
           onClick={goToPreviousPage}
           className="flex text-[20px] text-[#5B2D90] w-[292px] h-[68px] max-sm:w-[124px] max-sm:h-[40px] max-sm:text-[12px] items-center justify-center bg-[#F9F9F9] gap-2 rounded-full"

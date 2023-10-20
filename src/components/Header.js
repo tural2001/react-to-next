@@ -94,7 +94,6 @@ const Header = () => {
             </li>
             <li className="">
               <Link href={`/blog/${slug[0]}`}>
-                {' '}
                 {translate('Blog', Language)}
               </Link>
             </li>
@@ -250,7 +249,9 @@ const Header = () => {
                       </Link>
                     </li>
                     <li className="" onClick={toggleMenu}>
-                      <Link href="/blog"> {translate('Blog', Language)}</Link>
+                      <Link href={`/blog/${slug[0]}`}>
+                        {translate('Blog', Language)}
+                      </Link>
                     </li>
                   </ul>
                 </div>

@@ -1,12 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { CiLocationOn } from 'react-icons/ci';
 import Dropzone from 'react-dropzone';
-import { CvPopup } from '../components/CvPopup';
-import { EtrafliPopup } from '../components/EtrafliPopup';
-import { EtrafliPopupsm } from '../components/EtrafliPopupsm';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import { useVisibleContext } from '../components/VisibleContext';
 import Head from 'next/head';
 import { config } from '../utils/axiosconfig';
@@ -36,7 +32,7 @@ export async function getServerSideProps() {
       props: {
         VacanciesData: Vacanciesresponse.data,
         SettingData: Settingresponse.data,
-        ServiceCategoryData: Settingresponse.data,
+        ServiceCategoryData: ServiceCategoryresponse.data,
       },
     };
   } catch (error) {
@@ -273,7 +269,7 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
               {VacanciesData?.data.map((item, index) => {
                 return (
                   <div
-                    className="border-l-[14px] border-[#5B2D90] w-[540px] h-[202px] max-xl:w-full max-xl:h-[135px] bg-white flex flex-col justify-center px-5 gap-7 rounded-xl"
+                    className="border-l-[14px] border-[#5B2D90] w-[540px] h-[202px] max-sm:w-[290px]  max-xl:w-[400px]  max-xl:h-[135px] bg-white flex flex-col justify-center px-5 gap-7 rounded-xl"
                     key={index}
                   >
                     <h4 className="text-[24px] max-xl:text-[16px]">
@@ -298,7 +294,7 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                           padding: '0px',
                           borderRadius: '50px',
                           borderColor: 'white',
-                          minWidth: '80%',
+                          minWidth: '40%',
                           overflow: 'hidden',
                         }}
                       >
@@ -308,12 +304,13 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                               src="/assets/popup/x.png"
                               width={40}
                               height={42}
-                              className="absolute right-5 top-5 w-[40px] h-[42px]"
+                              className="absolute right-5 top-5 w-[40px] h-[42px] max-sm:w-[20px] max-sm:h-[21px]"
                               alt=""
                               onClick={close}
                             />
-                            <div className="flex flex-col justify-center  mt-20 gap-5">
-                              <div className="w-full mx-auto   flex flex-col justify-center  gap-2">
+
+                            <div className="w-full mx-auto  flex flex-col justify-center items-center  gap-2">
+                              <div className="flex flex-col gap-2 justify-center mt-10 items-start max-xl:items-center">
                                 <label
                                   htmlFor=""
                                   className="text-black font-medium  text-[16px] max-xl:text-[10px] max-xl:text-center"
@@ -321,6 +318,7 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                                   {translate('CV', Language)}
                                   <span className="text-[#ED1C24]">*</span>
                                 </label>
+
                                 <Dropzone
                                   onDrop={(acceptedFiles) =>
                                     onDrop(acceptedFiles, item.name)
@@ -336,7 +334,7 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                                             formik.errors.cv
                                               ? 'border-[#ED1C24]'
                                               : 'border-[#DBDBDB]'
-                                          }  w-[445px] h-[189px] max-xl:w-3/4 max-xl:mx-auto    bg-[#F4F4F4] rounded-lg flex justify-center items-center`}
+                                          }  w-[445px] h-[189px] max-xl:w-3/4 max-xl:mx-auto max-sm:h-[100px]  bg-[#F4F4F4] rounded-lg flex justify-center items-center`}
                                         >
                                           <label
                                             htmlFor="dropzone-file"
@@ -355,7 +353,7 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                                                   )}
                                                 </p>
                                               ) : (
-                                                <p className="mb-2 text-sm max-xl:text-[10px] text-gray-500 dark:text-gray-400">
+                                                <p className="mb-2 text-sm max-sm:text-[8px] max-sm:text-center text-gray-500 dark:text-gray-400">
                                                   {translate(
                                                     'Image_Drop',
                                                     Language
@@ -365,7 +363,7 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
 
                                               <svg
                                                 aria-hidden="true"
-                                                className="w-10 h-10 mb-3 text-gray-400"
+                                                className="w-10 h-10 mb-3 text-gray-400 max-sm:w-4"
                                                 fill="none"
                                                 stroke="currentColor"
                                                 viewBox="0 0 24 24"
@@ -378,7 +376,7 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                                                   d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                                                 ></path>
                                               </svg>
-                                              <p className="text-xs max-xl:text-[10px] max-xl:text-center text-gray-500 dark:text-gray-400">
+                                              <p className="text-xs max-xl:hidden max-xl:text-[10px] max-xl:text-center text-gray-500 dark:text-gray-400">
                                                 SVG, PNG, JPG or GIF (MAX.
                                                 800x400px)
                                               </p>
@@ -394,7 +392,6 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                                     </section>
                                   )}
                                 </Dropzone>
-
                                 <button
                                   type="submit"
                                   onClick={() => handleClick(item.name)}
@@ -402,21 +399,22 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                                 >
                                   {translate('Apply', Language)}
                                 </button>
-                                <div className="mt-10">
-                                  {success && (
-                                    <div
-                                      className="p-4 mb-4 text-sm max-xl:text-[10px] text-white rounded-lg bg-[#5B2D90] flex justify-center items-center  "
-                                      role="alert"
-                                    >
-                                      <span className="font-medium max-xl:text-[10px]">
-                                        {translate(
-                                          'Your_request_has_been_sent_and_we_will_get_back_to_you_soon',
-                                          Language
-                                        )}
-                                      </span>
-                                    </div>
-                                  )}
-                                </div>
+                              </div>
+
+                              <div className="mt-10">
+                                {success && (
+                                  <div
+                                    className="p-4 mb-4 text-sm max-xl:text-[10px] text-white rounded-lg bg-[#5B2D90] flex justify-center items-center  "
+                                    role="alert"
+                                  >
+                                    <span className="font-medium max-xl:text-[10px]">
+                                      {translate(
+                                        'Your_request_has_been_sent_and_we_will_get_back_to_you_soon',
+                                        Language
+                                      )}
+                                    </span>
+                                  </div>
+                                )}
                               </div>
                             </div>
                           </>
@@ -451,7 +449,7 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                               ></div>
                               <Image
                                 src="/assets/popup/x.png"
-                                className="absolute right-5 top-5 w-[40px] h-[42px]"
+                                className="absolute right-5 top-5 w-[40px] h-[42px] max-sm:w-[20px] max-sm:h-[21px]"
                                 alt=""
                                 width={40}
                                 height={42}
@@ -471,7 +469,6 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                                 <p className="text-white text-[28px] max-xl:text-[18px] mb-5 font-light">
                                   {item.description}
                                 </p>
-
                                 <button
                                   onClick={() => {
                                     firstPopupRef.current.open();
@@ -700,7 +697,6 @@ const career = ({ VacanciesData, SettingData, ServiceCategoryData }) => {
                                   {translate('Image_Drop', Language)}
                                 </p>
                               )}
-
                               <svg
                                 aria-hidden="true"
                                 className="w-10 h-10 mb-3 text-gray-400"
