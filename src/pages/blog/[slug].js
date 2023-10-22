@@ -4,7 +4,6 @@ import { BsArrowRight } from 'react-icons/bs';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Head from 'next/head';
-
 import { useVisibleContext } from '../../components/VisibleContext';
 import { base_url } from '../../utils/base_url';
 import { config } from '../../utils/axiosconfig';
@@ -116,7 +115,7 @@ const blog = ({ BlogData, slug, ServiceCategoryData }) => {
                 height={200}
               />
             </div>
-            <div className=" max-w-[1050px] w-full  max-xl:py-20  mx-auto">
+            <div className="max-w-[1050px] w-full  max-xl:py-20  mx-auto">
               <Image
                 src="/assets/home1.png"
                 className=" h-[535px] max-xl:block hidden absolute z-[-1] top-20 w-full  max-sm:h-[200px] max-md:h-[300px] max-xl:h-[350px] max-xl:top-0"
@@ -129,13 +128,13 @@ const blog = ({ BlogData, slug, ServiceCategoryData }) => {
                 <h3 className="h3  text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xxl:text-[30px] max-xxl:text-white ">
                   {translate('Blog', Language)}
                 </h3>
-                <div className=" max-w-[1050px] max-md:mx-5 max-xl:mx-10 z-[1] max-xxl:z-[-1]  ">
+                <div className=" max-w-[1110px]   max-md:mx-5 max-xl:mx-10 z-[1] max-xxl:z-[-1]  ">
                   <Image
-                    src="/assets/blog2.png"
-                    className="w-full  h-full"
+                    src={item.image}
+                    className="object-cover max-h-[650px] rounded-3xl"
                     alt=""
-                    width={1000}
-                    height={500}
+                    width={1110}
+                    height={200}
                   />
                 </div>
               </div>

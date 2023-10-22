@@ -84,7 +84,7 @@ const payment = ({ PaymentData, SettingData, ServiceCategoryData }) => {
           <h3 className="h3  text-[40px] max-xl:absolute relative text-white  font-bold text-center max-sm:text-[16px] max-xl:text-[30px] max-xxl:text-white ">
             {translate('Payment', Language)}
           </h3>
-          <div className="absolute z-[1] max-xl:z-[-1] top-[280px]  right-48  max-xxl:right-40 max-sm:top-20 max-xxl:top-20">
+          <div className="absolute z-[1] max-xl:z-[-1] top-[280px]  right-48 max-xxl:right-14 max-lg:right-4 max-sm:right-0  max-sm:top-20 max-xxl:top-20">
             <Image
               src="/assets/payment/payment.png"
               width={402}
