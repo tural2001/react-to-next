@@ -31,11 +31,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/payment.js"
-    ],
-    "/speedtest": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/speedtest.js"
     ]
   },
   "ampFirstPages": []

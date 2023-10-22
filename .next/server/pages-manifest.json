@@ -2,9 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/registration": "pages/registration.js",
   "/payment": "pages/payment.js",
-  "/api/fasttest": "pages/api/fasttest.js",
-  "/": "pages/index.js",
-  "/speedtest": "pages/speedtest.js"
+  "/": "pages/index.js"
 }
